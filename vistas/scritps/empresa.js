@@ -57,7 +57,7 @@ function limpiar() {
 
 function nuevo(tipoe) {
 	limpiar();
-	$('#comiconsignado').hide();
+	$('#consignadoa').hide();
 	var tipo = '';
 	if (tipoe == 'agentee') {
 		tipo = 'AE';
@@ -71,7 +71,7 @@ function nuevo(tipoe) {
 		tipo = 'CL';
 	} else if (tipoe == 'consignado') {
 		tipo = 'CO';
-		$('#comiconsignado').show();
+		$('#consignadoa').show();
 	} else if (tipoe == 'embarcador') {
 		tipo = 'EM';
 	} else if (tipoe == 'naviera') {

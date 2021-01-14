@@ -20,8 +20,8 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade active" id="home">
                                     <div class="row">
-                                        <div class="col-md-2"></div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-7">
                                             <div class="panel panel-primary">
                                                 <div class="panel-heading"></div>
                                                 <div class="panel-body">
@@ -59,7 +59,31 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2"></div>
+                                        <div class="col-md-3" id="consignadoa">
+                                            <div class="panel panel-primary">
+                                                <div class="panel-heading"></div>
+                                                <div class="panel-body">
+                                                    <!-- <form class="form-horizontal"> -->
+
+                                                    <div class="form-group">
+                                                        <label for="comision" class="control-label">% Comision</label>
+                                                        <input type="number" name="comision" id="comision" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="cbm" class="control-label">
+                                                            <input type="radio" name="cbmtarifa" id="cbm" value="cbm">
+                                                            Por CBM:</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="tarifa" class="control-label">
+                                                            <input type="radio" name="cbmtarifa" id="tarifa" value="tarifa">
+                                                            Por TARIFA:</label>
+                                                    </div>
+                                                    <!-- </form> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="contactos">
@@ -99,19 +123,19 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="panel-body table-responsive">
-                                            <table class="table table-condensed table-hover table-bordered" id="Tcontactos">
-                                                <thead>
-                                                    <th>Aciones</th>
-                                                    <th>Nombre</th>
-                                                    <th>Apellido</th>
-                                                    <th>Correo</th>
-                                                    <th>Telefono</th>
-                                                    <th>Puesto</th>
-                                                </thead>
-                                                <tbody>
+                                                <table class="table table-condensed table-hover table-bordered" id="Tcontactos">
+                                                    <thead>
+                                                        <th>Aciones</th>
+                                                        <th>Nombre</th>
+                                                        <th>Apellido</th>
+                                                        <th>Correo</th>
+                                                        <th>Telefono</th>
+                                                        <th>Puesto</th>
+                                                    </thead>
+                                                    <tbody>
 
-                                                </tbody>
-                                            </table>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div> <!-- col md 8 tabla -->
                                     </div>
