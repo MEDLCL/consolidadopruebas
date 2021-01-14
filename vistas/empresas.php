@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 ob_start();
 session_start();
 
@@ -7,17 +6,14 @@ if (!$_SESSION['nombre']) {
     header('LOCATION: ../index.php');
 } else {
 
-=======
-    include_once "../inc/head.php";
-    include_once "../inc/header.php";
->>>>>>> develop
+    require_once("../inc/head.php");
+    require_once("../inc/header.php");
 
 $tipoe = isset ($_GET['tipo'])?$tipoe = $_GET['tipo'] :$tipoe ='';
 if ($tipoe=='agentee'){
     $tipoempresa = 'AGENTE EMBARCADOR';
 } 
 else if ($tipoe =='agenciac'){
-<<<<<<< HEAD
     $tipoempresa = 'AGENCIA DE CARGA'; 
  }    
 else if ($tipoe=='aereolinea'){
@@ -42,13 +38,6 @@ else{
 }
 require_once("../inc/head.php");
 require_once("../inc/header.php");
-=======
-    $tipoempresa = 'AGENCIA DE CCARGA';    
-}else{
-    $tipoempresa = "";
-}
-
->>>>>>> develop
 ?>
 
 <div class="content-wrapper">
@@ -114,12 +103,8 @@ require_once("../inc/header.php");
 $(document).ready(function() {
     $('#tabempresa li:first-child a').tab('show')
 });
-<<<<<<< HEAD
 </script>
 <?php 
 }
 ob_end_flush();
 ?>
-=======
-</script>
->>>>>>> develop

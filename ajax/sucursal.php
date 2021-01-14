@@ -5,16 +5,12 @@ require_once "../config/funciones.php";
 $idsucursal = isset($_POST["idsucursal"]) ? $idsucursal = $_POST["idsucursal"] : $idsucursal = 0;
 $razons = isset($_POST['razons']) ? limpia($_POST['razons']) : $razons = '';
 $nombrec = isset($_POST['nombrec']) ? limpia($_POST['nombrec']) : $nombrec = '';
-$telefono = isset($_POST['Telefono']) ? limpia($_POST['Telefono']): $telefono = '';
+$telefono = isset($_POST['Telefono']) ? limpia($_POST['Telefono']) : $telefono = '';
 $pais = isset($_POST['pais']) ? $_POST['pais'] : $pais = 0;
 $identificacion = isset($_POST['identificacion']) ? limpia($_POST['identificacion']) : $identificacion = '';
 $direccion = isset($_POST['direccion']) ? limpia($_POST['direccion']) : $direccion = '';
 $logo = isset($_POST['logo']) ? limpia($_POST['logo']) : $logo = '';
-<<<<<<< HEAD
-$codigo = isset($_POST['codigo'])?limpia($_POST['codigo']):$codigo='';
-=======
-
->>>>>>> develop
+$codigo = isset($_POST['codigo']) ? limpia($_POST['codigo']) : $codigo = '';
 
 
 switch ($_GET["op"]) {
@@ -31,17 +27,10 @@ switch ($_GET["op"]) {
             }
             try {
                 $fecha = date("Y-m-d");
-<<<<<<< HEAD
                 $estado = 1;
                 $con = Conexion::getConexion();
                 $stmt = $con->prepare("INSERT INTO sucursal (razons,nombrec,Telefono,identificacion,direccion,logo,fechaingreso,estado,codigo) 
                                 VALUES (:razon,:nombrec,:tel,:identifi,:dir,:logo,:fecha,:estado,:codigo)");
-=======
-                $estado = '1';
-                $con = Conexion::getConexion();
-                $stmt = $con->prepare("INSERT INTO sucursal (razons,nombrec,Telefono,identificacion,direccion,logo,fechaingreso,estado) 
-                                VALUES (:razon,:nombrec,:tel,:identifi,:dir,:logo,:fecha,:estado)");
->>>>>>> develop
                 $stmt->bindParam(':razon', $razons);
                 $stmt->bindParam(':nombrec', $nombrec);
                 $stmt->bindParam(':tel', $telefono);
@@ -50,15 +39,11 @@ switch ($_GET["op"]) {
                 $stmt->bindParam(':logo', $logo);
                 $stmt->bindParam(":fecha", $fecha);
                 $stmt->bindParam(":estado", $estado);
-<<<<<<< HEAD
-                $stmt->bindParam(":codigo",$codigo);
-=======
->>>>>>> develop
+                $stmt->bindParam(":codigo", $codigo);
                 $stmt->execute();
                 if ($stmt->rowCount() > 0) {
                     echo  1;
                 }
-                
             } catch (\Throwable $th) {
                 echo "" . $th->getMessage();
             }
@@ -75,7 +60,7 @@ switch ($_GET["op"]) {
                     if ($_POST['logo_actual']) {
                         $logob = $_POST['logo_actual'];
 
-                        if (file_exists("../logos/".$logob )) {
+                        if (file_exists("../logos/" . $logob)) {
                             unlink("../logos/" . $_POST['logo_actual']);
                         }
                     }
@@ -104,29 +89,27 @@ switch ($_GET["op"]) {
                 $stmt->bindParam(':fecha', $fecha);
                 $stmt->bindParam(':idsucursal', $idsucursal);
                 $stmt->execute();
-                    if ($stmt !==false){
-                        echo 1;
-                    }
-                    $con = Conexion::cerrar();
-
+                if ($stmt !== false) {
+                    echo 1;
+                }
+                $con = Conexion::cerrar();
             } catch (\Throwable $th) {
-                echo "Error".$th->getMessage();
+                echo "Error" . $th->getMessage();
                 $con = Conexion::cerrar();
             }
-            
         }
         break;
-        case 'Desactivar':
-            $con = Conexion::getConexion();
-            $stmt = $con->prepare("UPDATE sucursal SET estado= 0 WHERE id_sucursal = '$idsucursal'");
-            $stmt->execute();
-            if ($stmt->rowCount() > 0) {
-                echo 1;
-            } else {
-                echo 0;
-            }
-            $con = Conexion::cerrar();
-            break;   
+    case 'Desactivar':
+        $con = Conexion::getConexion();
+        $stmt = $con->prepare("UPDATE sucursal SET estado= 0 WHERE id_sucursal = '$idsucursal'");
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            echo 1;
+        } else {
+            echo 0;
+        }
+        $con = Conexion::cerrar();
+        break;
     case 'activar':
         $con = Conexion::getConexion();
         $stmt = $con->prepare("UPDATE sucursal SET estado= 1 WHERE id_sucursal = '$idsucursal'");
@@ -165,14 +148,10 @@ switch ($_GET["op"]) {
                 "3" => $reg->nombrec,
                 "4" => $reg->Telefono,
                 "5" => $reg->nombre . ' ' . $reg->iniciales,
-<<<<<<< HEAD
-                "6" => file_exists("../logos/".$reg->logo)? "<img  src='../logos/" . $reg->logo . "'  width= '50px' height= '50px'>": "<img src=''>",
-=======
-                "6" => "<img  src='../logos/" . $reg->logo . "'  width: '50px' height = '50px'>",
->>>>>>> develop
+                "6" => file_exists("../logos/" . $reg->logo) ? "<img  src='../logos/" . $reg->logo . "'  width= '50px' height= '50px'>" : "<img src=''>",
                 "7" => $reg->identificacion,
                 "8" => $reg->direccion,
-                "9" => ($reg->estado)?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
+                "9" => ($reg->estado) ? '<span class="label bg-green">Activado</span>' : '<span class="label bg-red">Desactivado</span>'
             );
         }
         $results = array(
@@ -184,29 +163,26 @@ switch ($_GET["op"]) {
         echo json_encode($results);
         $con = Conexion::cerrar();
         break;
-<<<<<<< HEAD
-        case 'codigo':
-                try {
+    case 'codigo':
+        try {
 
-                    $con = Conexion::getConexion();
-                    $con->beginTransaction();
-                    $rspt = $con->prepare('SELECT count(*)AS cont FROM sucursal');
-                    $rspt->execute();
-                    $rspt = $rspt->fetch(PDO::FETCH_OBJ);
-                    $cont = $rspt->cont+1;
-                    $codigo = substr($nombrec,0,3);
-                    $rsppais = $con->prepare("SELECT * FROM pais where idpais = $pais");
-                    $rsppais->execute();
-                    $rsppais= $rsppais->fetch(PDO::FETCH_OBJ);
-                    $codigo = strtoupper($codigo.$rsppais->iniciales.$cont);
-                    $con->commit();
-                    echo $codigo;
-                } catch (\Throwable $th) {
-                    $con->rollBack();
-                    $codigo = '';
-                    echo $codigo;
-                }
-            break;
-=======
->>>>>>> develop
+            $con = Conexion::getConexion();
+            $con->beginTransaction();
+            $rspt = $con->prepare('SELECT count(*)AS cont FROM sucursal');
+            $rspt->execute();
+            $rspt = $rspt->fetch(PDO::FETCH_OBJ);
+            $cont = $rspt->cont + 1;
+            $codigo = substr($nombrec, 0, 3);
+            $rsppais = $con->prepare("SELECT * FROM pais where idpais = $pais");
+            $rsppais->execute();
+            $rsppais = $rsppais->fetch(PDO::FETCH_OBJ);
+            $codigo = strtoupper($codigo . $rsppais->iniciales . $cont);
+            $con->commit();
+            echo $codigo;
+        } catch (\Throwable $th) {
+            $con->rollBack();
+            $codigo = '';
+            echo $codigo;
+        }
+        break;
 }

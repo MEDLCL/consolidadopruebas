@@ -2,7 +2,6 @@ function init() {
 
 }
 
-<<<<<<< HEAD
 function ingresar() {
     var codigol = $('#codigol').val();
     var logina = $("#logina").val();
@@ -41,6 +40,4 @@ function ingresar() {
 }
 
 
-=======
->>>>>>> develop
 init();

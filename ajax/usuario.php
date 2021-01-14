@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 //include_once "../config/Conexion.php";
 include_once "../config/funciones.php";
 include_once "../modelos/usuario.php";
@@ -21,7 +20,7 @@ $menuitem = isset($_POST["consultar"]) ? $menuitem = $_POST["consultar"] : $menu
 
 switch ($op) {
     case 'permisos':
-        
+
 
         $tabla = '<thead>
                     <tr>
@@ -30,39 +29,39 @@ switch ($op) {
                         <th>Sub Menu</th>
                         <th>Check</th>
                     </tr>
-                 </thead>
+                </thead>
         <tbody>';
         try {
             $tipo = 0;
             $res1 = $usuario->menuAsignado($_GET['idup']);
             $res = $usuario->listarPermisoMenu($tipo);
-            
+
             $valores = array();
 
             //Almacenar los permisos asignados al usuario en el array
             foreach ($res1 as $per) {
-                array_push($valores,$per->id_menu);
+                array_push($valores, $per->id_menu);
             }
 
             foreach ($res as $menup) {
-                $sw=in_array($menup->id_menu,$valores)?'checked':'';
+                $sw = in_array($menup->id_menu, $valores) ? 'checked' : '';
 
                 $tabla = $tabla . '<tr>'
                     . '<td>' . $menup->id_menu . '</td>'
                     . '<td>' . $menup->nombre . '</td>'
                     . '<td></td>'
-                    . '<td><input type ="checkbox" '.$sw.' name= "consultar[]"  value = "' . $menup->id_menu . '" class="custom-control-input"></td>'
+                    . '<td><input type ="checkbox" ' . $sw . ' name= "consultar[]"  value = "' . $menup->id_menu . '" class="custom-control-input"></td>'
                     . '</tr>';
 
                 $res = $usuario->listarPermisoMenu($menup->id_menu);
 
                 foreach ($res as $menui) {
-                    $sw=in_array($menui->id_menu,$valores)?'checked':'';    
+                    $sw = in_array($menui->id_menu, $valores) ? 'checked' : '';
                     $tabla = $tabla . '<tr>'
                         . '<td>' . $menui->id_menu . '</td>'
                         . '<td></td>'
                         . '<td>' . $menui->nombre . '</td>'
-                        . '<td><input type ="checkbox" '.$sw.' name= "consultar[]" value = "' . $menui->id_menu . '" class="custom-control-input"></td>'
+                        . '<td><input type ="checkbox" ' . $sw . ' name= "consultar[]" value = "' . $menui->id_menu . '" class="custom-control-input"></td>'
                         . '</tr>';
                 }
             }
@@ -83,7 +82,7 @@ switch ($op) {
                     move_uploaded_file($_FILES['avatar']['tmp_name'], "../img/avatar/" . $avatar);
                 }
             }
-            $res =   $usuario->insertar($nombre, $apellido, $correo, $acceso, $pass, $idsucursal, $iddepto, $idpuesto,$avatar ,$menuitem);
+            $res =   $usuario->insertar($nombre, $apellido, $correo, $acceso, $pass, $idsucursal, $iddepto, $idpuesto, $avatar, $menuitem);
             echo isset($res) ? "Usuario Registrado" : "Error No se pudo Registrar Usuario";
         } else {
             if (!file_exists($_FILES['avatar']['tmp_name']) || !is_uploaded_file($_FILES['avatar']['tmp_name'])) {
@@ -103,8 +102,8 @@ switch ($op) {
                     }
                 }
             }
-            $res = $usuario->editar($idusuario,$nombre, $apellido, $correo, $acceso, $pass, $idsucursal, $iddepto, $idpuesto, $avatar,$menuitem);
-                echo isset($res) ? "Usuario Actualizado" : "Error No se pudo Actualizar Usuario";
+            $res = $usuario->editar($idusuario, $nombre, $apellido, $correo, $acceso, $pass, $idsucursal, $iddepto, $idpuesto, $avatar, $menuitem);
+            echo isset($res) ? "Usuario Actualizado" : "Error No se pudo Actualizar Usuario";
         }
 
         break;
@@ -139,66 +138,15 @@ switch ($op) {
         $res = $usuario->consultarId($idusuario);
         echo json_encode($res);
         break;
-        case 'desactivar':
-            $res = $usuario->desactivar($idusuario);
-            echo $res; 
-            break;
-            case 'activar':
-                $res = $usuario->activar($idusuario);
-                echo $res;
-                break;
+    case 'desactivar':
+        $res = $usuario->desactivar($idusuario);
+        echo $res;
+        break;
+    case 'activar':
+        $res = $usuario->activar($idusuario);
+        echo $res;
+        break;
     default:
         # code...
         break;
 }
-=======
-include_once "../config/Conexion.php";
-$op = isset($_POST['op'])?$op = $_POST['op']: $op ='';
-
-switch ($op) {
-    case 'permisos':
-        $tabla = '<tbody>';
-        try {
-           
-            $con = Conexion::getConexion();
-            $rspt = $con->prepare('SELECT * FROM menu WHERE id_Padre = 0');
-            $rspt->execute();
-            foreach ($rspt->fetchAll(PDO::FETCH_OBJ) as $menup){
-
-                $tabla = $tabla.'<tr>'
-                            .'<td>'.$menup->id_menu.'</td>'
-                            .'<td>'. $menup->nombre. '</td>'
-                            .'<td></td>'
-                            .'<td><input type ="checkbox" name= "consultar[]" value = "'.$menup->id_menu.'" class="custom-control-input"></td>'
-                            .'<td><input type ="checkbox" name= "agregar[]" value = "'.$menup->id_menu.'" class="custom-control-input" disabled></td>'
-                            .'<td><input type ="checkbox" name= "editar[]" value = "'.$menup->id_menu.'" class="custom-control-input" disabled></td>'
-                            .'<td><input type ="checkbox" name= "eliminar[]" value = "'.$menup->id_menu.'" class="custom-control-input" disabled></td>'
-                .'</tr>';
-                $rspt = $con->prepare("SELECT * FROM menu WHERE id_Padre = $menup->id_menu");
-                $rspt->execute();
-
-                foreach ($rspt->fetchAll(PDO::FETCH_OBJ)as $menui ) {
-                    $tabla = $tabla.'<tr text-align: center>'
-                            .'<td>'.$menui->id_menu.'</td>' 
-                            .'<td></td>'
-                            .'<td>'. $menui->nombre. '</td>'
-                            .'<td><input type ="checkbox" name= "consultar[]" value = "'.$menui->id_menu.'" class="custom-control-input"></td>'
-                            .'<td><input type ="checkbox" name= "agregar[]" value = "'.$menui->id_menu.'" class="custom-control-input"></td>'
-                            .'<td><input type ="checkbox" name= "editar[]" value = "'.$menui->id_menu.'" class="custom-control-input"></td>'
-                            .'<td><input type ="checkbox" name= "eliminar[]" value = "'.$menui->id_menu.'" class="custom-control-input"></td>'
-                .'</tr>';
-                }
-            }
-            $tabla = $tabla.'</tbody>';
-            echo $tabla;
-        } catch (\Throwable $th) {
-            return "No se pudo carga la tabla". $th->getMessage();
-        }
-        break;
-    
-    default:
-        # code...
-        break;
-}
-?>
->>>>>>> develop

@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 ob_start();
 session_start();
 
@@ -9,10 +8,6 @@ if (!$_SESSION['nombre']) {
 
     require_once("../inc/head.php");
     require_once("../inc/header.php");
-=======
- require_once ("../inc/head.php");
- require_once ("../inc/header.php");
->>>>>>> develop
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -71,11 +66,8 @@ if (!$_SESSION['nombre']) {
 <?php
     require_once ("../inc/footer.php");
     require_once ("../inc/scritps.php");
-<<<<<<< HEAD
 ?>
 
 <?php }
 ob_end_flush();
-=======
->>>>>>> develop
 ?>
