@@ -9,7 +9,6 @@ class Empresa
     }
     public function grabar($codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos)
     {
-        
         try {
             $con = Conexion::getConexion();
             $con->beginTransaction();
