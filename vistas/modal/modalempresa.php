@@ -34,6 +34,7 @@
                                                         <label for="Razons" class="control-label">Razon
                                                             Social:</label>
                                                         <input type="text" class="form-control" id="Razons" id="Razons">
+                                                        <input type="hidden" name="tipoE" id="tipoE">
                                                         <input type="hidden" name="idempresa" id='idempresa'>
                                                     </div>
                                                     <div class="form-group">
@@ -97,7 +98,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-8">
-                                            <div class="panel-body table-responsive"></div>
+                                            <div class="panel-body table-responsive">
                                             <table class="table table-condensed table-hover table-bordered" id="Tcontactos">
                                                 <thead>
                                                     <th>Aciones</th>
@@ -111,7 +112,8 @@
 
                                                 </tbody>
                                             </table>
-                                        </div>
+                                            </div>
+                                        </div> <!-- col md 8 tabla -->
                                     </div>
                                 </div>
                             </div>
