@@ -85,7 +85,7 @@ if (!$_SESSION['nombre']) {
                                 <div class="form-group">
                                     <label for="codigo" class='control-label col-md-2'>Codigo</label>
                                     <div class="col-md-4">
-                                        <input type="text" class='form-control' name="codigo" id="codigo" disabled>
+                                        <input type="text" class='form-control' name="codigo" id="codigo">
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -24,11 +24,11 @@ function registrarc() {
 	var fila =
 		'<tr class="filas" id ="fila' +cont +'">' +
 		'<td><button type="button" class="btn btn-danger" onclick="eliminarfila(' +cont +')"><span class="fa fa-trash-o"></span></button></td>' +
-		'<td ><input type "text"  disabled  name ="nombresc[]" id ="nombresc[]" value="'+nombre+'"></td>' +
-		'<td ><input type "text"  disabled  name ="apellidosc[]" id ="apellidosc[]" value="'+apellido+'"></td>' +
-		'<td ><input type "text"  disabled  name ="correosc[]" id ="correosc[]" value="'+correo+'"></td>' +
-		'<td ><input type "text"  disabled  name ="telefonosc[]" id ="telefonosc[]" value="'+telefono+'"></td>' +
-		'<td ><input type "text"  disabled  name ="puestosc[]" id ="puestosc[]" value="'+puesto+'"></td>' +
+		'<td ><input type "text"    name ="nombresc[]" id ="nombresc[]" value="'+nombre+'"></td>' +
+		'<td ><input type "text"    name ="apellidosc[]" id ="apellidosc[]" value="'+apellido+'"></td>' +
+		'<td ><input type "text"    name ="correosc[]" id ="correosc[]" value="'+correo+'"></td>' +
+		'<td ><input type "text"    name ="telefonosc[]" id ="telefonosc[]" value="'+telefono+'"></td>' +
+		'<td ><input type "text"    name ="puestosc[]" id ="puestosc[]" value="'+puesto+'"></td>' +
 		'</tr>';
 	cont++;
 	$('#Tcontactos').append(fila);
@@ -104,8 +104,9 @@ function grabareditar() {
 	if (nit.trim() == '') {
 		$('#identificacion').val('c/f');
 	}
-
+	
 	var form = new FormData($('#frmempresa')[0]);
+	//var form = $('#frmempresa').serialize();
 	$.ajax({
 		url: '../ajax/empresa.php?op=guardaryeditar',
 		type: 'POST',
@@ -116,7 +117,7 @@ function grabareditar() {
 			if (datos == 1) {
 				$('#Tempresas').DataTable().ajax.reload();
 				alertify.success('Proceso Realizado con exito');
-				// $("#modalsucursal").modal("hide");
+				$("#modalsucursal").modal("hide");
 			} else {
 				alertify.error('Proceso no se pudo realizar') + ' ' + datos;
 			}

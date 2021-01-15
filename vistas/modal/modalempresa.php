@@ -1,4 +1,5 @@
 <div class="container">
+<form action="" id='frmempresa'>
     <div class="row">
         <div class="modal fade" id="modalempresa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
             <div class="modal-dialog modal-lg" role="document">
@@ -8,7 +9,7 @@
                         <h4 class="modal-title text-center" id="titulomodale"><?php echo $tipoempresa ?> </h4>
                     </div>
                     <div class="modal-body">
-                        <form action="">
+                        
                             <ul class="nav nav-tabs" id="tabempresa">
                                 <li><a class="active" id="home-tab" data-toggle="tab" href="#home">Datos Generales</a></li>
                                 <li><a id="contacto-tab" data-toggle="tab" href="#contactos">Contactos</a></li>
@@ -33,7 +34,7 @@
                                                     <div class="form-group">
                                                         <label for="Razons" class="control-label">Razon
                                                             Social:</label>
-                                                        <input type="text" class="form-control" id="Razons" id="Razons">
+                                                        <input type="text" class="form-control" id="Razons" name="Razons">
                                                         <input type="hidden" name="tipoE" id="tipoE">
                                                         <input type="hidden" name="idempresa" id='idempresa'>
                                                     </div>
@@ -141,14 +142,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Send message</button>
+                        <button type="button" class="btn btn-primary" onclick="grabareditar()">Grabar</button>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div><!-- row -->
+    </form>
 </div><!-- contenedor -->

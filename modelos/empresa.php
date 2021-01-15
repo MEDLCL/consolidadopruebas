@@ -9,8 +9,8 @@ class Empresa
     }
     public function grabar($codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos)
     {
+        $con = Conexion::getConexion();
         try {
-            $con = Conexion::getConexion();
             $con->beginTransaction();
             $rspt = $con->prepare("INSERT INTO empresas (codigo,tipoe,id_sucursal,id_usuario,Razons,Nombrec,identificacion,telefono,direccion,porcentaje_comision,tipo_comision)
                             values(:codigo,:tipoe,:idsucursal,:idusuario,:razons,:nombrec,:nit,:telefono,:dire,:comision,:cbmtarifa)");
@@ -30,11 +30,12 @@ class Empresa
             if ($rspt) {
                 $idempresa =   $con->lastInsertId();
                 $cont = 0;
-                if (count($nombrec) > 0) {
+                if (count($nombres) > 0) {
                     $rspt = $con->prepare("INSERT INTO contactos_e(id_empresa,nombre,apellido,correo,telefono,puesto)
-                        VALUES (:idempresa,:nombre,:apellido,:correo,:telefono:puesto)");
-
-                    while ($cont < $nombres) {
+                        VALUES (:idempresa,:nombre,:apellido,:correo,:telefono,:puesto)");
+                    $contador = count($nombres);
+                    echo $contador;
+                    while ($cont < count($nombres)) {
                         $rspt->bindParam(":idempresa", $idempresa);
                         $rspt->bindParam(":nombre", $nombres[$cont]);
                         $rspt->bindParam(":apellido", $apellidos[$cont]);
@@ -48,12 +49,18 @@ class Empresa
                 }
             }
             $con->commit();
-            $con = Conexion::cerrar();
+            //$con = Conexion::cerrar();
             return 1;
         } catch (\Throwable $th) {
             $con->rollBack();
-            $con = Conexion::cerrar();
+            //$con = Conexion::cerrar();
             return 0;
         }
+    }
+    public function listar(){
+
+    }
+    public function buscaEmpresa($idempresa){
+        
     }
 }
