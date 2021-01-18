@@ -57,10 +57,40 @@ class Empresa
             return 0;
         }
     }
-    public function listar(){
 
-    }
     public function buscaEmpresa($idempresa){
-        
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("");
+            $rsp->bindParam("",$idempresa);
+            $rsp->execute();
+            $rsp = $rsp->fetch(PDO::FETCH_OBJ);
+            return $rsp;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
+    public function listar(){
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("");
+            $rsp->execute();
+            $rsp= $rsp->fetchAll(PDO::FETCH_OBJ);
+            return $rsp;
+        } catch (\Throwable $th) {
+            return 0 ;
+        }
+    }
+    public function listarcontacto(){
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("");
+            $rsp->execute();
+            $rsp=$rsp->fetchAll(PDO::FETCH_OBJ);
+            return $rsp;
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
+
 }

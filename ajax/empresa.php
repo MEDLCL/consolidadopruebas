@@ -21,6 +21,42 @@ switch ($_GET['op']) {
             $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $_POST['nombresc'], $_POST['apellidosc'], $_POST['correosc'], $_POST['telefonosc'], $_POST['puestosc']);
         }
         break;
+    case 'buscae':
+        $res = $empresa->buscaEmpresa($idempresa);
+        echo json_encode($res);
+        break;
+
+    case 'listare':
+        $res = $empresa->listar();
+        $data = array();
+        foreach ($res as $reg) {
+            $data[] = array(
+                "0" => '<button class="btn btn-warning" onclick="mostrarempresa(' . $reg->id_empresa . ')"><i class="fa fa-pencil"></i></button>',
+                ""=>$reg->codigo,
+                "1" => $reg->Razons,
+                "2" => $reg->Nombrec,
+                "3" => $reg->identificacion,
+                /* 
+                   <th>Pais</th>
+                   <th>Direccion</th>
+                   <th>%Comision</th>
+                   <th>Tipo Comision</th>
+                   <th>Nombre</th>
+                   <th>Apellido</th>
+                   <th>Correo</th>
+                   <th>Tel</th>
+                   <th>Fax</th>
+                   <th>Puesto</th> */
+            );
+        }
+        $results = array(
+            "sEcho" => 1, //informacion para el datatable
+            "iTotalRecords" => count($data), //enviamos el total al datatable
+            "iTotalDisplayRecords" => count($data), //enviamos total de rgistror a utlizar
+            "aaData" => $data
+        );
+        echo json_encode($results);
+        break;
 
     default:
         # code...
