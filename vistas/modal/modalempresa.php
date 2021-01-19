@@ -33,18 +33,18 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Razons" class="control-label">Razon
-                                                            Social:</label>
-                                                        <input type="text" class="form-control" id="Razons" name="Razons">
+                                                            Social*:</label>
+                                                        <input type="text" class="form-control" id="Razons" name="Razons" onkeyup="mayusculas(this)">
                                                         <input type="hidden" name="tipoE" id="tipoE">
                                                         <input type="hidden" name="idempresa" id='idempresa'>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Nombrec" class="control-label">Nombre
-                                                            Comercial:</label>
-                                                        <input type="text" name="Nombrec" id="Nombrec" class="form-control">
+                                                            Comercial*:</label>
+                                                        <input type="text" name="Nombrec" id="Nombrec" class="form-control" onkeyup="mayusculas(this)">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="identificacion" class="control-label">Identificacion:</label>
+                                                        <label for="identificacion" class="control-label">Identificacion*:</label>
                                                         <input type="text" name="identificacion" id="identificacion" class="form-control">
                                                     </div>
                                                     <div class="form-group">
@@ -53,8 +53,8 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="direccion" class="control-label">Direccion:</label>
-                                                        <textarea class="form-control" id="direccion" name="direccion" rows="3"></textarea>
+                                                        <label for="direccion" class="control-label">Direccion*:</label>
+                                                        <textarea class="form-control" id="direccion" name="direccion" rows="3" onkeyup="mayusculas(this)"></textarea>
                                                     </div>
                                                     <!-- </form> -->
                                                 </div>
@@ -97,7 +97,7 @@
                                                     <!-- <form role="form"> -->
                                                     <div class="form-group">
                                                         <label for="Nombre" class="control-label">Nombre:</label>
-                                                        <input type="text" name="Nombre" id="Nombre" class="form-control">
+                                                        <input type="text" name="Nombre" id="Nombre" class="form-control" >
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Apellido" class="control-label">Apellido:</label>
@@ -133,7 +133,7 @@
                                                         <th>Telefono</th>
                                                         <th>Puesto</th>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="tbodyC">
 
                                                     </tbody>
                                                 </table>

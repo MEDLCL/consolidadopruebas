@@ -54,12 +54,14 @@ function limpiar() {
     $('#telefonoc').val('');
     $('#puesto').val('');
     $('#comision').val('0');
-    $('tbody').children().remove();
+    $('#tbodyC').children().remove();
+    $("#cmb").prop("checked", false);
+    $("#tarifa").prop("checked", false);
+    $('#consignadoa').hide();
 }
 
 function nuevo(tipoe) {
     limpiar();
-    $('#consignadoa').hide();
     var tipo = '';
     if (tipoe == 'agentee') {
         tipo = 'AE';
@@ -120,7 +122,10 @@ function grabareditar() {
                 $('#Tempresas').DataTable().ajax.reload();
                 alertify.success('Proceso Realizado con exito');
                 $("#modalempresa").modal("hide");
-            } else {
+            }if (datos==2){
+                alertify.warning('Datos Duplicados','Empresa ya registrada');
+            }
+            else  {
                 alertify.error('Proceso no se pudo realizar') + ' ' + datos;
             }
         }
@@ -142,11 +147,47 @@ function listar() {
             }
         },
         "bDestroy": true,
-        "iDisplayLenth": 5, //paginacion
+        "iDisplayLenth": 10, //paginacion
         "order": [
                 [0, "desc"]
             ] //order los datos
-
     });
 }
+function mostrarempresa(idempresa){
+    limpiar();
+    $.post("../ajax/empresa.php?op=mostrare", 
+        { idempresa: idempresa },
+    function(data, status) {
+    data = JSON.parse(data);
+        $('#codigo').val(data.codigo);
+        $('#idempresa').val(data.id_empresa);
+        $('#Razons').val(data.Razons);
+        $('#Nombrec').val(data.Nombrec);
+        $('#identificacion').val(data.identificacion);
+        $('#telefono').val(data.telefono);
+        $('#direccion').val(data.direccion);
+        $('#comision').val(data.porcentaje_comision); 
+        $('#tipoE').val(data.Tipoe);  
+        if (data.Tipoe =='CO'){
+            $('#consignadoa').show();
+        } else{
+            $('#consignadoa').hide();
+        }
+        if (data.tipo_comision=='cbm'){
+            $("#cbm").prop("checked", true);
+        }
+        else if (data.tipo_comision=='tarifa'){
+            $("#tarifa").prop("checked", true);
+        }
+    })
+    $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "../ajax/empresa.php?op=cargac",
+            data: "idempresa="+idempresa,
+            success: function(resp) {
+                $('#tbodyC').append(resp);
+            }
+        });
+    }
 init();
