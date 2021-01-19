@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 19-01-2021 a las 06:09:55
+-- Tiempo de generación: 19-01-2021 a las 23:57:38
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.33
+-- Versión de PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,7 @@ SELECT L.id_usuario,
             puesto as P on P.id_puesto = L.id_puesto INNER JOIN
             pais as PA on PA.idpais = S.idpais$$
 
-CREATE DEFINER=`` PROCEDURE `prclogin` (IN `codigol` VARCHAR(30), IN `usuariol` VARCHAR(30), IN `passl` VARCHAR(30))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `prclogin` (IN `codigol` VARCHAR(30) CHARSET utf8, IN `usuariol` VARCHAR(30) CHARSET utf8, IN `passl` VARCHAR(30) CHARSET utf8)  NO SQL
 select L.id_usuario,
 	   L.id_sucursal,
        L.nombre,
@@ -74,7 +74,7 @@ CREATE TABLE `asigna_menu` (
   `idasigna_menu` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_menu` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `asigna_menu`
@@ -103,12 +103,12 @@ INSERT INTO `asigna_menu` (`idasigna_menu`, `id_usuario`, `id_menu`) VALUES
 CREATE TABLE `contactos_e` (
   `id_contacto` int(11) NOT NULL,
   `id_empresa` int(11) NOT NULL,
-  `nombre` varchar(75) COLLATE utf8_spanish2_ci NOT NULL,
-  `apellido` varchar(75) COLLATE utf8_spanish2_ci NOT NULL,
-  `correo` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
-  `telefono` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `puesto` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `nombre` varchar(75) NOT NULL,
+  `apellido` varchar(75) NOT NULL,
+  `correo` varchar(150) NOT NULL,
+  `telefono` varchar(50) NOT NULL,
+  `puesto` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `contactos_e`
@@ -129,8 +129,8 @@ INSERT INTO `contactos_e` (`id_contacto`, `id_empresa`, `nombre`, `apellido`, `c
 
 CREATE TABLE `continente` (
   `idcontinente` int(11) NOT NULL,
-  `nombre` varchar(45) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `nombre` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `continente`
@@ -154,8 +154,8 @@ INSERT INTO `continente` (`idcontinente`, `nombre`) VALUES
 
 CREATE TABLE `depto` (
   `id_depto` int(11) NOT NULL,
-  `nombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `nombre` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `depto`
@@ -180,17 +180,17 @@ CREATE TABLE `empresas` (
   `id_empresa` int(11) NOT NULL,
   `id_sucursal` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `Razons` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
-  `Nombrec` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
-  `identificacion` varchar(75) COLLATE utf8_spanish2_ci NOT NULL,
-  `direccion` varchar(1000) COLLATE utf8_spanish2_ci NOT NULL,
-  `telefono` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `Tipoe` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
-  `codigo` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
+  `Razons` varchar(150) NOT NULL,
+  `Nombrec` varchar(150) NOT NULL,
+  `identificacion` varchar(75) NOT NULL,
+  `direccion` varchar(1000) NOT NULL,
+  `telefono` varchar(50) NOT NULL,
+  `Tipoe` varchar(25) NOT NULL,
+  `codigo` varchar(25) NOT NULL,
   `estado` tinyint(1) NOT NULL,
   `porcentaje_comision` float NOT NULL,
-  `tipo_comision` varchar(15) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `tipo_comision` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `empresas`
@@ -201,7 +201,11 @@ INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `Razons`, `No
 (5, 27, 52, 'manuel', 'comercial', '1234', 'guatemala', '22123085', 'AE', '1234', 0, 0, ''),
 (6, 27, 52, 'manuel', 'comercial', '1234', 'guatemala', '22123085', 'AE', '1234', 0, 0, ''),
 (7, 27, 52, 'nueva rzon social', 'nombre comercial', 'nit', 'costa rica', '22123085', 'AE', '2', 0, 0, ''),
-(8, 27, 52, 'nueva rzon social', 'nombre comercial', 'nit', 'costa rica', '22123085', 'AE', '3', 0, 0, '');
+(8, 27, 52, 'nueva rzon social', 'nombre comercial', 'nit', 'costa rica', '22123085', 'AE', '3', 0, 0, ''),
+(9, 27, 52, 'MANUEL', 'MANUEL', '1234', 'GUATEMALA', '22123085', 'AE', '1234', 0, 0, ''),
+(10, 27, 52, 'MANUEL', 'COMERCIAL', '1234', 'GUATEMALA', '22123085', 'AE', '', 0, 0, ''),
+(11, 27, 52, 'MANUEL', 'COMERCIAL', '1234', 'GUATEMALA', '22123085', 'AE', '', 0, 0, ''),
+(12, 27, 52, 'ALMADISA RZON SOCIAL', 'ALMADISA NOMBRE COMECIAL', 'nit', 'GUATEMALA', '458665', 'CO', '125', 0, 5, 'cbm');
 
 -- --------------------------------------------------------
 
@@ -214,14 +218,14 @@ CREATE TABLE `login` (
   `id_sucursal` int(11) NOT NULL,
   `id_depto` int(11) NOT NULL,
   `id_puesto` int(11) NOT NULL,
-  `acceso` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `pass` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
-  `avatar` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
-  `nombre` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
-  `apellido` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
-  `correo` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+  `acceso` varchar(50) NOT NULL,
+  `pass` varchar(150) NOT NULL,
+  `avatar` varchar(150) NOT NULL,
+  `nombre` varchar(150) NOT NULL,
+  `apellido` varchar(150) NOT NULL,
+  `correo` varchar(150) NOT NULL,
   `estado` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `login`
@@ -241,9 +245,9 @@ INSERT INTO `login` (`id_usuario`, `id_sucursal`, `id_depto`, `id_puesto`, `acce
 
 CREATE TABLE `menu` (
   `id_menu` int(11) NOT NULL,
-  `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `nombre` varchar(30) NOT NULL,
   `id_Padre` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `menu`
@@ -274,9 +278,9 @@ INSERT INTO `menu` (`id_menu`, `nombre`, `id_Padre`) VALUES
 CREATE TABLE `pais` (
   `idpais` int(11) NOT NULL,
   `idcontinente` int(11) NOT NULL,
-  `nombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `iniciales` varchar(5) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `nombre` varchar(100) NOT NULL,
+  `iniciales` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `pais`
@@ -537,8 +541,8 @@ INSERT INTO `pais` (`idpais`, `idcontinente`, `nombre`, `iniciales`) VALUES
 
 CREATE TABLE `permiso` (
   `id_permiso` int(11) NOT NULL,
-  `nombre` varchar(11) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `nombre` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `permiso`
@@ -558,8 +562,8 @@ INSERT INTO `permiso` (`id_permiso`, `nombre`) VALUES
 
 CREATE TABLE `puesto` (
   `id_puesto` int(11) NOT NULL,
-  `nombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `nombre` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `puesto`
@@ -582,17 +586,17 @@ INSERT INTO `puesto` (`id_puesto`, `nombre`) VALUES
 
 CREATE TABLE `sucursal` (
   `id_sucursal` int(11) NOT NULL,
-  `razons` varchar(75) COLLATE utf8_spanish2_ci NOT NULL,
-  `nombrec` varchar(75) COLLATE utf8_spanish2_ci NOT NULL,
-  `Telefono` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `identificacion` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `direccion` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
-  `logo` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `razons` varchar(75) NOT NULL,
+  `nombrec` varchar(75) NOT NULL,
+  `Telefono` varchar(50) NOT NULL,
+  `identificacion` varchar(50) NOT NULL,
+  `direccion` varchar(150) NOT NULL,
+  `logo` varchar(100) DEFAULT NULL,
   `fechaingreso` date DEFAULT NULL,
   `estado` tinyint(1) DEFAULT NULL,
   `idpais` int(11) NOT NULL,
-  `codigo` varchar(30) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `codigo` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `sucursal`
@@ -703,7 +707,7 @@ ALTER TABLE `depto`
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
@@ -734,22 +738,6 @@ ALTER TABLE `permiso`
 --
 ALTER TABLE `puesto`
   MODIFY `id_puesto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT de la tabla `sucursal`
---
-ALTER TABLE `sucursal`
-  MODIFY `id_sucursal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `contactos_e`
---
-ALTER TABLE `contactos_e`
-  ADD CONSTRAINT `contactos_e_ibfk_1` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id_empresa`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
