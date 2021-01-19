@@ -31,6 +31,7 @@ switch ($_GET['op']) {
                 $_SESSION['nit'] = trim($stmt->identificacion);
                 $_SESSION['idpais'] = $stmt->idpais;
                 $_SESSION['puesto'] = trim($stmt->puesto);
+                $_SESSION['Iniciale']='';
 
                 $stmtper = $con->prepare("SELECT * FROM asigna_menu WHERE id_usuario = :idusuario");
                 $stmtper->bindParam(':idusuario', $_SESSION['idusuario']);

@@ -12,26 +12,37 @@ if (!$_SESSION['nombre']) {
     $tipoe = isset($_GET['tipo']) ? $tipoe = $_GET['tipo'] : $tipoe = '';
     if ($tipoe == 'agentee') {
         $tipoempresa = 'AGENTE EMBARCADOR';
+        unset($_SESSION['Iniciale']);  $_SESSION['Iniciale']='AE';
     } else if ($tipoe == 'agenciac') {
         $tipoempresa = 'AGENCIA DE CARGA';
+        unset($_SESSION['Iniciale']);  $_SESSION['Iniciale']='AC';
     } else if ($tipoe == 'aereolinea') {
         $tipoempresa = 'Aereo-Linea';
+        unset($_SESSION['Iniciale']);  $_SESSION['Iniciale']='AL';
     } else if ($tipoe == 'almacen') {
         $tipoempresa = 'Almacenadora';
+        unset($_SESSION['Iniciale']); $_SESSION['Iniciale']='AM'; 
     } else if ($tipoe == 'cliente') {
         $tipoempresa = 'Consignatario';
+        unset($_SESSION['Iniciale']); $_SESSION['Iniciale']='CL';
     } else if ($tipoe == 'consignado') {
         $tipoempresa = 'Consignado';
+        unset($_SESSION['Iniciale']); $_SESSION['Iniciale']='CO';
     } else if ($tipoe == 'embarcador') {
         $tipoempresa = 'Embarcador';
+        unset($_SESSION['Iniciale']); $_SESSION['Iniciale']='EM';
     } else if ($tipoe == 'naviera') {
         $tipoempresa = 'Naviera';
+        unset($_SESSION['Iniciale']); $_SESSION['Iniciale']='NA';
     } else if ($tipoe == 'proveedor') {
         $tipoempresa = 'Proveedor';
+        unset($_SESSION['Iniciale']); $_SESSION['Iniciale']='PR';
     } else if ($tipoe == 'transporte') {
         $tipoempresa = 'Transportista';
+        unset($_SESSION['Iniciale']); $_SESSION['Iniciale']='TR';
     } else {
         $tipoempresa = "";
+        unset($_SESSION['Iniciale']); $_SESSION['Iniciale']='';
     }
     require_once("../inc/head.php");
     require_once("../inc/header.php");

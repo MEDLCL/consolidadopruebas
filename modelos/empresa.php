@@ -12,7 +12,7 @@ class Empresa
         $con = Conexion::getConexion();
         try {
             $con->beginTransaction();
-            $rspt = $con->prepare("INSERT INTO empresas (codigo,tipoe,id_sucursal,id_usuario,Razons,Nombrec,identificacion,telefono,direccion,porcentaje_comision,tipo_comision)
+            $rspt = $con->prepare("INSERT INTO empresas (codigo,Tipoe,id_sucursal,id_usuario,Razons,Nombrec,identificacion,telefono,direccion,porcentaje_comision,tipo_comision)
                             values(:codigo,:tipoe,:idsucursal,:idusuario,:razons,:nombrec,:nit,:telefono,:dire,:comision,:cbmtarifa)");
             $rspt->bindParam(":codigo", $codigo);
             $rspt->bindParam(":tipoe", $tipoe);
@@ -73,7 +73,8 @@ class Empresa
     public function listar(){
         $con = Conexion::getConexion();
         try {
-            $rsp = $con->prepare("SELECT * FROM empresas");
+            $rsp = $con->prepare("SELECT * FROM empresas WHERE Tipoe = :tipoe");
+            $rsp->bindParam(":tipoe",$_SESSION['Iniciale']);
             $rsp->execute();
             $rsp= $rsp->fetchAll(PDO::FETCH_OBJ);
             return $rsp;

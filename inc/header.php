@@ -49,7 +49,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="../img/avatar/ <?php echo $_SESSION['avatar']; ?>" class="img-circle" alt="User Image">
+                        <img src="../img/avatar/<?php echo $_SESSION['avatar']; ?>" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p><?php echo $_SESSION['nombre'] . ' ' . $_SESSION['apellido']; ?></p>
@@ -76,7 +76,8 @@
                                     <li class=""><a href="empresas.php?tipo=agentee"><i class="fa fa-building"></i> Agente
                                             Embarcador</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['AgenciaC'] == 1) :  ?>
+                                <?php if ($_SESSION['AgenciaC'] == 1) : ?>
+                                    
                                     <li><a href="empresas.php?tipo=agenciac"><i class="fa fa-building"></i> Agencia de Carga</a>
                                     </li>
                                 <?php endif; ?>
@@ -86,22 +87,22 @@
                                 <?php if ($_SESSION['Almacenadora'] == 1) : ?>
                                     <li><a href="empresas.php?tipo=almacen"><i class="fa fa-building"></i>Almacenadora</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Consignatario'] == 1) : ?>
+                                <?php if ($_SESSION['Consignatario'] == 1) :?>
                                     <li><a href="empresas.php?tipo=cliente"><i class="fa fa-building"></i>Consignatario</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Consignado'] == 1) : ?>
+                                <?php if ($_SESSION['Consignado'] == 1) :?>
                                     <li><a href="empresas.php?tipo=consignado"><i class="fa fa-building"></i>Consignado</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Embarcador'] == 1) : ?>
+                                <?php if ($_SESSION['Embarcador'] == 1) :?>
                                     <li><a href="empresas.php?tipo=embarcador"><i class="fa fa-building"></i>Embarcador</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Naviera'] == 1) : ?>
+                                <?php if ($_SESSION['Naviera'] == 1) :?>
                                     <li><a href="empresas.php?tipo=naviera"><i class="fa fa-building"></i>Naviera</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Proveedor'] == 1) : ?>
+                                <?php if ($_SESSION['Proveedor'] == 1) :?>
                                     <li><a href="empresas.php?tipo=proveedor"><i class="fa fa-building"></i>Proveedor</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Transportista'] == 1) : ?>
+                                <?php if ($_SESSION['Transportista'] == 1) :?>
                                     <li><a href="empresas.php?tipo=transporte"><i class="fa fa-building"></i>Transportista</a></li>
                                 <?php endif; ?>
 

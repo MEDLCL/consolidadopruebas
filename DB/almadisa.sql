@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 15-01-2021 a las 00:12:00
+-- Tiempo de generación: 19-01-2021 a las 06:09:55
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.34
+-- Versión de PHP: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,7 @@ SELECT L.id_usuario,
             puesto as P on P.id_puesto = L.id_puesto INNER JOIN
             pais as PA on PA.idpais = S.idpais$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prclogin` (IN `codigol` VARCHAR(30), IN `usuariol` VARCHAR(30), IN `passl` VARCHAR(30))  NO SQL
+CREATE DEFINER=`` PROCEDURE `prclogin` (IN `codigol` VARCHAR(30), IN `usuariol` VARCHAR(30), IN `passl` VARCHAR(30))  NO SQL
 select L.id_usuario,
 	   L.id_sucursal,
        L.nombre,
@@ -91,14 +91,8 @@ INSERT INTO `asigna_menu` (`idasigna_menu`, `id_usuario`, `id_menu`) VALUES
 (70, 52, 8),
 (71, 52, 9),
 (72, 52, 10),
-(73, 52, 11),
-(74, 52, 12),
-(75, 52, 13),
-(76, 52, 14),
-(77, 52, 15),
-(78, 52, 16),
-(79, 52, 17),
-(80, 52, 18);
+(73, 52, 12),
+(74, 52, 14);
 
 -- --------------------------------------------------------
 
@@ -115,6 +109,17 @@ CREATE TABLE `contactos_e` (
   `telefono` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `puesto` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `contactos_e`
+--
+
+INSERT INTO `contactos_e` (`id_contacto`, `id_empresa`, `nombre`, `apellido`, `correo`, `telefono`, `puesto`) VALUES
+(1, 4, 'manuel', 'apel', 'it@gmail.com', '3132', 'pueto'),
+(2, 5, 'manuel', 'apeliido', 'it@gmail.com', '3132', 'pueto'),
+(3, 6, 'manuel', 'apeliido', 'it@gmail.com', '3132', 'pueto'),
+(4, 7, 'maritza', 'yaq', 'it@gmail.com', '54578875', 'pueto'),
+(5, 8, 'maritza', 'yaq', 'it@gmail.com', '54578875', 'pueto');
 
 -- --------------------------------------------------------
 
@@ -184,9 +189,19 @@ CREATE TABLE `empresas` (
   `codigo` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
   `estado` tinyint(1) NOT NULL,
   `porcentaje_comision` float NOT NULL,
-  `tipo_comision` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
-  `fecha` timestamp NOT NULL DEFAULT current_timestamp()
+  `tipo_comision` varchar(15) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `empresas`
+--
+
+INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`) VALUES
+(4, 27, 52, 'manuel', 'comercial', 'nit', 'guatemala', '45456564', 'AE', '1234', 0, 0, ''),
+(5, 27, 52, 'manuel', 'comercial', '1234', 'guatemala', '22123085', 'AE', '1234', 0, 0, ''),
+(6, 27, 52, 'manuel', 'comercial', '1234', 'guatemala', '22123085', 'AE', '1234', 0, 0, ''),
+(7, 27, 52, 'nueva rzon social', 'nombre comercial', 'nit', 'costa rica', '22123085', 'AE', '2', 0, 0, ''),
+(8, 27, 52, 'nueva rzon social', 'nombre comercial', 'nit', 'costa rica', '22123085', 'AE', '3', 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -538,28 +553,6 @@ INSERT INTO `permiso` (`id_permiso`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pruebas`
---
-
-CREATE TABLE `pruebas` (
-  `id` int(11) NOT NULL,
-  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
-  `texto` varchar(30) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
---
--- Volcado de datos para la tabla `pruebas`
---
-
-INSERT INTO `pruebas` (`id`, `fecha`, `texto`) VALUES
-(1, '0000-00-00 00:00:00', 'hola'),
-(2, '0000-00-00 00:00:00', 'hola'),
-(3, '0000-00-00 00:00:00', 'hola'),
-(4, '2021-01-14 17:24:38', 'hola');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `puesto`
 --
 
@@ -673,12 +666,6 @@ ALTER TABLE `permiso`
   ADD PRIMARY KEY (`id_permiso`);
 
 --
--- Indices de la tabla `pruebas`
---
-ALTER TABLE `pruebas`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `puesto`
 --
 ALTER TABLE `puesto`
@@ -698,13 +685,13 @@ ALTER TABLE `sucursal`
 -- AUTO_INCREMENT de la tabla `asigna_menu`
 --
 ALTER TABLE `asigna_menu`
-  MODIFY `idasigna_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `idasigna_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `contactos_e`
 --
 ALTER TABLE `contactos_e`
-  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `depto`
@@ -716,7 +703,7 @@ ALTER TABLE `depto`
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
@@ -741,12 +728,6 @@ ALTER TABLE `pais`
 --
 ALTER TABLE `permiso`
   MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `pruebas`
---
-ALTER TABLE `pruebas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `puesto`
