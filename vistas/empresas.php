@@ -50,15 +50,15 @@ if (!$_SESSION['nombre']) {
                             </button>
                         </div>
                         <div class="panel-body table-responsive">
-                            <table class="table table-condensed table-hover table-bordered">
+                            <table class="table table-condensed table-hover table-bordered" id="Tempresas">
                                 <thead>
                                     <tr>
                                         <th>Editar</th>
                                         <th>Codigo</th>
                                         <th>Razon Social</th>
                                         <th>Nombre Comercial</th>
-                                        <th>Idetentificacion</th>
-                                        <th>Pais</th>
+                                        <th>Nit</th>
+                                        <th>Telefono</th>
                                         <th>Direccion</th>
                                         <th>%Comision</th>
                                         <th>Tipo Comision</th>
@@ -66,7 +66,6 @@ if (!$_SESSION['nombre']) {
                                         <th>Apellido</th>
                                         <th>Correo</th>
                                         <th>Tel</th>
-                                        <th>Fax</th>
                                         <th>Puesto</th>
 
                                     </tr>

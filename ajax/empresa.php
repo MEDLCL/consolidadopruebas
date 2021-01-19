@@ -32,10 +32,19 @@ switch ($_GET['op']) {
         foreach ($res as $reg) {
             $data[] = array(
                 "0" => '<button class="btn btn-warning" onclick="mostrarempresa(' . $reg->id_empresa . ')"><i class="fa fa-pencil"></i></button>',
-                ""=>$reg->codigo,
-                "1" => $reg->Razons,
-                "2" => $reg->Nombrec,
-                "3" => $reg->identificacion,
+                "1"=>$reg->codigo,
+                "2" => $reg->Razons,
+                "3" => $reg->Nombrec,
+                "4" => $reg->identificacion,
+                "5" => $reg->telefono,
+                "6" => $reg->direccion,
+                "7" => $reg->porcentaje_comision,
+                "8" => $reg->tipo_comision,
+                "9" => "",//$reg->nombre,
+                "10" => "",//$reg->apellido,
+                "11" => "",//$reg->correo,
+                "12" => "",///$reg->tel,
+                "13" => "",//$reg->puesto
                 /* 
                    <th>Pais</th>
                    <th>Direccion</th>

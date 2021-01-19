@@ -73,7 +73,7 @@ class Empresa
     public function listar(){
         $con = Conexion::getConexion();
         try {
-            $rsp = $con->prepare("");
+            $rsp = $con->prepare("SELECT * FROM empresas");
             $rsp->execute();
             $rsp= $rsp->fetchAll(PDO::FETCH_OBJ);
             return $rsp;
