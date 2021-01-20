@@ -62,6 +62,7 @@ function limpiar() {
 
 function nuevo(tipoe) {
     limpiar();
+    $("#codigo").prop("readonly",true)
     var tipo = '';
     if (tipoe == 'agentee') {
         tipo = 'AE';
@@ -89,6 +90,7 @@ function nuevo(tipoe) {
 }
 
 function grabareditar() {
+    $("#codigo").prop("readonly",false)
     var rasons = $('#Razons').val();
     var nombrec = $('#Nombrec').val();
     var nit = $('#identificacion').val();
@@ -109,8 +111,8 @@ function grabareditar() {
         $('#identificacion').val('c/f');
     }
 
-    var form = new FormData($('#frmempresa')[0]);
-    //var form = $('#frmempresa').serialize();
+/* var form = new FormData($('#frmempresa')[0]);
+    //genera codigo
     if ($("#idempresa").val() == 0) {
         $.ajax({
             url: "../ajax/empresa.php?op=codigo",
@@ -122,8 +124,8 @@ function grabareditar() {
                 $('#codigo').val(datos);
             }
         });
-
-    } else {
+    } */
+var form = new FormData($('#frmempresa')[0]);
         $.ajax({
             url: '../ajax/empresa.php?op=guardaryeditar',
             type: 'POST',
@@ -142,7 +144,6 @@ function grabareditar() {
                 }
             }
         });
-    }
 }
 
 function listar() {
@@ -169,6 +170,7 @@ function listar() {
 
 function mostrarempresa(idempresa) {
     limpiar();
+    $("#codigo").prop("readonly",false)
     $.post("../ajax/empresa.php?op=mostrare", { idempresa: idempresa },
         function(data, status) {
             data = JSON.parse(data);

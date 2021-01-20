@@ -49,7 +49,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="telefono" class="control-label">Telefono:</label>
-                                                        <input type="text" name="telefono" id="telefono" class="form-control">
+                                                        <input type="text" name="telefono" id="telefono" class="form-control" onkeyup="this.value=numeroTelefono(this.value)" >
                                                     </div>
 
                                                     <div class="form-group">
@@ -109,7 +109,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="telefono" class="control-label">Telefono:</label>
-                                                        <input type="text" name="telefonoc" id="telefonoc" class="form-control">
+                                                        <input type="text" name="telefonoc" id="telefonoc" class="form-control" onkeyup="this.value=numeroTelefono(this.value)" >
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="puesto" class="control-label">Puesto:</label>

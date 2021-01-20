@@ -81,7 +81,7 @@ function editarinsertar() {
         return false;
     }
     // envio de datos para generar codigo de la sucursal
-    if ($("#idsucursal").val() == 0) {
+    /*  if ($("#idsucursal").val() == 0) {
         $.ajax({
             url: "../ajax/sucursal.php?op=codigo",
             type: "POST",
@@ -92,8 +92,9 @@ function editarinsertar() {
                 $('#codigo').val(datos);
             }
         });
-    }
+    } */
     // envio de los parametros a grabar
+    //var form = new FormData($("#formsucursal")[0]); 
     $.ajax({
         url: "../ajax/sucursal.php?op=guardaryeditar",
         type: "POST",
@@ -105,7 +106,7 @@ function editarinsertar() {
                 //limpiar();
                 $('#listadosucursal').DataTable().ajax.reload();
                 alertify.success("Proceso Realizado con exito");
-                // $("#modalsucursal").modal("hide");
+                $("#modalsucursal").modal("hide");
             } else {
                 alertify.error("Proceso no se pudo realizar") + " " + datos;
             }

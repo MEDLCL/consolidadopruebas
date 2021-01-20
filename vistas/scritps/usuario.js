@@ -111,20 +111,19 @@ function grabarusuario() {
     } else if (correo.trim() == "") {
         alertify.alert("Campo en blanco", "Debe de ingresar Correo");
         return false;
-
     } else if (acceso.trim() == "") {
         alertify.alert("Campo en blanco", "Debe de ingresar Login");
         return false;
-    } else if (pass.trim() == "") {
-        alertify.alert("Campo en blanco", "Debe de ingresar Password");
+    }else if(pass.trim() =='' && $('#idusuario').val()=="0"){
+        alertify.alert("Campo Vacio","Debe de ingresar Password");
+        return false; 
+    } else if (sucursal == -1 || sucursal==0) {
+        alertify.alert("Campo en blanco", "Debe de seleccionar Sucursal");s
         return false;
-    } else if (sucursal == -1) {
-        alertify.alert("Campo en blanco", "Debe de seleccionar Sucursal");
-        return false;
-    } else if (depto == -1) {
+    } else if (depto == -1 || depto==0) {
         alertify.alert("Campo en blanco", "Debe de seleccionar Departamento");
         return false;
-    } else if (puesto == -1) {
+    } else if (puesto == -1 || puesto ==0) {
         alertify.alert("Campo en blanco", "Debe de seleccionar Puesto");
         return false;
     } else {
@@ -137,6 +136,7 @@ function grabarusuario() {
             alertify.alert("", "Debe de seleccionar almenos una opcion de Menu");
             return false;
         }
+    
         var form = new FormData($("#formusuario")[0]);
 
         $.ajax({

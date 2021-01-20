@@ -27,17 +27,18 @@ switch ($_GET['op']) {
             if ($verifica == 2) {
                 echo $verifica;
             } else if ($verifica == 3) {
-             echo   $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
+                $codigo = $empresa->codigo($tipoE);
+                echo   $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
             } else {
                 echo 0;
             }
-        }else{
+        } else {
             //actualizacion de empresas
-            $verifica = $empresa->verificaempresaU($razons,$nombrec,$idempresa);
-            if ($verifica ==2){
+            $verifica = $empresa->verificaempresaU($razons, $nombrec, $idempresa);
+            if ($verifica == 2) {
                 echo $verifica;
-            }else if ($verifica==3){
-               echo $res = $empresa->editarE($idempresa,$codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
+            } else if ($verifica == 3) {
+                echo $res = $empresa->editarE($idempresa, $codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
             }
         }
         break;
@@ -74,23 +75,24 @@ switch ($_GET['op']) {
             "aaData" => $data
         );
         echo json_encode($results);
-        break;     
-        case 'cargac':
-            $tablac = "";
-            $res = $empresa->listarcontacto($idempresa);
-            foreach ($res as $contactos) {
-                $tablac = $tablac 
-                .'<tr class="filas" id ="fila'.$contactos->id_contacto. '">'
-                .'<td><button type="button" class="btn btn-danger" onclick="eliminarfila(' .$contactos->id_contacto. ')"><span class="fa fa-trash-o"></span></button></td>' 
-                .'<td ><input type "text"    name ="nombresc[]" id ="nombresc[]" value="'.$contactos->nombre. '"></td>'
-                .'<td ><input type "text"    name ="apellidosc[]" id ="apellidosc[]" value="'.$contactos->apellido.'"></td>'
-                .'<td ><input type "text"    name ="correosc[]" id ="correosc[]" value="'.$contactos->correo.'"></td>' 
-                .'<td ><input type "text"    name ="telefonosc[]" id ="telefonosc[]" value="'.$contactos->telefono.'"></td>' 
-                .'<td ><input type "text"    name ="puestosc[]" id ="puestosc[]" value="'.$contactos->puesto.'"></td>' 
-                .'</tr>';
-            } 
-            echo $tablac;   
         break;
+    case 'cargac':
+        $tablac = "";
+        $res = $empresa->listarcontacto($idempresa);
+        foreach ($res as $contactos) {
+            $tablac = $tablac
+                . '<tr class="filas" id ="fila' . $contactos->id_contacto . '">'
+                . '<td><button type="button" class="btn btn-danger" onclick="eliminarfila(' . $contactos->id_contacto . ')"><span class="fa fa-trash-o"></span></button></td>'
+                . '<td ><input type "text"    name ="nombresc[]" id ="nombresc[]" value="' . $contactos->nombre . '"></td>'
+                . '<td ><input type "text"    name ="apellidosc[]" id ="apellidosc[]" value="' . $contactos->apellido . '"></td>'
+                . '<td ><input type "text"    name ="correosc[]" id ="correosc[]" value="' . $contactos->correo . '"></td>'
+                . '<td ><input type "text"    name ="telefonosc[]" id ="telefonosc[]" value="' . $contactos->telefono . '"></td>'
+                . '<td ><input type "text"    name ="puestosc[]" id ="puestosc[]" value="' . $contactos->puesto . '"></td>'
+                . '</tr>';
+        }
+        echo $tablac;
+        break;
+       
     default:
         # code...
         break;

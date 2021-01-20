@@ -218,4 +218,20 @@ class Empresa
             return 0;
         }
     }
+    public function codigo($tipoe)
+    {
+        try {
+            $con = Conexion::getConexion();
+            $rspt = $con->prepare("SELECT COUNT(*) as total FROM empresas WHERE Tipoe = :tipoe and id_sucursal = :idsucursal");
+            $rspt->bindParam(":tipoe",$tipoe);
+            $rspt->bindParam(":idsucursal",$_SESSION['idsucursal']);
+            $rspt->execute(); 
+            $rspt= $rspt->fetch(PDO::FETCH_OBJ);
+            if ($rspt){
+                return $rspt->total+1;
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
 }

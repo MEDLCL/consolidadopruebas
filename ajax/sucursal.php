@@ -1,7 +1,8 @@
 <?php
 require_once "../config/Conexion.php";
 require_once "../config/funciones.php";
-
+require_once "../modelos/sucursal.php";
+$sucursal = new Sucursal();
 $idsucursal = isset($_POST["idsucursal"]) ? $idsucursal = $_POST["idsucursal"] : $idsucursal = 0;
 $razons = isset($_POST['razons']) ? limpia($_POST['razons']) : $razons = '';
 $nombrec = isset($_POST['nombrec']) ? limpia($_POST['nombrec']) : $nombrec = '';
@@ -26,6 +27,7 @@ switch ($_GET["op"]) {
                 }
             }
             try {
+                $codigo = $sucursal->codigo($nombrec,$pais);
                 $fecha = date("Y-m-d");
                 $estado = 1;
                 $con = Conexion::getConexion();
@@ -151,7 +153,8 @@ switch ($_GET["op"]) {
                 "6" => file_exists("../logos/" . $reg->logo) ? "<img  src='../logos/" . $reg->logo . "'  width= '50px' height= '50px'>" : "<img src=''>",
                 "7" => $reg->identificacion,
                 "8" => $reg->direccion,
-                "9" => ($reg->estado) ? '<span class="label bg-green">Activado</span>' : '<span class="label bg-red">Desactivado</span>'
+                "9" => $reg->codigo,
+                "10" => ($reg->estado) ? '<span class="label bg-green">Activado</span>' : '<span class="label bg-red">Desactivado</span>'
             );
         }
         $results = array(
@@ -162,27 +165,5 @@ switch ($_GET["op"]) {
         );
         echo json_encode($results);
         $con = Conexion::cerrar();
-        break;
-    case 'codigo':
-        try {
-
-            $con = Conexion::getConexion();
-            $con->beginTransaction();
-            $rspt = $con->prepare('SELECT count(*)AS cont FROM sucursal');
-            $rspt->execute();
-            $rspt = $rspt->fetch(PDO::FETCH_OBJ);
-            $cont = $rspt->cont + 1;
-            $codigo = substr($nombrec, 0, 3);
-            $rsppais = $con->prepare("SELECT * FROM pais where idpais = $pais");
-            $rsppais->execute();
-            $rsppais = $rsppais->fetch(PDO::FETCH_OBJ);
-            $codigo = strtoupper($codigo . $rsppais->iniciales . $cont);
-            $con->commit();
-            echo $codigo;
-        } catch (\Throwable $th) {
-            $con->rollBack();
-            $codigo = '';
-            echo $codigo;
-        }
         break;
 }

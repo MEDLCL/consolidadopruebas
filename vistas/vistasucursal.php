@@ -38,6 +38,7 @@ if (!$_SESSION['nombre']) {
                                     <th>Logo</th>
                                     <th>Identificacion</th>
                                     <th>Direccion</th>
+                                    <th>Codigo</th>
                                     <th>Estado</th>
 
                                 </thead>
@@ -54,6 +55,7 @@ if (!$_SESSION['nombre']) {
                                         <td>logo</td>
                                         <td>Identificacion</td>
                                         <td>Direccion</td>
+                                        <td>Codigo</td>
                                         <td>Estado</td>
                                     </tr>
                                 </tbody>
