@@ -27,17 +27,17 @@ switch ($_GET['op']) {
             if ($verifica == 2) {
                 echo $verifica;
             } else if ($verifica == 3) {
-                $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
+             echo   $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
             } else {
                 echo 0;
             }
         }else{
             //actualizacion de empresas
-            $verifica = $empresa->verificaempresaU($razons,$nombresc,$idempresa);
+            $verifica = $empresa->verificaempresaU($razons,$nombrec,$idempresa);
             if ($verifica ==2){
                 echo $verifica;
             }else if ($verifica==3){
-                $res = $empresa->editarE($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
+               echo $res = $empresa->editarE($idempresa,$codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
             }
         }
         break;

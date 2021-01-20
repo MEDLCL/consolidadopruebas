@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 19-01-2021 a las 23:57:38
+-- Tiempo de generación: 20-01-2021 a las 03:33:59
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.34
+-- Versión de PHP: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -115,11 +115,11 @@ CREATE TABLE `contactos_e` (
 --
 
 INSERT INTO `contactos_e` (`id_contacto`, `id_empresa`, `nombre`, `apellido`, `correo`, `telefono`, `puesto`) VALUES
-(1, 4, 'manuel', 'apel', 'it@gmail.com', '3132', 'pueto'),
-(2, 5, 'manuel', 'apeliido', 'it@gmail.com', '3132', 'pueto'),
-(3, 6, 'manuel', 'apeliido', 'it@gmail.com', '3132', 'pueto'),
 (4, 7, 'maritza', 'yaq', 'it@gmail.com', '54578875', 'pueto'),
-(5, 8, 'maritza', 'yaq', 'it@gmail.com', '54578875', 'pueto');
+(5, 8, 'maritza', 'yaq', 'it@gmail.com', '54578875', 'pueto'),
+(8, 4, 'manuel', 'apel', 'it@gmail.com', '3132', 'pueto'),
+(9, 5, 'manuel', 'apeliido', 'it@gmail.com', '3132', 'pueto'),
+(10, 6, 'manuel', 'apeliido', 'it@gmail.com', '3132', 'pueto');
 
 -- --------------------------------------------------------
 
@@ -189,23 +189,24 @@ CREATE TABLE `empresas` (
   `codigo` varchar(25) NOT NULL,
   `estado` tinyint(1) NOT NULL,
   `porcentaje_comision` float NOT NULL,
-  `tipo_comision` varchar(15) NOT NULL
+  `tipo_comision` varchar(15) NOT NULL,
+  `fecha` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `empresas`
 --
 
-INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`) VALUES
-(4, 27, 52, 'manuel', 'comercial', 'nit', 'guatemala', '45456564', 'AE', '1234', 0, 0, ''),
-(5, 27, 52, 'manuel', 'comercial', '1234', 'guatemala', '22123085', 'AE', '1234', 0, 0, ''),
-(6, 27, 52, 'manuel', 'comercial', '1234', 'guatemala', '22123085', 'AE', '1234', 0, 0, ''),
-(7, 27, 52, 'nueva rzon social', 'nombre comercial', 'nit', 'costa rica', '22123085', 'AE', '2', 0, 0, ''),
-(8, 27, 52, 'nueva rzon social', 'nombre comercial', 'nit', 'costa rica', '22123085', 'AE', '3', 0, 0, ''),
-(9, 27, 52, 'MANUEL', 'MANUEL', '1234', 'GUATEMALA', '22123085', 'AE', '1234', 0, 0, ''),
-(10, 27, 52, 'MANUEL', 'COMERCIAL', '1234', 'GUATEMALA', '22123085', 'AE', '', 0, 0, ''),
-(11, 27, 52, 'MANUEL', 'COMERCIAL', '1234', 'GUATEMALA', '22123085', 'AE', '', 0, 0, ''),
-(12, 27, 52, 'ALMADISA RZON SOCIAL', 'ALMADISA NOMBRE COMECIAL', 'nit', 'GUATEMALA', '458665', 'CO', '125', 0, 5, 'cbm');
+INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`, `fecha`) VALUES
+(4, 27, 52, 'RASON SOCIAL CAMBIO A MANUEL', 'COMERCIAL CAMBIO A MANUEL', 'nit', 'guatemala', '45456564', 'AE', '1234', 0, 0, '', '2021-01-19'),
+(5, 27, 52, 'MANUEL ESTUARDO', 'COMERCIAL DE LA CRUZ', '1234', 'guatemala', '22123085', 'AE', '1234', 0, 0, '', '2021-01-19'),
+(6, 27, 52, 'MANUEL MARITZOP', 'COMERCIAL YAQUE', '1234', 'guatemala', '22123085', 'AE', '1234', 0, 0, '', '2021-01-19'),
+(7, 27, 52, 'nueva rzon social', 'nombre comercial', 'nit', 'costa rica', '22123085', 'AE', '2', 0, 0, '', '2021-01-19'),
+(8, 27, 52, 'nueva rzon social', 'nombre comercial', 'nit', 'costa rica', '22123085', 'AE', '3', 0, 0, '', '2021-01-19'),
+(9, 27, 52, 'MANUEL', 'MANUEL', '1234', 'GUATEMALA', '22123085', 'AE', '1234', 0, 0, '', '2021-01-19'),
+(10, 27, 52, 'MANUEL', 'COMERCIAL', '1234', 'GUATEMALA', '22123085', 'AE', '', 0, 0, '', '2021-01-19'),
+(11, 27, 52, 'MANUEL', 'COMERCIAL', '1234', 'GUATEMALA', '22123085', 'AE', '', 0, 0, '', '2021-01-19'),
+(12, 27, 52, 'ALMADISA RZON SOCIAL', 'ALMADISA NOMBRE COMECIAL', 'nit', 'GUATEMALA', '458665', 'CO', '125', 0, 5, 'cbm', '2021-01-19');
 
 -- --------------------------------------------------------
 
@@ -695,7 +696,7 @@ ALTER TABLE `asigna_menu`
 -- AUTO_INCREMENT de la tabla `contactos_e`
 --
 ALTER TABLE `contactos_e`
-  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `depto`

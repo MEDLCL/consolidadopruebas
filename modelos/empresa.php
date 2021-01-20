@@ -57,7 +57,7 @@ class Empresa
             return 0;
         }
     }
-    public function editarE($codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos)
+    public function editarE($idempresa,$codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos)
     {
         $con = Conexion::getConexion();
         try {
@@ -92,7 +92,7 @@ class Empresa
                         $rspt = $con->prepare("INSERT INTO contactos_e(id_empresa,nombre,apellido,correo,telefono,puesto)
                         VALUES (:idempresa,:nombre,:apellido,:correo,:telefono,:puesto)");
                         $contador = count($nombres);
-                        echo $contador;
+                        //echo $contador;
                         while ($cont < count($nombres)) {
                             $rspt->bindParam(":idempresa", $idempresa);
                             $rspt->bindParam(":nombre", $nombres[$cont]);
@@ -146,7 +146,8 @@ class Empresa
                                         C.nombre, C.apellido, C.correo, C.telefono as tel, C.puesto 
                                 FROM empresas as E LEFT JOIN 
                                         contactos_e as C ON E.id_empresa = C.id_empresa
-                                WHERE Tipoe = :tipoe AND id_sucursal = :idsucursal");
+                                WHERE Tipoe = :tipoe AND id_sucursal = :idsucursal
+                                ORDER BY E.id_empresa ASC");
             $rsp->bindParam(":tipoe", $_SESSION['Iniciale']);
             $rsp->bindParam(":idsucursal", $_SESSION['idsucursal']);
             $rsp->execute();
