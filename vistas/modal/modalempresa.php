@@ -134,15 +134,13 @@
                                                         <th>Puesto</th>
                                                     </thead>
                                                     <tbody id="tbodyC">
-
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div> <!-- col md 8 tabla -->
                                     </div>
                                 </div>
-                            </div>
-                        
+                            </div>                   
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -151,7 +149,6 @@
                 </div>
             </div>
         </div>
-        
     </div><!-- row -->
     </form>
 </div><!-- contenedor -->

@@ -234,4 +234,19 @@ class Empresa
             return 0;
         }
     }
+    public  function eliminarContacto($idcontacto){
+        try {
+            $con = Conexion::getConexion();
+            $rspt = $con->prepare("DELETE FROM contactos_e WHERE id_contacto = :idcontacto");
+            $rspt->bindParam(":idcontacto",$idcontacto);
+            $rspt->execute();
+            if ($rspt->rowCount()>0){
+                return 1;
+            }else{
+                return 0;
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
 }

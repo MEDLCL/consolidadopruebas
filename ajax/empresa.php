@@ -19,6 +19,7 @@ $apellidos = isset($_POST['apellidosc']) ? $apellidos = $_POST['apellidosc'] : $
 $correosc = isset($_POST['correosc']) ? $correosc = $_POST['correosc'] : $correosc = array();
 $telefonosc = isset($_POST['telefonosc']) ? $telefonosc = $_POST['telefonosc'] : $telefonosc = array();
 $puestosc = isset($_POST['puestosc']) ? $puestosc =  $_POST['puestosc'] : $puestosc = array();
+$idcontacto = isset($_POST['id_contacto'])?$idcontacto = $_POST['id_contacto']:$idcontacto = 0;
 
 switch ($_GET['op']) {
     case 'guardaryeditar':
@@ -92,7 +93,10 @@ switch ($_GET['op']) {
         }
         echo $tablac;
         break;
-       
+    case 'eliminaC':
+        $res = $empresa->eliminarContacto($idcontacto);
+        echo $res?1:0; 
+        break;
     default:
         # code...
         break;
