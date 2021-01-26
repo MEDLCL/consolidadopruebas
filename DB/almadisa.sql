@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 20-01-2021 a las 03:33:59
+-- Tiempo de generación: 26-01-2021 a las 22:15:22
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.33
+-- Versión de PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,7 @@ SELECT L.id_usuario,
             puesto as P on P.id_puesto = L.id_puesto INNER JOIN
             pais as PA on PA.idpais = S.idpais$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prclogin` (IN `codigol` VARCHAR(30) CHARSET utf8, IN `usuariol` VARCHAR(30) CHARSET utf8, IN `passl` VARCHAR(30) CHARSET utf8)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `prclogin` (IN `codigol` VARCHAR(30) CHARSET utf8, IN `usuariol` VARCHAR(30) CHARSET utf8, IN `passl` VARCHAR(100) CHARSET utf8)  NO SQL
 select L.id_usuario,
 	   L.id_sucursal,
        L.nombre,
@@ -67,6 +67,32 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `almacen`
+--
+
+CREATE TABLE `almacen` (
+  `id_almacen` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_sucursal` int(11) NOT NULL,
+  `id_consignado` int(11) NOT NULL,
+  `codigo` varchar(25) NOT NULL,
+  `contenedor_placa` varchar(50) NOT NULL,
+  `poliza` varchar(50) NOT NULL,
+  `referencia` varchar(50) NOT NULL,
+  `peso` float NOT NULL,
+  `id_medida_peso` int(11) NOT NULL,
+  `volumen` float NOT NULL,
+  `id_medida_volumen` int(11) NOT NULL,
+  `bultos` int(11) NOT NULL,
+  `fecha_almacen` date DEFAULT NULL,
+  `fecha_graba` date NOT NULL,
+  `id_usuario_modifica` int(11) DEFAULT NULL,
+  `fecha_modifica` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `asigna_menu`
 --
 
@@ -85,14 +111,26 @@ INSERT INTO `asigna_menu` (`idasigna_menu`, `id_usuario`, `id_menu`) VALUES
 (56, 55, 9),
 (57, 55, 10),
 (61, 53, 1),
-(67, 52, 1),
-(68, 52, 6),
-(69, 52, 7),
-(70, 52, 8),
-(71, 52, 9),
-(72, 52, 10),
-(73, 52, 12),
-(74, 52, 14);
+(83, 56, 1),
+(84, 56, 6),
+(85, 56, 7),
+(86, 56, 9),
+(87, 56, 10),
+(88, 57, 1),
+(89, 57, 6),
+(90, 57, 7),
+(91, 57, 8),
+(92, 57, 9),
+(93, 52, 1),
+(94, 52, 6),
+(95, 52, 7),
+(96, 52, 8),
+(97, 52, 9),
+(98, 52, 10),
+(99, 52, 12),
+(100, 52, 14),
+(101, 52, 19),
+(102, 52, 20);
 
 -- --------------------------------------------------------
 
@@ -115,10 +153,6 @@ CREATE TABLE `contactos_e` (
 --
 
 INSERT INTO `contactos_e` (`id_contacto`, `id_empresa`, `nombre`, `apellido`, `correo`, `telefono`, `puesto`) VALUES
-(4, 7, 'maritza', 'yaq', 'it@gmail.com', '54578875', 'pueto'),
-(5, 8, 'maritza', 'yaq', 'it@gmail.com', '54578875', 'pueto'),
-(8, 4, 'manuel', 'apel', 'it@gmail.com', '3132', 'pueto'),
-(9, 5, 'manuel', 'apeliido', 'it@gmail.com', '3132', 'pueto'),
 (10, 6, 'manuel', 'apeliido', 'it@gmail.com', '3132', 'pueto');
 
 -- --------------------------------------------------------
@@ -173,6 +207,38 @@ INSERT INTO `depto` (`id_depto`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `detalle_almacen`
+--
+
+CREATE TABLE `detalle_almacen` (
+  `id_detalle` int(11) NOT NULL,
+  `id_almacen` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_embalaje` int(11) NOT NULL,
+  `peso` float NOT NULL,
+  `volumen` float NOT NULL,
+  `nohbl` varchar(50) NOT NULL,
+  `estado` tinyint(1) NOT NULL,
+  `ubicacion` varchar(100) NOT NULL,
+  `resa` varchar(50) DEFAULT NULL,
+  `dti` varchar(50) DEFAULT NULL,
+  `no_cancel` varchar(50) DEFAULT NULL,
+  `no_orden` varchar(50) DEFAULT NULL,
+  `liberado` tinyint(1) DEFAULT NULL,
+  `dut` varchar(50) DEFAULT NULL,
+  `mercaderia` varchar(250) NOT NULL,
+  `observaciones` varchar(250) NOT NULL,
+  `fecha_graba` date NOT NULL,
+  `fecha_modificacion` date NOT NULL,
+  `id_usuario_modifica` int(11) DEFAULT NULL,
+  `bultos_retirados` int(11) DEFAULT NULL,
+  `carga_retenida` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `empresas`
 --
 
@@ -198,15 +264,9 @@ CREATE TABLE `empresas` (
 --
 
 INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`, `fecha`) VALUES
-(4, 27, 52, 'RASON SOCIAL CAMBIO A MANUEL', 'COMERCIAL CAMBIO A MANUEL', 'nit', 'guatemala', '45456564', 'AE', '1234', 0, 0, '', '2021-01-19'),
-(5, 27, 52, 'MANUEL ESTUARDO', 'COMERCIAL DE LA CRUZ', '1234', 'guatemala', '22123085', 'AE', '1234', 0, 0, '', '2021-01-19'),
-(6, 27, 52, 'MANUEL MARITZOP', 'COMERCIAL YAQUE', '1234', 'guatemala', '22123085', 'AE', '1234', 0, 0, '', '2021-01-19'),
-(7, 27, 52, 'nueva rzon social', 'nombre comercial', 'nit', 'costa rica', '22123085', 'AE', '2', 0, 0, '', '2021-01-19'),
-(8, 27, 52, 'nueva rzon social', 'nombre comercial', 'nit', 'costa rica', '22123085', 'AE', '3', 0, 0, '', '2021-01-19'),
-(9, 27, 52, 'MANUEL', 'MANUEL', '1234', 'GUATEMALA', '22123085', 'AE', '1234', 0, 0, '', '2021-01-19'),
-(10, 27, 52, 'MANUEL', 'COMERCIAL', '1234', 'GUATEMALA', '22123085', 'AE', '', 0, 0, '', '2021-01-19'),
-(11, 27, 52, 'MANUEL', 'COMERCIAL', '1234', 'GUATEMALA', '22123085', 'AE', '', 0, 0, '', '2021-01-19'),
-(12, 27, 52, 'ALMADISA RZON SOCIAL', 'ALMADISA NOMBRE COMECIAL', 'nit', 'GUATEMALA', '458665', 'CO', '125', 0, 5, 'cbm', '2021-01-19');
+(20, 27, 52, 'MANUEL DE LA CRUZ', 'MANUEL', 'c/f', 'GUATEMALA', '22123085', 'AE', '', 0, 0, '', '2021-01-20'),
+(21, 27, 52, 'CODIGO 11', 'COMERCIAL', 'c/f', 'GAUTEA', '22123085', 'AE', '', 0, 0, '', '2021-01-20'),
+(22, 27, 52, 'SERVICIOS COMERCIALES', 'SERCOGUA', '2315645', 'GUATEMALA', '22123085', 'AE', '3', 0, 0, '', '2021-01-20');
 
 -- --------------------------------------------------------
 
@@ -233,10 +293,8 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id_usuario`, `id_sucursal`, `id_depto`, `id_puesto`, `acceso`, `pass`, `avatar`, `nombre`, `apellido`, `correo`, `estado`) VALUES
-(52, 27, 3, 6, '123456', '123456', '1608505306.png', 'Manuel', 'De La Cruz', 'manuelcruz86@gmail.com', 1),
-(53, 27, 1, 5, '1234', '1234', '', 'maritza', 'De La Cruz', 'itguatemala@gmail.com', 1),
-(54, 27, 2, 5, '1234', '1234', '', 'cambio uno', 'De La Cruz', 'manuelcruz86@gmail.com', 1),
-(55, 27, 1, 1, '1234', '1234', '', 'categoria', 'De La Cruz', 'itguatemala@gmail.com', 1);
+(52, 27, 3, 6, '123456', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1608505306.png', 'Manuel', 'De La Cruz', 'manuelcruz86@gmail.com', 1),
+(53, 27, 1, 5, '1234', '1234', '', 'maritza', 'De La Cruz', 'itguatemala@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -268,7 +326,9 @@ INSERT INTO `menu` (`id_menu`, `nombre`, `id_Padre`) VALUES
 (15, 'Embarcador', 8),
 (16, 'Naviera', 8),
 (17, 'Proveedor', 8),
-(18, 'Transportista', 8);
+(18, 'Transportista', 8),
+(19, 'Almacen', 0),
+(20, 'Kardex', 19);
 
 -- --------------------------------------------------------
 
@@ -604,12 +664,19 @@ CREATE TABLE `sucursal` (
 --
 
 INSERT INTO `sucursal` (`id_sucursal`, `razons`, `nombrec`, `Telefono`, `identificacion`, `direccion`, `logo`, `fechaingreso`, `estado`, `idpais`, `codigo`) VALUES
+(0, 'ALAMDISA DE NICARAGUA', 'ALMADISA DE NUCA', '50222123085', 'identi', 'nicaragua', '', '2021-01-20', 1, 0, 'ALMNI3'),
 (1, 'Servicios Comerciales de Guatemala', 'Sercogua', '50223037000', '22354589', '0 calle b 17-10 colonia el maestro zona 15, Guatemala', 'logo2.jfif', '2021-01-06', 1, 92, 'SERGT1'),
 (27, 'Almacenamiento Manejo y Distribuci&oacute;n de Guatemala', 'Almadisa', '50222123085', '123445', 'Interior Alpasa', '', '2021-01-06', 1, 92, 'ALMGT1');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `almacen`
+--
+ALTER TABLE `almacen`
+  ADD PRIMARY KEY (`id_almacen`);
 
 --
 -- Indices de la tabla `asigna_menu`
@@ -637,6 +704,12 @@ ALTER TABLE `continente`
 --
 ALTER TABLE `depto`
   ADD PRIMARY KEY (`id_depto`);
+
+--
+-- Indices de la tabla `detalle_almacen`
+--
+ALTER TABLE `detalle_almacen`
+  ADD PRIMARY KEY (`id_detalle`);
 
 --
 -- Indices de la tabla `empresas`
@@ -687,10 +760,16 @@ ALTER TABLE `sucursal`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `almacen`
+--
+ALTER TABLE `almacen`
+  MODIFY `id_almacen` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `asigna_menu`
 --
 ALTER TABLE `asigna_menu`
-  MODIFY `idasigna_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `idasigna_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT de la tabla `contactos_e`
@@ -705,22 +784,28 @@ ALTER TABLE `depto`
   MODIFY `id_depto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT de la tabla `detalle_almacen`
+--
+ALTER TABLE `detalle_almacen`
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `pais`
