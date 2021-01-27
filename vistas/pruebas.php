@@ -52,20 +52,35 @@ if (!$_SESSION['nombre']) {
                             </div>
                             <div class="panel panel-default">
                                 <div class="panel-body table-responsive">
-                                    <table class="table table-bordered table-hover table-responsive table-hover" id="Tkardex" >
+                                    <table class="table table-bordered table-hover table-responsive table-hover" id="Tkardex">
                                         <thead>
                                             <tr>
-                                                <th>Editar</th>
-                                                <th>Activar/Desactivar</th>
-                                                <th>Nombre</th>
-                                                <th>Apellido</th>
-                                                <th>Correo</th>
-                                                <th>Login</th>
-                                                <th>Sucursal</th>
-                                                <th>Depto</th>
-                                                <th>Puesto</th>
-                                                <th>Avatar</th>
-                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                                <th>Estatus</th>
+                                                <th>Año</th>
+                                                <th>Codigo</th>
+                                                <th>Consignado A</th>
+                                                <th>Contenedor</th>
+                                                <th>Poliza</th>
+                                                <th>Referencia</th>
+                                                <th>Fecha Ingreso</th>
+                                                <th>Cliente Final</th>
+                                                <th>Cant. Clientes</th>
+                                                <th>No. HBL</th>
+                                                <th>Mercaderia</th>
+                                                <th>Peso</th>
+                                                <th>Volumen</th>
+                                                <th>Bultos</th>
+                                                <th>Ubicacion</th>
+                                                <th>Linea</th>
+                                                <th>No. Resa</th>
+                                                <th>Fecha Retiro</th>
+                                                <th>Dias Almacenaje</th>
+                                                <th>Dias Libres Almacenaje</th>
+                                                <th>Almacenaje</th>
+                                                <th>Gastos</th>
+                                                <th>Cif</th>
+                                                <th>Impuestos</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -89,7 +104,20 @@ if (!$_SESSION['nombre']) {
                                                         </li>
                                                     </ul>
                                                 </td>
-                                                <td><button><span class="btn btn-danger fa  fa-power-off"></span></button></td>
+                                                <td class="text-right">
+                                                    <div class="btn-group dropleft">
+                                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Acciones
+                                                        </button>
+                                                        <div class="dropdown-menu" x-placement="left-start" style="position: absolute; transform: translate3d(-2px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                            <a class="dropdown-item" href="#" title="Editar cliente" onclick="obtener_datos('177');" data-toggle="modal" data-target="#myModal2"><i class="fa fa-edit"></i> Editar</a>
+                                                            <a class="dropdown-item" href="#" title="Agregar contacto" data-toggle="modal" data-id="177" data-cliente="Jose Luis " data-target="#agregar"><i class="fa fa-user"></i> Agregar contacto</a>
+                                                            <a class="dropdown-item" href="#" title="Borrar cliente" onclick="eliminar('177')"><i class="fa fa-trash"></i> Eliminar</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+
                                             </tr>
                                         </tbody>
                                     </table>

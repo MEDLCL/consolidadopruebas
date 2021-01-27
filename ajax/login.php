@@ -10,9 +10,8 @@ switch ($_GET['op']) {
     case 'ingreso':
 
         $con = Conexion::getConexion();
-            $passa = hash("sha256",$passa);
         try {
-           // $passa = hash("SHA256",$passa);
+           $passa = hash("SHA256",$passa);
             $stmt = $con->prepare('CALL prclogin(:codigo,:user,:pass);');
             $stmt->bindParam(':codigo', $codigol);
             $stmt->bindParam(':user', $usuarioa);
