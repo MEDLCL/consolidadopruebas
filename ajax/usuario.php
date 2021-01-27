@@ -82,6 +82,7 @@ switch ($op) {
                     move_uploaded_file($_FILES['avatar']['tmp_name'], "../img/avatar/" . $avatar);
                 }
             }
+            $pass = hash("SHA256",$pass);
             $res =   $usuario->insertar($nombre, $apellido, $correo, $acceso, $pass, $idsucursal, $iddepto, $idpuesto, $avatar, $menuitem);
             echo isset($res) ? "Usuario Registrado" : "Error No se pudo Registrar Usuario";
         } else {

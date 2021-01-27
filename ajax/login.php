@@ -11,6 +11,7 @@ switch ($_GET['op']) {
 
         $con = Conexion::getConexion();
         try {
+           // $passa = hash("SHA256",$passa);
             $stmt = $con->prepare('CALL prclogin(:codigo,:user,:pass);');
             $stmt->bindParam(':codigo', $codigol);
             $stmt->bindParam(':user', $usuarioa);
