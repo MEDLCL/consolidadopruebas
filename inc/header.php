@@ -7,7 +7,7 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><img src="../logos/<?php echo $_SESSION['logo'];  ?>" alt="logo" height="50px"> </span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>SERCOGUA</b></span>
+                <span class="logo-lg"><b>SCS-ACS</b></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -77,7 +77,7 @@
                                             Embarcador</a></li>
                                 <?php endif; ?>
                                 <?php if ($_SESSION['AgenciaC'] == 1) : ?>
-                                    
+
                                     <li><a href="empresas.php?tipo=agenciac"><i class="fa fa-building"></i> Agencia de Carga</a>
                                     </li>
                                 <?php endif; ?>
@@ -87,22 +87,22 @@
                                 <?php if ($_SESSION['Almacenadora'] == 1) : ?>
                                     <li><a href="empresas.php?tipo=almacen"><i class="fa fa-building"></i>Almacenadora</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Consignatario'] == 1) :?>
+                                <?php if ($_SESSION['Consignatario'] == 1) : ?>
                                     <li><a href="empresas.php?tipo=cliente"><i class="fa fa-building"></i>Consignatario</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Consignado'] == 1) :?>
+                                <?php if ($_SESSION['Consignado'] == 1) : ?>
                                     <li><a href="empresas.php?tipo=consignado"><i class="fa fa-building"></i>Consignado</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Embarcador'] == 1) :?>
+                                <?php if ($_SESSION['Embarcador'] == 1) : ?>
                                     <li><a href="empresas.php?tipo=embarcador"><i class="fa fa-building"></i>Embarcador</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Naviera'] == 1) :?>
+                                <?php if ($_SESSION['Naviera'] == 1) : ?>
                                     <li><a href="empresas.php?tipo=naviera"><i class="fa fa-building"></i>Naviera</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Proveedor'] == 1) :?>
+                                <?php if ($_SESSION['Proveedor'] == 1) : ?>
                                     <li><a href="empresas.php?tipo=proveedor"><i class="fa fa-building"></i>Proveedor</a></li>
                                 <?php endif; ?>
-                                <?php if ($_SESSION['Transportista'] == 1) :?>
+                                <?php if ($_SESSION['Transportista'] == 1) : ?>
                                     <li><a href="empresas.php?tipo=transporte"><i class="fa fa-building"></i>Transportista</a></li>
                                 <?php endif; ?>
 
@@ -114,8 +114,8 @@
                             <i class="fa fa-shopping-cart"></i>
                             <span>Ventas</span>
                             <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a>
@@ -128,10 +128,10 @@
                     </li>
                     <li class='treeview'>
                         <a href="#">
-                            <i class="fa fa-ship"></i><i class="fa fa-plane"></i><i class="fa fa-truck"></i> 
+                            <i class="fa fa-ship"></i><i class="fa fa-plane"></i><i class="fa fa-truck"></i>
                             <span>Operaciones</span>
                             <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
+                                <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class='treeview-menu'>
@@ -157,6 +157,7 @@
                             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
                         </ul>
                     </li>
+
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-usd"></i>
@@ -174,6 +175,7 @@
                             <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
                         </ul>
                     </li>
+
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-usd"></i> <span>Pagos</span>
@@ -201,15 +203,22 @@
                             <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="pages/calendar.html">
-                            <i class="fa fa-square"></i> <span>Almacen</span>
-                            <span class="pull-right-container">
-                                <small class="label pull-right bg-red">3</small>
-                                <small class="label pull-right bg-blue">17</small>
-                            </span>
-                        </a>
-                    </li>
+                    <?php if ($_SESSION['Almacen'] == 1) : ?>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-square"></i> <span>Almacen</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <?php if ($_SESSION['Kardex'] == 1) : ?>
+                                    <li><a href="kardex.php"><i class="fa fa-circle-o"></i>Kardex</a></li>
+                                <?php endif; ?>
+                                <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
                     <li>
                         <a href="pages/mailbox/mailbox.html">
                             <i class="fa fa-envelope"></i> <span>Recepciòn</span>

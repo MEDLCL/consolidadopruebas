@@ -20,8 +20,6 @@ $menuitem = isset($_POST["consultar"]) ? $menuitem = $_POST["consultar"] : $menu
 
 switch ($op) {
     case 'permisos':
-
-
         $tabla = '<thead>
                     <tr>
                         <th>Id</th>
@@ -103,6 +101,7 @@ switch ($op) {
                     }
                 }
             }
+            $pass = hash("sha256",$pass);
             $res = $usuario->editar($idusuario, $nombre, $apellido, $correo, $acceso, $pass, $idsucursal, $iddepto, $idpuesto, $avatar, $menuitem);
             echo isset($res) ? "Usuario Actualizado" : "Error No se pudo Actualizar Usuario";
         }

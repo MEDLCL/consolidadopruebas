@@ -10,6 +10,7 @@ switch ($_GET['op']) {
     case 'ingreso':
 
         $con = Conexion::getConexion();
+            $passa = hash("sha256",$passa);
         try {
            // $passa = hash("SHA256",$passa);
             $stmt = $con->prepare('CALL prclogin(:codigo,:user,:pass);');
@@ -58,6 +59,9 @@ switch ($_GET['op']) {
                 in_array(16, $arraypermisos) ? $_SESSION['Naviera'] = 1 : $_SESSION['Naviera'] = 0;
                 in_array(17, $arraypermisos) ? $_SESSION['Proveedor'] = 1 : $_SESSION['Proveedor'] = 0;
                 in_array(18, $arraypermisos) ? $_SESSION['Transportista'] = 1 : $_SESSION['Transportista'] = 0;
+
+                in_array(19, $arraypermisos) ? $_SESSION['Almacen'] = 1 : $_SESSION['Almacen'] = 0;
+                in_array(20, $arraypermisos) ? $_SESSION['Kardex'] = 1 : $_SESSION['Kardex'] = 0;
                 echo 1;
             } else {
                 echo 0;

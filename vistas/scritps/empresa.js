@@ -36,8 +36,18 @@ function registrarc() {
     $('#Tcontactos').append(fila);
 }
 //funcion para eliminar fila de la tabla contactos
-function eliminarfila(cont) {
-    $('#fila' + cont).remove();
+function eliminarfila(id_contacto) {         
+$.post("../ajax/empresa.php?op=eliminaC",
+        {id_contacto:id_contacto},
+        function(data){
+            if (data==1){
+                $('#fila' + id_contacto).remove();
+                alertify.warning("Contacto eliminado");
+            }else{
+                alertify.error("Contacto no se pudo eliminar");
+            }
+        }
+);
 }
 
 function limpiar() {
