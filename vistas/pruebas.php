@@ -20,21 +20,38 @@ if (!$_SESSION['nombre']) {
                         <div class="box">
                             <div class="box-header with-border">
                                 <h3>KARDEX</h3>
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#modalempresa">Agregar
-                                    Nuevo
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button>
                             </div>
                             <div class="panel panel-primary">
                                 <div class="panel-heading"></div>
                                 <div class="panel-body">
-                                    <div class="form-group">
-                                        <label for="codigo" class="control-label">Codigo:</label>
-                                        <input type="text" class="form-control" id="codigo" placeholder="codigo" name="codigo">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Codigo:</label>
+                                            <input type="hidden" name="idconsignado" id="idconsignado">
+                                            <input type="text" class="form-control" name="nombre" id="nombre" readonly>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="codigo" class="control-label">Codigo:</label>
-                                        <input type="text" name="codigo" id="codigo" class="form-control" style="width:150px">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="">Consignado*</label>
+                                                <table class="" width="100%">
+                                                    <tbody>
+                                                        <tr class="">
+                                                            <td width="90%">
+                                                                <select id="my-select" class="input-control selectpicker form-control "data-live-search="true" name="">
+                                                                    <option>Text</option>
+                                                                </select></td>
+                                                            <td>
+                                                                <button class="btn btn-info">
+                                                                    <span class="fa fa-cog"></span>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +76,7 @@ if (!$_SESSION['nombre']) {
                                                 <th>Estatus</th>
                                                 <th>Año</th>
                                                 <th>Codigo</th>
-                                                <th>Consignado A</th>
+                                                <th>Consignado</th>
                                                 <th>Contenedor</th>
                                                 <th>Poliza</th>
                                                 <th>Referencia</th>
@@ -86,38 +103,23 @@ if (!$_SESSION['nombre']) {
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <ul class="sidebar-menu" data-widget="tree">
-                                                        <li class='treeview'>
-                                                            <a href="#">
-                                                                <i class="fa fa-ship"></i>
-                                                                <span>Acciones</span>
-                                                                <span class="pull-right-container">
-                                                                    <i class="fa fa-angle-left pull-right"></i>
-                                                                </span>
-                                                            </a>
-                                                            <ul class='treeview-menu'>
-                                                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                                                                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                                                                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                                                                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                                <td class="text-right">
-                                                    <div class="btn-group dropleft">
-                                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
+                                                            <span class="fa fa-cog"></span>
                                                             Acciones
+                                                            <span class="caret"></span>
+                                                            <span class="sr-only">Desplegar menú</span>
                                                         </button>
-                                                        <div class="dropdown-menu" x-placement="left-start" style="position: absolute; transform: translate3d(-2px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                            <a class="dropdown-item" href="#" title="Editar cliente" onclick="obtener_datos('177');" data-toggle="modal" data-target="#myModal2"><i class="fa fa-edit"></i> Editar</a>
-                                                            <a class="dropdown-item" href="#" title="Agregar contacto" data-toggle="modal" data-id="177" data-cliente="Jose Luis " data-target="#agregar"><i class="fa fa-user"></i> Agregar contacto</a>
-                                                            <a class="dropdown-item" href="#" title="Borrar cliente" onclick="eliminar('177')"><i class="fa fa-trash"></i> Eliminar</a>
-                                                        </div>
+
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="#">Acción #1</a></li>
+                                                            <li><a href="#">Acción #2</a></li>
+                                                            <li><a href="#">Acción #3</a></li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="#">Acción #4</a></li>
+                                                        </ul>
                                                     </div>
                                                 </td>
-
-
                                             </tr>
                                         </tbody>
                                     </table>

@@ -58,7 +58,6 @@
 
                 <div class="form-group has-feedback">
                     <input type="text" id="logina" name="logina" class="form-control" placeholder="Usuario">
-
                     <span class="fa fa-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
