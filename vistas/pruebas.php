@@ -20,10 +20,6 @@ if (!$_SESSION['nombre']) {
                         <div class="box">
                             <div class="box-header with-border">
                                 <h3>KARDEX</h3>
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#modalempresa">Agregar
-                                    Nuevo
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button>
                             </div>
                             <div class="panel panel-primary">
                                 <div class="panel-heading"></div>
@@ -76,7 +72,7 @@ if (!$_SESSION['nombre']) {
                                                 <th>Estatus</th>
                                                 <th>Año</th>
                                                 <th>Codigo</th>
-                                                <th>Consignado A</th>
+                                                <th>Consignado</th>
                                                 <th>Contenedor</th>
                                                 <th>Poliza</th>
                                                 <th>Referencia</th>
@@ -102,6 +98,7 @@ if (!$_SESSION['nombre']) {
                                         </thead>
                                         <tbody>
                                             <tr>
+<<<<<<< HEAD
                                                 <td class="text-right">
                                                     <div class="btn-group">
                                                         <!-- <button type="button" class="btn btn-danger">acciones</button> -->
@@ -109,6 +106,17 @@ if (!$_SESSION['nombre']) {
                                                             Acciones <span class="caret"></span>
                                                             <span class="sr-only">Desplegar menú</span>
                                                         </button>
+=======
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
+                                                            <span class="fa fa-cog"></span>
+                                                            Acciones
+                                                            <span class="caret"></span>
+                                                            <span class="sr-only">Desplegar menú</span>
+                                                        </button>
+
+>>>>>>> 6b784b6bd998ea73c8cd40ead5b87576d1fddf8b
                                                         <ul class="dropdown-menu" role="menu">
                                                             <li><a href="#">Acción #1</a></li>
                                                             <li><a href="#">Acción #2</a></li>
@@ -118,9 +126,12 @@ if (!$_SESSION['nombre']) {
                                                         </ul>
                                                     </div>
                                                 </td>
+<<<<<<< HEAD
                                                 <td>
 
                                                 </td>
+=======
+>>>>>>> 6b784b6bd998ea73c8cd40ead5b87576d1fddf8b
                                             </tr>
                                         </tbody>
                                     </table>
