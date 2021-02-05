@@ -16,7 +16,7 @@ if (!$_SESSION['nombre']) {
 
             <form action="" method="POST" role="form">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="box">
                             <div class="box-header with-border">
                                 <h3>KARDEX</h3>
@@ -28,13 +28,30 @@ if (!$_SESSION['nombre']) {
                             <div class="panel panel-primary">
                                 <div class="panel-heading"></div>
                                 <div class="panel-body">
-                                    <div class="form-group">
-                                        <label for="codigo" class="control-label">Codigo:</label>
-                                        <input type="text" class="form-control" id="codigo" placeholder="codigo" name="codigo">
+                                    <div class="form-group col-lg-8">
+                                        <label>Número(*):</label>
+                                        <input type="text" class="form-control" name="num_documento" id="num_documento" maxlength="20" placeholder="Documento" required>
+                                    </div>
+                                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <label>Dirección:</label>
+                                        <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Dirección" maxlength="70">
                                     </div>
                                     <div class="form-group">
                                         <label for="codigo" class="control-label">Codigo:</label>
-                                        <input type="text" name="codigo" id="codigo" class="form-control" style="width:150px">
+                                        <input type="text" class="form-control" id="codigo" placeholder="codigo" name="codigo" readonly>
+                                    </div>
+                                   
+                                    <div class="form-group col-lg-10">
+                                        <label>Tipo Documento(*):</label>
+                                        <select class="form-control select-picker" name="tipo_documento" id="tipo_documento" required>
+                                            <option value="DNI">DNI</option>
+                                            <option value="RUC">RUC</option>
+                                            <option value="CEDULA">CEDULA</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-lg-2">
+                                        <label>Número(*):</label>
+                                        <input type="text" class="form-control" name="num_documento" id="num_documento" maxlength="20" placeholder="Documento" required>
                                     </div>
                                 </div>
                             </div>
@@ -85,39 +102,25 @@ if (!$_SESSION['nombre']) {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
-                                                    <ul class="sidebar-menu" data-widget="tree">
-                                                        <li class='treeview'>
-                                                            <a href="#">
-                                                                <i class="fa fa-ship"></i>
-                                                                <span>Acciones</span>
-                                                                <span class="pull-right-container">
-                                                                    <i class="fa fa-angle-left pull-right"></i>
-                                                                </span>
-                                                            </a>
-                                                            <ul class='treeview-menu'>
-                                                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                                                                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                                                                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                                                                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </td>
                                                 <td class="text-right">
-                                                    <div class="btn-group dropleft">
-                                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            Acciones
+                                                    <div class="btn-group">
+                                                        <!-- <button type="button" class="btn btn-danger">acciones</button> -->
+                                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                            Acciones <span class="caret"></span>
+                                                            <span class="sr-only">Desplegar menú</span>
                                                         </button>
-                                                        <div class="dropdown-menu" x-placement="left-start" style="position: absolute; transform: translate3d(-2px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                            <a class="dropdown-item" href="#" title="Editar cliente" onclick="obtener_datos('177');" data-toggle="modal" data-target="#myModal2"><i class="fa fa-edit"></i> Editar</a>
-                                                            <a class="dropdown-item" href="#" title="Agregar contacto" data-toggle="modal" data-id="177" data-cliente="Jose Luis " data-target="#agregar"><i class="fa fa-user"></i> Agregar contacto</a>
-                                                            <a class="dropdown-item" href="#" title="Borrar cliente" onclick="eliminar('177')"><i class="fa fa-trash"></i> Eliminar</a>
-                                                        </div>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="#">Acción #1</a></li>
+                                                            <li><a href="#">Acción #2</a></li>
+                                                            <li><a href="#">Acción #3</a></li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="#">Acción #4</a></li>
+                                                        </ul>
                                                     </div>
                                                 </td>
+                                                <td>
 
-
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
