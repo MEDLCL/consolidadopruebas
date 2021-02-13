@@ -29,7 +29,7 @@
                                                     <!-- <form class="form-horizontal"> -->
                                                     <div class="form-group">
                                                         <label for="codigo" class="control-label">Codigo:</label>
-                                                        <input type="text" name="codigo" id="codigo" class="form-control" style="width:150px">
+                                                        <input type="text" name="codigo" id="codigo" class="form-control" style="width:150px" readonly>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Razons" class="control-label">Razon

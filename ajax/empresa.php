@@ -20,7 +20,7 @@ $correosc = isset($_POST['correosc']) ? $correosc = $_POST['correosc'] : $correo
 $telefonosc = isset($_POST['telefonosc']) ? $telefonosc = $_POST['telefonosc'] : $telefonosc = array();
 $puestosc = isset($_POST['puestosc']) ? $puestosc =  $_POST['puestosc'] : $puestosc = array();
 $idcontacto = isset($_POST['id_contacto'])?$idcontacto = $_POST['id_contacto']:$idcontacto = 0;
-
+$res = 0;
 switch ($_GET['op']) {
     case 'guardaryeditar':
         if ($idempresa == 0) {
@@ -28,8 +28,10 @@ switch ($_GET['op']) {
             if ($verifica == 2) {
                 echo $verifica;
             } else if ($verifica == 3) {
-                $codigo = $empresa->codigo($tipoE);
-                echo   $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
+                $codigo =$empresa->codigo($tipoE); 
+                $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
+                echo $res;
+
             } else {
                 echo 0;
             }

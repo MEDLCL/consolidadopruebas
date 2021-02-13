@@ -105,3 +105,13 @@
 </body>
 
 </html>
+<script>
+    $(document).ready(function(){
+        $('input').keypress(function (e){
+            if (e.keyCode==13){
+                e.preventDefault();
+                ingresar();
+            }
+        });
+    });
+</script>

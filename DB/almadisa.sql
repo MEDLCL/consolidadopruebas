@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 26-01-2021 a las 22:15:22
+-- Tiempo de generación: 13-02-2021 a las 05:33:34
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.34
+-- Versión de PHP: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -153,7 +153,12 @@ CREATE TABLE `contactos_e` (
 --
 
 INSERT INTO `contactos_e` (`id_contacto`, `id_empresa`, `nombre`, `apellido`, `correo`, `telefono`, `puesto`) VALUES
-(10, 6, 'manuel', 'apeliido', 'it@gmail.com', '3132', 'pueto');
+(18, 32, 'francisco', 'taquira', 'accguatemala3@sercogua.com', '2303-7000', 'cobros'),
+(19, 33, 'francisco', 'taquira', 'accguatemala3@sercogua.com', '2303-7000', 'cobros'),
+(20, 34, 'francisco', 'taquira', 'accguatemala3@sercogua.com', '2303-7000', 'cobros'),
+(21, 35, 'francisco', 'taquira', 'accguatemala3@sercogua.com', '2303-7000', 'cobros'),
+(22, 36, 'francisco', 'taquira', 'accguatemala3@sercogua.com', '2303-7000', 'cobros'),
+(23, 37, 'francisco', 'taquira', 'accguatemala3@sercogua.com', '2303-7000', 'cobros');
 
 -- --------------------------------------------------------
 
@@ -253,7 +258,7 @@ CREATE TABLE `empresas` (
   `telefono` varchar(50) NOT NULL,
   `Tipoe` varchar(25) NOT NULL,
   `codigo` varchar(25) NOT NULL,
-  `estado` tinyint(1) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT 1,
   `porcentaje_comision` float NOT NULL,
   `tipo_comision` varchar(15) NOT NULL,
   `fecha` date NOT NULL DEFAULT current_timestamp()
@@ -264,9 +269,10 @@ CREATE TABLE `empresas` (
 --
 
 INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`, `fecha`) VALUES
-(20, 27, 52, 'MANUEL DE LA CRUZ', 'MANUEL', 'c/f', 'GUATEMALA', '22123085', 'AE', '', 0, 0, '', '2021-01-20'),
-(21, 27, 52, 'CODIGO 11', 'COMERCIAL', 'c/f', 'GAUTEA', '22123085', 'AE', '', 0, 0, '', '2021-01-20'),
-(22, 27, 52, 'SERVICIOS COMERCIALES', 'SERCOGUA', '2315645', 'GUATEMALA', '22123085', 'AE', '3', 0, 0, '', '2021-01-20');
+(38, 27, 52, 'MANUEL ESTUARDO', 'ALMADISA', 'identi', 'OAOAOK', '451564', 'CO', '1', 1, 0, '', '2021-02-08'),
+(39, 27, 52, 'MANUEL ESTUARDO1', 'ALMADISA1', 'identi', 'SDF', '451564', 'CO', '2', 1, 0, '', '2021-02-08'),
+(40, 27, 52, 'PRUEBA DE RZON SOCIAL AGENTE', 'ALMADISA 34', '1234', 'ASDF', '22123085', 'CO', '3', 1, 0, '', '2021-02-08'),
+(41, 27, 52, 'LEADER GROUP', 'LEADER', '45668', 'CHINA', '45235669', 'AE', '1', 1, 0, '', '2021-02-09');
 
 -- --------------------------------------------------------
 
@@ -775,7 +781,7 @@ ALTER TABLE `asigna_menu`
 -- AUTO_INCREMENT de la tabla `contactos_e`
 --
 ALTER TABLE `contactos_e`
-  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `depto`
@@ -793,7 +799,7 @@ ALTER TABLE `detalle_almacen`
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `login`

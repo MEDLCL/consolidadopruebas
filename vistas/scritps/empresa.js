@@ -36,18 +36,17 @@ function registrarc() {
     $('#Tcontactos').append(fila);
 }
 //funcion para eliminar fila de la tabla contactos
-function eliminarfila(id_contacto) {         
-$.post("../ajax/empresa.php?op=eliminaC",
-        {id_contacto:id_contacto},
-        function(data){
-            if (data==1){
+function eliminarfila(id_contacto) {
+    $.post("../ajax/empresa.php?op=eliminaC", { id_contacto: id_contacto },
+        function(data) {
+            if (data == 1) {
                 $('#fila' + id_contacto).remove();
                 alertify.warning("Contacto eliminado");
-            }else{
+            } else {
                 alertify.error("Contacto no se pudo eliminar");
             }
         }
-);
+    );
 }
 
 function limpiar() {
@@ -72,7 +71,7 @@ function limpiar() {
 
 function nuevo(tipoe) {
     limpiar();
-    $("#codigo").prop("readonly",true)
+    $("#codigo").prop("readonly", true)
     var tipo = '';
     if (tipoe == 'agentee') {
         tipo = 'AE';
@@ -100,7 +99,6 @@ function nuevo(tipoe) {
 }
 
 function grabareditar() {
-    $("#codigo").prop("readonly",false)
     var rasons = $('#Razons').val();
     var nombrec = $('#Nombrec').val();
     var nit = $('#identificacion').val();
@@ -121,39 +119,40 @@ function grabareditar() {
         $('#identificacion').val('c/f');
     }
 
-/* var form = new FormData($('#frmempresa')[0]);
-    //genera codigo
-    if ($("#idempresa").val() == 0) {
-        $.ajax({
-            url: "../ajax/empresa.php?op=codigo",
-            type: "POST",
-            data: form,
-            contentType: false,
-            processData: false,
-            success: function(datos) {
-                $('#codigo').val(datos);
-            }
-        });
-    } */
-var form = new FormData($('#frmempresa')[0]);
-        $.ajax({
-            url: '../ajax/empresa.php?op=guardaryeditar',
-            type: 'POST',
-            data: form,
-            contentType: false,
-            processData: false,
-            success: function(datos) {
-                if (datos == 1) {
-                    $('#Tempresas').DataTable().ajax.reload();
-                    alertify.success('Proceso Realizado con exito');
-                    $("#modalempresa").modal("hide");
-                } else if (datos == 2) {
-                    alertify.warning('Datos Duplicados', 'Empresa ya registrada');
-                } else {
-                    alertify.error('Proceso no se pudo realizar') + ' ' + datos;
+    /* var form = new FormData($('#frmempresa')[0]);
+        //genera codigo
+        if ($("#idempresa").val() == 0) {
+            $.ajax({
+                url: "../ajax/empresa.php?op=codigo",
+                type: "POST",
+                data: form,
+                contentType: false,
+                processData: false,
+                success: function(datos) {
+                    $('#codigo').val(datos);
                 }
+            });
+        } */
+    var form = new FormData($('#frmempresa')[0]);
+    $.ajax({
+        url: '../ajax/empresa.php?op=guardaryeditar',
+        type: 'POST',
+        data: form,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(datos) {
+            if (datos == 1) {
+                $('#Tempresas').DataTable().ajax.reload();
+                alertify.success('Proceso Realizado con exito');
+                $("#modalempresa").modal("hide");
+            } else if (datos == 2) {
+                alertify.warning('Datos Duplicados', 'Empresa ya registrada');
+            } else {
+                alertify.error('Proceso no se pudo realizar') + ' ' + datos;
             }
-        });
+        }
+    });
 }
 
 function listar() {
@@ -180,7 +179,7 @@ function listar() {
 
 function mostrarempresa(idempresa) {
     limpiar();
-    $("#codigo").prop("readonly",false)
+    $("#codigo").prop("readonly", false)
     $.post("../ajax/empresa.php?op=mostrare", { idempresa: idempresa },
         function(data, status) {
             data = JSON.parse(data);
