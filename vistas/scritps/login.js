@@ -2,6 +2,7 @@ function init() {
 
 }
 
+
 function ingresar() {
     var codigol = $('#codigol').val();
     var logina = $("#logina").val();

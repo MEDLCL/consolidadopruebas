@@ -16,7 +16,7 @@ if (!$_SESSION['nombre']) {
 
             <form action="" method="POST" role="form">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div class="box">
                             <div class="box-header with-border">
                                 <h3>KARDEX</h3>
@@ -24,30 +24,34 @@ if (!$_SESSION['nombre']) {
                             <div class="panel panel-primary">
                                 <div class="panel-heading"></div>
                                 <div class="panel-body">
-                                    <div class="form-group col-lg-8">
-                                        <label>Número(*):</label>
-                                        <input type="text" class="form-control" name="num_documento" id="num_documento" maxlength="20" placeholder="Documento" required>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Codigo:</label>
+                                            <input type="hidden" name="idconsignado" id="idconsignado">
+                                            <input type="text" class="form-control" name="nombre" id="nombre" readonly>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <label>Dirección:</label>
-                                        <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Dirección" maxlength="70">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="codigo" class="control-label">Codigo:</label>
-                                        <input type="text" class="form-control" id="codigo" placeholder="codigo" name="codigo" readonly>
-                                    </div>
-                                   
-                                    <div class="form-group col-lg-10">
-                                        <label>Tipo Documento(*):</label>
-                                        <select class="form-control select-picker" name="tipo_documento" id="tipo_documento" required>
-                                            <option value="DNI">DNI</option>
-                                            <option value="RUC">RUC</option>
-                                            <option value="CEDULA">CEDULA</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-lg-2">
-                                        <label>Número(*):</label>
-                                        <input type="text" class="form-control" name="num_documento" id="num_documento" maxlength="20" placeholder="Documento" required>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="">Consignado*</label>
+                                                <table class="" width="100%">
+                                                    <tbody>
+                                                        <tr class="">
+                                                            <td width="90%">
+                                                                <select id="consiganado" class="input-control selectpicker form-control " data-live-search="true" name="">
+                                                                    <option>Text</option>
+                                                                </select></td>
+                                                            <td>
+                                                                <button class="btn btn-info">
+                                                                    <span class="fa fa-cog"></span>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -98,15 +102,6 @@ if (!$_SESSION['nombre']) {
                                         </thead>
                                         <tbody>
                                             <tr>
-<<<<<<< HEAD
-                                                <td class="text-right">
-                                                    <div class="btn-group">
-                                                        <!-- <button type="button" class="btn btn-danger">acciones</button> -->
-                                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                            Acciones <span class="caret"></span>
-                                                            <span class="sr-only">Desplegar menú</span>
-                                                        </button>
-=======
                                                 <td>
                                                     <div class="btn-group">
                                                         <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
@@ -116,7 +111,6 @@ if (!$_SESSION['nombre']) {
                                                             <span class="sr-only">Desplegar menú</span>
                                                         </button>
 
->>>>>>> 6b784b6bd998ea73c8cd40ead5b87576d1fddf8b
                                                         <ul class="dropdown-menu" role="menu">
                                                             <li><a href="#">Acción #1</a></li>
                                                             <li><a href="#">Acción #2</a></li>
@@ -126,12 +120,6 @@ if (!$_SESSION['nombre']) {
                                                         </ul>
                                                     </div>
                                                 </td>
-<<<<<<< HEAD
-                                                <td>
-
-                                                </td>
-=======
->>>>>>> 6b784b6bd998ea73c8cd40ead5b87576d1fddf8b
                                             </tr>
                                         </tbody>
                                     </table>
@@ -147,7 +135,7 @@ if (!$_SESSION['nombre']) {
     require_once("../inc/footer.php");
     require_once("../inc/scritps.php");
     ?>
-
+    <script type="text/javascript" src="scritps/kardex.js"></script>
 <?php }
 ob_end_flush();
 ?>
