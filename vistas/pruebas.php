@@ -16,7 +16,7 @@ if (!$_SESSION['nombre']) {
 
             <form action="" method="POST" role="form">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="box">
                             <div class="box-header with-border">
                                 <h3>KARDEX</h3>
@@ -39,9 +39,10 @@ if (!$_SESSION['nombre']) {
                                                     <tbody>
                                                         <tr class="">
                                                             <td width="90%">
-                                                                <select id="my-select" class="input-control selectpicker form-control "data-live-search="true" name="">
+                                                                <select id="my-select" class="input-control selectpicker form-control " data-live-search="true" name="">
                                                                     <option>Text</option>
-                                                                </select></td>
+                                                                </select>
+                                                            </td>
                                                             <td>
                                                                 <button class="btn btn-info">
                                                                     <span class="fa fa-cog"></span>
@@ -53,6 +54,93 @@ if (!$_SESSION['nombre']) {
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="contenedor" class="control-label">Contenedor/Placa</label>
+                                            <div class="col-md-12">
+                                                <input type="email" class="form-control" id="contenedor" placeholder="contenedor">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group input-sm">
+                                            <label for="exampleInputEmail2">Email address</label>
+                                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="form-group col-md-12">
+                                            <label for="poliza" class="col-md-2 control-label">Poliza:</label>
+                                            <div class="col-md-10">
+                                                <input type="email" class="form-control" id="poliza" placeholder="Email">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label>Referencia:</label>
+                                            <input type="text" class="form-control" name="referencia" id="referencia">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Cant. Cliente:</label>
+                                            <input type="text" class="form-control" name="Ccliente" id="Ccliente">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                            <label>Peso Total</label>
+                                            <input type="text" class="form-control" name="pesoT" id="pesoT">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                            <label>Volumen Total</label>
+                                            <input type="text" class="form-control" name="volumenT" id="volumenT">
+                                        </div>
+                                    </div>
+
+                                    <div class="container-fluid justify-content-center">
+                                        <form role="form" class="pt-3">
+                                            <div class="form-group row">
+                                                <label for="inputfield1" class="col-sm-2 control-label">Generic input</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputfield1" placeholder="Generic input..." />
+                                                </div>
+                                            </div><!-- .form-group -->
+                                            <div class="form-group row">
+                                                <label for="inputfield2" class="col-sm-2 control-label">Money value</label>
+                                                <div class="input-group col-sm-10">
+                                                    <span class="input-group-prepend input-group-text">$</span>
+                                                    <input type="text" class="form-control" id="inputfield2" placeholder="Money value..." />
+                                                    <span class="input-group-append input-group-text">.00</span>
+                                                </div>
+                                            </div><!-- .form-group -->
+                                            <div class="form-group row">
+                                                <label for="inputfield3" class="col-sm-3 control-label">Username</label>
+                                                <div class="input-group col-sm-8">
+                                                    <span class="input-group-addon input-group-text">@</span>
+                                                    <input type="text" class="form-control" id="inputfield3" placeholder="Username..." />
+                                                </div>
+                                            </div><!-- .form-group -->
+                                        </form>
+                                    </div> <!-- termina container  -->
+
                                 </div>
                             </div>
 
