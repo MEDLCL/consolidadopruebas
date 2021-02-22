@@ -14,9 +14,9 @@ if (!$_SESSION['nombre']) {
         <!-- Main content -->
         <section class="content">
 
-            <form action="" method="POST" role="form">
-                <div class="row">
-                    <div class="col-md-4">
+            <div class="row" id="Almacen">
+                <div class="col-md-4">
+                    <form action="" role="form" id="formAlmacen">
                         <!-- <div class="box"> -->
                         <!-- <div class="box-header with-border">
                                 <h3>KARDEX</h3>
@@ -25,21 +25,22 @@ if (!$_SESSION['nombre']) {
                             <div class="box-header with-border"></div>
                             <div class="box-body">
                                 <div class="form-horizontal">
+                                    <label class="">Codigo: </label>
                                     <div class="form-group input-group-sm">
-                                        <label class="col-sm-2 control-label">Codigo: </label>
+
                                         <input type="hidden" name="idconsignado" id="idconsignado">
                                         <div class="col-sm-5">
-                                            <input type="text" class="form-control" name="nombre" id="nombre" readonly>
+                                            <input type="text" class="form-control" name="codigo" id="codigo" readonly>
                                         </div>
                                     </div>
 
                                     <label for="consiganado" class="">Consignado* </label>
                                     <div class="input-group input-group-sm">
 
-                                        <select id="consiganado" class="form-control selectpicker" data-live-search="true" name="consignado">
+                                        <select id="consiganado" name="consignado" class="form-control selectpicker" data-live-search="true" >
                                         </select>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-info btn-flat">Go!</button>
+                                            <button type="button" class="btn btn-info fa fa-plus"></button>
                                         </span>
                                     </div>
                                     <br>
@@ -65,7 +66,7 @@ if (!$_SESSION['nombre']) {
                                     </div>
 
                                     <div class="form-group">
-                                        
+
                                         <div class="col-sm-4">
                                             <div class="input-group">
                                                 <label>Peso Total:</label>
@@ -89,98 +90,297 @@ if (!$_SESSION['nombre']) {
                                             <!-- /input-group -->
                                         </div>
                                     </div>
-                                    <p></p>
-                                    <label>Fecha Ingreso Almacen:</label>
-                                    <div class="form-group input-group-sm">
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" name="fechaI" id="fechaI">
+                                    <div class="form-group">
+
+
+                                        <div class="col-sm-8">
+                                            <label for="" class="">Fecha Ingreso Almacen</label>
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" class="form-control pull-right" id="fechaI" name="fechaI">
+                                            </div>
                                         </div>
                                     </div>
+                                    <!-- <div class="form-group">
+                                        <label for="my-input">Text</label>
+                                        <input id="my-input" class="form-control" type="text" name="">
+                                    </div>
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" id="fechaI">
+                                    </div> -->
 
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-3 col-sm-9">
+                                            <button class="btn btn-primary" type="button" onclick="" id="grabaru">Graba
+                                                <span class="fa fa-floppy-o"></span>
+                                            </button>
+                                            <button class="btn btn-danger" type="button" onclick="ocultaAlma(false)" id="cancelarA">Cancelar
+                                                <span class="fa fa-close"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div> <!-- form id horizontal  -->
+                            </div> <!-- body box  -->
+                    </form><!--  form almacen -->
+                </div><!-- /.col -->
+            </div><!-- /.col row -->
+
+            <div class="col-md-8">
+                <div class="box box-info" id="datosDetalleA">
+                    <!--  formulario para detalle de almacen -->
+                    <div class="box-header with-border"></div>
+                    <div class="box-body">
+                        <form class="" id="formAlmacenDetalle">
+                            <div class="form-group col-md-12">
+                                <label for="consiganado" class="">Cliente* </label>
+                                <div class="input-group input-group-sm">
+                                    <select id="cliente" name="cliente" class="form-control selectpicker" data-live-search="true" >
+                                    </select>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-info fa fa-plus"></button>
+                                    </span>
                                 </div>
                             </div>
 
-                            <!-- </div> -->
-                            <!-- /.box -->
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                    <div class="row" id="contenedorKardex">
-                        <div class="col-md-12">
-                            <div class="box box-solid">
-                                <div class=" box-header with-border">
-                                    <button type="button" class="btn btn-primary" onclick="">Nuevo
-                                        <span class="fa  fa-plus"></span>
-                                    </button>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-body table-responsive">
-                                        <table class="table table-bordered table-hover table-responsive table-hover" id="Tkardex">
-                                            <thead>
-                                                <tr>
-                                                    <th>Acciones</th>
-                                                    <th>Estatus</th>
-                                                    <th>Año</th>
-                                                    <th>Codigo</th>
-                                                    <th>Consignado</th>
-                                                    <th>Contenedor</th>
-                                                    <th>Poliza</th>
-                                                    <th>Referencia</th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Cliente Final</th>
-                                                    <th>Cant. Clientes</th>
-                                                    <th>No. HBL</th>
-                                                    <th>Mercaderia</th>
-                                                    <th>Peso</th>
-                                                    <th>Volumen</th>
-                                                    <th>Bultos</th>
-                                                    <th>Ubicacion</th>
-                                                    <th>Linea</th>
-                                                    <th>No. Resa</th>
-                                                    <th>Fecha Retiro</th>
-                                                    <th>Dias Almacenaje</th>
-                                                    <th>Dias Libres Almacenaje</th>
-                                                    <th>Almacenaje</th>
-                                                    <th>Gastos</th>
-                                                    <th>Cif</th>
-                                                    <th>Impuestos</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="btn-group">
-                                                            <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
-                                                                <span class="fa fa-cog"></span>
-                                                                Acciones
-                                                                <span class="caret"></span>
-                                                                <span class="sr-only">Desplegar menú</span>
-                                                            </button>
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label>No. HBL:</label>
+                                <input type="hidden" name="iddetallealmacen" id="iddetallealmacen">
+                                <input type="text" class="form-control" name="nohbl" id="nohbl" required>
+                            </div>
 
-                                                            <ul class="dropdown-menu" role="menu">
-                                                                <li><a href="#">Acción #1</a></li>
-                                                                <li><a href="#">Acción #2</a></li>
-                                                                <li><a href="#">Acción #3</a></li>
-                                                                <li class="divider"></li>
-                                                                <li><a href="#">Acción #4</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                            <div class="form-group col-md-6">
+                                <label>Peso(*)</label>
+                                <input type="number" class="form-control" name="peso" id="peso">
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label>Ubicacion</label>
+                                <input type="text" class="form-control" name="ubicacion" id="ubicacion">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>Volumen(*)</label>
+                                <input type="number" class="form-control" name="volumen" id="volumen">
+                            </div>
+
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label>DUT</label>
+                                <input type="text" class="form-control" name="dut" id="dut">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>Bultos(*)</label>
+                                <input type="number" class="form-control" name="bultos" id="bultos">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label class="">Embalaje (*) </label>
+                                <div class="input-group input-group-sm">
+                                    <select id="embalaje" name="embalaje" class="form-control selectpicker" data-live-search="true">
+                                    </select>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-info fa fa-plus"></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="form-check">
+                                    <input id="liberado" class="form-check-input" type="checkbox" name="liberado">
+                                    <label for=liberado" class="form-check-label">Liberado</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <label>Resa</label>
+                                <input type="text" class="form-control" name="resa" id="resa">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <label>DTI</label>
+                                <input type="text" class="form-control" name="dti" id="dti">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <label>No. Cancel</label>
+                                <input type="text" class="form-control" name="ncancel" id="ncancel">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <label>No. Orden</label>
+                                <input type="text" class="form-control" name="norden" id="norden">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="comment">Mercaderia(*):</label>
+                                <textarea class="form-control" rows="3" id="mercaderia" name="mercaderia"></textarea>
+                            </div>
+
+                            
+                            <div class="form-group col-md-6">
+                                <label for="observaciones">Observaciones:</label>
+                                <textarea class="form-control" rows="3" id="observaciones" name="observaciones"></textarea>
+                            </div>
+
+                            <fieldset class="col-md-12">
+                                <legend></legend>
+                                <div class="form-group">
+                                    <div class="col-md-offset-1 col-md-11">
+                                        <button class="btn btn-primary" type="button" onclick="" id="grabaD">Graba
+                                            <span class="fa fa-floppy-o"></span>
+                                        </button>
+                                        <button class="btn btn-danger" type="button" onclick="nuevoDetalle('false')" id="cancelarD">Cancelar
+                                            <span class="fa fa-close"></span>
+                                        </button>
                                     </div>
                                 </div>
+                            </fieldset>
+
+                        </form> <!-- form  -->
+                    </div> <!-- body box  -->
+                    <!-- /.box -->
+                </div><!-- /.box -->
+                <div id="tablaDetalleAlmacen">
+                    <div class="box box-solid">
+                        <div class=" box-header with-border">
+                            <button type="button" class="btn btn-primary" onclick="nuevoDetalle('true')">Nuevo
+                                <span class="fa  fa-plus"></span>
+                            </button>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-body table-responsive">
+
+                                <table class="table table-bordered table-hover table-responsive table-hover" id="Tkardex">
+                                    <thead>
+                                        <tr>
+                                            <th>Acciones</th>
+                                            <th>Estado</th>
+                                            <th>Cliente</th>
+                                            <th>No. HBL</th>
+                                            <th>Peso</th>
+                                            <th>Volumen</th>
+                                            <th>Bultos</th>
+                                            <th>Ubicacion</th>
+                                            <th>Embalaje</th>
+                                            <th>Linea</th>
+                                            <th>No. Resa</th>
+                                            <th>Mercaderia</th>
+                                            <th>Observaciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
+                                                        <span class="fa fa-cog"></span>
+                                                        Acciones
+                                                        <span class="caret"></span>
+                                                        <span class="sr-only">Desplegar menú</span>
+                                                    </button>
+
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="#" class="fa fa-pencil"> Editar</a></li>
+                                                        <li><a href="#" class="fa fa-trash"> Elimnar</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div> <!-- col md 12 tabla-->
-                    </div> <!-- row de tabla usuarios -->
-            </form> <!-- final formulario -->
-        </section><!-- /.content -->
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- col md 8 tabla-->
+    </div><!--  row  -->
+    <div class="row" id="contenedorKardex">
+        <div class="col-md-12">
+            <div class="box box-solid">
+                <div class=" box-header with-border">
+                    <button type="button" class="btn btn-primary" onclick="ocultaAlma(true)">Nuevo
+                        <span class="fa  fa-plus"></span>
+                    </button>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body table-responsive">
+                        <table class="table table-bordered table-hover table-responsive table-hover" id="Tkardex">
+                            <thead>
+                                <tr>
+                                    <th>Acciones</th>
+                                    <th>Estatus</th>
+                                    <th>Año</th>
+                                    <th>Codigo</th>
+                                    <th>Consignado</th>
+                                    <th>Contenedor</th>
+                                    <th>Poliza</th>
+                                    <th>Referencia</th>
+                                    <th>Fecha Ingreso</th>
+                                    <th>Cliente Final</th>
+                                    <th>Cant. Clientes</th>
+                                    <th>No. HBL</th>
+                                    <th>Mercaderia</th>
+                                    <th>Peso</th>
+                                    <th>Volumen</th>
+                                    <th>Bultos</th>
+                                    <th>Ubicacion</th>
+                                    <th>Linea</th>
+                                    <th>No. Resa</th>
+                                    <th>Fecha Retiro</th>
+                                    <th>Dias Almacenaje</th>
+                                    <th>Dias Libres Almacenaje</th>
+                                    <th>Almacenaje</th>
+                                    <th>Gastos</th>
+                                    <th>Cif</th>
+                                    <th>Impuestos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
+                                                <span class="fa fa-cog"></span>
+                                                Acciones
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Desplegar menú</span>
+                                            </button>
+
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Acción #1</a></li>
+                                                <li><a href="#">Acción #2</a></li>
+                                                <li><a href="#">Acción #3</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Acción #4</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- col md 12 tabla-->
+    </div> <!-- row de tabla usuarios -->
+    </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
     <?php
     require_once("../inc/footer.php");
     require_once("../inc/scritps.php");
     ?>
+   <!--  <script>
+        $(document).ready(function() {
+            //Date picker
+            $('#fechaI').datepicker({
+                autoclose: true
+            });
+        });
+    </script> -->
     <script type="text/javascript" src="scritps/kardex.js"></script>
+    
 <?php }
 ob_end_flush();
 ?>

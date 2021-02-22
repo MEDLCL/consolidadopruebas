@@ -23,5 +23,7 @@
 <script src="../plantilla/js/bootbox.min.js"></script>
 <script src="../plantilla/plugins/bootstrap-selected/js/bootstrap-select.min.js"></script>
 <script src="../plantilla/plugins/alertify/alertify.js"></script>
+<!-- bootstrap datepicker -->
+<script src="../plantilla/plugins/datepicker/bootstrap-datepicker.js"></script>
 </body>
 </html>

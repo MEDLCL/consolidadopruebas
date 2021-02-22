@@ -153,7 +153,6 @@ if (!$_SESSION['nombre']) {
     </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
 
-
     <?php
     require_once("../inc/footer.php");
     require_once("../inc/scritps.php");

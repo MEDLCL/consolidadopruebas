@@ -39,11 +39,7 @@ if (!$_SESSION['nombre']) {
                                                     <tbody>
                                                         <tr class="">
                                                             <td width="90%">
-<<<<<<< HEAD
                                                                 <select id="my-select" class="input-control selectpicker form-control " data-live-search="true" name="">
-=======
-                                                                <select id="consiganado" class="input-control selectpicker form-control " data-live-search="true" name="">
->>>>>>> b1b90f0d96dadbd0c174d1c5192ff57089351795
                                                                     <option>Text</option>
                                                                 </select>
                                                             </td>
