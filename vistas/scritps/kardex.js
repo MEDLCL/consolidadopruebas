@@ -2,6 +2,8 @@ function init() {
     $("#fechaI").datepicker({
         autoclose: true,
     });
+    $('#Tkardex').DataTable();
+    
     llenaconsignado();
     llenaCliente();
     nuevoDetalle("false");
