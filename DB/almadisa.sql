@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 13-02-2021 a las 05:33:34
+-- Tiempo de generación: 03-03-2021 a las 05:11:16
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -244,6 +244,25 @@ CREATE TABLE `detalle_almacen` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `empaque`
+--
+
+CREATE TABLE `empaque` (
+  `id_empaque` int(11) NOT NULL,
+  `nombre` varchar(75) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `empaque`
+--
+
+INSERT INTO `empaque` (`id_empaque`, `nombre`) VALUES
+(1, 'Cajas'),
+(2, 'Cartones');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `empresas`
 --
 
@@ -269,10 +288,11 @@ CREATE TABLE `empresas` (
 --
 
 INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`, `fecha`) VALUES
-(38, 27, 52, 'MANUEL ESTUARDO', 'ALMADISA', 'identi', 'OAOAOK', '451564', 'CO', '1', 1, 0, '', '2021-02-08'),
-(39, 27, 52, 'MANUEL ESTUARDO1', 'ALMADISA1', 'identi', 'SDF', '451564', 'CO', '2', 1, 0, '', '2021-02-08'),
-(40, 27, 52, 'PRUEBA DE RZON SOCIAL AGENTE', 'ALMADISA 34', '1234', 'ASDF', '22123085', 'CO', '3', 1, 0, '', '2021-02-08'),
-(41, 27, 52, 'LEADER GROUP', 'LEADER', '45668', 'CHINA', '45235669', 'AE', '1', 1, 0, '', '2021-02-09');
+(57, 27, 52, 'MANUEL', 'COMERCIAL', '2315645', 'ASDF', '22123085', 'CO', '1', 1, 0, '', '2021-02-27'),
+(58, 27, 52, 'MANUEL ESTUARDO', 'COMERCIAL DE LA CRUZ', 'asd', 'ASDF', '3423', 'CO', '2', 1, 0, '', '2021-02-27'),
+(59, 27, 52, 'PRUEBA DE RZON SOCIAL AGENTE', 'AGENTE EMBARCADRO DE RPUEBA 3', 'fasdf', 'ASDF', '123', 'CO', '3', 1, 0, '', '2021-02-27'),
+(60, 27, 52, 'CODIGO 11', 'PROBANDO CODIGO', '1234', 'ASDF', '', 'CO', '4', 1, 0, 'cbm', '2021-02-27'),
+(61, 27, 52, 'MANUEL ESTUARDO3', 'COMERCIAL DE LA CRUZ3', '2315645', 'SADF', '22123085', 'CO', '5', 1, 0, '', '2021-02-27');
 
 -- --------------------------------------------------------
 
@@ -718,6 +738,12 @@ ALTER TABLE `detalle_almacen`
   ADD PRIMARY KEY (`id_detalle`);
 
 --
+-- Indices de la tabla `empaque`
+--
+ALTER TABLE `empaque`
+  ADD PRIMARY KEY (`id_empaque`);
+
+--
 -- Indices de la tabla `empresas`
 --
 ALTER TABLE `empresas`
@@ -796,10 +822,16 @@ ALTER TABLE `detalle_almacen`
   MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `empaque`
+--
+ALTER TABLE `empaque`
+  MODIFY `id_empaque` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
