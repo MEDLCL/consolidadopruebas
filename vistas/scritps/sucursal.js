@@ -60,6 +60,7 @@ function editarinsertar() {
     var dir = $("#direccion").val();
 
     var form = new FormData($("#formsucursal")[0]);
+
     if (razons.trim() == "") {
         alertify.alert("Campo Obligatorio", "Debe de ingresar Razon social");
         return false;

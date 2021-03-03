@@ -2,19 +2,30 @@ function init() {
     $("#fechaI").datepicker({
         autoclose: true,
     });
+
     llenaconsignado();
     llenaCliente();
     nuevoDetalle("false");
     ocultaAlma("false");
+    //llenaEmpaqueModal();
+    llenaEmpaqueDetalle();
+    //listarAlmacen();
+}
+
+function listarAlmacen() {
+    $('#Tkardex').DataTable({
+
+    });
 }
 
 function llenaconsignado() {
+    $("#consiganado").empty();
     $.post(
         "../modelos/pais.php?op=selecEmpresa&tabla=empresas&campo=Razons", {
             id: "id_empresa",
             tipoe: "CO",
         },
-        function (data, status) {
+        function(data, status) {
             $("#consiganado").html(data);
             $("#consiganado").selectpicker("refresh");
         }
@@ -27,7 +38,7 @@ function llenaCliente() {
             id: "id_empresa",
             tipoe: "CL",
         },
-        function (data, status) {
+        function(data, status) {
             $("#cliente").html(data);
             $("#cliente").selectpicker("refresh");
         }
@@ -54,8 +65,8 @@ function limpiaDetalle() {
     $("#volumen").val(0);
     $("#dut").val("");
     $("#bultos").val(0);
-    $("#embalaje").val(0);
-    $("#embalaje").selectpicker("refresh");
+    $("#embalajeD").val(0);
+    $("#embalajeD").selectpicker("refresh");
     $("#liberado").prop("checked", false);
     $("#resa").val("");
     $("#dti").val("");
@@ -86,4 +97,68 @@ function nuevoAlma() {
     $("#bultosT").val(0);
     $("#fechaI").val("");
 }
+
+function llenaEmpaqueModal() {
+    $.post(
+        "../modelos/pais.php?op=selectP&tabla=empaque&campo=nombre", {
+            id: "id_empaque",
+            tipoe: "",
+        },
+        function(data, status) {
+            $("#empaqueB").html(data);
+            $("#empaqueB").selectpicker("refresh");
+
+        }
+    );
+}
+
+function llenaEmpaqueDetalle() {
+    $.post(
+        "../modelos/pais.php?op=selectP&tabla=empaque&campo=nombre", {
+            id: "id_empaque",
+            tipoe: "",
+        },
+        function(data, status) {
+            $("#embalajeD").html(data);
+            $("#embalajeD").selectpicker("refresh");
+        }
+    );
+}
+
+function grabaEmpaque() {
+    var nombre = $('#nombreE').val();
+    var id_empaque = $("#id_empaque").val();
+    if (nombre.trim() == "") {
+        alertify.alert("Campo Vacio", "Debe de ingresar campo nombre Empaque");
+        return false;
+    }
+    $.post(
+        "../ajax/empaque.php?op=guardaryeditar", { id_empaque: id_empaque, nombre: nombre },
+        function(data) {
+            if (data == 1) {
+                llenaEmpaqueDetalle();
+                $("#modalEmaqpue").modal("hide");
+            }
+
+        }
+    );
+
+}
+
+function nuevoConsignado() {
+    $('.nav-tabs a:first').tab('show')
+    $("#titulomodale").html("Consignado");
+    nuevo("consignado");
+    $("#llama").val("kardex");
+
+}
+
+function limpiaEmpaque() {
+    llenaEmpaqueModal();
+    $("#nombreE").val("");
+    $("#id_empaque").val(0);
+    /*     $("#empaqueB").val(0);
+        $("#empaqueB").selectpicker("refresh"); */
+}
+
 init();

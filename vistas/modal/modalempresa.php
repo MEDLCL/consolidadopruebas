@@ -6,7 +6,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title text-center" id="titulomodale"><?php echo $tipoempresa ?> </h4>
+                        <h4 class="modal-title text-center" id="titulomodale"><?php echo isset($tipoempresa)?$tipoempresa:"";  ?> </h4>
                     </div>
                     <div class="modal-body">
                         
@@ -29,19 +29,20 @@
                                                     <!-- <form class="form-horizontal"> -->
                                                     <div class="form-group">
                                                         <label for="codigo" class="control-label">Codigo:</label>
-                                                        <input type="text" name="codigo" id="codigo" class="form-control" style="width:150px" readonly>
+                                                        <input type="text" name="codigo" id="codigo" class="form-control input-sm" style="width:150px" readonly>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Razons" class="control-label">Razon
                                                             Social*:</label>
-                                                        <input type="text" class="form-control" id="Razons" name="Razons" onkeyup="mayusculas(this)">
+                                                        <input type="text" class="form-control input-sm" id="Razons" name="Razons" onkeyup="mayusculas(this)">
                                                         <input type="hidden" name="tipoE" id="tipoE">
                                                         <input type="hidden" name="idempresa" id='idempresa'>
+                                                        <input type="hidden" name="llama" id="llama">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Nombrec" class="control-label">Nombre
                                                             Comercial*:</label>
-                                                        <input type="text" name="Nombrec" id="Nombrec" class="form-control" onkeyup="mayusculas(this)">
+                                                        <input type="text" name="Nombrec" id="Nombrec" class="form-control input-sm" onkeyup="mayusculas(this)">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="identificacion" class="control-label">Identificacion*:</label>
@@ -49,12 +50,12 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="telefono" class="control-label">Telefono:</label>
-                                                        <input type="text" name="telefono" id="telefono" class="form-control" onkeyup="this.value=numeroTelefono(this.value)" >
+                                                        <input type="text" name="telefono" id="telefono" class="form-control input-sm" onkeyup="this.value=numeroTelefono(this.value)" >
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="direccion" class="control-label">Direccion*:</label>
-                                                        <textarea class="form-control" id="direccion" name="direccion" rows="3" onkeyup="mayusculas(this)"></textarea>
+                                                        <textarea class="form-control input-sm" id="direccion" name="direccion" rows="3" onkeyup="mayusculas(this)"></textarea>
                                                     </div>
                                                     <!-- </form> -->
                                                 </div>
