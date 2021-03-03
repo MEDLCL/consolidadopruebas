@@ -243,7 +243,7 @@ class Empresa
             if ($rspt->rowCount()>0){
                 return 1;
             }else{
-                return 0;
+                return 1;
             }
         } catch (\Throwable $th) {
             return 0;

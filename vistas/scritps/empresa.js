@@ -37,6 +37,7 @@ function registrarc() {
 }
 //funcion para eliminar fila de la tabla contactos
 function eliminarfila(id_contacto) {
+
     $.post("../ajax/empresa.php?op=eliminaC", { id_contacto: id_contacto },
         function(data) {
             if (data == 1) {
@@ -146,6 +147,7 @@ function grabareditar() {
                 $('#Tempresas').DataTable().ajax.reload();
                 alertify.success('Proceso Realizado con exito');
                 $("#modalempresa").modal("hide");
+                llenaEmpresaEnModal();
             } else if (datos == 2) {
                 alertify.warning('Datos Duplicados', 'Empresa ya registrada');
             } else {
@@ -154,7 +156,12 @@ function grabareditar() {
         }
     });
 }
-
+function llenaEmpresaEnModal(){
+    var llama = $("#llama").val();
+    if (llama == "kardex") {
+        llenaconsignado();
+    }
+}
 function listar() {
     tabla = $('#Tempresas').dataTable({
         "aProcessing": true, //Activamos el procesamiento del datatables

@@ -13,7 +13,10 @@ if (!$_SESSION['nombre']) {
     <div class="content-wrapper">
         <!-- Main content -->
         <section class="content">
-
+<?php  
+    include_once ("../vistas/modal/empaque.php");
+    include_once ("../vistas/modal/modalempresa.php");
+?>
             <div class="row" id="Almacen">
                 <div class="col-md-4">
                     <form action="" role="form" id="formAlmacen">
@@ -37,10 +40,10 @@ if (!$_SESSION['nombre']) {
                                     <label for="consiganado" class="">Consignado* </label>
                                     <div class="input-group input-group-sm">
 
-                                        <select id="consiganado" name="consignado" class="form-control selectpicker" data-live-search="true" >
+                                        <select id="consignado" name="consignado" class="form-control selectpicker" data-live-search="true" >
                                         </select>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-info fa fa-plus"></button>
+                                            <button type="button" class="btn btn-info fa fa-plus" data-toggle="modal" data-target="#modalempresa" onclick="nuevoConsignado()"></button>
                                         </span>
                                     </div>
                                     <br>
@@ -180,10 +183,10 @@ if (!$_SESSION['nombre']) {
                             <div class="form-group col-md-6">
                                 <label class="">Embalaje (*) </label>
                                 <div class="input-group input-group-sm">
-                                    <select id="embalaje" name="embalaje" class="form-control selectpicker" data-live-search="true">
+                                    <select id="embalajeD" name="embalajeD" class="form-control selectpicker" data-live-search="true">
                                     </select>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-info fa fa-plus"></button>
+                                        <button type="button" class="btn btn-info fa fa-plus" data-toggle="modal" data-target="#modalEmaqpue" onclick="limpiaEmpaque()"></button>
                                     </span>
                                 </div>
                             </div>
@@ -192,7 +195,7 @@ if (!$_SESSION['nombre']) {
                             <div class="form-group col-md-12">
                                 <div class="form-check">
                                     <input id="liberado" class="form-check-input" type="checkbox" name="liberado">
-                                    <label for=liberado" class="form-check-label">Liberado</label>
+                                    <label for="liberado" class="form-check-label">Liberado</label>
                                 </div>
                             </div>
 
@@ -379,8 +382,9 @@ if (!$_SESSION['nombre']) {
             });
         });
     </script> -->
+    <script src="scritps/empresa.js"></script>
     <script type="text/javascript" src="scritps/kardex.js"></script>
-    
+ 
 <?php }
 ob_end_flush();
 ?>
