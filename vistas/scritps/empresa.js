@@ -76,27 +76,38 @@ function nuevo(tipoe) {
     var tipo = '';
     if (tipoe == 'agentee') {
         tipo = 'AE';
+        $("#titulomodale").html("Agente Embarcador");
     } else if (tipoe == 'agenciac') {
         tipo = 'AC';
+        $("#titulomodale").html("Agencia de carga");
     } else if (tipoe == 'aereolinea') {
         tipo = 'AL';
+        $("#titulomodale").html("Aereolinea");
     } else if (tipoe == 'almacen') {
         tipo = 'AM';
+        $("#titulomodale").html("Almacen");
     } else if (tipoe == 'cliente') {
         tipo = 'CL';
+        $("#titulomodale").html("Cliente");
     } else if (tipoe == 'consignado') {
         tipo = 'CO';
+        $("#titulomodale").html("Consignado");
         $('#consignadoa').show();
     } else if (tipoe == 'embarcador') {
         tipo = 'EM';
+        $("#titulomodale").html("Embarcador");
     } else if (tipoe == 'naviera') {
         tipo = 'NA';
+        $("#titulomodale").html("Naviera");
     } else if (tipoe == 'proveedor') {
         tipo = 'PR';
+        $("#titulomodale").html("Proveedor");
     } else if (tipoe == 'transporte') {
         tipo = 'TR';
+        $("#titulomodale").html("Transportista");
     }
     $('#tipoE').val(tipo);
+
 }
 
 function grabareditar() {
@@ -156,12 +167,20 @@ function grabareditar() {
         }
     });
 }
-function llenaEmpresaEnModal(){
+
+function llenaEmpresaEnModal() {
     var llama = $("#llama").val();
+    var queActu = $("#queActualizar").val();
     if (llama == "kardex") {
-        llenaconsignado();
+        if (queActu == "conAL") {
+            llenaconsignado();
+        } else if (queActu == "cliDA") {
+            llenaCliente();
+        }
     }
+
 }
+
 function listar() {
     tabla = $('#Tempresas').dataTable({
         "aProcessing": true, //Activamos el procesamiento del datatables

@@ -6,7 +6,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title text-center" id="titulomodale"><?php echo isset($tipoempresa)?$tipoempresa:"";  ?> </h4>
+                        <h4 class="modal-title text-center" id="tituloh"> <p id="titulomodale"></p> </h4>
                     </div>
                     <div class="modal-body">
                         
@@ -37,7 +37,9 @@
                                                         <input type="text" class="form-control input-sm" id="Razons" name="Razons" onkeyup="mayusculas(this)">
                                                         <input type="hidden" name="tipoE" id="tipoE">
                                                         <input type="hidden" name="idempresa" id='idempresa'>
-                                                        <input type="hidden" name="llama" id="llama">
+                                                        <input type="hidden" name="llama" id="llama">  
+                                                        <input type="hidden" name="queActualizar" id="queActualizar" >
+                                                        
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Nombrec" class="control-label">Nombre

@@ -3,7 +3,7 @@ function init() {
         autoclose: true,
     });
     //$('#Tkardex').DataTable();
-    
+
     llenaconsignado();
     llenaCliente();
     nuevoDetalle("false");
@@ -29,6 +29,8 @@ function llenaconsignado() {
         function(data, status) {
             $("#consignado").html(data);
             $("#consignado").selectpicker("refresh");
+            $("#consignado").val(0);
+            $("#consignado").selectpicker("refresh");
         }
     );
 }
@@ -41,7 +43,8 @@ function llenaCliente() {
         },
         function(data, status) {
             $("#cliente").html(data);
-
+            $("#cliente").selectpicker("refresh");
+            $("#cliente").val(0);
             $("#cliente").selectpicker("refresh");
         }
     );
@@ -149,9 +152,24 @@ function grabaEmpaque() {
 
 function nuevoConsignado() {
     $('.nav-tabs a:first').tab('show')
-    $("#titulomodale").html("Consignado");
+    $("#titulomodale").text("Consignado");
     nuevo("consignado");
+    $("#tituloh").html("Consignado");
     $("#llama").val("kardex");
+    //consignado ingreso almacen
+    $("#queActualizar").val("conAL")
+
+}
+
+function nuevoCliente() {
+    $('.nav-tabs a:first').tab('show')
+    nuevo("cliente");
+    $("#llama").val("kardex");
+    $("#tituloh").html("Cliente");
+    //cliente detalle almacen
+    $("#queActualizar").val("cliDA")
+    $("#modalempresa").modal("show");
+
 
 }
 
@@ -163,4 +181,17 @@ function limpiaEmpaque() {
         $("#empaqueB").selectpicker("refresh"); */
 }
 
+function grabarAlmacen() {
+    var consignado = $("#consignado").prop("selectedIndex");
+    var contenedor = $("#contenedor").val();
+    var poliza = $("#poliza").val();
+    var referencia = $("#referencia").val();
+    var pesoT = $("#pesoT").val();
+    var volumenT = $("#volumenT").val();
+    var bultosT = $("#bultosT").val();
+    var fechaI = $("#fechaI").val();
+
+
+
+}
 init();

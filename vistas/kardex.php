@@ -30,10 +30,9 @@ if (!$_SESSION['nombre']) {
                                 <div class="form-horizontal">
                                     <label class="">Codigo: </label>
                                     <div class="form-group input-group-sm">
-
-                                        <input type="hidden" name="idconsignado" id="idconsignado">
                                         <div class="col-sm-5">
                                             <input type="text" class="form-control" name="codigo" id="codigo" readonly>
+                                            <input type="hidden" name="idAlmacen" name="idAlmacen">
                                         </div>
                                     </div>
 
@@ -119,7 +118,7 @@ if (!$_SESSION['nombre']) {
 
                                     <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-9">
-                                            <button class="btn btn-primary" type="button" onclick="" id="grabaru">Graba
+                                            <button class="btn btn-primary" type="button" onclick="grabarAlmacen()" id="grabaru">Graba
                                                 <span class="fa fa-floppy-o"></span>
                                             </button>
                                             <button class="btn btn-danger" type="button" onclick="ocultaAlma(false)" id="cancelarA">Cancelar
@@ -145,7 +144,7 @@ if (!$_SESSION['nombre']) {
                                     <select id="cliente" name="cliente" class="form-control selectpicker" data-live-search="true" >
                                     </select>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-info fa fa-plus"></button>
+                                        <button type="button" class="btn btn-info fa fa-plus"  onclick="nuevoCliente()"></button>
                                     </span>
                                 </div>
                             </div>
