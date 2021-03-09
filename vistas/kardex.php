@@ -92,9 +92,13 @@ if (!$_SESSION['nombre']) {
                                             <!-- /input-group -->
                                         </div>
                                     </div>
+                                    <label>Cant. Clientes:</label>
+                                    <div class="form-group input-group-sm">
+                                        <div class="col-md-8">
+                                            <input type="number" class="form-control" name="cntClientes" id="cntClientes">
+                                        </div>
+                                    </div>
                                     <div class="form-group">
-
-
                                         <div class="col-sm-8">
                                             <label for="" class="">Fecha Ingreso Almacen</label>
                                             <div class="input-group date">

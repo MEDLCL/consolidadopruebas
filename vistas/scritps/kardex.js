@@ -191,7 +191,39 @@ function grabarAlmacen() {
     var bultosT = $("#bultosT").val();
     var fechaI = $("#fechaI").val();
 
+    if (consignado == -1 || consignado == 0) {
+        alertify.alert("Campo Vacio", "Debe de Seleccionar consignado");
+        return false;
+    } else if (contenedor.trim() == "") {
+        alertify.alert("Campo Vacio", "Debe de ingresar Contenedor/Placa");
+        return false;
+    } else if (poliza.trim() == "") {
+        alertify.alert("Campo Vacio", "Debe de ingresar Poliza");
+        return false;
+    } else if (referencia.trim() == "") {
+        alertify.alert("Campo Vacio", "Debe de ingresar Referencia");
+        return false;
+    } else if (pesoT.trim() == "" || pesoT == 0) {
+        alertify.alert("Campo Vacio", "Debe de ingresar Peso");
+        return false;
+    } else if (volumenT.trim() == "" || volumenT == 0) {
+        alertify.alert("Campo Vacio", "Debe de ingresar Volumen");
+        return false;
+    } else if (bultosT.trim() == "" || bultosT == 0) {
+        alertify.alert("Campo Vacio", "Debe de ingresar Bultos");
+        return false;
+    } else if (cntClientes.trim() == "" || cntClientes == 0) {
+        alertify.alert("Campo Vacio", "Debe de ingresar Cantidad de Clientes");
+        return false;
+    } else if (fechaI.trim() == "") {
+        alertify.alert("Campo Vacio", "Debe de ingresar Fecha Ingreso Almacen");
+        return false;
+    }
+    generarCodigoAlmacen();
 
+}
+
+function generarCodigoAlmacen() {
 
 }
 init();

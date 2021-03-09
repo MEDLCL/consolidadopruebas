@@ -1,6 +1,8 @@
 <?php
 require_once "../config/Conexion.php";
 require_once "../config/funciones.php";
+require_once "../modelos/kardex.php"; 
+$kardex = new kardex();
 /* require_once "../modelos/sucursal.php";
 $sucursal = new Sucursal();
 
@@ -57,5 +59,8 @@ switch ($_GET["op"]) {
         );
         echo json_encode($results);
         $con = Conexion::cerrar();
+        break;
+        case 'codigo':
+            
         break;
 }
