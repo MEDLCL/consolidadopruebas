@@ -59,8 +59,6 @@ function editarinsertar() {
     var dni = $("#identificacion").val();
     var dir = $("#direccion").val();
 
-    var form = new FormData($("#formsucursal")[0]);
-
     if (razons.trim() == "") {
         alertify.alert("Campo Obligatorio", "Debe de ingresar Razon social");
         return false;
@@ -81,6 +79,7 @@ function editarinsertar() {
         alertify.alert("Campo Obligatorio", "Debe de ingresar la direccion");
         return false;
     }
+    var form = new FormData($("#formsucursal")[0]);
     // envio de datos para generar codigo de la sucursal
     /*  if ($("#idsucursal").val() == 0) {
         $.ajax({

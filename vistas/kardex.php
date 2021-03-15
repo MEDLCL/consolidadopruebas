@@ -31,7 +31,7 @@ if (!$_SESSION['nombre']) {
                                     <label class="">Codigo: </label>
                                     <div class="form-group input-group-sm">
                                         <div class="col-sm-5">
-                                            <input type="text" class="form-control" name="codigo" id="codigo" readonly>
+                                            <input type="text" class="form-control" name="codigoAlmacen" id="codigoAlmacen" readonly>
                                             <input type="hidden" name="idAlmacen" name="idAlmacen">
                                         </div>
                                     </div>
@@ -49,7 +49,7 @@ if (!$_SESSION['nombre']) {
                                     <label for="contenedor">Contenedor/Placa: </label>
                                     <div class="form-group input-group-sm">
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="contenedor" id="contenedor">
+                                            <input type="text" class="form-control" name="contenedor" id="contenedor" onkeyup="mayusculas(this)">
                                         </div>
                                     </div>
 
@@ -63,7 +63,7 @@ if (!$_SESSION['nombre']) {
                                     <label>Referencia:</label>
                                     <div class="form-group input-group-sm">
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="referencia" id="referencia">
+                                            <input type="text" class="form-control" name="referencia" id="referencia" onkeyup="mayusculas(this)">
                                         </div>
                                     </div>
 
@@ -122,7 +122,7 @@ if (!$_SESSION['nombre']) {
 
                                     <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-9">
-                                            <button class="btn btn-primary" type="button" onclick="grabarAlmacen()" id="grabaru">Graba
+                                            <button class="btn btn-primary" type="button" onclick="grabarAlmacen()" id="grabaAlmacen">Graba
                                                 <span class="fa fa-floppy-o"></span>
                                             </button>
                                             <button class="btn btn-danger" type="button" onclick="ocultaAlma(false)" id="cancelarA">Cancelar
@@ -156,6 +156,7 @@ if (!$_SESSION['nombre']) {
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <label>No. HBL:</label>
                                 <input type="hidden" name="iddetallealmacen" id="iddetallealmacen">
+                                <input type="hidden" name="idAlmacenD" id="idAlmacenD">
                                 <input type="text" class="form-control" name="nohbl" id="nohbl" required>
                             </div>
 
@@ -234,7 +235,7 @@ if (!$_SESSION['nombre']) {
                                 <legend></legend>
                                 <div class="form-group">
                                     <div class="col-md-offset-1 col-md-11">
-                                        <button class="btn btn-primary" type="button" onclick="" id="grabaD">Graba
+                                        <button class="btn btn-primary" type="button" onclick="" id="grabaD" >Graba
                                             <span class="fa fa-floppy-o"></span>
                                         </button>
                                         <button class="btn btn-danger" type="button" onclick="nuevoDetalle('false')" id="cancelarD">Cancelar
@@ -251,7 +252,7 @@ if (!$_SESSION['nombre']) {
                 <div id="tablaDetalleAlmacen">
                     <div class="box box-solid">
                         <div class=" box-header with-border">
-                            <button type="button" class="btn btn-primary" onclick="nuevoDetalle('true')">Nuevo
+                            <button type="button" class="btn btn-primary" onclick="nuevoDetalle('true')" id="btnNuevoDetalle">Nuevo
                                 <span class="fa  fa-plus"></span>
                             </button>
                         </div>

@@ -3,26 +3,27 @@ require_once "../config/Conexion.php";
 require_once "../config/funciones.php";
 require_once "../modelos/kardex.php"; 
 $kardex = new kardex();
-/* require_once "../modelos/sucursal.php";
-$sucursal = new Sucursal();
 
-$idsucursal = isset($_POST["idsucursal"]) ? $idsucursal = $_POST["idsucursal"] : $idsucursal = 0;
-$razons = isset($_POST['razons']) ? limpia($_POST['razons']) : $razons = '';
-$nombrec = isset($_POST['nombrec']) ? limpia($_POST['nombrec']) : $nombrec = '';
-$telefono = isset($_POST['Telefono']) ? limpia($_POST['Telefono']) : $telefono = '';
-$pais = isset($_POST['pais']) ? $_POST['pais'] : $pais = 0;
-$identificacion = isset($_POST['identificacion']) ? limpia($_POST['identificacion']) : $identificacion = '';
-$direccion = isset($_POST['direccion']) ? limpia($_POST['direccion']) : $direccion = '';
-$logo = isset($_POST['logo']) ? limpia($_POST['logo']) : $logo = '';
-$codigo = isset($_POST['codigo']) ? limpia($_POST['codigo']) : $codigo = ''; */
 
+$idalmacen = isset($_POST["idAlmacen"]) ? $idsucursal = $_POST["idAlmacen"] : $idsucursal = 0;
+$idconsignado = isset($_POST['consignado']) ? limpia($_POST['consignado']) : $idconsignado = '';
+$contenedor = isset($_POST['contenedor']) ? limpia($_POST['contenedor']) : $contenedor = '';
+$poliza = isset($_POST['poliza']) ? limpia($_POST['poliza']) : $poliza = '';
+$referencia = isset($_POST['referencia']) ? $_POST['referencia'] : $referencia = 0;
+$pesoT = isset($_POST['pesoT']) ? limpia($_POST['pesoT']) : $pesoT = '';
+$volumenT = isset($_POST['volumenT']) ? limpia($_POST['volumenT']) : $volumenT = '';
+$bultosT = isset($_POST['bultosT']) ? limpia($_POST['bultosT']) : $bultosT = '';
+$codigoA = isset($_POST['codigoAlmacen']) ? limpia($_POST['codigoAlmacen']) : $codigoA = '';
+$fechaI = isset($_POST['fechaI']) ? limpia($_POST['fechaI']) : $fechaI = '';
 
 switch ($_GET["op"]) {
     case 'guardaryeditar':
-        
+        if ($idalmacen == 0 || $idalmacen ==""){
+            $resp = $kardex->grabar($codigoA,$idconsignado,$contenedor,$poliza,$referencia,$pesoT,$volumenT,$bultosT,$fechaI);
+            echo $resp;
+        }  
         break;
    
-    
     case 'mostrar':
         
         break;
@@ -60,7 +61,9 @@ switch ($_GET["op"]) {
         echo json_encode($results);
         $con = Conexion::cerrar();
         break;
+        
         case 'codigo':
-            
+          $codigo =  $kardex->codigo();
+          echo $codigo;
         break;
 }

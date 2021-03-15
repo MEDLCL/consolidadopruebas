@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 03-03-2021 a las 05:11:16
+-- Tiempo de generación: 15-03-2021 a las 03:38:07
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -80,15 +80,28 @@ CREATE TABLE `almacen` (
   `poliza` varchar(50) NOT NULL,
   `referencia` varchar(50) NOT NULL,
   `peso` float NOT NULL,
-  `id_medida_peso` int(11) NOT NULL,
+  `id_medida_peso` int(11) DEFAULT NULL,
   `volumen` float NOT NULL,
-  `id_medida_volumen` int(11) NOT NULL,
+  `id_medida_volumen` int(11) DEFAULT NULL,
   `bultos` int(11) NOT NULL,
   `fecha_almacen` date DEFAULT NULL,
   `fecha_graba` date NOT NULL,
   `id_usuario_modifica` int(11) DEFAULT NULL,
   `fecha_modifica` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `almacen`
+--
+
+INSERT INTO `almacen` (`id_almacen`, `id_usuario`, `id_sucursal`, `id_consignado`, `codigo`, `contenedor_placa`, `poliza`, `referencia`, `peso`, `id_medida_peso`, `volumen`, `id_medida_volumen`, `bultos`, `fecha_almacen`, `fecha_graba`, `id_usuario_modifica`, `fecha_modifica`) VALUES
+(1, 52, 27, 64, '03.31.21', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
+(2, 52, 27, 64, '03.32.21', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
+(3, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
+(4, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
+(5, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
+(6, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
+(7, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '2021-03-03', '2021-03-14', 52, 2021);
 
 -- --------------------------------------------------------
 
@@ -184,6 +197,65 @@ INSERT INTO `continente` (`idcontinente`, `nombre`) VALUES
 (6, 'Europa-Asia'),
 (7, 'O. Atlantico'),
 (8, 'Oceania');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `correlativo_almacen`
+--
+
+CREATE TABLE `correlativo_almacen` (
+  `idcorrelativo` int(11) NOT NULL,
+  `mes` int(11) NOT NULL,
+  `annio` int(11) NOT NULL,
+  `contador` int(11) NOT NULL,
+  `id_sucursal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `correlativo_almacen`
+--
+
+INSERT INTO `correlativo_almacen` (`idcorrelativo`, `mes`, `annio`, `contador`, `id_sucursal`) VALUES
+(20, 3, 21, 1, 27),
+(21, 3, 21, 2, 27),
+(22, 3, 21, 3, 27),
+(23, 3, 21, 4, 27),
+(24, 3, 21, 5, 27),
+(25, 3, 21, 6, 27),
+(26, 3, 21, 7, 27),
+(27, 3, 21, 8, 27),
+(28, 3, 21, 9, 27),
+(29, 3, 21, 10, 27),
+(30, 3, 21, 11, 27),
+(31, 3, 21, 12, 27),
+(32, 3, 21, 13, 27),
+(33, 3, 21, 14, 27),
+(34, 3, 21, 15, 27),
+(35, 3, 21, 16, 27),
+(36, 3, 21, 17, 27),
+(37, 3, 21, 18, 27),
+(38, 3, 21, 19, 27),
+(39, 3, 21, 20, 27),
+(40, 3, 21, 21, 27),
+(41, 3, 21, 22, 27),
+(42, 3, 21, 23, 27),
+(43, 3, 21, 24, 27),
+(44, 3, 21, 25, 27),
+(45, 3, 21, 26, 27),
+(46, 3, 21, 27, 27),
+(47, 3, 21, 28, 27),
+(48, 3, 21, 29, 27),
+(49, 3, 21, 30, 27),
+(50, 3, 21, 31, 27),
+(51, 3, 21, 32, 27),
+(52, 3, 21, 33, 27),
+(53, 3, 21, 34, 27),
+(54, 3, 21, 35, 27),
+(55, 3, 21, 36, 27),
+(56, 3, 21, 37, 27),
+(57, 3, 21, 38, 27),
+(58, 3, 21, 39, 27);
 
 -- --------------------------------------------------------
 
@@ -288,11 +360,8 @@ CREATE TABLE `empresas` (
 --
 
 INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`, `fecha`) VALUES
-(57, 27, 52, 'MANUEL', 'COMERCIAL', '2315645', 'ASDF', '22123085', 'CO', '1', 1, 0, '', '2021-02-27'),
-(58, 27, 52, 'MANUEL ESTUARDO', 'COMERCIAL DE LA CRUZ', 'asd', 'ASDF', '3423', 'CO', '2', 1, 0, '', '2021-02-27'),
-(59, 27, 52, 'PRUEBA DE RZON SOCIAL AGENTE', 'AGENTE EMBARCADRO DE RPUEBA 3', 'fasdf', 'ASDF', '123', 'CO', '3', 1, 0, '', '2021-02-27'),
-(60, 27, 52, 'CODIGO 11', 'PROBANDO CODIGO', '1234', 'ASDF', '', 'CO', '4', 1, 0, 'cbm', '2021-02-27'),
-(61, 27, 52, 'MANUEL ESTUARDO3', 'COMERCIAL DE LA CRUZ3', '2315645', 'SADF', '22123085', 'CO', '5', 1, 0, '', '2021-02-27');
+(64, 27, 52, 'MANUEL', 'MANUEL', '12332', 'GUATEMALA', '234', 'CO', '1', 1, 1, 'cbm', '2021-03-03'),
+(65, 27, 52, 'CLIENTE 1', 'CLIENTE 1', 'asdf', 'ASDF', '123', 'CL', '1', 1, 0, '', '2021-03-13');
 
 -- --------------------------------------------------------
 
@@ -726,6 +795,12 @@ ALTER TABLE `continente`
   ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
 
 --
+-- Indices de la tabla `correlativo_almacen`
+--
+ALTER TABLE `correlativo_almacen`
+  ADD PRIMARY KEY (`idcorrelativo`);
+
+--
 -- Indices de la tabla `depto`
 --
 ALTER TABLE `depto`
@@ -795,7 +870,7 @@ ALTER TABLE `sucursal`
 -- AUTO_INCREMENT de la tabla `almacen`
 --
 ALTER TABLE `almacen`
-  MODIFY `id_almacen` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_almacen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `asigna_menu`
@@ -808,6 +883,12 @@ ALTER TABLE `asigna_menu`
 --
 ALTER TABLE `contactos_e`
   MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT de la tabla `correlativo_almacen`
+--
+ALTER TABLE `correlativo_almacen`
+  MODIFY `idcorrelativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de la tabla `depto`
@@ -831,7 +912,7 @@ ALTER TABLE `empaque`
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT de la tabla `login`

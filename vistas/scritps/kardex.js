@@ -1,6 +1,7 @@
 function init() {
     $("#fechaI").datepicker({
         autoclose: true,
+        dateFormat: "yy-mm-dd"
     });
     //$('#Tkardex').DataTable();
 
@@ -91,7 +92,7 @@ function ocultaAlma(alma) {
 }
 
 function nuevoAlma() {
-    $("#codigo").val("");
+    $("#codigoAlmacen").val("");
     $("#consignado").val(0);
     $("#consignado").selectpicker("refresh");
     $("#contenedor").val("");
@@ -100,7 +101,10 @@ function nuevoAlma() {
     $("#pesoT").val(0);
     $("#volumenT").val(0);
     $("#bultosT").val(0);
+    $("#cntClientes").val(0);
     $("#fechaI").val("");
+    $("#btnNuevoDetalle").attr("disabled", "false")
+    $("#grabaAlmacen").removeAttr("disabled");
 }
 
 function llenaEmpaqueModal() {
@@ -190,7 +194,7 @@ function grabarAlmacen() {
     var volumenT = $("#volumenT").val();
     var bultosT = $("#bultosT").val();
     var fechaI = $("#fechaI").val();
-
+    var cntClientes = $("#cntClientes").val();
     if (consignado == -1 || consignado == 0) {
         alertify.alert("Campo Vacio", "Debe de Seleccionar consignado");
         return false;
@@ -219,11 +223,40 @@ function grabarAlmacen() {
         alertify.alert("Campo Vacio", "Debe de ingresar Fecha Ingreso Almacen");
         return false;
     }
-    generarCodigoAlmacen();
+    var formAlmacen = new FormData($("#formAlmacen")[0]);
+    $.post(
+        "../ajax/kardex.php?op=codigo", {},
+        function(data, status) {
+            if (status == "success") {
+                $("#codigoAlmacen").val(data);
+
+                $.ajax({
+                    url: "../ajax/kardex.php?op=guardaryeditar",
+                    type: "POST",
+                    data: formAlmacen,
+                    contentType: false,
+                    processData: false,
+                    success: function(datos) {
+                        if (datos > 0) {
+                            //limpiar();
+                            // $('#listadosucursal').DataTable().ajax.reload();
+                            $("#idAlmacenD").val(datos);
+                            alertify.success("Proceso Realizado con exito");
+                            $("#btnNuevoDetalle").removeAttr("disabled");
+                            $("#grabaAlmacen").attr("disabled", "false");
+
+                        } else {
+                            alertify.error("Proceso no se pudo realizar") + " " + datos;
+                        }
+                    }
+                });
+            } else {
+                alertify.alert("Error al Genera el Codigo");
+            }
+
+        }
+    );
 
 }
 
-function generarCodigoAlmacen() {
-
-}
 init();
