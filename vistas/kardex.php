@@ -259,7 +259,7 @@ if (!$_SESSION['nombre']) {
                         <div class="panel panel-default">
                             <div class="panel-body table-responsive">
 
-                                <table class="table table-bordered table-hover table-responsive table-hover" id="Tkardex">
+                                <table class="table table-bordered table-hover table-responsive table-hover" id="Tdetalle">
                                     <thead>
                                         <tr>
                                             <th>Acciones</th>
@@ -345,26 +345,7 @@ if (!$_SESSION['nombre']) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
-                                                <span class="fa fa-cog"></span>
-                                                Acciones
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Desplegar menú</span>
-                                            </button>
-
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Acción #1</a></li>
-                                                <li><a href="#">Acción #2</a></li>
-                                                <li><a href="#">Acción #3</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Acción #4</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>

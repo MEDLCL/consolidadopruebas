@@ -1,3 +1,5 @@
+var tablaK = "";
+
 function init() {
     $("#fechaI").datepicker({
         autoclose: true,
@@ -10,15 +12,10 @@ function init() {
     nuevoDetalle("false");
     ocultaAlma("false");
     //llenaEmpaqueModal();
-    llenaEmpaqueDetalle();
-    //listarAlmacen();
+    //llenaEmpaqueDetalle();
+    listarKardex();
 }
 
-function listarAlmacen() {
-    $('#Tkardex').DataTable({
-
-    });
-}
 
 function llenaconsignado() {
     $("#consignado").empty();
@@ -101,7 +98,7 @@ function nuevoAlma() {
     $("#pesoT").val(0);
     $("#volumenT").val(0);
     $("#bultosT").val(0);
-    $("#cntClientes").val(0);
+    $("#cntClientes").val(1);
     $("#fechaI").val("");
     $("#btnNuevoDetalle").attr("disabled", "false")
     $("#grabaAlmacen").removeAttr("disabled");
@@ -229,7 +226,7 @@ function grabarAlmacen() {
         function(data, status) {
             if (status == "success") {
                 $("#codigoAlmacen").val(data);
-
+                formAlmacen = new FormData($("#formAlmacen")[0]);
                 $.ajax({
                     url: "../ajax/kardex.php?op=guardaryeditar",
                     type: "POST",
@@ -259,4 +256,25 @@ function grabarAlmacen() {
 
 }
 
+function listarKardex() {
+    tablaK = $('#Tkardex').dataTable({
+        "aProcessing": true, //Activamos el procesamiento del datatables
+        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
+        dom: 'Bfrtip', //Definimos los elementos de control de tabla
+        buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5'],
+        "ajax": {
+            url: '../ajax/kardex.php?op=listarK',
+            type: "get",
+            dataType: "json",
+            error: function(e) {
+                console.log(e.responseText);
+            }
+        },
+        "bDestroy": true,
+        "iDisplayLenth": 10, //paginacion
+        "order": [
+                [0, "desc"]
+            ] //order los datos
+    });
+}
 init();

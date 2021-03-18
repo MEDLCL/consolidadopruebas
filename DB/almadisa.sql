@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 15-03-2021 a las 03:38:07
+-- Tiempo de generación: 18-03-2021 a las 05:27:48
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -25,6 +25,43 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `prcKardex` ()  NO SQL
+SELECT 
+	  DA.estado,
+      A.id_almacen,
+      DA.id_detalle,
+	  YEAR(A.fecha_almacen)AS annio,
+      A.Codigo,
+      E.Razons AS consignado,
+      A.contenedor_placa,
+      A.poliza, 
+      A.referencia,
+      A.fecha_almacen,
+      CL.Razons AS cliente_Final,
+      A.cant_clientes,
+      DA.nohbl,
+      DA.mercaderia,
+      DA.peso,
+      DA.volumen,
+      DA.bultos,
+      DA.ubicacion,
+      DA.linea,
+      DA.resa,
+      ''as Fecha_Retiro,
+      '' as Dias_Almacenaje,
+      '' as Dias_Libres_Almacenaje,
+      '' as Almacenaje,
+      '' as Gastos,
+      '' as Cif,
+      '' as Impuestos 
+	FROM 
+		almacen AS A  inner join 
+		empresas AS E ON E.id_empresa = A.id_consignado	LEFT JOIN 
+		detalle_almacen AS DA ON DA.id_almacen = A.id_almacen LEFT JOIN 
+		empresas AS CL ON CL.id_empresa = DA.id_cliente
+		
+		ORDER BY A.fecha_almacen DESC$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `prcListadoUsuarios` ()  NO SQL
 SELECT L.id_usuario,
        L.nombre, 
@@ -84,6 +121,7 @@ CREATE TABLE `almacen` (
   `volumen` float NOT NULL,
   `id_medida_volumen` int(11) DEFAULT NULL,
   `bultos` int(11) NOT NULL,
+  `cant_clientes` int(11) NOT NULL,
   `fecha_almacen` date DEFAULT NULL,
   `fecha_graba` date NOT NULL,
   `id_usuario_modifica` int(11) DEFAULT NULL,
@@ -94,14 +132,20 @@ CREATE TABLE `almacen` (
 -- Volcado de datos para la tabla `almacen`
 --
 
-INSERT INTO `almacen` (`id_almacen`, `id_usuario`, `id_sucursal`, `id_consignado`, `codigo`, `contenedor_placa`, `poliza`, `referencia`, `peso`, `id_medida_peso`, `volumen`, `id_medida_volumen`, `bultos`, `fecha_almacen`, `fecha_graba`, `id_usuario_modifica`, `fecha_modifica`) VALUES
-(1, 52, 27, 64, '03.31.21', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
-(2, 52, 27, 64, '03.32.21', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
-(3, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
-(4, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
-(5, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
-(6, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '0000-00-00', '2021-03-14', 52, 2021),
-(7, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, '2021-03-03', '2021-03-14', 52, 2021);
+INSERT INTO `almacen` (`id_almacen`, `id_usuario`, `id_sucursal`, `id_consignado`, `codigo`, `contenedor_placa`, `poliza`, `referencia`, `peso`, `id_medida_peso`, `volumen`, `id_medida_volumen`, `bultos`, `cant_clientes`, `fecha_almacen`, `fecha_graba`, `id_usuario_modifica`, `fecha_modifica`) VALUES
+(1, 52, 27, 64, '03.31.21', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
+(2, 52, 27, 64, '03.32.21', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
+(3, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
+(4, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
+(5, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
+(6, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
+(7, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '2021-03-03', '2021-03-14', 52, 2021),
+(8, 52, 27, 64, '', 'CONTENEDOR', 'poliza', 'REFERENCIA', 1, NULL, 1, NULL, 1, 0, '2021-03-16', '2021-03-16', 52, 2021),
+(9, 52, 27, 64, '', 'ASDF', 'asdf33', '12312', 1, NULL, 1, NULL, 1, 0, '2021-03-18', '2021-03-16', 52, 2021),
+(10, 52, 27, 64, '03.42.21', 'ASDFASDFSADF', 'asd', 'ASD', 1, NULL, 1, NULL, 1, 0, '2021-03-24', '2021-03-16', 52, 2021),
+(11, 52, 27, 64, '03.43.21', 'ASDF', 'asdf', 'ASDF33234', 2, NULL, 2, NULL, 2, 3, '2021-03-30', '2021-03-18', 52, 2021),
+(12, 52, 27, 64, '03.44.21', 'PRUEBA', 'asdf', 'ASDF', 2, NULL, 3, NULL, 3, 3, '2021-03-16', '2021-03-18', 52, 2021),
+(13, 52, 27, 64, '03.45.21', 'ASDF', 'asdfasdf', 'ASDF', 1, NULL, 1, NULL, 1, 3, '2021-03-17', '2021-03-18', 52, 2021);
 
 -- --------------------------------------------------------
 
@@ -255,7 +299,13 @@ INSERT INTO `correlativo_almacen` (`idcorrelativo`, `mes`, `annio`, `contador`, 
 (55, 3, 21, 36, 27),
 (56, 3, 21, 37, 27),
 (57, 3, 21, 38, 27),
-(58, 3, 21, 39, 27);
+(58, 3, 21, 39, 27),
+(59, 3, 21, 40, 27),
+(60, 3, 21, 41, 27),
+(61, 3, 21, 42, 27),
+(62, 3, 21, 43, 27),
+(63, 3, 21, 44, 27),
+(64, 3, 21, 45, 27);
 
 -- --------------------------------------------------------
 
@@ -295,9 +345,11 @@ CREATE TABLE `detalle_almacen` (
   `id_embalaje` int(11) NOT NULL,
   `peso` float NOT NULL,
   `volumen` float NOT NULL,
+  `bultos` int(11) NOT NULL,
   `nohbl` varchar(50) NOT NULL,
   `estado` tinyint(1) NOT NULL,
   `ubicacion` varchar(100) NOT NULL,
+  `linea` varchar(50) NOT NULL,
   `resa` varchar(50) DEFAULT NULL,
   `dti` varchar(50) DEFAULT NULL,
   `no_cancel` varchar(50) DEFAULT NULL,
@@ -870,7 +922,7 @@ ALTER TABLE `sucursal`
 -- AUTO_INCREMENT de la tabla `almacen`
 --
 ALTER TABLE `almacen`
-  MODIFY `id_almacen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_almacen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `asigna_menu`
@@ -888,7 +940,7 @@ ALTER TABLE `contactos_e`
 -- AUTO_INCREMENT de la tabla `correlativo_almacen`
 --
 ALTER TABLE `correlativo_almacen`
-  MODIFY `idcorrelativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `idcorrelativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT de la tabla `depto`
