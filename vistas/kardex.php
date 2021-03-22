@@ -13,10 +13,10 @@ if (!$_SESSION['nombre']) {
     <div class="content-wrapper">
         <!-- Main content -->
         <section class="content">
-<?php  
-    include_once ("../vistas/modal/empaque.php");
-    include_once ("../vistas/modal/modalempresa.php");
-?>
+            <?php
+            include_once("../vistas/modal/empaque.php");
+            include_once("../vistas/modal/modalempresa.php");
+            ?>
             <div class="row" id="Almacen">
                 <div class="col-md-4">
                     <form action="" role="form" id="formAlmacen">
@@ -32,14 +32,14 @@ if (!$_SESSION['nombre']) {
                                     <div class="form-group input-group-sm">
                                         <div class="col-sm-5">
                                             <input type="text" class="form-control" name="codigoAlmacen" id="codigoAlmacen" readonly>
-                                            <input type="hidden" name="idAlmacen" name="idAlmacen">
+                                            <input type="hidden" id="idAlmacen" name="idAlmacen">
                                         </div>
                                     </div>
 
                                     <label for="consiganado" class="">Consignado* </label>
                                     <div class="input-group input-group-sm">
 
-                                        <select id="consignado" name="consignado" class="form-control selectpicker" data-live-search="true" >
+                                        <select id="consignado" name="consignado" class="form-control selectpicker" data-live-search="true">
                                         </select>
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-info fa fa-plus" data-toggle="modal" data-target="#modalempresa" onclick="nuevoConsignado()"></button>
@@ -145,10 +145,10 @@ if (!$_SESSION['nombre']) {
                             <div class="form-group col-md-12">
                                 <label for="consiganado" class="">Cliente* </label>
                                 <div class="input-group input-group-sm">
-                                    <select id="cliente" name="cliente" class="form-control selectpicker" data-live-search="true" >
+                                    <select id="cliente" name="cliente" class="form-control selectpicker" data-live-search="true">
                                     </select>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-info fa fa-plus"  onclick="nuevoCliente()"></button>
+                                        <button type="button" class="btn btn-info fa fa-plus" onclick="nuevoCliente()"></button>
                                     </span>
                                 </div>
                             </div>
@@ -165,7 +165,7 @@ if (!$_SESSION['nombre']) {
                                 <input type="number" class="form-control" name="peso" id="peso">
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <label>Ubicacion</label>
+                                <label>Ubicacion:</label>
                                 <input type="text" class="form-control" name="ubicacion" id="ubicacion">
                             </div>
 
@@ -175,7 +175,7 @@ if (!$_SESSION['nombre']) {
                             </div>
 
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <label>DUT</label>
+                                <label>DUT:</label>
                                 <input type="text" class="form-control" name="dut" id="dut">
                             </div>
 
@@ -195,29 +195,34 @@ if (!$_SESSION['nombre']) {
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
-                            </div>
-                            <div class="form-group col-md-12">
+                                <label for="liberado"></label>
                                 <div class="form-check">
+                                    <label for="liberado" class="form-check-label">Liberado:</label>
                                     <input id="liberado" class="form-check-input" type="checkbox" name="liberado">
-                                    <label for="liberado" class="form-check-label">Liberado</label>
                                 </div>
                             </div>
-
-                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <label>Resa</label>
+                            <div class="form-group col-md-12">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Resa:</label>
                                 <input type="text" class="form-control" name="resa" id="resa">
                             </div>
-                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <div class="form-group col-md-3">
                                 <label>DTI</label>
                                 <input type="text" class="form-control" name="dti" id="dti">
                             </div>
-                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <label>No. Cancel</label>
+                            <div class="form-group col-md-2">
+                                <label>No. Cancel:</label>
                                 <input type="text" class="form-control" name="ncancel" id="ncancel">
                             </div>
-                            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <label>No. Orden</label>
+                            <div class="form-group col-md-2">
+                                <label>No. Orden:</label>
                                 <input type="text" class="form-control" name="norden" id="norden">
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>Linea:</label>
+                                <input type="text" class="form-control" name="linea" id="linea">
                             </div>
 
                             <div class="form-group col-md-6">
@@ -225,7 +230,7 @@ if (!$_SESSION['nombre']) {
                                 <textarea class="form-control" rows="3" id="mercaderia" name="mercaderia"></textarea>
                             </div>
 
-                            
+
                             <div class="form-group col-md-6">
                                 <label for="observaciones">Observaciones:</label>
                                 <textarea class="form-control" rows="3" id="observaciones" name="observaciones"></textarea>
@@ -235,7 +240,7 @@ if (!$_SESSION['nombre']) {
                                 <legend></legend>
                                 <div class="form-group">
                                     <div class="col-md-offset-1 col-md-11">
-                                        <button class="btn btn-primary" type="button" onclick="" id="grabaD" >Graba
+                                        <button class="btn btn-primary" type="button" onclick="grabaDetalle()" id="grabaD">Graba
                                             <span class="fa fa-floppy-o"></span>
                                         </button>
                                         <button class="btn btn-danger" type="button" onclick="nuevoDetalle('false')" id="cancelarD">Cancelar
@@ -271,8 +276,13 @@ if (!$_SESSION['nombre']) {
                                             <th>Bultos</th>
                                             <th>Ubicacion</th>
                                             <th>Embalaje</th>
+                                            <th>DUT</th>
+                                            <th>Liberado</th>
                                             <th>Linea</th>
                                             <th>No. Resa</th>
+                                            <th>DTI</th>
+                                            <th>No Cancel</th>
+                                            <th>No Orden</th>
                                             <th>Mercaderia</th>
                                             <th>Observaciones</th>
                                         </tr>
@@ -345,7 +355,7 @@ if (!$_SESSION['nombre']) {
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -359,7 +369,7 @@ if (!$_SESSION['nombre']) {
     require_once("../inc/footer.php");
     require_once("../inc/scritps.php");
     ?>
-   <!--  <script>
+    <!--  <script>
         $(document).ready(function() {
             //Date picker
             $('#fechaI').datepicker({
@@ -369,7 +379,7 @@ if (!$_SESSION['nombre']) {
     </script> -->
     <script src="scritps/empresa.js"></script>
     <script type="text/javascript" src="scritps/kardex.js"></script>
- 
+
 <?php }
 ob_end_flush();
 ?>

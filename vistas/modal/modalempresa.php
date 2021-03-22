@@ -31,6 +31,14 @@
                                                         <label for="codigo" class="control-label">Codigo:</label>
                                                         <input type="text" name="codigo" id="codigo" class="form-control input-sm" style="width:150px" readonly>
                                                     </div>
+
+                                                    <div class="form-group">
+                                                        <label for="paisEmpresa" class="control-label" >Pais(*)</label>
+                                                        <select id="paisEmpresa" name="paisEmpresa" class="selectpicker form-control" data-live-search="true">
+                                                            
+                                                        </select>
+                                                    </div>
+
                                                     <div class="form-group">
                                                         <label for="Razons" class="control-label">Razon
                                                             Social*:</label>

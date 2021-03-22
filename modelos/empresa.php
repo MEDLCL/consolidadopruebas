@@ -7,13 +7,13 @@ class Empresa
     public function __construct()
     {
     }
-    public function grabar($codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos)
+    public function grabar($codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos,$idpaisEmpresa)
     {
         $con = Conexion::getConexion();
         try {
             $con->beginTransaction();
-            $rspt = $con->prepare("INSERT INTO empresas (codigo,Tipoe,id_sucursal,id_usuario,Razons,Nombrec,identificacion,telefono,direccion,porcentaje_comision,tipo_comision)
-                            values(:codigo,:tipoe,:idsucursal,:idusuario,:razons,:nombrec,:nit,:telefono,:dire,:comision,:cbmtarifa)");
+            $rspt = $con->prepare("INSERT INTO empresas (codigo,Tipoe,id_sucursal,id_usuario,Razons,Nombrec,identificacion,telefono,direccion,porcentaje_comision,tipo_comision,id_pais)
+                            values(:codigo,:tipoe,:idsucursal,:idusuario,:razons,:nombrec,:nit,:telefono,:dire,:comision,:cbmtarifa,:idpais)");
             $rspt->bindParam(":codigo", $codigo);
             $rspt->bindParam(":tipoe", $tipoe);
             $rspt->bindParam(":idsucursal", $_SESSION['idsucursal']);
@@ -25,6 +25,7 @@ class Empresa
             $rspt->bindParam(":dire", $dire);
             $rspt->bindParam(":comision", $comision);
             $rspt->bindParam(":cbmtarifa", $cbmtarifa);
+            $rspt->bindParam(":idpais",$idpaisEmpresa);
             $rspt->execute();
 
             if ($rspt) {
@@ -57,7 +58,7 @@ class Empresa
             return 0;
         }
     }
-    public function editarE($idempresa,$codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos)
+    public function editarE($idempresa,$codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos,$idpaisEmpresa)
     {
         $con = Conexion::getConexion();
         try {
@@ -70,7 +71,8 @@ class Empresa
                                     telefono=:telefono,
                                     direccion=:dire,
                                     porcentaje_comision=:comision,
-                                    tipo_comision=:cbmtarifa
+                                    tipo_comision=:cbmtarifa,
+                                    id_pais=:idpais
                                     WHERE id_empresa = :idempresa");
             $rspt->bindParam(":codigo", $codigo);
             $rspt->bindParam(":razons", $razons);
@@ -81,6 +83,7 @@ class Empresa
             $rspt->bindParam(":comision", $comision);
             $rspt->bindParam(":cbmtarifa", $cbmtarifa);
             $rspt->bindParam(":idempresa", $idempresa);
+            $rspt->bindParam(":idpais",$idpaisEmpresa);
             $rspt->execute();
             if ($rspt) {
                 $rspt = $con->prepare("DELETE FROM contactos_e where id_empresa= :idempresa");
@@ -143,9 +146,11 @@ class Empresa
                                         E.estado,
                                         E.porcentaje_comision,
                                         E.tipo_comision,
-                                        C.nombre, C.apellido, C.correo, C.telefono as tel, C.puesto 
+                                        C.nombre, C.apellido, C.correo, C.telefono as tel, C.puesto,
+                                        P.nombre as pais
                                 FROM empresas as E LEFT JOIN 
-                                        contactos_e as C ON E.id_empresa = C.id_empresa
+                                    pais as P on P.idpais = E.id_pais LEFT JOIN
+                                        contactos_e as C ON E.id_empresa = C.id_empresa 
                                 WHERE Tipoe = :tipoe AND id_sucursal = :idsucursal
                                 ORDER BY E.id_empresa ASC");
             $rsp->bindParam(":tipoe", $_SESSION['Iniciale']);

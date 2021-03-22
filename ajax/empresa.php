@@ -20,6 +20,8 @@ $correosc = isset($_POST['correosc']) ? $correosc = $_POST['correosc'] : $correo
 $telefonosc = isset($_POST['telefonosc']) ? $telefonosc = $_POST['telefonosc'] : $telefonosc = array();
 $puestosc = isset($_POST['puestosc']) ? $puestosc =  $_POST['puestosc'] : $puestosc = array();
 $idcontacto = isset($_POST['id_contacto'])?$idcontacto = $_POST['id_contacto']:$idcontacto = 0;
+$idpaisEmpresa = isset($_POST["paisEmpresa"])?$idpaisEmpresa= $_POST["paisEmpresa"]:$idpaisEmpresa =0;
+
 $res = 0;
 switch ($_GET['op']) {
     case 'guardaryeditar':
@@ -29,7 +31,7 @@ switch ($_GET['op']) {
                 echo $verifica;
             } else if ($verifica == 3) {
                 $codigo =$empresa->codigo($tipoE); 
-                $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
+                $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa);
                 echo $res;
 
             } else {
@@ -41,7 +43,7 @@ switch ($_GET['op']) {
             if ($verifica == 2) {
                 echo $verifica;
             } else if ($verifica == 3) {
-                echo $res = $empresa->editarE($idempresa, $codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc);
+                echo $res = $empresa->editarE($idempresa, $codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa);
             }
         }
         break;
@@ -57,18 +59,19 @@ switch ($_GET['op']) {
             $data[] = array(
                 "0" => '<button data-toggle="modal" data-target="#modalempresa" class="btn btn-warning" onclick="mostrarempresa(' . $reg->id_empresa . ')"><i class="fa fa-pencil" ></i></button>',
                 "1" => $reg->codigo,
-                "2" => $reg->Razons,
-                "3" => $reg->Nombrec,
-                "4" => $reg->identificacion,
-                "5" => $reg->telefono,
-                "6" => $reg->direccion,
-                "7" => $reg->porcentaje_comision,
-                "8" => $reg->tipo_comision,
-                "9" => $reg->nombre,
-                "10" => $reg->apellido,
-                "11" => $reg->correo,
-                "12" => $reg->tel,
-                "13" => $reg->puesto
+                "2"=> $reg->pais,
+                "3" => $reg->Razons,
+                "4" => $reg->Nombrec,
+                "5" => $reg->identificacion,
+                "6" => $reg->telefono,
+                "7" => $reg->direccion,
+                "8" => $reg->porcentaje_comision,
+                "9" => $reg->tipo_comision,
+                "10" => $reg->nombre,
+                "11" => $reg->apellido,
+                "12" => $reg->correo,
+                "13" => $reg->tel,
+                "14" => $reg->puesto
             );
         }
         $results = array(

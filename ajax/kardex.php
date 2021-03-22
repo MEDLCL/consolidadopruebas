@@ -1,7 +1,7 @@
 <?php
 require_once "../config/Conexion.php";
 require_once "../config/funciones.php";
-require_once "../modelos/kardex.php"; 
+require_once "../modelos/kardex.php";
 $kardex = new kardex();
 
 
@@ -15,44 +15,48 @@ $volumenT = isset($_POST['volumenT']) ? limpia($_POST['volumenT']) : $volumenT =
 $bultosT = isset($_POST['bultosT']) ? limpia($_POST['bultosT']) : $bultosT = '';
 $codigoA = isset($_POST['codigoAlmacen']) ? limpia($_POST['codigoAlmacen']) : $codigoA = '';
 $fechaI = isset($_POST['fechaI']) ? limpia($_POST['fechaI']) : $fechaI = '';
-$cant_clientes = isset($_POST["cntClientes"])?limpia($_POST["cntClientes"]):$cant_clientes = "";
+$cant_clientes = isset($_POST["cntClientes"]) ? limpia($_POST["cntClientes"]) : $cant_clientes = "";
 
 switch ($_GET["op"]) {
     case 'guardaryeditar':
-        if ($idalmacen == 0 || $idalmacen ==""){
-            $resp = $kardex->grabar($codigoA,$idconsignado,$contenedor,$poliza,$referencia,$pesoT,$volumenT,$bultosT,$fechaI,$cant_clientes);
+        if ($idalmacen == 0 || $idalmacen == "") {
+            $resp = $kardex->grabar($codigoA, $idconsignado, $contenedor, $poliza, $referencia, $pesoT, $volumenT, $bultosT, $fechaI, $cant_clientes);
             echo $resp;
-        }  
+        }else{
+            $resp = $kardex->editarAlmacen($idalmacen,$idconsignado,$contenedor,$poliza,$referencia,$pesoT,$volumenT,$bultosT,$fechaI,$cant_clientes);
+            echo $resp;
+        }
         break;
-   
+
     case 'mostrar':
-        
+
         break;
 
     case 'listarK':
-         $rspt = $kardex->listar();
-           //se declara un array para almacenar todo el query
+        $rspt = $kardex->listar();
+        mb_internal_encoding ('UTF-8');
+        //se declara un array para almacenar todo el query
         $data = array();
         foreach ($rspt as $reg) {
 
             $data[] = array(
-                "0" =>'<div class="btn-group">
+                "0" => '<div class="btn-group">
                     <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
                         <span class="fa fa-cog"></span>
                         Acciones
                         <span class="caret"></span>
                         <span class="sr-only">Desplegar menú</span>
-                     </button>
+                    </button>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#"Editar onclick = "editarAlmacen('. $reg->id_almacen .')">Editar</a></li>
+                        <li><a href="#"Editar onclick = "ListarAlmacen(' . $reg->id_almacen . ')">Editar</a></li>
                         <li><a href="#">Anular</a></li>
                         <li><a href="#">Calculo</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Acción #4</a></li>
                     </ul>
                     </div>',
-                "1"=>$reg->estado,    
+                "1" => $reg->estado,
                 "2" => $reg->annio,
                 "3" => $reg->Codigo,
                 "4" => $reg->consignado,
@@ -88,9 +92,14 @@ switch ($_GET["op"]) {
         );
         echo json_encode($results);
         break;
-        
-        case 'codigo':
-          $codigo =  $kardex->codigo();
-          echo $codigo;
+
+    case 'codigo':
+        $codigo =  $kardex->codigo();
+        echo $codigo;
         break;
+
+    case 'mostrarA':
+        $rsp = $kardex->muestraAlmacen($idalmacen);
+        echo json_encode($rsp);
+        break;   
 }

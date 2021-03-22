@@ -66,6 +66,7 @@ if (!$_SESSION['nombre']) {
                                     <tr>
                                         <th>Editar</th>
                                         <th>Codigo</th>
+                                        <th>Pais</th>
                                         <th>Razon Social</th>
                                         <th>Nombre Comercial</th>
                                         <th>Nit</th>

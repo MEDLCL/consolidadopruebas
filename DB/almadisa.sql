@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 18-03-2021 a las 05:27:48
+-- Tiempo de generación: 22-03-2021 a las 18:34:05
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.33
+-- Versión de PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `prcKardex` ()  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `prcKardex` (IN `idsucursal` INT)  NO SQL
 SELECT 
 	  DA.estado,
       A.id_almacen,
@@ -59,7 +59,7 @@ SELECT
 		empresas AS E ON E.id_empresa = A.id_consignado	LEFT JOIN 
 		detalle_almacen AS DA ON DA.id_almacen = A.id_almacen LEFT JOIN 
 		empresas AS CL ON CL.id_empresa = DA.id_cliente
-		
+ where A.id_sucursal =idsucursal		
 		ORDER BY A.fecha_almacen DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `prcListadoUsuarios` ()  NO SQL
@@ -145,7 +145,9 @@ INSERT INTO `almacen` (`id_almacen`, `id_usuario`, `id_sucursal`, `id_consignado
 (10, 52, 27, 64, '03.42.21', 'ASDFASDFSADF', 'asd', 'ASD', 1, NULL, 1, NULL, 1, 0, '2021-03-24', '2021-03-16', 52, 2021),
 (11, 52, 27, 64, '03.43.21', 'ASDF', 'asdf', 'ASDF33234', 2, NULL, 2, NULL, 2, 3, '2021-03-30', '2021-03-18', 52, 2021),
 (12, 52, 27, 64, '03.44.21', 'PRUEBA', 'asdf', 'ASDF', 2, NULL, 3, NULL, 3, 3, '2021-03-16', '2021-03-18', 52, 2021),
-(13, 52, 27, 64, '03.45.21', 'ASDF', 'asdfasdf', 'ASDF', 1, NULL, 1, NULL, 1, 3, '2021-03-17', '2021-03-18', 52, 2021);
+(13, 52, 27, 64, '03.45.21', 'ASDF', 'asdfasdf', 'ASDF', 1, NULL, 1, NULL, 1, 3, '2021-03-17', '2021-03-18', 52, 2021),
+(14, 52, 27, 64, '03.46.21', 'PLACA DE PRUEBA123', 'poliza de prueba', 'REFERENCIA DE PRUEBA', 12, NULL, 23, NULL, 12, 12, '2021-04-02', '2021-03-18', 52, 2021),
+(15, 52, 27, 64, '03.47.21', 'PLACA DE PRUEBA CAMBIO', 'poliza de prueba cambio', 'REFERENCIA DE PRUEBA CAMBIO', 10, NULL, 10, NULL, 10, 10, '2021-03-30', '2021-03-20', 52, 2021);
 
 -- --------------------------------------------------------
 
@@ -178,16 +180,17 @@ INSERT INTO `asigna_menu` (`idasigna_menu`, `id_usuario`, `id_menu`) VALUES
 (90, 57, 7),
 (91, 57, 8),
 (92, 57, 9),
-(93, 52, 1),
-(94, 52, 6),
-(95, 52, 7),
-(96, 52, 8),
-(97, 52, 9),
-(98, 52, 10),
-(99, 52, 12),
-(100, 52, 14),
-(101, 52, 19),
-(102, 52, 20);
+(103, 52, 1),
+(104, 52, 6),
+(105, 52, 7),
+(106, 52, 8),
+(107, 52, 9),
+(108, 52, 10),
+(109, 52, 12),
+(110, 52, 13),
+(111, 52, 14),
+(112, 52, 19),
+(113, 52, 20);
 
 -- --------------------------------------------------------
 
@@ -305,7 +308,27 @@ INSERT INTO `correlativo_almacen` (`idcorrelativo`, `mes`, `annio`, `contador`, 
 (61, 3, 21, 42, 27),
 (62, 3, 21, 43, 27),
 (63, 3, 21, 44, 27),
-(64, 3, 21, 45, 27);
+(64, 3, 21, 45, 27),
+(65, 3, 21, 46, 27),
+(66, 3, 21, 47, 27),
+(67, 3, 21, 48, 27),
+(68, 3, 21, 49, 27),
+(69, 3, 21, 50, 27),
+(70, 3, 21, 51, 27),
+(71, 3, 21, 52, 27),
+(72, 3, 21, 53, 27),
+(73, 3, 21, 54, 27),
+(74, 3, 21, 55, 27),
+(75, 3, 21, 56, 27),
+(76, 3, 21, 57, 27),
+(77, 3, 21, 58, 27),
+(78, 3, 21, 59, 27),
+(79, 3, 21, 60, 27),
+(80, 3, 21, 61, 27),
+(81, 3, 21, 62, 27),
+(82, 3, 21, 63, 27),
+(83, 3, 21, 64, 27),
+(84, 3, 21, 65, 27);
 
 -- --------------------------------------------------------
 
@@ -365,6 +388,13 @@ CREATE TABLE `detalle_almacen` (
   `carga_retenida` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `detalle_almacen`
+--
+
+INSERT INTO `detalle_almacen` (`id_detalle`, `id_almacen`, `id_cliente`, `id_usuario`, `id_embalaje`, `peso`, `volumen`, `bultos`, `nohbl`, `estado`, `ubicacion`, `linea`, `resa`, `dti`, `no_cancel`, `no_orden`, `liberado`, `dut`, `mercaderia`, `observaciones`, `fecha_graba`, `fecha_modificacion`, `id_usuario_modifica`, `bultos_retirados`, `carga_retenida`) VALUES
+(1, 14, 65, 52, 1, 2, 1, 3, 'no hbl', 1, 'ubicacion', 'linea', 'resa', 'dti', 'nocancel', 'no orden', 0, 'dut', 'mercaderia', 'observaciones', '2021-03-21', '2021-03-21', 52, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -394,6 +424,7 @@ CREATE TABLE `empresas` (
   `id_empresa` int(11) NOT NULL,
   `id_sucursal` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
+  `id_pais` int(11) NOT NULL,
   `Razons` varchar(150) NOT NULL,
   `Nombrec` varchar(150) NOT NULL,
   `identificacion` varchar(75) NOT NULL,
@@ -411,9 +442,10 @@ CREATE TABLE `empresas` (
 -- Volcado de datos para la tabla `empresas`
 --
 
-INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`, `fecha`) VALUES
-(64, 27, 52, 'MANUEL', 'MANUEL', '12332', 'GUATEMALA', '234', 'CO', '1', 1, 1, 'cbm', '2021-03-03'),
-(65, 27, 52, 'CLIENTE 1', 'CLIENTE 1', 'asdf', 'ASDF', '123', 'CL', '1', 1, 0, '', '2021-03-13');
+INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `id_pais`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`, `fecha`) VALUES
+(64, 27, 52, 92, 'MANUEL', 'MANUEL', '12332', 'GUATEMALA', '234', 'CO', '1', 1, 1, 'cbm', '2021-03-03'),
+(65, 27, 52, 4, 'CLIENTE 1', 'CLIENTE 1', 'asdf', 'ASDF', '123', 'CL', '1', 1, 0, '', '2021-03-13'),
+(66, 27, 52, 157, 'SERCOGUA NICARAGUA', 'SERCOGUA NICARAGUA', '12355', 'NICARAGUA', '50523659', 'CO', '2', 1, 0, '', '2021-03-19');
 
 -- --------------------------------------------------------
 
@@ -922,13 +954,13 @@ ALTER TABLE `sucursal`
 -- AUTO_INCREMENT de la tabla `almacen`
 --
 ALTER TABLE `almacen`
-  MODIFY `id_almacen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_almacen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `asigna_menu`
 --
 ALTER TABLE `asigna_menu`
-  MODIFY `idasigna_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `idasigna_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT de la tabla `contactos_e`
@@ -940,7 +972,7 @@ ALTER TABLE `contactos_e`
 -- AUTO_INCREMENT de la tabla `correlativo_almacen`
 --
 ALTER TABLE `correlativo_almacen`
-  MODIFY `idcorrelativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `idcorrelativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT de la tabla `depto`
@@ -952,7 +984,7 @@ ALTER TABLE `depto`
 -- AUTO_INCREMENT de la tabla `detalle_almacen`
 --
 ALTER TABLE `detalle_almacen`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `empaque`
@@ -964,7 +996,7 @@ ALTER TABLE `empaque`
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT de la tabla `login`

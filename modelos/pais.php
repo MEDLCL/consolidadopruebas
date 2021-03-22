@@ -15,10 +15,13 @@ switch ($_GET['op']) {
         selectPadre($tabla, $campo, $id);
     case 'selecEmpresa':
         selecEmpresa($tabla, $campo, $id,$tipoe);
-        break;    
-    default:
-        # code...
         break;
+    case 'selectN':
+        selectNomal($tabla,$campo,$id);
+        break;
+    default:
+        
+    break;
 }
 
 function selectPadre($tabla, $campo, $id)
@@ -56,6 +59,20 @@ function selecEmpresa($tabla, $campo, $id,$tipoe)
     $con = Conexion::getConexion();
     $stmt = $con->prepare("SELECT * FROM $tabla WHERE Tipoe = :tipoe AND id_sucursal = :id_sucursal ORDER  BY $campo ASC");
     $stmt->bindParam(":tipoe",$tipoe);
+    $stmt->bindParam(":id_sucursal",$_SESSION['idsucursal']);
+    $stmt->execute();
+    $selec = '';
+    $selec = '<option value="0" selected>Seleccione una Opcion</option>';
+    foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as  $resp) {
+        $selec = $selec . '<option value="' . $resp->$id . '">' . $resp->$campo . '</option>';
+    }
+    echo $selec;
+    $con = Conexion::cerrar();
+    $stmt = NULL;
+}
+function selectNomal($tabla,$campo,$id){
+    $con = Conexion::getConexion();
+    $stmt = $con->prepare("SELECT * FROM $tabla  ORDER  BY $campo ASC");
     $stmt->bindParam(":id_sucursal",$_SESSION['idsucursal']);
     $stmt->execute();
     $selec = '';

@@ -1,5 +1,6 @@
 function init() {
     listar();
+    llenaPaisEmpresas();
 }
 var cont = 0;
 
@@ -68,6 +69,8 @@ function limpiar() {
     $("#cmb").prop("checked", false);
     $("#tarifa").prop("checked", false);
     $('#consignadoa').hide();
+    $("#paisEmpresa").val(0);
+    $("#paisEmpresa").selectpicker("refresh");
 }
 
 function nuevo(tipoe) {
@@ -107,7 +110,6 @@ function nuevo(tipoe) {
         $("#titulomodale").html("Transportista");
     }
     $('#tipoE').val(tipo);
-
 }
 
 function grabareditar() {
@@ -116,6 +118,7 @@ function grabareditar() {
     var nit = $('#identificacion').val();
     //var telefono = $('#telefono').val();
     var dire = $('#direccion').val();
+    var idpaisE = $("#paisEmpresa").prop("selectedIndex");
 
     if (rasons.trim() == '') {
         alertify.alert('Campo vacio', 'Debe de ingresar Razon Social');
@@ -125,6 +128,9 @@ function grabareditar() {
         return false;
     } else if (dire.trim() == '') {
         alertify.alert('Campo Vacio', 'Debe de ingresar la Dirección');
+        return false;
+    }else if (idpaisE == -1 || idpaisE ==0){
+        alertify.alert("Campo Vacio","Debe de seleccionar el Pais");
         return false;
     }
     if (nit.trim() == '') {
@@ -218,6 +224,9 @@ function mostrarempresa(idempresa) {
             $('#direccion').val(data.direccion);
             $('#comision').val(data.porcentaje_comision);
             $('#tipoE').val(data.Tipoe);
+            $("#paisEmpresa").val(data.id_pais);
+            $("#paisEmpresa").selectpicker("refresh");
+
             if (data.Tipoe == 'CO') {
                 $('#consignadoa').show();
             } else {
@@ -238,5 +247,17 @@ function mostrarempresa(idempresa) {
             $('#tbodyC').append(resp);
         }
     });
+}
+function llenaPaisEmpresas() {
+    $("#paisEmpresa").empty();
+    $.post(
+        "../modelos/pais.php?op=pais&tabla=pais&campo=nombre", {},
+        function(data, status) {
+            $("#paisEmpresa").html(data);
+            $("#paisEmpresa").selectpicker("refresh");
+            $("#paisEmpresa").val(0);
+            $("#paisEmpresa").selectpicker("refresh");
+        }
+    );
 }
 init();

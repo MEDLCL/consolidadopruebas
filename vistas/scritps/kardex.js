@@ -1,4 +1,5 @@
 var tablaK = "";
+var tablaDA = "";
 
 function init() {
     $("#fechaI").datepicker({
@@ -11,8 +12,8 @@ function init() {
     llenaCliente();
     nuevoDetalle("false");
     ocultaAlma("false");
-    //llenaEmpaqueModal();
-    //llenaEmpaqueDetalle();
+    llenaEmpaqueModal();
+    llenaEmpaqueDetalle();
     listarKardex();
 }
 
@@ -100,13 +101,13 @@ function nuevoAlma() {
     $("#bultosT").val(0);
     $("#cntClientes").val(1);
     $("#fechaI").val("");
-    $("#btnNuevoDetalle").attr("disabled", "false")
+    $("#btnNuevoDetalle").attr("disabled", "false");
     $("#grabaAlmacen").removeAttr("disabled");
 }
 
 function llenaEmpaqueModal() {
     $.post(
-        "../modelos/pais.php?op=selectP&tabla=empaque&campo=nombre", {
+        "../modelos/pais.php?op=selectN&tabla=empaque&campo=nombre", {
             id: "id_empaque",
             tipoe: "",
         },
@@ -120,7 +121,7 @@ function llenaEmpaqueModal() {
 
 function llenaEmpaqueDetalle() {
     $.post(
-        "../modelos/pais.php?op=selectP&tabla=empaque&campo=nombre", {
+        "../modelos/pais.php?op=selectN&tabla=empaque&campo=nombre", {
             id: "id_empaque",
             tipoe: "",
         },
@@ -228,6 +229,7 @@ function grabarAlmacen() {
                 $("#codigoAlmacen").val(data);
                 formAlmacen = new FormData($("#formAlmacen")[0]);
                 $.ajax({
+                    
                     url: "../ajax/kardex.php?op=guardaryeditar",
                     type: "POST",
                     data: formAlmacen,
@@ -237,6 +239,7 @@ function grabarAlmacen() {
                         if (datos > 0) {
                             //limpiar();
                             // $('#listadosucursal').DataTable().ajax.reload();
+                            $('#Tkardex').DataTable().ajax.reload();
                             $("#idAlmacenD").val(datos);
                             alertify.success("Proceso Realizado con exito");
                             $("#btnNuevoDetalle").removeAttr("disabled");
@@ -250,10 +253,8 @@ function grabarAlmacen() {
             } else {
                 alertify.alert("Error al Genera el Codigo");
             }
-
         }
     );
-
 }
 
 function listarKardex() {
@@ -276,5 +277,146 @@ function listarKardex() {
                 [0, "desc"]
             ] //order los datos
     });
+}
+
+function ListarAlmacen(idAlmacen){
+    nuevoAlma();
+    $.post("../ajax/kardex.php?op=mostrarA", { idAlmacen: idAlmacen},
+    
+    function(data, status) {
+        data = JSON.parse(data);
+        if (data.id_almacen>0){
+            ocultaAlma(true);
+            $("#idAlmacen").val(data.id_almacen);
+            $("#idAlmacenD").val(data.id_almacen);
+            $("#codigoAlmacen").val(data.codigo);
+            $("#consignado").val(data.id_consignado);
+            $("#consignado").selectpicker("refresh");
+            $("#contenedor").val(data.contenedor_placa);
+            $("#poliza").val(data.poliza);
+            $("#referencia").val(data.referencia);
+            $("#pesoT").val(data.peso);
+            $("#volumenT").val(data.volumen);
+            $("#bultosT").val(data.bultos);
+            $("#cntClientes").val(data.cant_clientes);
+            $("#fechaI").val(data.fechaI);
+            $("#btnNuevoDetalle").removeAttr("disabled");
+            $("#grabaAlmacen").removeAttr("disabled");
+            nuevoDetalle("false");
+            listarTablaDA(idAlmacen);
+        }
+        else{
+            alertify.alert("Error","Ha ocurrido un error");
+        }
+        
+    })
+}
+
+function grabaDetalle(){
+    var cliente = $("#cliente").prop("selectedIndex");
+    var peso =    $("#peso").val();
+    var volumen = $("#volumen").val();
+    var bultos = $("#bultos").val();
+    var embalaje= $("#embalajeD").prop("selectedIndex");
+    var merca=  $("#mercaderia").val();
+
+    if (cliente ==-1 || cliente == 0) {
+        alertify.alert("Campo Vacio","Debe de seleccionar el Cliente");
+        return false;
+    }else if (peso == 0){
+        alertify.alert("Campo Vacio","Debe de colocar el Peso");
+        return false ;
+    }else if (volumen == 0){
+        alertify.alert("Campo Vacio","Debe de colocar el Volumen");
+        return false ;
+    }else if (bultos == 0 ){
+        alertify.alert("Campo Vacio","Debe de colocar los bultos");
+        return faslse ;
+    }else if (embalaje == -1 || embalaje == 0){
+        alertify.alert("Campo Vacio","Debe de seleccionar Embalaje");
+        return false;
+    }else if(merca.trim()==""){
+        alertify.alert("Campo Vacio","Debe de Ingresar Mercaderia");
+        return false;
+    }
+    formDAlmacen = new FormData($("#formAlmacenDetalle")[0]);
+                $.ajax({
+                    url: "../ajax/detalleAlmacen.php?op=guardaryeditar",
+                    type: "POST",
+                    data: formDAlmacen,
+                    contentType: false,
+                    processData: false,
+                    success: function(datos) {
+                        if (datos > 0) {
+                            $('#Tdetalle').DataTable().ajax.reload();
+                            $('#Tkardex').DataTable().ajax.reload();
+                            alertify.success("Proceso Realizado con exito");
+                            $("#btnNuevoDetalle").removeAttr("disabled");
+                            nuevoDetalle("false");
+                        } else {
+                            alertify.error("Proceso no se pudo realizar") + " " + datos;
+                        }
+                    }
+                });
+
+}
+function listarTablaDA(idAlmacenD){
+    tablaDA = $('#Tdetalle').dataTable({
+        "aProcessing": true, //Activamos el procesamiento del datatables
+        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
+        dom: 'Bfrtip', //Definimos los elementos de control de tabla
+        buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5'],
+        "ajax": {
+            url: '../ajax/detalleAlmacen.php?op=listarDA',
+            type: "post",
+            data:{idAlmacenD:idAlmacenD},
+            dataType: "json",
+            error: function(e) {
+                console.log(e.responseText);
+            }
+        },
+        "bDestroy": true,
+        "iDisplayLenth": 10, //paginacion
+        "order": [
+                [0, "desc"]
+            ] //order los datos
+    });
+}
+function listarDetalleA(iddetallealmacen){
+    nuevoDetalle("true");
+    $.post("../ajax/detalleAlmacen.php?op=mostrarDetalleA", { iddetallealmacen: iddetallealmacen},
+    
+    function(data, status) {
+        data = JSON.parse(data);
+        if (data.id_detalle>0){
+            $("#iddetallealmacen").val(data.id_detalle);
+            
+            $("#idAlmacenD").val(data.id_almacen); 
+            $("#cliente").val(data.id_cliente);
+            $("#cliente").selectpicker("refresh");
+
+            $("#nohbl").val(data.nohbl);
+            $("#peso").val(data.peso);
+            $("#volumen").val(data.volumen);
+            $("#bultos").val(data.bultos);
+            $("#ubicacion").val(data.ubicacion);
+            $("#dut").val(data.dut);
+            $("#embalajeD").val(data.id_embalaje);
+            $("#embalajeD").selectpicker("refresh");
+            //$("#liberado").prop("checked", false);
+            $("#resa").val(data.resa);
+            $("#dti").val(data.dti);
+            $("#ncancel").val(data.no_cancel);
+            $("#norden").val(data.no_orden);
+            $("#linea").val(data.linea);
+            $("#mercaderia").val(data.mercaderia);
+            $("#observaciones").val(data.observaciones);
+
+        }
+        else{
+            alertify.alert("Error","Ha ocurrido un error");
+        }
+        
+    }) 
 }
 init();
