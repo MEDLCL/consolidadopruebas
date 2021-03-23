@@ -49,44 +49,60 @@ class detalleAlmacen
             return 0;
         }
     }
-    public function editarDAlmacen($idalmacen, $idconsignado, $contenedor, $poliza, $referencia, $peso, $volumen, $bultos, $fechaI, $cantClie)
+    public function editarDAlmacen($iddetalleA, $idcliente, $nohbl, $ubicacion, $peso, $volumen, $dut, $bultos, $embalajeD, $liberado, $resa, $dti, $ncancel, $norden, $mercaderia, $observaciones, $linea)
     {
         $fechaM = date("Y-m-d");
-        $fechaI = date("Y-m-d", strtotime($fechaI));
+       
         $con = Conexion::getConexion();
         try {
-            $rsp = $con->prepare("UPDATE almacen 
-                    SET id_consignado=:idconsignado,
-                        contenedor_placa=:contenedor,
-                        poliza=:poliza,
-                        referencia=:referencia,
+            $stmt = $con->prepare("UPDATE detalle_almacen 
+                    SET id_cliente=:idcliente,
+                        id_embalaje=:idembalaje,
                         peso=:peso,
                         volumen=:volumen,
                         bultos=:bultos,
-                        fecha_almacen=:fechaA,
-                        id_usuario_modifica=:idusuarioM,
-                        fecha_modifica=:fechaM,
-                        cant_clientes=:cntCli
-                    WHERE id_almacen=:idalmacen");
-            $rsp->bindParam(":idconsignado", $idconsignado);
-            $rsp->bindParam(":contenedor", $contenedor);
-            $rsp->bindParam(":poliza", $poliza);
-            $rsp->bindParam(":referencia", $referencia);
-            $rsp->bindParam(":peso", $peso);
-            $rsp->bindParam(":volumen", $volumen);
-            $rsp->bindParam(":bultos", $bultos);
-            $rsp->bindParam(":fechaA", $fechaI);
-            $rsp->bindParam(":idusuarioM", $_SESSION["idusuario"]);
-            $rsp->bindParam(":fechaM", $fechaM);
-            $rsp->bindParam(":cntCli", $cantClie);
-            $rsp->bindParam(":idalmacen", $idalmacen);
-            $rsp->execute();
-            if ($rsp !== false) {
-                return $idalmacen;
+                        nohbl=:nohbl,
+                        ubicacion=:ubicacion,
+                        linea=:linea,
+                        resa=:resa,
+                        dti=:dti,
+                        no_cancel=:no_cancel,
+                        no_orden=:no_orden,
+                        liberado=:liberado,
+                        dut=:dut,
+                        mercaderia=:mercaderia,
+                        observaciones=:observaciones,
+                        fecha_modificacion=:fechaM,
+                        id_usuario_modifica=:idusuarioM
+                    WHERE id_detalle=:iddetallea");
+
+    $stmt->bindParam(":idcliente", $idcliente);
+    $stmt->bindParam(":idembalaje", $embalajeD);
+    $stmt->bindParam(":peso",$peso );
+    $stmt->bindParam(":volumen", $volumen);
+    $stmt->bindParam(":bultos", $bultos);
+    $stmt->bindParam(":nohbl", $nohbl);
+    $stmt->bindParam(":ubicacion", $ubicacion);
+    $stmt->bindParam(":linea", $linea);
+    $stmt->bindParam(":resa", $resa);
+    $stmt->bindParam(":dti", $dti);
+    $stmt->bindParam(":no_cancel", $ncancel);
+    $stmt->bindParam(":no_orden", $norden);
+    $stmt->bindParam(":liberado", $liberado);
+    $stmt->bindParam(":dut", $dut);
+    $stmt->bindParam(":mercaderia", $mercaderia);
+    $stmt->bindParam(":observaciones", $observaciones);
+    $stmt->bindParam(":fechaM", $fechaM);
+    $stmt->bindParam(":idusuarioM", $_SESSION["idusuario"]);
+    $stmt->bindParam(":iddetallea", $iddetalleA);        
+    $stmt->execute();
+            if ($stmt !== false) {
+                return $iddetalleA;
             } else {
                 return 0;
             }
         } catch (\Throwable $th) {
+           // echo $th->getMessage();
             return 0;
         }
     }
@@ -160,5 +176,23 @@ class detalleAlmacen
         } catch (\Throwable $th) {
             return 0;
         }
+    }
+    public function anularDetalle($iddetalleA){
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("UPDATE detalle_almacen
+                                SET estado = 0
+                                WHERE id_detalle = :iddetalle ");
+            $rsp->bindParam(":iddetalle",$iddetalleA);
+            $rsp->execute();
+            if ($rsp !== false) {
+                return $iddetalleA;
+            } else {
+                return 0;
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }
+
     }
 }

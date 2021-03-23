@@ -32,20 +32,23 @@ switch ($_GET["op"]) {
             $resp = $detalleA->grabar($idalmacen,$idcliente,$nohbl,$ubicacion,$peso,$volumen,$dut,$bultos,$embalajeD,$liberado,$resa,$dti,$ncancel,$norden,$mercaderia,$observaciones,$linea);
             echo $resp;
         }else{
-            //$resp = $detalleA->editarAlmacen($idalmacen,$idconsignado,$contenedor,$poliza,$referencia,$pesoT,$volumenT,$bultosT,$fechaI,$cant_clientes);
-            //echo $resp;
+            $resp = $detalleA->editarDAlmacen($iddetalleA,$idcliente,$nohbl,$ubicacion,$peso,$volumen,$dut,$bultos,$embalajeD,$liberado,$resa,$dti,$ncancel,$norden,$mercaderia,$observaciones,$linea);
+            echo $resp;
         }
         break;
 
     case 'listarDA':
         $rspt = $detalleA->listar($idalmacen);
+        $acciones= "";
+        $estado = 0;
         mb_internal_encoding ('UTF-8');
         //se declara un array para almacenar todo el query
         $data = array();
         foreach ($rspt as $reg) {
-
-            $data[] = array(
-                "0" => '<div class="btn-group">
+            $acciones = "";
+            $estado = 0;
+            if ($reg->estado==1){
+                 $acciones='<div class="btn-group">
                     <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
                         <span class="fa fa-cog"></span>
                         Acciones
@@ -54,10 +57,16 @@ switch ($_GET["op"]) {
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#"Editar onclick = "listarDetalleA(' . $reg->id_detalle . ')">Editar</a></li>
-                        <li><a href="#">Anular</a></li>
+                        <li><a href="#" onclick= "anulaDetalle(' . $reg->id_detalle . ')">Anular</a></li>
                     </ul>
-                    </div>',
-                "1" => $reg->estado,
+                    </div>';
+                 $estado= '<span class="label bg-green">Activo</span>';   
+            }else{
+                $estado = '<span class="label bg-red">Anulado</span>';
+            }
+            $data[] = array(
+                "0" =>$acciones,
+                "1" =>$estado,
                 "2" => $reg->cliente,
                 "3" => $reg->nohbl,
                 "4" => $reg->peso,
@@ -88,5 +97,9 @@ switch ($_GET["op"]) {
     case 'mostrarDetalleA':
         $rsp = $detalleA->muestraDAlmacen($iddetalleA);
         echo json_encode($rsp);
-        break;   
+        break; 
+    case 'anularDetalle':
+        $rsp = $detalleA->anularDetalle($iddetalleA);
+        echo $rsp;
+        break;      
 }
