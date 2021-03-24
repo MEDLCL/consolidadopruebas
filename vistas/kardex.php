@@ -198,7 +198,7 @@ if (!$_SESSION['nombre']) {
                                 <label for="liberado"></label>
                                 <div class="form-check">
                                     <label for="liberado" class="form-check-label">Liberado:</label>
-                                    <input id="liberado" class="form-check-input" type="checkbox" name="liberado">
+                                    <input id="liberado" class="form-check-input" type="checkbox" name="liberado" value=1>
                                 </div>
                             </div>
                             <div class="form-group col-md-12">

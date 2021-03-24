@@ -22,8 +22,8 @@ switch ($_GET["op"]) {
         if ($idalmacen == 0 || $idalmacen == "") {
             $resp = $kardex->grabar($codigoA, $idconsignado, $contenedor, $poliza, $referencia, $pesoT, $volumenT, $bultosT, $fechaI, $cant_clientes);
             echo $resp;
-        }else{
-            $resp = $kardex->editarAlmacen($idalmacen,$idconsignado,$contenedor,$poliza,$referencia,$pesoT,$volumenT,$bultosT,$fechaI,$cant_clientes);
+        } else {
+            $resp = $kardex->editarAlmacen($idalmacen, $idconsignado, $contenedor, $poliza, $referencia, $pesoT, $volumenT, $bultosT, $fechaI, $cant_clientes);
             echo $resp;
         }
         break;
@@ -34,13 +34,17 @@ switch ($_GET["op"]) {
 
     case 'listarK':
         $rspt = $kardex->listar();
-        mb_internal_encoding ('UTF-8');
+        $acciones = '';
+        $estado = 0;
+        mb_internal_encoding('UTF-8');
         //se declara un array para almacenar todo el query
         $data = array();
         foreach ($rspt as $reg) {
-
-            $data[] = array(
-                "0" => '<div class="btn-group">
+            $acciones = '';
+            $estado = 0;
+            if ($reg->estado == 1) {
+                if ($reg->id_detalle == 0) {
+                    $acciones = '<div class="btn-group">
                     <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
                         <span class="fa fa-cog"></span>
                         Acciones
@@ -50,13 +54,36 @@ switch ($_GET["op"]) {
 
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#"Editar onclick = "ListarAlmacen(' . $reg->id_almacen . ')">Editar</a></li>
-                        <li><a href="#">Anular</a></li>
+                    </ul>
+                    </div>';
+                } else {
+                    $acciones = '<div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
+                        <span class="fa fa-cog"></span>
+                        Acciones
+                        <span class="caret"></span>
+                        <span class="sr-only">Desplegar menú</span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#"Editar onclick = "ListarAlmacen(' . $reg->id_almacen . ')">Editar</a></li>
+                        <li><a href="#" onclick= "anulaDetalle(' . $reg->id_detalle . ')" >Anular</a></li>
                         <li><a href="#">Calculo</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Acción #4</a></li>
                     </ul>
-                    </div>',
-                "1" => $reg->estado,
+                    </div>';
+                }
+            } else {
+            }
+            if ($reg->estado == 1) {
+                $estado = '<span class="label bg-green">Activo</span>';
+            } else {
+                $estado =  '<span class="label bg-red">Anulado</span>';
+            }
+            $data[] = array(
+                "0" => $acciones,
+                "1" => $estado,
                 "2" => $reg->annio,
                 "3" => $reg->Codigo,
                 "4" => $reg->consignado,
@@ -101,5 +128,5 @@ switch ($_GET["op"]) {
     case 'mostrarA':
         $rsp = $kardex->muestraAlmacen($idalmacen);
         echo json_encode($rsp);
-        break;   
+        break;
 }
