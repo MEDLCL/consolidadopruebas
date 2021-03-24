@@ -382,7 +382,7 @@ function listarTablaDA(idAlmacenD){
             ] //order los datos
     });
 }
-function listarDetalleA(iddetallealmacen){
+function mostrarDetalleA(iddetallealmacen){
     nuevoDetalle("true");
     $.post("../ajax/detalleAlmacen.php?op=mostrarDetalleA", { iddetallealmacen: iddetallealmacen},
     
