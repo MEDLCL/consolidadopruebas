@@ -7,7 +7,7 @@ $detalleA = new detalleAlmacen();
 
 
 $idalmacen = isset($_POST["idAlmacenD"]) ? $idsucursal = $_POST["idAlmacenD"] : $idsucursal = 0;
-$iddetalleA = isset($_POST["iddetallealmacen"])?$iddetalleA = $_POST["iddetallealmacen"] :$iddetalleA = 0;
+$iddetalleA = isset($_POST["iddetallealmacen"]) ? $iddetalleA = $_POST["iddetallealmacen"] : $iddetalleA = 0;
 $idcliente = isset($_POST['cliente']) ? limpia($_POST['cliente']) : $idconsignado = 0;
 $nohbl = isset($_POST['nohbl']) ? limpia($_POST['nohbl']) : $contenedor = '';
 $peso = isset($_POST['peso']) ? limpia($_POST['peso']) : $peso = 0;
@@ -29,26 +29,26 @@ $linea  = isset($_POST['linea']) ? limpia($_POST['linea']) : $linea = "";
 switch ($_GET["op"]) {
     case 'guardaryeditar':
         if ($iddetalleA == 0 || $iddetalleA == "") {
-            $resp = $detalleA->grabar($idalmacen,$idcliente,$nohbl,$ubicacion,$peso,$volumen,$dut,$bultos,$embalajeD,$liberado,$resa,$dti,$ncancel,$norden,$mercaderia,$observaciones,$linea);
+            $resp = $detalleA->grabar($idalmacen, $idcliente, $nohbl, $ubicacion, $peso, $volumen, $dut, $bultos, $embalajeD, $liberado, $resa, $dti, $ncancel, $norden, $mercaderia, $observaciones, $linea);
             echo $resp;
-        }else{
-            $resp = $detalleA->editarDAlmacen($iddetalleA,$idcliente,$nohbl,$ubicacion,$peso,$volumen,$dut,$bultos,$embalajeD,$liberado,$resa,$dti,$ncancel,$norden,$mercaderia,$observaciones,$linea);
+        } else {
+            $resp = $detalleA->editarDAlmacen($iddetalleA, $idcliente, $nohbl, $ubicacion, $peso, $volumen, $dut, $bultos, $embalajeD, $liberado, $resa, $dti, $ncancel, $norden, $mercaderia, $observaciones, $linea);
             echo $resp;
         }
         break;
 
     case 'listarDA':
         $rspt = $detalleA->listar($idalmacen);
-        $acciones= "";
+        $acciones = "";
         $estado = 0;
-        mb_internal_encoding ('UTF-8');
+        mb_internal_encoding('UTF-8');
         //se declara un array para almacenar todo el query
         $data = array();
         foreach ($rspt as $reg) {
             $acciones = "";
             $estado = 0;
-            if ($reg->estado==1){
-                 $acciones='<div class="btn-group">
+            if ($reg->estado == 1) {
+                $acciones = '<div class="btn-group">
                     <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
                         <span class="fa fa-cog"></span>
                         Acciones
@@ -56,22 +56,17 @@ switch ($_GET["op"]) {
                         <span class="sr-only">Desplegar menú</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-<<<<<<< HEAD
                         <li><a href="#"Editar onclick = "mostrarDetalleA(' . $reg->id_detalle . ')">Editar</a></li>
-                        <li><a href="#">Anular</a></li>
-=======
-                        <li><a href="#"Editar onclick = "listarDetalleA(' . $reg->id_detalle . ')">Editar</a></li>
                         <li><a href="#" onclick= "anulaDetalle(' . $reg->id_detalle . ')">Anular</a></li>
->>>>>>> dcc96f1b83ecd4518036256b733258bf113ef5e0
                     </ul>
                     </div>';
-                 $estado= '<span class="label bg-green">Activo</span>';   
-            }else{
+                $estado = '<span class="label bg-green">Activo</span>';
+            } else {
                 $estado = '<span class="label bg-red">Anulado</span>';
             }
             $data[] = array(
-                "0" =>$acciones,
-                "1" =>$estado,
+                "0" => $acciones,
+                "1" => $estado,
                 "2" => $reg->cliente,
                 "3" => $reg->nohbl,
                 "4" => $reg->peso,
@@ -102,9 +97,9 @@ switch ($_GET["op"]) {
     case 'mostrarDetalleA':
         $rsp = $detalleA->muestraDAlmacen($iddetalleA);
         echo json_encode($rsp);
-        break; 
+        break;
     case 'anularDetalle':
         $rsp = $detalleA->anularDetalle($iddetalleA);
         echo $rsp;
-        break;      
+        break;
 }

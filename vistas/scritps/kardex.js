@@ -7,11 +7,11 @@ function init() {
         dateFormat: "yy-mm-dd"
     });
     //$('#Tkardex').DataTable();
-
-    llenaconsignado();
-    llenaCliente();
     nuevoDetalle("false");
     ocultaAlma("false");
+    llenaconsignado();
+    llenaCliente();
+    
     llenaEmpaqueModal();
     llenaEmpaqueDetalle();
     listarKardex();
@@ -384,15 +384,10 @@ function listarTablaDA(idAlmacenD) {
             ] //order los datos
     });
 }
-<<<<<<< HEAD
-function mostrarDetalleA(iddetallealmacen){
-=======
 
-function listarDetalleA(iddetallealmacen) {
->>>>>>> dcc96f1b83ecd4518036256b733258bf113ef5e0
+function mostrarDetalleA(iddetallealmacen){
     nuevoDetalle("true");
     $.post("../ajax/detalleAlmacen.php?op=mostrarDetalleA", { iddetallealmacen: iddetallealmacen },
-
         function(data, status) {
             data = JSON.parse(data);
             if (data.id_detalle > 0) {
