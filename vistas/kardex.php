@@ -16,6 +16,7 @@ if (!$_SESSION['nombre']) {
             <?php
             include_once("../vistas/modal/empaque.php");
             include_once("../vistas/modal/modalempresa.php");
+            include_once("calculoAlmacen.php");
             ?>
             <div class="row" id="Almacen">
                 <div class="col-md-4">
@@ -240,7 +241,7 @@ if (!$_SESSION['nombre']) {
                                 <legend></legend>
                                 <div class="form-group">
                                     <div class="col-md-offset-1 col-md-11">
-                                        <button class="btn btn-primary" type="button" onclick="grabaDetalle()" id="grabaD">Graba
+                                        <button class="btn btn-primary" type="button" onclick="grabaDetalle()" id="grabaD">Grabar
                                             <span class="fa fa-floppy-o"></span>
                                         </button>
                                         <button class="btn btn-danger" type="button" onclick="nuevoDetalle('false')" id="cancelarD">Cancelar
@@ -317,7 +318,7 @@ if (!$_SESSION['nombre']) {
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class=" box-header with-border">
-                    <button type="button" class="btn btn-primary" onclick="ocultaAlma(true)">Nuevo
+                    <button type="button" class="btn btn-primary" onclick="ocultaAlma(true)">Nuevo Almacen
                         <span class="fa  fa-plus"></span>
                     </button>
                 </div>
@@ -379,6 +380,19 @@ if (!$_SESSION['nombre']) {
     </script> -->
     <script src="scritps/empresa.js"></script>
     <script type="text/javascript" src="scritps/kardex.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#cifCalculo").change(function(){
+                sumaCifImpuesto();
+            });
+        });
+
+        $(document).ready(function(){
+            $("#impuestoCalculo").change(function(){
+                sumaCifImpuesto();
+            });
+        });
+    </script>
 
 <?php }
 ob_end_flush();

@@ -6,6 +6,14 @@ function init() {
         autoclose: true,
         dateFormat: "yy-mm-dd"
     });
+    $("#delCalculoA").datepicker({
+        autoclose: true,
+        dateFormat: "yy-mm-dd"
+    });
+    $("#alCalculoA").datepicker({
+        autoclose: true,
+        dateFormat: "yy-mm-dd"
+    });
     //$('#Tkardex').DataTable();
 
     llenaconsignado();
@@ -385,7 +393,7 @@ function listarTablaDA(idAlmacenD) {
     });
 }
 
-function listarDetalleA(iddetallealmacen) {
+function mostrarDetalleA(iddetallealmacen) {
     nuevoDetalle("true");
     $.post("../ajax/detalleAlmacen.php?op=mostrarDetalleA", { iddetallealmacen: iddetallealmacen },
 
@@ -445,5 +453,63 @@ function anulaDetalle(iddetallealmacen) {
         );
     });
 
+}
+
+function sumaCifImpuesto() {
+    var cif = $("#cifCalculo").val();
+    var impuesto = $("#impuestoCalculo").val();
+    var baseS = 0;
+
+    if (cif.trim() == "") {
+        cif = 0;
+    }
+    if (impuesto.trim() == "") {
+        impuesto = 0;
+    }
+    baseS = parseFloat(cif) + parseFloat(impuesto);
+    $("#bSeguroCalculo").val(baseS);
+
+}
+
+function CargaCalculoNuevo(iddetalleAlmacen) {
+    nuevoCalculo();
+    $.post("../ajax/calculoAlmacen.php?op=MostrarCalculoNuevo", { iddetalleAlmacen: iddetalleAlmacen },
+
+        function(data, status) {
+            data = JSON.parse(data);
+            if (data.id_detalle > 0) {
+                // $("#idAlmacen").val(data.id_almacen);
+                $("#id_detalleA_calculo").val(data.id_detalle);
+                $("#polizaEntradaCalculo").val(data.poliza);
+                $("#pesoCalculo").val(data.peso);
+                $("#VolumenCalculo").val(data.volumen);
+                $("#bultosCalculoTotal").val(data.bultos);
+                $("#clientesCuadrilla").val(data.cant_clientes);
+                $("#CantClientes").val(data.cant_clientes);
+                $("#delCalculoA").val(data.fechaI);
+                listarClienteCalculo(data.id_detalle);
+                $("#clienteCalculoA").prop("selectedIndex", 2);
+                $("#clienteCalculoA").selectpicker("refresh");
+            } else {
+                alertify.alert("Error", "Ha ocurrido un error");
+            }
+
+        })
+}
+
+function listarClienteCalculo(iddetalleAlmacen) {
+    $.post("../ajax/calculoAlmacen.php?op=listarCliente", { iddetalleAlmacen: iddetalleAlmacen },
+        function(data, status) {
+            $("#clienteCalculoA").html(data);
+            $("#clienteCalculoA").selectpicker("refresh");
+            $("#clienteCalculoA").prop("selectedIndex", 2);
+            $("#clienteCalculoA").selectpicker("refresh");
+        }
+    );
+}
+
+function nuevoCalculo() {
+    $("#clienteCalculoA").val(0);
+    $("#clienteCalculoA").selectpicker("refresh");
 }
 init();

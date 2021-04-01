@@ -56,7 +56,7 @@ switch ($_GET["op"]) {
                         <span class="sr-only">Desplegar menú</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#"Editar onclick = "listarDetalleA(' . $reg->id_detalle . ')">Editar</a></li>
+                        <li><a href="#"Editar onclick = "mostrarDetalleA(' . $reg->id_detalle . ')">Editar</a></li>
                         <li><a href="#" onclick= "anulaDetalle(' . $reg->id_detalle . ')">Anular</a></li>
                     </ul>
                     </div>';
