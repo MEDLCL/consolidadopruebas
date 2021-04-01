@@ -52,7 +52,7 @@ class detalleAlmacen
     public function editarDAlmacen($iddetalleA, $idcliente, $nohbl, $ubicacion, $peso, $volumen, $dut, $bultos, $embalajeD, $liberado, $resa, $dti, $ncancel, $norden, $mercaderia, $observaciones, $linea)
     {
         $fechaM = date("Y-m-d");
-       
+        
         $con = Conexion::getConexion();
         try {
             $stmt = $con->prepare("UPDATE detalle_almacen 
