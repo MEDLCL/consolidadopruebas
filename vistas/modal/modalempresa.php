@@ -150,7 +150,7 @@
                                             </div>
                                         </div> <!-- col md 8 tabla -->
                                     </div>
-                                </div>
+                                </div> <!-- contactos --> 
                             </div>                   
                     </div>
                     <div class="modal-footer">

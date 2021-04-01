@@ -68,7 +68,7 @@ switch ($_GET["op"]) {
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#"Editar onclick = "ListarAlmacen(' . $reg->id_almacen . ')">Editar</a></li>
                         <li><a href="#" onclick= "anulaDetalle(' . $reg->id_detalle . ')" >Anular</a></li>
-                        <li><a href="#">Calculo</a></li>
+                        <li><a href="#" onclick= "CargaCalculoNuevo('.$reg->id_detalle.')">Calculo</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Acción #4</a></li>
                     </ul>
