@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-<div class="row">
-    <div class="col-md-6">
-        
-    
-=======
 <div class="row" id="calculoAlmacen">
     <div class="col-md-12">
         <div class="box box-info">
@@ -29,7 +23,7 @@
 
                     <div class="form-group col-md-2">
                         <label>Total Dias:</label>
-                        <input type="text" class="form-control input-sm" name="totalDias" id="tDias" readonly>
+                        <input type="text" class="form-control input-sm" name="totalDias" id="totalDias" readonly>
                     </div>
 
                     <div class="form-group col-md-2">
@@ -91,7 +85,12 @@
                     </div>
                     <div class="col-md-12"></div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-2">
+                        <label for="tipoCambioCalculo" class="control-label">T. Cambio:</label>
+                        <input type="number" name="tipoCambioCalculo" id="tipoCambioCalculo" class="form-control" onkeyup="calcularCifDolares()">
+                    </div>
+
+                    <div class="form-group col-md-6 col-md-offset-2">
                         <label for="consiganado" class="">Plantilla(*) </label>
                         <div class="input-group input-group-sm">
 
@@ -117,16 +116,20 @@
 
                     <div id="detallePlantillaCalculo">
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group col-md-7">
-                                    <label for="tipoCambioCalculo" class="control-label">T. Cambio:</label>
-                                    <input type="number" name="tipoCambioCalculo" id="tipoCambioCalculo" class="form-control">
+                            <div class="col-md-4">
+                            <div class="form-group col-md-7">
+                                    <label for="cif" class="control-label">CIF:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <span>$.</span>
+                                        </div>
+                                        <input type="number" name="cifgtdolar" id="cifgtdolar" class="form-control" onkeyup="calcularCifDolares()">
+                                    </div>
                                 </div>
-
 
                                 <div class="form-group col-md-5">
                                     <label for="cif" class="control-label">Peso:</label>
-                                    <input type="text" name="pesoCalculo" id="pesoCalculo" class="form-control">
+                                    <input type="text" name="pesoCalculo" id="pesoCalculo" class="form-control" readonly>
                                 </div>
                                 <!--                 <div class="form-group col-md-6">
                                     <label for="cif" class="control-label">CIF(*):</label>
@@ -136,14 +139,14 @@
                                     <label for="cif" class="control-label">CIF(*):</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
-                                            <span>$.</span>
+                                            
                                         </div>
                                         <input type="number" name="cifCalculo" id="cifCalculo" class="form-control" onkeyup="sumaCifImpuesto()">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label for="cif" class="control-label">Volumen:</label>
-                                    <input type="text" name="volumenCalculo" id="VolumenCalculo" class="form-control">
+                                    <input type="text" name="volumenCalculo" id="VolumenCalculo" class="form-control" readonly>
                                 </div>
 
                                 <!--  <div class="form-group col-md-6">
@@ -154,7 +157,7 @@
                                     <label for="impuestoCalculo" class="control-label">Impuesto(*):</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
-                                            <span>$.</span>
+                                            
                                         </div>
                                         <input type="number" name="impuestoCalculo" id="impuestoCalculo" class="form-control" onkeyup="sumaCifImpuesto()">
                                     </div>
@@ -183,9 +186,8 @@
                                     <label for="puesto" class="control-label">Bultos:</label>
                                     <input type="text" name="bultosCalculoPen" id="bultosCalculoPen" class="form-control">
                                 </div>
-
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <div class="panel-body table-responsive">
                                     <table class="table table-condensed table-hover table-bordered" id="Tcontactos">
                                         <thead>
@@ -203,27 +205,33 @@
                                 </div>
                             </div> <!-- col md 8 tabla -->
                         </div><!--  row -->
-                    </div>
-                    <!--div plantilla -->
+                    </div><!-- div area de formulas -->
 
+                    <div class="row totales">
+
+                        <div class="form-group col-md-6">
+                            <label for="total" class="control-label">Total</label>
+                            <input type="text" name="total" id="total" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-12"></div>
                     <div class="box-footer">
-                            <button type="button" class="btn btn-large btn-primary col-xs-offset-2">Nuevo</button>
-                            
-                            <button type="button" class="btn btn-large btn-info">Grabar
+                        <button type="button" class="btn btn-large btn-primary col-xs-offset-2">Nuevo</button>
+
+                        <button type="button" class="btn btn-large btn-info">Grabar
                             <span class="fa fa-floppy-o"></span>
-                            </button>
-                            
-                            <button type="button" class="btn btn-large btn-danger">Cancelar
-                                <span class="fa fa-close"></span>
-                            </button>
-                            
-                            <button type="button" class="btn btn-large btn-success">Calcular</button>
+                        </button>
+
+                        <button type="button" class="btn btn-large btn-danger">Cancelar
+                            <span class="fa fa-close"></span>
+                        </button>
+
+                        <button type="button" class="btn btn-large btn-success">Calcular</button>
                     </div>
 
                 </form>
             </div> <!-- box body -->
         </div>
 
->>>>>>> 4e22a9ba9d91fad7f495318087d84de3fde6beca
     </div>
 </div>

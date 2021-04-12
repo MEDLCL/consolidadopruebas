@@ -8,22 +8,22 @@ $detalleA = new detalleAlmacen();
 
 $idalmacen = isset($_POST["idAlmacenD"]) ? $idsucursal = $_POST["idAlmacenD"] : $idsucursal = 0;
 $iddetalleA = isset($_POST["iddetallealmacen"]) ? $iddetalleA = $_POST["iddetallealmacen"] : $iddetalleA = 0;
-$idcliente = isset($_POST['cliente']) ? limpia($_POST['cliente']) : $idconsignado = 0;
-$nohbl = isset($_POST['nohbl']) ? limpia($_POST['nohbl']) : $contenedor = '';
-$peso = isset($_POST['peso']) ? limpia($_POST['peso']) : $peso = 0;
-$ubicacion = isset($_POST['ubicacion']) ? $_POST['ubicacion'] : $ubicacion = "";
-$volumen = isset($_POST['volumen']) ? limpia($_POST['volumen']) : $volumen = 0;
-$dut = isset($_POST['dut']) ? limpia($_POST['dut']) : $dut = '';
-$bultos = isset($_POST['bultos']) ? limpia($_POST['bultos']) : $bultos = '';
-$embalajeD = isset($_POST['embalajeD']) ? limpia($_POST['embalajeD']) : $embalajeD = 0;
-$liberado = isset($_POST['liberado']) ? limpia($_POST['liberado']) : $liberado = 0;
-$resa = isset($_POST["resa"]) ? limpia($_POST["resa"]) : $resa = "";
-$dti = isset($_POST['dti']) ? limpia($_POST['dti']) : $dti = "";
-$ncancel = isset($_POST['ncancel']) ? limpia($_POST['ncancel']) : $ncancel = "";
-$norden = isset($_POST["norden"]) ? limpia($_POST["norden"]) : $norden = "";
-$mercaderia = isset($_POST['mercaderia']) ? limpia($_POST['mercaderia']) : $mercaderia = "";
-$observaciones = isset($_POST['observaciones']) ? limpia($_POST['observaciones']) : $observaciones = "";
-$linea  = isset($_POST['linea']) ? limpia($_POST['linea']) : $linea = "";
+$idcliente = isset($_POST['cliente']) ? $idcliente=limpia($_POST['cliente']) : $idcliente = 0;
+$nohbl = isset($_POST['nohbl']) ? $nohbl=limpia($_POST['nohbl']) : $nohbl = '';
+$peso = isset($_POST['peso']) ? $peso=limpia($_POST['peso']) : $peso = 0;
+$ubicacion = isset($_POST['ubicacion']) ?$ubicacion= $_POST['ubicacion'] : $ubicacion = "";
+$volumen = isset($_POST['volumen']) ? $volumen=limpia($_POST['volumen']) : $volumen = 0;
+$dut = isset($_POST['dut']) ? $dut=limpia($_POST['dut']) : $dut = '';
+$bultos = isset($_POST['bultos']) ?$bultos= limpia($_POST['bultos']) : $bultos = '';
+$embalajeD = isset($_POST['embalajeD']) ?$embalajeD= limpia($_POST['embalajeD']) : $embalajeD = 0;
+$liberado = isset($_POST['liberado']) ? $liberado=limpia($_POST['liberado']) : $liberado = 0;
+$resa = isset($_POST["resa"]) ? $resa=limpia($_POST["resa"]) : $resa = "";
+$dti = isset($_POST['dti']) ? $dti=limpia($_POST['dti']) : $dti = "";
+$ncancel = isset($_POST['ncancel']) ? $ncancel=limpia($_POST['ncancel']) : $ncancel = "";
+$norden = isset($_POST["norden"]) ?$norden= limpia($_POST["norden"]) : $norden = "";
+$mercaderia = isset($_POST['mercaderia']) ?$mercaderia= limpia($_POST['mercaderia']) : $mercaderia = "";
+$observaciones = isset($_POST['observaciones']) ?$observaciones= limpia($_POST['observaciones']) : $observaciones = "";
+$linea  = isset($_POST['linea']) ? $linea=limpia($_POST['linea']) : $linea = "";
 
 
 switch ($_GET["op"]) {

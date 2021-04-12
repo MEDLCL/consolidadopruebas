@@ -147,7 +147,7 @@ class kardex
                                         id_medida_volumen,
                                         bultos,
                                         cant_clientes,
-                                        DATE_FORMAT(fecha_almacen, '%d-%m-%Y') as fechaI,
+                                        DATE_FORMAT(fecha_almacen, '%m/%d/%Y') as fechaI,
                                         fecha_graba,
                                         id_usuario_modifica,
                                         fecha_modifica

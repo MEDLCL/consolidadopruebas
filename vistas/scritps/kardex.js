@@ -3,26 +3,24 @@ var tablaDA = "";
 
 function init() {
     $("#fechaI").datepicker({
-        autoclose: true,
-        dateFormat: "yy-mm-dd"
+        autoclose: true
     });
     $("#delCalculoA").datepicker({
-        autoclose: true,
-        dateFormat: "yy-mm-dd"
+        autoclose: true
     });
     $("#alCalculoA").datepicker({
-        autoclose: true,
-        dateFormat: "yy-mm-dd"
+        autoclose: true
     });
     //$('#Tkardex').DataTable();
     nuevoDetalle("false");
     ocultaAlma("false");
     llenaconsignado();
     llenaCliente();
-    
+
     llenaEmpaqueModal();
     llenaEmpaqueDetalle();
     listarKardex();
+    llenaPlantillaBM("#agregarPlantilla");
 }
 
 
@@ -33,7 +31,7 @@ function llenaconsignado() {
             id: "id_empresa",
             tipoe: "CO",
         },
-        function(data, status) {
+        function (data, status) {
             $("#consignado").html(data);
             $("#consignado").selectpicker("refresh");
             $("#consignado").val(0);
@@ -48,7 +46,7 @@ function llenaCliente() {
             id: "id_empresa",
             tipoe: "CL",
         },
-        function(data, status) {
+        function (data, status) {
             $("#cliente").html(data);
             $("#cliente").selectpicker("refresh");
             $("#cliente").val(0);
@@ -121,7 +119,7 @@ function llenaEmpaqueModal() {
             id: "id_empaque",
             tipoe: "",
         },
-        function(data, status) {
+        function (data, status) {
             $("#empaqueB").html(data);
             $("#empaqueB").selectpicker("refresh");
 
@@ -135,7 +133,7 @@ function llenaEmpaqueDetalle() {
             id: "id_empaque",
             tipoe: "",
         },
-        function(data, status) {
+        function (data, status) {
             $("#embalajeD").html(data);
             $("#embalajeD").selectpicker("refresh");
         }
@@ -150,8 +148,11 @@ function grabaEmpaque() {
         return false;
     }
     $.post(
-        "../ajax/empaque.php?op=guardaryeditar", { id_empaque: id_empaque, nombre: nombre },
-        function(data) {
+        "../ajax/empaque.php?op=guardaryeditar", {
+            id_empaque: id_empaque,
+            nombre: nombre
+        },
+        function (data) {
             if (data == 1) {
                 llenaEmpaqueDetalle();
                 $("#modalEmaqpue").modal("hide");
@@ -234,7 +235,7 @@ function grabarAlmacen() {
     var formAlmacen = new FormData($("#formAlmacen")[0]);
     $.post(
         "../ajax/kardex.php?op=codigo", {},
-        function(data, status) {
+        function (data, status) {
             if (status == "success") {
                 $("#codigoAlmacen").val(data);
                 formAlmacen = new FormData($("#formAlmacen")[0]);
@@ -245,7 +246,7 @@ function grabarAlmacen() {
                     data: formAlmacen,
                     contentType: false,
                     processData: false,
-                    success: function(datos) {
+                    success: function (datos) {
                         if (datos > 0) {
                             //limpiar();
                             // $('#listadosucursal').DataTable().ajax.reload();
@@ -277,23 +278,25 @@ function listarKardex() {
             url: '../ajax/kardex.php?op=listarK',
             type: "get",
             dataType: "json",
-            error: function(e) {
+            error: function (e) {
                 console.log(e.responseText);
             }
         },
         "bDestroy": true,
         "iDisplayLenth": 10, //paginacion
         "order": [
-                [8, "desc"]
-            ] //order los datos
+            [8, "desc"]
+        ] //order los datos
     });
 }
 
 function ListarAlmacen(idAlmacen) {
     nuevoAlma();
-    $.post("../ajax/kardex.php?op=mostrarA", { idAlmacen: idAlmacen },
+    $.post("../ajax/kardex.php?op=mostrarA", {
+            idAlmacen: idAlmacen
+        },
 
-        function(data, status) {
+        function (data, status) {
             data = JSON.parse(data);
             if (data.id_almacen > 0) {
                 ocultaAlma(true);
@@ -355,7 +358,7 @@ function grabaDetalle() {
         data: formDAlmacen,
         contentType: false,
         processData: false,
-        success: function(datos) {
+        success: function (datos) {
             if (datos > 0) {
                 $('#Tdetalle').DataTable().ajax.reload();
                 $('#Tkardex').DataTable().ajax.reload();
@@ -379,28 +382,28 @@ function listarTablaDA(idAlmacenD) {
         "ajax": {
             url: '../ajax/detalleAlmacen.php?op=listarDA',
             type: "post",
-            data: { idAlmacenD: idAlmacenD },
+            data: {
+                idAlmacenD: idAlmacenD
+            },
             dataType: "json",
-            error: function(e) {
+            error: function (e) {
                 console.log(e.responseText);
             }
         },
         "bDestroy": true,
         "iDisplayLenth": 10, //paginacion
         "order": [
-                [0, "desc"]
-            ] //order los datos
+            [0, "desc"]
+        ] //order los datos
     });
 }
 
-<<<<<<< HEAD
-function mostrarDetalleA(iddetallealmacen){
-=======
 function mostrarDetalleA(iddetallealmacen) {
->>>>>>> 4e22a9ba9d91fad7f495318087d84de3fde6beca
     nuevoDetalle("true");
-    $.post("../ajax/detalleAlmacen.php?op=mostrarDetalleA", { iddetallealmacen: iddetallealmacen },
-        function(data, status) {
+    $.post("../ajax/detalleAlmacen.php?op=mostrarDetalleA", {
+            iddetallealmacen: iddetallealmacen
+        },
+        function (data, status) {
             data = JSON.parse(data);
             if (data.id_detalle > 0) {
                 $("#iddetallealmacen").val(data.id_detalle);
@@ -439,14 +442,21 @@ function mostrarDetalleA(iddetallealmacen) {
 }
 
 function anulaDetalle(iddetallealmacen) {
-    var confirm = alertify.confirm('', 'Desea Anular Detalle', null, null).set('labels', { ok: 'Anular', cancel: 'Cancelar' });
+    var confirm = alertify.confirm('', 'Desea Anular Detalle', null, null).set('labels', {
+        ok: 'Anular',
+        cancel: 'Cancelar'
+    });
 
-    confirm.set({ transition: 'slide' });
+    confirm.set({
+        transition: 'slide'
+    });
 
-    confirm.set('onok', function() {
+    confirm.set('onok', function () {
         $.post(
-            "../ajax/detalleAlmacen.php?op=anularDetalle", { iddetallealmacen: iddetallealmacen },
-            function(data) {
+            "../ajax/detalleAlmacen.php?op=anularDetalle", {
+                iddetallealmacen: iddetallealmacen
+            },
+            function (data) {
                 if (data > 0) {
                     $('#Tkardex').DataTable().ajax.reload();
                     alertify.alert("", "Detalle Anulado");
@@ -476,9 +486,11 @@ function sumaCifImpuesto() {
 
 function CargaCalculoNuevo(iddetalleAlmacen) {
     nuevoCalculo();
-    $.post("../ajax/calculoAlmacen.php?op=MostrarCalculoNuevo", { iddetalleAlmacen: iddetalleAlmacen },
+    $.post("../ajax/calculoAlmacen.php?op=MostrarCalculoNuevo", {
+            iddetalleAlmacen: iddetalleAlmacen
+        },
 
-        function(data, status) {
+        function (data, status) {
             data = JSON.parse(data);
             if (data.id_detalle > 0) {
                 // $("#idAlmacen").val(data.id_almacen);
@@ -493,6 +505,7 @@ function CargaCalculoNuevo(iddetalleAlmacen) {
                 listarClienteCalculo(data.id_detalle);
                 $("#clienteCalculoA").prop("selectedIndex", 2);
                 $("#clienteCalculoA").selectpicker("refresh");
+                llenaPlantillaBM("#plantilla");
             } else {
                 alertify.alert("Error", "Ha ocurrido un error");
             }
@@ -501,8 +514,10 @@ function CargaCalculoNuevo(iddetalleAlmacen) {
 }
 
 function listarClienteCalculo(iddetalleAlmacen) {
-    $.post("../ajax/calculoAlmacen.php?op=listarCliente", { iddetalleAlmacen: iddetalleAlmacen },
-        function(data, status) {
+    $.post("../ajax/calculoAlmacen.php?op=listarCliente", {
+            iddetalleAlmacen: iddetalleAlmacen
+        },
+        function (data, status) {
             $("#clienteCalculoA").html(data);
             $("#clienteCalculoA").selectpicker("refresh");
             $("#clienteCalculoA").prop("selectedIndex", 2);
@@ -514,5 +529,116 @@ function listarClienteCalculo(iddetalleAlmacen) {
 function nuevoCalculo() {
     $("#clienteCalculoA").val(0);
     $("#clienteCalculoA").selectpicker("refresh");
+}
+
+function calcularDias() {
+    var delCalculo = $("#delCalculoA").val();
+    var alcalculo = $("#alCalculoA").val();
+    $("#totalDias").val(0);
+
+    $.post("../ajax/calculoAlmacen.php?op=contarDias", {
+            delCalculo: delCalculo,
+            alcalculo: alcalculo
+        },
+        function (data, status) {
+            $("#totalDias").val(data);
+        }
+    );
+}
+
+function calcularCifDolares() {
+    var tc = $("#tipoCambioCalculo").val();
+    var cif = $("#cifgtdolar").val();
+    var res = 0;
+    if (tc.trim() == "") {
+        tc = 0;
+    }
+    if (cif.trim() == "") {
+        cif = 0
+    }
+    res = parseFloat(tc) * parseFloat(cif);
+    res = res.toFixed(3);
+    $("#cifCalculo").val(res);
+    sumaCifImpuesto();
+}
+
+
+function limpiarPlantillaG() {
+    $("#nombrePlantillaG").val("");
+    $("#tarifaMinimaG").val(0);
+    $("#diasLibresPlantillaG").val(0);
+    $("#grabarNuevaP").removeAttr("disabled");
+    $("#idplantillaG").val(0);
+    $("#omitirDiasLibre").removeAttr("checked");
+    $("#monedaPlantillaG").val(0);
+    $("#monedaPlantillaG").selectpicker("refresh");
+}
+
+function grabarPlnatillaAlmacen() {
+    var nombre = $("#nombrePlantillaG").val();
+    var tarifa = $("#tarifaMinimaG").val();
+    var diaslibres = $("#diasLibresPlantillaG").val();
+    var moneda = $("#monedaPlantillaG").prop("selectedIndex");
+
+    if (nombre.trim() == "") {
+        alertify.alert("Campo Vacio", "Debe de colocar el nombre");
+        return false;
+    } else if (tarifa.trim() == "" || tarifa == 0) {
+        alertify.alert("Campo Vacio", "Debe de colocar Tarifa Minima");
+        return false;
+    } else if (moneda == -1 || moneda == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar la Moneda");
+        return false;
+    } else if (diaslibres.trim() == "" || diaslibres == 0) {
+        alertify.alert("Campo Vacio", "Debe de colocar Dias Libres de Almacenaje");
+        return false;
+    }
+    var frmPlantilla = new FormData($("#frmNuevaPlantillaA")[0]);
+    $.ajax({
+        url: "../ajax/plantillaCalculoAlmacen.php?op=guardaryeditar",
+        type: "POST",
+        data: frmPlantilla,
+        contentType: false,
+        processData: false,
+        success: function (datos) {
+            if (datos > 0) {
+                alertify.success("Proceso Realizado con exito");
+                $("#grabarNuevaP").prop("disabled", "true");
+                llenaPlantillaBM("#plantillaBG");
+            } else {
+                alertify.error("Proceso no se pudo realizar") + " " + datos;
+            }
+        }
+    });
+
+}
+//
+
+function llenaPlantillaBM(selecPlantilla){
+    $(selecPlantilla).empty();
+    $.post(
+        "../modelos/pais.php?op=selectN&tabla=plantilla_calculoa&campo=nombre", {
+            id: "id_plantilla",
+            tipoe: "",
+        },
+        function (data, status) {
+            $(selecPlantilla).html(data);
+            $(selecPlantilla).selectpicker("refresh");
+            $(selecPlantilla).val(0);
+            $(selecPlantilla).selectpicker("refresh");
+        }
+    );
+}
+function llenaMoneda() {
+    $("#monedaPlantillaG").empty();
+    $.post(
+        "../modelos/pais.php?op=llenaMoneda", {},
+        function (data, status) {
+            $("#monedaPlantillaG").html(data);
+            $("#monedaPlantillaG").selectpicker("refresh");
+            $("#monedaPlantillaG").val(0);
+            $("#monedaPlantillaG").selectpicker("refresh");
+        }
+    );
 }
 init();

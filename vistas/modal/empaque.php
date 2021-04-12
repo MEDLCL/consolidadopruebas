@@ -17,9 +17,6 @@
                                     </select>
                                 </div>
                             </div>
-                            
-                            <fieldset>
-                                <legend></legend>
                                 <label>Nombre:</label>
                                 <div class="form-group">
                                     <div class="col-sm-12">
@@ -27,7 +24,7 @@
                                         <input type="hidden" name="id_empaque" id="id_empaque">
                                     </div>
                                 </div>
-                            </fieldset>
+                            
                         </form>
                     </div>
                     <div class="modal-footer">

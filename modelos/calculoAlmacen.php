@@ -156,9 +156,9 @@ class calculoAlmacen
                                     DA.liberado,
                                     A.poliza,
                                     A.cant_clientes,
-                                    DATE_FORMAT(A.fecha_almacen, '%d-%m-%Y') as fechaI
+                                    DATE_FORMAT(A.fecha_almacen, '%m/%d/%Y') as fechaI
                             FROM detalle_almacen as DA INNER JOIN 
-                                 almacen as A ON A.id_almacen = DA.id_almacen
+                                almacen as A ON A.id_almacen = DA.id_almacen
                         where DA.id_detalle = :id_detalle");
             $rsp->bindParam(":id_detalle", $iddetallea);
             $rsp->execute();

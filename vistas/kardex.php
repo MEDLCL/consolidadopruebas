@@ -14,6 +14,8 @@ if (!$_SESSION['nombre']) {
         <!-- Main content -->
         <section class="content">
             <?php
+            include_once("../vistas/modal/plantillacalculoA.php");
+            include_once("../vistas/plantillacalculo.php");
             include_once("../vistas/modal/empaque.php");
             include_once("../vistas/modal/modalempresa.php");
             include_once("calculoAlmacen.php");
@@ -381,17 +383,43 @@ if (!$_SESSION['nombre']) {
     <script src="scritps/empresa.js"></script>
     <script type="text/javascript" src="scritps/kardex.js"></script>
     <script>
-        $(document).ready(function(){
-            $("#cifCalculo").change(function(){
+        $(document).ready(function() {
+            $("#cifCalculo").change(function() {
                 sumaCifImpuesto();
             });
         });
 
-        $(document).ready(function(){
-            $("#impuestoCalculo").change(function(){
+        $(document).ready(function() {
+            $("#impuestoCalculo").change(function() {
                 sumaCifImpuesto();
             });
         });
+        $(function() {
+            //$("#alCalculoA").bind("keyup keydown change", function() {
+            $("#alCalculoA").bind("change", function() {
+                calcularDias();
+            });
+        });
+        $(function(){
+            $("#tipoCambioCalculo").bind("change",function(){
+                calcularCifDolares();
+            });
+        });
+        $(function(){
+            $("#cifgtdolar").bind("change",function(){
+                calcularCifDolares();
+            });
+        });
+
+        $(function(){
+            $("#btnmodalPlantilla").bind("click",function(){              
+                limpiarPlantillaG();
+                $("#grabarNuevaP").prop("disabled","true");
+                llenaMoneda();
+                llenaPlantillaBM("#plantillaBG");
+            });
+        });
+        
     </script>
 
 <?php }

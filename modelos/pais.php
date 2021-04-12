@@ -19,8 +19,10 @@ switch ($_GET['op']) {
     case 'selectN':
         selectNomal($tabla,$campo,$id);
         break;
+    case 'llenaMoneda':
+        llenaMoneda();
+        break;    
     default:
-        
     break;
 }
 
@@ -79,6 +81,24 @@ function selectNomal($tabla,$campo,$id){
     $selec = '<option value="0" selected>Seleccione una Opcion</option>';
     foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as  $resp) {
         $selec = $selec . '<option value="' . $resp->$id . '">' . $resp->$campo . '</option>';
+    }
+    echo $selec;
+    $con = Conexion::cerrar();
+    $stmt = NULL;
+}
+function llenaMoneda(){
+    $con = Conexion::getConexion();
+    $stmt = $con->prepare("SELECT M.signo,M.id_moneda,M.nombre
+                            FROM asigna_moneda AM INNER JOIN 
+                                moneda as M on M.id_moneda = AM.id_moneda
+                            WHERE id_sucursal = :id_sucursal");
+
+    $stmt->bindParam(":id_sucursal",$_SESSION['idsucursal']);
+    $stmt->execute();
+    $selec = '';
+    $selec = '<option value="0" selected >Seleccione Moneda</option>';
+    foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as  $resp) {
+        $selec = $selec . '<option value="' . $resp->id_moneda . '">' . $resp->signo . " - " . $resp->nombre .'</option>';
     }
     echo $selec;
     $con = Conexion::cerrar();

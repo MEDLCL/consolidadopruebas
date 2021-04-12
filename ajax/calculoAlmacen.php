@@ -8,9 +8,9 @@ $calculo = new calculoAlmacen();
 
 
 $iddetalleAlmacen = isset($_POST["iddetalleAlmacen"]) ? $idsucursal = $_POST["iddetalleAlmacen"] : $idsucursal = 0;
-/* $idconsignado = isset($_POST['consignado']) ? limpia($_POST['consignado']) : $idconsignado = '';
-$contenedor = isset($_POST['contenedor']) ? limpia($_POST['contenedor']) : $contenedor = '';
-$poliza = isset($_POST['poliza']) ? limpia($_POST['poliza']) : $poliza = '';
+$del = isset($_POST['delCalculo']) ? limpia($_POST['delCalculo']) : $del= date('Y-m-d');
+$al = isset($_POST['alcalculo']) ? limpia($_POST['alcalculo']) : $al = date('Y-m-d');
+/*$poliza = isset($_POST['poliza']) ? limpia($_POST['poliza']) : $poliza = '';
 $referencia = isset($_POST['referencia']) ? $_POST['referencia'] : $referencia = 0;
 $pesoT = isset($_POST['pesoT']) ? limpia($_POST['pesoT']) : $pesoT = '';
 $volumenT = isset($_POST['volumenT']) ? limpia($_POST['volumenT']) : $volumenT = '';
@@ -43,6 +43,12 @@ switch ($_GET["op"]) {
         echo $selec;
         break;
 
-    case 'mostrarA':
-      
+    case 'contarDias':
+        $fechadel = new DateTime ($del);
+        $fechahasta = new DateTime($al);
+        $diff = $fechadel->diff($fechahasta);
+        $dias = $diff->days;
+        echo intval($dias) + 1;
+        break;
+
 }
