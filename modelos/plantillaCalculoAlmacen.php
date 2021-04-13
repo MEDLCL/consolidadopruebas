@@ -13,8 +13,8 @@ class plantillaA
         $fechaG = date("Y-m-d");
         $con = Conexion::getConexion();
         try {
-            $stmt = $con->prepare("INSERT INTO plantilla_calculoa(id_usuario,id_sucursal,nombre,tarifa_minima,dias_libres,omitir_almacenaje,fecha_grabacion)
-            VALUES (:idusuario,:idsucursal,:nombre,:tarifa,:dlibres,:omitir,:fecha)");
+            $stmt = $con->prepare("INSERT INTO plantilla_calculoa(id_usuario,id_sucursal,nombre,tarifa_minima,dias_libres,omitir_almacenaje,moneda,fecha_grabacion)
+            VALUES (:idusuario,:idsucursal,:nombre,:tarifa,:dlibres,:omitir,:moneda,:fecha)");
             $stmt->bindParam(":idusuario", $_SESSION['idusuario']);
             $stmt->bindParam(":idsucursal", $_SESSION["idsucursal"]);
             $stmt->bindParam(":nombre", $nombreP);
@@ -63,7 +63,16 @@ class plantillaA
     public function mostrarPlantilla($idplantilla){
         $con = Conexion::getConexion();
         try {
-            $rsp = $con->prepare("SELECT * FROM plantilla_calculoa WHERE id_plantilla = :idplantilla");
+            $rsp = $con->prepare("SELECT P.id_plantilla, 
+                                         P.nombre, 
+                                         P.tarifa_minima, 
+                                         P.dias_libres, 
+                                         P.omitir_almacenaje, 
+                                         P.moneda,
+                                         ifnull(M.signo,'')as signo
+                                        FROM plantilla_calculoa  as P left join
+                                             moneda as  M on M.id_moneda = P.moneda
+                                    WHERE P.id_plantilla = :idplantilla");
             $rsp->bindParam(":idplantilla",$idplantilla);
             $rsp->execute();
             $rsp = $rsp->fetch(PDO::FETCH_OBJ);

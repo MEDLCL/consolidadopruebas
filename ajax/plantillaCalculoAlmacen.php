@@ -24,7 +24,7 @@ switch ($_GET["op"]) {
         }
         break;
 
-    case 'mostrarPlantilla':
+    case 'mostrarP':
         $rsp = $plantillaA->mostrarPlantilla($idplantilla);
         echo json_encode($rsp);
         break;

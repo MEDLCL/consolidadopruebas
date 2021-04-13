@@ -420,6 +420,16 @@ if (!$_SESSION['nombre']) {
             });
         });
         
+        $(function(){
+            $("#plantillaBG").bind("click change",function(){
+                cargaNombrePlantilla(1);
+            });
+        });
+        $(function(){
+            $("#agregarPlantilla").bind("click change",function(){
+                cargaNombrePlantilla(0);
+            });
+        });
     </script>
 
 <?php }

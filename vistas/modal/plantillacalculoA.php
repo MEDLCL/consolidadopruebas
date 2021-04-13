@@ -9,8 +9,7 @@
                 <form id="frmNuevaPlantillaA">
                     <div class="form-group col-md-12">
                         <label for="plantillaBG" class="col-form-label">Busqueda:</label>
-                        <select id="plantillaBG" name="plantillaBG" class="form-control selectpicker" data-live-search="true">
-
+                        <select id="plantillaBG" name="plantillaBG" class="form-control selectpicker" data-live-search="true" >
                         </select>
                     </div>
 
@@ -35,8 +34,8 @@
                     </div>
                     <div class="form-group col-md-12">
                         <div class="form-check">
-                            <input id="omitirDiasLibre" class="form-check-input" type="checkbox" name="omitirDiasLibre" value=1>
-                            <label for="omitirDiasLibre" class="col-form-label">Omitir dias libres Almacenaje:</label>
+                            <input id="omitirDiasLibreG" class="form-check-input" type="checkbox" name="omitirDiasLibreG" value=1>
+                            <label for="omitirDiasLibreG" class="col-form-label">Omitir dias libres Almacenaje:</label>
                         </div>
                     </div>
                     <div class="form-group">

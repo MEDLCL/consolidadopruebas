@@ -13,20 +13,23 @@
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-info fa fa-plus" data-toggle="modal" data-target="#modalPlantillaAlmacen" id="btnmodalPlantilla"></button>
                             </span>
+                            
+                            <input type="hidden" name="idplantillaMP" id="idplantillaMP" class="form-control" value="">
+                            
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="cif" class="control-label">Tarifa Minima(*):</label>
-                        <input type="number" name="tarifaMinimaMP" id="tarifaMinimaMP" class="form-control" onkeyup="sumaCifImpuesto()">
+                        <label for="tarifaMinimaMP" class="control-label">Tarifa Minima(*):</label>
+                        <input type="text" name="tarifaMinimaMP" id="tarifaMinimaMP" class="form-control" readonly>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="cif" class="control-label">Dias Libres(*):</label>
-                        <input type="number" name="diasLibresPlantillaMP" id="diasLibresPlantillaMP" class="form-control" onkeyup="sumaCifImpuesto()">
+                        <label for="diasLibresPlantillaMP" class="control-label">Dias Libres(*):</label>
+                        <input type="number" name="diasLibresPlantillaMP" id="diasLibresPlantillaMP" class="form-control" readonly>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="liberado"></label>
                         <div class="form-check">
-                            <input id="omitirDias" class="form-check-input" type="checkbox" name="omitirDias" value=1>
+                            <input id="omitirDias" class="form-check-input" type="checkbox" name="omitirDias" value=1 readonly>
                             <label for="omitirDias" class="form-check-label">Omitir dias libres Almacenaje:</label>
                         </div>
                     </div>
