@@ -9,7 +9,7 @@ $idplantilla = isset($_POST["idplantillaG"]) ? $idplantilla = $_POST["idplantill
 $nombreP = isset($_POST["nombrePlantillaG"]) ? $nombreP = $_POST["nombrePlantillaG"] : $nombreP = "";
 $tarifaM = isset($_POST['tarifaMinimaG']) ? $tarifaM= limpia($_POST['tarifaMinimaG']) : $tarifaM = 0;
 $diasL = isset($_POST['diasLibresPlantillaG']) ? $diasL=limpia($_POST['diasLibresPlantillaG']) : $diasL = 0;
-$omitirD = isset($_POST['omitirDiasLibre']) ?$omitirD= limpia($_POST['omitirDiasLibre']) : $omitirD = 0;
+$omitirD = isset($_POST['omitirDiasLibreG']) ?$omitirD= limpia($_POST['omitirDiasLibreG']) : $omitirD = 0;
 $moneda = isset($_POST['monedaPlantillaG']) ?$moneda= limpia($_POST['monedaPlantillaG']) : $moneda = 0;
 
 

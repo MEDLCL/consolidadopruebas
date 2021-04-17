@@ -13,9 +13,9 @@
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-info fa fa-plus" data-toggle="modal" data-target="#modalPlantillaAlmacen" id="btnmodalPlantilla"></button>
                             </span>
-                            
+
                             <input type="hidden" name="idplantillaMP" id="idplantillaMP" class="form-control" value="">
-                            
+
                         </div>
                     </div>
                     <div class="form-group col-md-2">
@@ -29,80 +29,62 @@
                     <div class="form-group col-md-3">
                         <label for="liberado"></label>
                         <div class="form-check">
-                            <input id="omitirDias" class="form-check-input" type="checkbox" name="omitirDias" value=1 readonly>
+                            <input id="omitirDias" class="form-check-input" type="checkbox" name="omitirDias" value=1 disabled>
                             <label for="omitirDias" class="form-check-label">Omitir dias libres Almacenaje:</label>
                         </div>
                     </div>
 
                     <div class="col-md-12"></div>
-
-                    <div id="detallePlantillaCalculo">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <!-- <div class="form-group col-md-12">
-                                    <label for="cif" class="control-label">CIF:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <span>$.</span>
-                                        </div>
-                                        <input type="number" name="a" id="a" class="form-control" onkeyup="calcularCifDolares()">
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-12">
-                                    <label for="cif" class="control-label">CIF(*):</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-
-                                        </div>
-                                        <input type="number" name="" id="" class="form-control" onkeyup="sumaCifImpuesto()">
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group col-md-12">
-                                    <label for="impuestoCalculo" class="control-label">Impuesto(*):</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-
-                                        </div>
-                                        <input type="number" name="" id="" class="form-control" onkeyup="sumaCifImpuesto()">
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-12">
-                                    <label for="pesoCalculo" class="control-label">Base Seguro:</label>
-                                    <input type="number" name="" id="" class="form-control" readonly>
-                                </div>
-
-                                <div class="form-group col-md-12">
-                                    <label for="puesto" class="control-label">Bultos totales:</label>
-                                    <input type="text" name="" id="" class="form-control" readonly>
-                                </div> -->
-
+                    <!-- <div id="detallePlantillaCalculo"> -->
+                    <!-- <div class="row"> -->
+                    <div class="col-md-4" style="padding-left: 0px; padding-right:0px; ">
+                        <div class="form-group col-md-12" style="padding-right: 0px;">
+                            <label for="catalogoPlantillaAlmacen" class="">Descripcion</label>
+                            <div class="input-group input-group-sm">
+                                <select id="catalogoPlantillaAlmacen" name="catalogoPlantillaAlmacen" class="form-control selectpicker" data-live-search="true">
+                                </select>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-info fa fa-plus" data-toggle="modal" data-target="#modalCatalogo" id="btnmodalcatalogoPA" onclick="nuevoCatalogoCalculoA()"></button>
+                                </span>
                             </div>
-                            <div class="col-md-8">
-                                <div class="panel-body table-responsive">
-                                    <table class="table table-condensed table-hover table-bordered" id="TplantillaG">
-                                        <thead>
-                                            <th>Descripcion</th>
-                                            <th>Signo</th>
-                                            <th>Valor</th>
-                                            <th>sumarValor</th>
-                                            <th>Ocultar</th>
-                                            <th>Prorratear</th>
-                                            <th>Descuento</th>
-                                        </thead>
-                                        <tbody id="tbodyPlnatillaG">
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div> <!-- col md 8 tabla -->
-                        </div><!--  row -->
-                    </div><!-- div area de formulas -->
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="minimoDetallePlantillaA" class="control-label">Minimo:</label>
+                            <input type="number" name="minimoDetallePlantillaA" id="minimoDetallePlantillaA" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="tarifaDetallePlantillaA" class="control-label">Tarifa:</label>
+                            <input type="number" name="tarifaDetallePlantillaA" id="tarifaDetallePlantillaA" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="porcentajeDetallePA" class="control-label">%:</label>
+                            <input type="number" name="porcentajeDetallePA" id="porcentajeDetallePA" class="form-control">
+                        </div>
+                    </div> <!-- col md 4 -->
+                    <div class="col-md-8">
+                        <div class="panel-body table-responsive">
+                            <table class="table table-condensed table-hover table-bordered" id="TplantillaG">
+                                <thead>
+                                    <th>Descripcion</th>
+                                    <th>Signo</th>
+                                    <th>Valor</th>
+                                    <th>sumarValor</th>
+                                    <th>Ocultar</th>
+                                    <th>Prorratear</th>
+                                    <th>Descuento</th>
+                                </thead>
+                                <tbody id="tbodyPlnatillaG">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- col md 8 tabla -->
+                    <!-- </div> -->
+                    <!--  row -->
+                    <!-- </div> -->
+                    <!-- div area de formulas -->
 
                     <div class="col-md-12"></div>
-                    <div class="box-footer">
+                    <div class="box-footer col-md-12">
                         <button type="button" class="btn btn-large btn-primary">Nuevo</button>
 
                         <button type="button" class="btn btn-large btn-info">Grabar

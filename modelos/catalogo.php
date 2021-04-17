@@ -1,27 +1,25 @@
 <?php
 session_start();
 include_once "../config/Conexion.php";
-class plantillaA
+class catalogo
 {
 
     public function __construct()
     {
     }
-    public function grabar($nombreP,$tarifaM,$diasL,$omitirD,$moneda)
+    public function grabar($nombreDescripcion,$nombreDescripcionIngles,$codigo)
     {
     
         $fechaG = date("Y-m-d");
         $con = Conexion::getConexion();
         try {
-            $stmt = $con->prepare("INSERT INTO plantilla_calculoa(id_usuario,id_sucursal,nombre,tarifa_minima,dias_libres,omitir_almacenaje,moneda,fecha_grabacion)
-            VALUES (:idusuario,:idsucursal,:nombre,:tarifa,:dlibres,:omitir,:moneda,:fecha)");
+            $stmt = $con->prepare("INSERT INTO catalogo(id_usuario,id_sucursal,nombre,nombre_ingles,codigo,fecha_graba)
+            VALUES (:idusuario,:idsucursal,:nombre,:traduccion,:codigo,:fecha)");
             $stmt->bindParam(":idusuario", $_SESSION['idusuario']);
             $stmt->bindParam(":idsucursal", $_SESSION["idsucursal"]);
-            $stmt->bindParam(":nombre", $nombreP);
-            $stmt->bindParam(":tarifa", $tarifaM);
-            $stmt->bindParam(":dlibres", $diasL);
-            $stmt->bindParam(":omitir", $omitirD);
-            $stmt->bindParam(":moneda", $moneda);
+            $stmt->bindParam(":nombre", $nombreDescripcion);
+            $stmt->bindParam(":traduccion", $nombreDescripcionIngles);
+            $stmt->bindParam(":codigo", $codigo);
             $stmt->bindParam(":fecha", $fechaG);
             $stmt->execute();
 
@@ -32,26 +30,22 @@ class plantillaA
             return 0;
         }
     }
-    public function editar($idplantilla, $nombreP,$tarifaM,$diasL,$omitirD,$moneda)
+    public function editar($idcatalogo, $nombreDescripcion,$nombreDescripcionIngles)
     {   
         $con = Conexion::getConexion();
         try {
-            $rsp = $con->prepare("UPDATE plantilla_calculoa 
+            $rsp = $con->prepare("UPDATE catalogo 
                     SET nombre=:nombre,
-                        tarifa_minima=:tarifa,
-                        dias_libres=:dlibres,
-                        omitir_almacenaje=:omitir,
-                        moneda =:moneda 
-                    WHERE id_plantilla=:idplantilla");
-            $rsp->bindParam(":nombre", $nombreP);
-            $rsp->bindParam(":tarifa",$tarifaM);
-            $rsp->bindParam(":dlibres",$diasL);
-            $rsp->bindParam(":omitir",$omitirD);
-            $rsp->bindParam(":moneda",$moneda);
-            $rsp->bindParam(":idplantilla",$idplantilla);
+                        nombre_ingles=:traduccion,
+                        codigo=:omitir 
+                    WHERE id_catalogo=:idcatalogo");
+            $rsp->bindParam(":nombre", $nombreDescripcion);
+            $rsp->bindParam(":traduccion",$nombreDescripcionIngles);
+            $rsp->bindParam(":codigo",$codigo);
+            $rsp->bindParam("idcatalogo",$idcatalogo);
             $rsp->execute();
             if ($rsp !== false){
-                return $idplantilla;
+                return $idcatalogo;
             }else{
                 return 0;
             }
@@ -61,7 +55,7 @@ class plantillaA
             //return $th->getMessage();
         }
     }
-    public function mostrarPlantilla($idplantilla){
+    public function mostrarCatalogo($idplantilla){
         $con = Conexion::getConexion();
         try {
             $rsp = $con->prepare("SELECT P.id_plantilla, 

@@ -21,6 +21,7 @@ function init() {
     llenaEmpaqueDetalle();
     listarKardex();
     llenaPlantillaBM("#agregarPlantilla");
+    llenaCatalogoCalculoA();
 }
 
 
@@ -39,6 +40,7 @@ function llenaconsignado() {
         }
     );
 }
+
 
 function llenaCliente() {
     $.post(
@@ -505,7 +507,7 @@ function CargaCalculoNuevo(iddetalleAlmacen) {
                 listarClienteCalculo(data.id_detalle);
                 $("#clienteCalculoA").prop("selectedIndex", 2);
                 $("#clienteCalculoA").selectpicker("refresh");
-                llenaPlantill aBM("#plantilla");
+                llenaPlantillaBM("#plantilla");
             } else {
                 alertify.alert("Error", "Ha ocurrido un error");
             }
@@ -605,6 +607,8 @@ function grabarPlnatillaAlmacen() {
                 alertify.success("Proceso Realizado con exito");
                 $("#grabarNuevaP").prop("disabled", "true");
                 llenaPlantillaBM("#plantillaBG");
+                llenaPlantillaBM("#plantilla");
+                llenaPlantillaBM("#agregarPlantilla");
             } else {
                 alertify.error("Proceso no se pudo realizar") + " " + datos;
             }
@@ -694,5 +698,25 @@ function cargaNombrePlantilla(quienLLama) {
     }
 }
 
+function llenaCatalogoCalculoA() {
+    $("#catalogoPlantillaAlmacen").empty();
+    $.post(
+        "../modelos/pais.php?op=selectN&tabla=catalogo&campo=nombre", {
+            id: "id_catalogo",
+            tipoe: "",
+        },
+        function(data, status) {
+            $("#catalogoPlantillaAlmacen").html(data);
+            $("#catalogoPlantillaAlmacen").selectpicker("refresh");
+            $("#catalogoPlantillaAlmacen").val(0);
+            $("#catalogoPlantillaAlmacen").selectpicker("refresh");
+        }
+    );
+}
 
+function nuevoCatalogoCalculoA() {
+    $("#llamaCalculoA").val("calculoA");
+    llenaCatalogoModal();
+    limpiarmodalCatalogo();
+}
 init();

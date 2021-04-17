@@ -14,6 +14,7 @@ if (!$_SESSION['nombre']) {
         <!-- Main content -->
         <section class="content">
             <?php
+            include_once("../vistas/modal/catalogo.php");
             include_once("../vistas/modal/plantillacalculoA.php");
             include_once("../vistas/plantillacalculo.php");
             include_once("../vistas/modal/empaque.php");
@@ -381,6 +382,7 @@ if (!$_SESSION['nombre']) {
         });
     </script> -->
     <script src="scritps/empresa.js"></script>
+    <script src="scritps/catalogo.js"></script>
     <script type="text/javascript" src="scritps/kardex.js"></script>
     <script>
         $(document).ready(function() {
@@ -425,6 +427,7 @@ if (!$_SESSION['nombre']) {
                 cargaNombrePlantilla(1);
             });
         });
+        
         $(function(){
             $("#agregarPlantilla").bind("click change",function(){
                 cargaNombrePlantilla(0);
