@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 17-04-2021 a las 06:13:14
+-- Tiempo de generación: 19-04-2021 a las 23:45:00
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.33
+-- Versión de PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -233,7 +233,11 @@ CREATE TABLE `catalogo` (
 --
 
 INSERT INTO `catalogo` (`id_catalogo`, `id_usuario`, `id_sucursal`, `nombre`, `nombre_ingles`, `codigo`, `fecha_graba`) VALUES
-(1, 52, 27, 'Flete Maritimo', 'freight', '', '2021-04-16');
+(1, 52, 27, 'Flete Maritimo cambio', 'freight cambio', '|122314', '2021-04-16'),
+(2, 52, 27, 'Flete Aereo', 'freight Air', '2', '2021-04-17'),
+(3, 52, 27, 'Almacen', 'gargabe', '3', '2021-04-17'),
+(4, 52, 27, 'seguro', 'secure', '4', '2021-04-17'),
+(5, 52, 27, 'Ajuste', 'ajust', '5', '2021-04-17');
 
 -- --------------------------------------------------------
 
@@ -885,7 +889,7 @@ CREATE TABLE `plantilla_calculoa` (
 --
 
 INSERT INTO `plantilla_calculoa` (`id_plantilla`, `id_usuario`, `id_sucursal`, `nombre`, `tarifa_minima`, `moneda`, `dias_libres`, `omitir_almacenaje`, `fecha_grabacion`) VALUES
-(1, 52, 27, 'calculo 18%', 8006, 5, 13, 0, '2021-04-11'),
+(1, 52, 27, 'calculo 18%', 8006, 5, 13, 1, '2021-04-11'),
 (2, 52, 27, 'calculo 30%', 800, 3, 12, 1, '2021-04-11'),
 (3, 52, 27, 'calculo sercogua 26', 900, 3, 15, 1, '2021-04-13');
 
@@ -1091,7 +1095,7 @@ ALTER TABLE `asigna_moneda`
 -- AUTO_INCREMENT de la tabla `catalogo`
 --
 ALTER TABLE `catalogo`
-  MODIFY `id_catalogo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_catalogo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `contactos_e`

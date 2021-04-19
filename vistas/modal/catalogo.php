@@ -9,7 +9,7 @@
                 <form id="frmCatalogo">
                     <div class="form-group col-md-12">
                         <label for="bCatalogo" class="col-form-label">Busqueda:</label>
-                        <select id="bCatalogo" name="bCatalogo" class="form-control selectpicker" data-live-search="true" >
+                        <select id="bCatalogo" name="bCatalogo" class="form-control selectpicker" data-live-search="true" onclick="mostrarCatalogo()" onchange="mostrarCatalogo()">
                         </select>
                     </div>
                     <div class="form-group col-md-12">

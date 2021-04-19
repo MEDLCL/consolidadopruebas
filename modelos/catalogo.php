@@ -7,9 +7,9 @@ class catalogo
     public function __construct()
     {
     }
-    public function grabar($nombreDescripcion,$nombreDescripcionIngles,$codigo)
+    public function grabar($nombreDescripcion, $nombreDescripcionIngles, $codigo)
     {
-    
+
         $fechaG = date("Y-m-d");
         $con = Conexion::getConexion();
         try {
@@ -30,45 +30,43 @@ class catalogo
             return 0;
         }
     }
-    public function editar($idcatalogo, $nombreDescripcion,$nombreDescripcionIngles)
-    {   
+    public function editar($idcatalogo, $nombreDescripcion, $nombreDescripcionIngles,$codigo)
+    {
         $con = Conexion::getConexion();
         try {
             $rsp = $con->prepare("UPDATE catalogo 
                     SET nombre=:nombre,
                         nombre_ingles=:traduccion,
-                        codigo=:omitir 
+                        codigo=:codigo 
                     WHERE id_catalogo=:idcatalogo");
             $rsp->bindParam(":nombre", $nombreDescripcion);
-            $rsp->bindParam(":traduccion",$nombreDescripcionIngles);
-            $rsp->bindParam(":codigo",$codigo);
-            $rsp->bindParam("idcatalogo",$idcatalogo);
+            $rsp->bindParam(":traduccion", $nombreDescripcionIngles);
+            $rsp->bindParam(":codigo", $codigo);
+            $rsp->bindParam(":idcatalogo", $idcatalogo);
             $rsp->execute();
-            if ($rsp !== false){
+            if ($rsp !== false) {
                 return $idcatalogo;
-            }else{
+            } else {
                 return 0;
             }
-            
         } catch (\Throwable $th) {
             return 0;
             //return $th->getMessage();
         }
     }
-    public function mostrarCatalogo($idplantilla){
+    public function mostrarCatalogo($idcatalogo)
+    {
         $con = Conexion::getConexion();
         try {
-            $rsp = $con->prepare("SELECT P.id_plantilla, 
-                                         P.nombre, 
-                                         P.tarifa_minima, 
-                                         P.dias_libres, 
-                                         P.omitir_almacenaje, 
-                                         P.moneda,
-                                         ifnull(M.signo,'')as signo
-                                        FROM plantilla_calculoa  as P left join
-                                             moneda as  M on M.id_moneda = P.moneda
-                                    WHERE P.id_plantilla = :idplantilla");
-            $rsp->bindParam(":idplantilla",$idplantilla);
+            $rsp = $con->prepare("SELECT C.id_catalogo, 
+                                        C.id_usuario,
+                                        C.id_sucursal, 
+                                        C.nombre, 
+                                        C.nombre_ingles,
+                                        IFNULL(C.codigo,'') as codigo, 
+                                        C.fecha_graba 
+                                    FROM catalogo as C WHERE C.id_catalogo = :idcatalogo");
+            $rsp->bindParam(":idcatalogo", $idcatalogo);
             $rsp->execute();
             $rsp = $rsp->fetch(PDO::FETCH_OBJ);
             if ($rsp) {
@@ -78,5 +76,4 @@ class catalogo
             return 0;
         }
     }
-
 }

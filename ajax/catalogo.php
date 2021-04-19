@@ -23,7 +23,7 @@ switch ($_GET["op"]) {
         break;
 
     case 'mostrarC':
-        $rsp = $idcatalogo->mostrarCatalogo($idcatalogo);
+        $rsp = $catalogo->mostrarCatalogo($idcatalogo);
         echo json_encode($rsp);
         break;
 }

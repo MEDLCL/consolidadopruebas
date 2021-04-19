@@ -649,7 +649,7 @@ function llenaMoneda() {
 
 function cargaNombrePlantilla(quienLLama) {
     if (quienLLama == 1) {
-        var idplantillaG = $("#plantillaBG").prop("selectedIndex");
+        var idplantillaG = $("#plantillaBG").val();
         limpiarPlantillaG();
         $.post(
             "../ajax/plantillaCalculoAlmacen.php?op=mostrarP", {
@@ -657,6 +657,7 @@ function cargaNombrePlantilla(quienLLama) {
             },
             function(data, status) {
                 data = JSON.parse(data);
+                if (data.id_plantilla>=1){
                 $("#nombrePlantillaG").val(data.nombre);
                 $("#monedaPlantillaG").selectpicker("refresh");
                 $("#monedaPlantillaG").val(data.moneda);
@@ -671,16 +672,18 @@ function cargaNombrePlantilla(quienLLama) {
                 }
                 $("#grabarNuevaP").removeAttr("disabled");
             }
+        }
         );
 
     } else {
-        var idplantillaG = $("#agregarPlantilla").prop("selectedIndex");
+        var idplantillaG = $("#agregarPlantilla").val();
         $.post(
             "../ajax/plantillaCalculoAlmacen.php?op=mostrarP", {
                 idplantillaG: idplantillaG
             },
             function(data, status) {
                 data = JSON.parse(data);
+                if (data.id_plantilla>=1){
                 $("#monedaPlantillaG").selectpicker("refresh");
                 $("#monedaPlantillaG").val(data.moneda);
                 $("#monedaPlantillaG").selectpicker("refresh");
@@ -694,6 +697,7 @@ function cargaNombrePlantilla(quienLLama) {
                     $("#omitirDias").prop("checked", false);
                 }
             }
+        }
         );
     }
 }
