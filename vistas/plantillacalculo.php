@@ -14,8 +14,8 @@
                                 <button type="button" class="btn btn-info fa fa-plus" data-toggle="modal" data-target="#modalPlantillaAlmacen" id="btnmodalPlantilla"></button>
                             </span>
 
-                            <input type="hidden" name="idplantillaMP" id="idplantillaMP" class="form-control" value="">
-
+                            <input type="hidden" name="idplantillaMP" id="idplantillaMP" class="form-control">
+                            <input type="hidden" name="idMonedaPlantillaMP" id="idMonedaPlantillaMP">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
@@ -53,13 +53,45 @@
                             <input type="number" name="minimoDetallePlantillaA" id="minimoDetallePlantillaA" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
+                            <label for=""></label>
+                            <div class="form-check">
+                                
+                                <input id="porPeso" class="form-check-input" type="checkbox" name="porPeso" value=1>
+                                <label for="porPeso" class="form-check-label">por Peso:</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
                             <label for="tarifaDetallePlantillaA" class="control-label">Tarifa:</label>
                             <input type="number" name="tarifaDetallePlantillaA" id="tarifaDetallePlantillaA" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
+                            <label for=""></label>
+                            <div class="form-check">
+                                
+                                <input id="porVolumen" class="form-check-input" type="checkbox" name="porVolumen" value=1>
+                                <label for="porVolumen" class="form-check-label">por Volumen:</label>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
                             <label for="porcentajeDetallePA" class="control-label">%:</label>
                             <input type="number" name="porcentajeDetallePA" id="porcentajeDetallePA" class="form-control">
                         </div>
+                        <div class="form-group col-md-6">
+                        <label for=""></label>
+                            <div class="form-check">
+                                <input id="porDia" class="form-check-input" type="checkbox" name="porDia" value=1>
+                                <label for="porDia" class="form-check-label">por Dia:</label>
+                            </div>
+                            <label for="porDia"></label>
+                        </div>
+                        <!-- <div class="form-check col-md-6">
+                            <label for="porPeso" class="control-label">* Por Peso</label>
+                            <input type="checkbox" name="porPeso" id="porPeso" class="form-check-label">
+                        </div> -->
+                        
                     </div> <!-- col md 4 -->
                     <div class="col-md-8">
                         <div class="panel-body table-responsive">

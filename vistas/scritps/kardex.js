@@ -657,22 +657,22 @@ function cargaNombrePlantilla(quienLLama) {
             },
             function(data, status) {
                 data = JSON.parse(data);
-                if (data.id_plantilla>=1){
-                $("#nombrePlantillaG").val(data.nombre);
-                $("#monedaPlantillaG").selectpicker("refresh");
-                $("#monedaPlantillaG").val(data.moneda);
-                $("#monedaPlantillaG").selectpicker("refresh");
-                $("#diasLibresPlantillaG").val(data.dias_libres);
-                $("#idplantillaG").val(data.id_plantilla);
-                $("#tarifaMinimaG").val(data.tarifa_minima);
-                if (data.omitir_almacenaje == "1") {
-                    $("#omitirDiasLibreG").prop("checked", true);
-                } else {
-                    $("#omitirDiasLibreG").prop("checked", false);
+                if (data.id_plantilla >= 1) {
+                    $("#nombrePlantillaG").val(data.nombre);
+                    $("#monedaPlantillaG").selectpicker("refresh");
+                    $("#monedaPlantillaG").val(data.moneda);
+                    $("#monedaPlantillaG").selectpicker("refresh");
+                    $("#diasLibresPlantillaG").val(data.dias_libres);
+                    $("#idplantillaG").val(data.id_plantilla);
+                    $("#tarifaMinimaG").val(data.tarifa_minima);
+                    if (data.omitir_almacenaje == "1") {
+                        $("#omitirDiasLibreG").prop("checked", true);
+                    } else {
+                        $("#omitirDiasLibreG").prop("checked", false);
+                    }
+                    $("#grabarNuevaP").removeAttr("disabled");
                 }
-                $("#grabarNuevaP").removeAttr("disabled");
             }
-        }
         );
 
     } else {
@@ -683,21 +683,22 @@ function cargaNombrePlantilla(quienLLama) {
             },
             function(data, status) {
                 data = JSON.parse(data);
-                if (data.id_plantilla>=1){
-                $("#monedaPlantillaG").selectpicker("refresh");
-                $("#monedaPlantillaG").val(data.moneda);
-                $("#monedaPlantillaG").selectpicker("refresh");
-                $("#diasLibresPlantillaMP").val(data.dias_libres);
-                $("#idplantillaG").val(data.id_plantilla);
+                if (data.id_plantilla >= 1) {
+                    $("#monedaPlantillaG").selectpicker("refresh");
+                    $("#monedaPlantillaG").val(data.moneda);
+                    $("#monedaPlantillaG").selectpicker("refresh");
+                    $("#diasLibresPlantillaMP").val(data.dias_libres);
+                    $("#idplantillaMP").val(data.id_plantilla);
+                    $("#idMonedaPlantillaMP").val(data.moneda);
 
-                $("#tarifaMinimaMP").val(data.signo + ' ' + data.tarifa_minima);
-                if (data.omitir_almacenaje == "1") {
-                    $("#omitirDias").prop("checked", true);
-                } else {
-                    $("#omitirDias").prop("checked", false);
+                    $("#tarifaMinimaMP").val(data.signo + ' ' + data.tarifa_minima);
+                    if (data.omitir_almacenaje == "1") {
+                        $("#omitirDias").prop("checked", true);
+                    } else {
+                        $("#omitirDias").prop("checked", false);
+                    }
                 }
             }
-        }
         );
     }
 }
