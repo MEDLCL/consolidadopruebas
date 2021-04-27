@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 19-04-2021 a las 23:45:00
+-- Tiempo de generación: 27-04-2021 a las 07:23:18
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.34
+-- Versión de PHP: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -233,11 +233,7 @@ CREATE TABLE `catalogo` (
 --
 
 INSERT INTO `catalogo` (`id_catalogo`, `id_usuario`, `id_sucursal`, `nombre`, `nombre_ingles`, `codigo`, `fecha_graba`) VALUES
-(1, 52, 27, 'Flete Maritimo cambio', 'freight cambio', '|122314', '2021-04-16'),
-(2, 52, 27, 'Flete Aereo', 'freight Air', '2', '2021-04-17'),
-(3, 52, 27, 'Almacen', 'gargabe', '3', '2021-04-17'),
-(4, 52, 27, 'seguro', 'secure', '4', '2021-04-17'),
-(5, 52, 27, 'Ajuste', 'ajust', '5', '2021-04-17');
+(1, 52, 27, 'Flete Maritimo', 'freight', '', '2021-04-16');
 
 -- --------------------------------------------------------
 
@@ -441,6 +437,27 @@ CREATE TABLE `detalle_almacen` (
 
 INSERT INTO `detalle_almacen` (`id_detalle`, `id_almacen`, `id_cliente`, `id_usuario`, `id_embalaje`, `peso`, `volumen`, `bultos`, `nohbl`, `estado`, `ubicacion`, `linea`, `resa`, `dti`, `no_cancel`, `no_orden`, `liberado`, `dut`, `mercaderia`, `observaciones`, `fecha_graba`, `fecha_modificacion`, `id_usuario_modifica`, `bultos_retirados`, `carga_retenida`) VALUES
 (1, 14, 65, 52, 1, 2, 1, 3, 'no hbl', 1, 'ubicacion', 'linea', 'resa', 'dti', 'nocancel', 'no orden', 0, 'dut', 'mercaderia', 'observaciones', '2021-03-21', '2021-03-21', 52, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_plantillaa`
+--
+
+CREATE TABLE `detalle_plantillaa` (
+  `id_detalle` int(11) NOT NULL,
+  `id_plantilla` int(11) NOT NULL,
+  `id_catalogo` int(11) NOT NULL,
+  `id_moneda` int(11) NOT NULL,
+  `id_sucursal` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `minimo` float NOT NULL,
+  `tarifa` float NOT NULL,
+  `porcentaje` int(11) NOT NULL,
+  `por_peso` int(11) NOT NULL,
+  `por_volumen` int(11) NOT NULL,
+  `por_dia` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -889,7 +906,7 @@ CREATE TABLE `plantilla_calculoa` (
 --
 
 INSERT INTO `plantilla_calculoa` (`id_plantilla`, `id_usuario`, `id_sucursal`, `nombre`, `tarifa_minima`, `moneda`, `dias_libres`, `omitir_almacenaje`, `fecha_grabacion`) VALUES
-(1, 52, 27, 'calculo 18%', 8006, 5, 13, 1, '2021-04-11'),
+(1, 52, 27, 'calculo 18%', 8006, 5, 13, 0, '2021-04-11'),
 (2, 52, 27, 'calculo 30%', 800, 3, 12, 1, '2021-04-11'),
 (3, 52, 27, 'calculo sercogua 26', 900, 3, 15, 1, '2021-04-13');
 
@@ -1008,6 +1025,12 @@ ALTER TABLE `detalle_almacen`
   ADD PRIMARY KEY (`id_detalle`);
 
 --
+-- Indices de la tabla `detalle_plantillaa`
+--
+ALTER TABLE `detalle_plantillaa`
+  ADD PRIMARY KEY (`id_detalle`);
+
+--
 -- Indices de la tabla `empaque`
 --
 ALTER TABLE `empaque`
@@ -1095,7 +1118,7 @@ ALTER TABLE `asigna_moneda`
 -- AUTO_INCREMENT de la tabla `catalogo`
 --
 ALTER TABLE `catalogo`
-  MODIFY `id_catalogo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_catalogo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `contactos_e`
@@ -1120,6 +1143,12 @@ ALTER TABLE `depto`
 --
 ALTER TABLE `detalle_almacen`
   MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_plantillaa`
+--
+ALTER TABLE `detalle_plantillaa`
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `empaque`

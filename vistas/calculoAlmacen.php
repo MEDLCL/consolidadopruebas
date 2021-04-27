@@ -97,7 +97,7 @@
                             <select id="plantilla" name="plantilla" class="form-control selectpicker" data-live-search="true">
                             </select>
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-info fa fa-plus" data-toggle="modal" data-target="#modalempresa" onclick="nuevoConsignado()"></button>
+                                <button type="button" class="btn btn-info fa fa-plus" onclick="nuevaPlantillaCalculo()"></button>
                             </span>
                         </div>
                     </div>

@@ -4,7 +4,7 @@
             <div class="box-header with-border"></div>
             <div class="box-body">
 
-                <form action="" method="POST" class="" role="form">
+                <form action="" method="POST" class="" role="form" id="frmDetallePlnatillaA">
                     <div class="form-group col-md-5">
                         <label for="agregarPlantilla" class="">Nombre Plantilla</label>
                         <div class="input-group input-group-sm">
@@ -16,6 +16,7 @@
 
                             <input type="hidden" name="idplantillaMP" id="idplantillaMP" class="form-control">
                             <input type="hidden" name="idMonedaPlantillaMP" id="idMonedaPlantillaMP">
+                            <input type="hidden" name="iddetallePlnatilla" id="iddetallePlnatilla">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
@@ -117,9 +118,9 @@
 
                     <div class="col-md-12"></div>
                     <div class="box-footer col-md-12">
-                        <button type="button" class="btn btn-large btn-primary">Nuevo</button>
+                        <button type="button" class="btn btn-large btn-primary" onclick="nuevoDetallePlantilla()">Nuevo</button>
 
-                        <button type="button" class="btn btn-large btn-info">Grabar
+                        <button type="button" class="btn btn-large btn-info" id="btnGrabarDetallePlantilla" onclick="grabarDetallePlantilla()">Grabar
                             <span class="fa fa-floppy-o"></span>
                         </button>
 

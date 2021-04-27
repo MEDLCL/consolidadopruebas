@@ -724,4 +724,64 @@ function nuevoCatalogoCalculoA() {
     llenaCatalogoModal();
     limpiarmodalCatalogo();
 }
+
+function nuevoDetallePlantilla() {
+    limpiarDetallePlantilla();
+    $("#btnGrabarDetallePlantilla").removeAttr("disabled");
+}
+
+function limpiarDetallePlantilla() {
+    $("#catalogoPlantillaAlmacen").val(0);
+    $("#catalogoPlantillaAlmacen").selectpicker("refresh");
+    $("#minimoDetallePlantillaA").val(0);
+    $("#tarifaDetallePlantillaA").val(0);
+    $("#porcentajeDetallePA").val(0);
+    $("#porPeso").prop("checked", false);
+    $("#porVolumen").prop("checked", false);
+    $("#porDia").prop("checked", false);
+    $("#iddetallePlnatilla").val(0);
+}
+
+function grabarDetallePlantilla() {
+    /*     idplantillaMP
+        idMonedaPlantillaMP
+        catalogoPlantillaAlmacen
+        minimoDetallePlantillaA
+        porPeso
+        tarifaDetallePlantillaA
+        porVolumen
+        porcentajeDetallePA
+        porDia
+     */
+    var idcatalogo = $("#catalogoPlantillaAlmacen").prop("selectedIndex");
+
+    if (idcatalogo == -1 || idcatalogo == 0) {
+        alertify.alert("Campo Vacio", "Debe de Seleccionar una Descripciòn");
+        return false;
+    }
+    var frmPlantilla = new FormData($("#frmDetallePlnatillaA")[0]);
+    $.ajax({
+        url: "../ajax/frmDetallePlnatillaA.php?op=guardaryeditar",
+        type: "POST",
+        data: frmPlantilla,
+        contentType: false,
+        processData: false,
+        success: function(datos) {
+            if (datos > 0) {
+                alertify.success("Proceso Realizado con exito");
+                $("#btnGrabarDetallePlantilla").prop("disabled", "true");
+
+            } else {
+                alertify.error("Proceso no se pudo realizar") + " " + datos;
+            }
+        }
+    });
+
+
+}
+
+function nuevaPlantillaCalculo() {
+    $("#btnGrabarDetallePlantilla").prop("disabled", "true");
+}
+
 init();
