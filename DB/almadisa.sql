@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 27-04-2021 a las 07:23:18
+-- Tiempo de generación: 28-04-2021 a las 07:33:38
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -458,6 +458,17 @@ CREATE TABLE `detalle_plantillaa` (
   `por_volumen` int(11) NOT NULL,
   `por_dia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `detalle_plantillaa`
+--
+
+INSERT INTO `detalle_plantillaa` (`id_detalle`, `id_plantilla`, `id_catalogo`, `id_moneda`, `id_sucursal`, `id_usuario`, `minimo`, `tarifa`, `porcentaje`, `por_peso`, `por_volumen`, `por_dia`) VALUES
+(1, 1, 1, 1, 27, 1, 123, 12, 2, 1, 1, 1),
+(2, 1, 1, 5, 27, 52, 18, 0, 0, 0, 0, 0),
+(3, 1, 1, 5, 27, 52, 18, 0, 0, 0, 0, 0),
+(4, 1, 1, 5, 27, 52, 18, 0, 0, 0, 0, 0),
+(5, 1, 1, 5, 27, 52, 0, 10, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1148,7 +1159,7 @@ ALTER TABLE `detalle_almacen`
 -- AUTO_INCREMENT de la tabla `detalle_plantillaa`
 --
 ALTER TABLE `detalle_plantillaa`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `empaque`

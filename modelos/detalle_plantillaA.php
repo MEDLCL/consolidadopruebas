@@ -10,8 +10,8 @@ class detallePlantilla
     }
     public function grabar($idplantilla, $idcatalogo, $idmoneda, $minimo, $tarifa, $porcentaje, $porpeso, $porvolumen, $pordia)
     {
-        $fechaG = date("Y-m-d");
-        $estado = 1;
+        //$fechaG = date("Y-m-d");
+        //$estado = 1;
         $con = Conexion::getConexion();
         // `tarifa`, ``, ``, ``
         try {
@@ -137,12 +137,27 @@ class detallePlantilla
     {
         $con = Conexion::getConexion();
         try {
-            $rsp = $con->prepare("");
-            $rsp->bindParam(":iddetalle", $iddetalleA);
+            $rsp = $con->prepare("SELECT DP.id_detalle, 
+                                        DP.id_catalogo,
+                                        DP.minimo,
+                                        DP.tarifa,
+                                        DP.porcentaje,
+                                        DP.por_peso,
+                                        DP.por_volumen,
+                                        DP.por_dia,
+                                        C.nombre
+                                    FROM plantilla_calculoa AS P INNER JOIN 
+                                         detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
+			                             catalogo AS C ON C.id_catalogo = DP.id_catalogo
+                                    WHERE P.id_plantilla =:idplantilla");
+            $rsp->bindParam(":idplantilla", $idplantilla);
             $rsp->execute();
             $rsp = $rsp->fetchAll(PDO::FETCH_OBJ);
             if ($rsp) {
                 return $rsp;
+            }
+            else {
+                return $rsp = array();
             }
         } catch (\Throwable $th) {
             return 0;

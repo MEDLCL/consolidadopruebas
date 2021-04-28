@@ -1,11 +1,11 @@
 <?php
 require_once "../config/Conexion.php";
 require_once "../config/funciones.php";
-require_once "../modelos/kardex.php";
+require_once "../modelos/detalle_plantillaA.php";
 
 $detalleP = new detallePlantilla();
 
-$idmoneda ==isset($_POST["idMonedaPlantillaMP"]) ? $idmoneda = $_POST["idMonedaPlantillaMP"] : $idmoneda = 0; 
+$idmoneda =isset($_POST["idMonedaPlantillaMP"]) ? $idmoneda = $_POST["idMonedaPlantillaMP"] : $idmoneda = 0; 
 $idplantilla =isset($_POST["idplantillaMP"]) ? $idplantilla = $_POST["idplantillaMP"] : $idplantilla = 0; 
 $iddetalle = isset($_POST["iddetallePlnatilla"]) ? $iddetalle = $_POST["iddetallePlnatilla"] : $iddetalle = 0;
 $idcatalogo = isset($_POST['catalogoPlantillaAlmacen']) ? $idcatalogo= limpia($_POST['catalogoPlantillaAlmacen']) : $idcatalogo = 0;
@@ -20,7 +20,7 @@ $pordia = isset($_POST['porDia']) ? $pordia=limpia($_POST['porDia']) : $pordia =
 
 switch ($_GET["op"]) {
     case 'guardaryeditar':
-        if ($idalmacen == 0 || $idalmacen == "") {
+        if ($iddetalle == 0 || $iddetalle == "") {
             $resp = $detalleP->grabar($idplantilla,$idcatalogo,$idmoneda,$minimo,$tarifa,$porcentaje,$porpeso,$porvolumen,$pordia);
             echo $resp;
         } else {
@@ -34,25 +34,40 @@ switch ($_GET["op"]) {
         break;
 
     case 'listarDP':
+        //$idp = $_GET["idplantillaMP"];
+        
         $rspt = $detalleP->listarDetallePlantilla($idplantilla);
-        $acciones = '';
-        $estado = 0;
+
         mb_internal_encoding('UTF-8');
         //se declara un array para almacenar todo el query
         $data = array();
+
         foreach ($rspt as $reg) {
-         
+           if ($reg->por_peso == 1 ){
+              $porp = 'checked';
+           }else{
+               $porp = '';
+           }
+           if ($reg->por_volumen==1){
+               $porv = 'checked';
+           }else{
+               $porv = '';
+           }
+           if ($reg->por_dia==1){
+               $pord = 'checked';
+           }else{
+               $pord = '';
+           }
+  
             $data[] = array(
-                "0" => $acciones,
-                "1" => $estado,
-                "2" => $reg->annio,
-                "3" => $reg->Codigo,
-                "4" => $reg->consignado,
-                "5" => $reg->contenedor_placa,
-                "6" => $reg->poliza,
-                "7" => $reg->referencia,
-                "8" => $reg->fecha_almacen,
-                "9" => $reg->cliente_Final,
+                "0" => $reg->nombre,
+                "1" => "Accion",//'<button class="btn btn-warning" onclick="mostrarsucursal(' . $reg->id_detalle,$reg->id_catalogo . ')" data-toggle="modal"  data-target="#modalsucursal"  ><i class="fa fa-pencil"></i></button>',
+                "2" => $minimo,
+                "3" => $reg->tarifa,
+                "4" => $reg->porcentaje,
+                "5" => '<input disabled name="porP[]" class="form-check-input" type="checkbox" value="1" '. $porp .'>',
+                "6" => '<input disabled name="porv[]" class="form-check-input" type="checkbox" value="1" '. $porv .'>',
+                "7" => '<input disabled name="pord[]" class="form-check-input" type="checkbox" value="1" '. $porv .'>'
             );
         }
         $results = array(
@@ -65,7 +80,7 @@ switch ($_GET["op"]) {
         break;
 
     case 'mostrarA':
-        $rsp = $detalleP->muestraAlmacen($idalmacen);
-        echo json_encode($rsp);
+        //$rsp = $detalleP->muestraAlmacen($idalmacen);
+        //echo json_encode($rsp);
         break;
 }

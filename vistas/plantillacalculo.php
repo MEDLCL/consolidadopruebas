@@ -96,15 +96,16 @@
                     </div> <!-- col md 4 -->
                     <div class="col-md-8">
                         <div class="panel-body table-responsive">
-                            <table class="table table-condensed table-hover table-bordered" id="TplantillaG">
+                            <table class="table table-condensed table-hover table-bordered" id="TplantillaG" style="text-align: center;">
                                 <thead>
+                                    <th>Editar</th>
                                     <th>Descripcion</th>
-                                    <th>Signo</th>
-                                    <th>Valor</th>
-                                    <th>sumarValor</th>
-                                    <th>Ocultar</th>
-                                    <th>Prorratear</th>
-                                    <th>Descuento</th>
+                                    <th>Minimo</th>
+                                    <th>Tarifa</th>
+                                    <th>Porcentaje</th>
+                                    <th>Por Peso</th>
+                                    <th>Por Volumen</th>
+                                    <th>por Dia</th>
                                 </thead>
                                 <tbody id="tbodyPlnatillaG">
                                 </tbody>

@@ -1,5 +1,6 @@
 var tablaK = "";
 var tablaDA = "";
+var tablaDetalleP = "";
 
 function init() {
     $("#fechaI").datepicker({
@@ -22,6 +23,8 @@ function init() {
     listarKardex();
     llenaPlantillaBM("#agregarPlantilla");
     llenaCatalogoCalculoA();
+    listarDetallePlantillaA();
+    limpiarDetallePlantilla();
 }
 
 
@@ -697,6 +700,8 @@ function cargaNombrePlantilla(quienLLama) {
                     } else {
                         $("#omitirDias").prop("checked", false);
                     }
+                    listarDetallePlantillaA(data.id_plantilla);
+                    //$('#TplantillaG').DataTable().ajax.reload();
                 }
             }
         );
@@ -740,6 +745,7 @@ function limpiarDetallePlantilla() {
     $("#porVolumen").prop("checked", false);
     $("#porDia").prop("checked", false);
     $("#iddetallePlnatilla").val(0);
+    $("#btnGrabarDetallePlantilla").prop("disabled", "true");
 }
 
 function grabarDetallePlantilla() {
@@ -754,14 +760,18 @@ function grabarDetallePlantilla() {
         porDia
      */
     var idcatalogo = $("#catalogoPlantillaAlmacen").prop("selectedIndex");
+    var idplantilla = $("#idplantillaMP").val();
 
-    if (idcatalogo == -1 || idcatalogo == 0) {
+    if (idplantilla == 0 || idplantilla.trim() == "") {
+        alertify.alert("Campo Vacio", "Debe de Seeccionar una Plantilla");
+        return false;
+    } else if (idcatalogo == -1 || idcatalogo == 0) {
         alertify.alert("Campo Vacio", "Debe de Seleccionar una Descripciòn");
         return false;
     }
     var frmPlantilla = new FormData($("#frmDetallePlnatillaA")[0]);
     $.ajax({
-        url: "../ajax/frmDetallePlnatillaA.php?op=guardaryeditar",
+        url: "../ajax/detalle_plantillaA.php?op=guardaryeditar",
         type: "POST",
         data: frmPlantilla,
         contentType: false,
@@ -770,7 +780,8 @@ function grabarDetallePlantilla() {
             if (datos > 0) {
                 alertify.success("Proceso Realizado con exito");
                 $("#btnGrabarDetallePlantilla").prop("disabled", "true");
-
+                //$('#TplantillaG').DataTable().ajax.reload();
+                listarDetallePlantillaA(idplantilla);
             } else {
                 alertify.error("Proceso no se pudo realizar") + " " + datos;
             }
@@ -784,4 +795,26 @@ function nuevaPlantillaCalculo() {
     $("#btnGrabarDetallePlantilla").prop("disabled", "true");
 }
 
+function listarDetallePlantillaA(idplantillaMP) {
+    $('#TplantillaG').dataTable({
+        "aProcessing": true, //Activamos el procesamiento del datatables
+        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
+        dom: 'Bfrtip', //Definimos los elementos de control de tabla
+        buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5'],
+        "ajax": {
+            url: '../ajax/detalle_plantillaA.php?op=listarDP',
+            type: "post",
+            dataType: "json",
+            data: { "idplantillaMP": idplantillaMP },
+            error: function(e) {
+                console.log(e.responseText);
+            }
+        },
+        "bDestroy": true,
+        "iDisplayLenth": 10, //paginacion
+        "order": [
+                [0, "desc"]
+            ] //order los datos
+    });
+}
 init();
