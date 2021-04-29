@@ -69,70 +69,7 @@ class detallePlantilla
             return 0;
         }
     }
-    public function listar($idalmacen)
-    {
-        $con = Conexion::getConexion();
-        try {
-            $rsp = $con->prepare("SELECT DA.id_detalle, 
-                                        DA.id_almacen, 
-                                        DA.estado,
-                                        CL.Razons as cliente,  
-                                        DA.nohbl,
-                                        DA.peso, 
-                                        DA.volumen, 
-                                        DA.bultos,
-                                        DA.ubicacion, 
-                                        E.nombre as empaque, 
-                                        DA.dut,
-                                        DA.liberado,
-                                        DA.linea, 
-                                        DA.resa, 
-                                        DA.dti, 
-                                        DA.no_cancel, 
-                                        DA.no_orden, 
-                                        DA.mercaderia, 
-                                        DA.observaciones
-                                    FROM detalle_almacen AS DA INNER JOIN  
-                                    empaque AS E ON E.id_empaque = DA.id_embalaje INNER JOIN 
-                                    empresas AS CL ON CL.id_empresa = DA.id_cliente 
-                                WHERE id_almacen = :idalmacen");
-            $rsp->bindParam(":idalmacen", $idalmacen);
-            $rsp->execute();
-            $rsp = $rsp->fetchAll(PDO::FETCH_OBJ);
-            return $rsp;
-            $con = Conexion::cerrar();
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-    }
-    public function MostrarNuevoCalculo($iddetallea)
-    {
-        $con = Conexion::getConexion();
-        try {
-            $rsp = $con->prepare("SELECT 
-                                    DA.id_detalle, 
-                                    DA.id_cliente,  
-                                    DA.peso, 
-                                    DA.volumen, 
-                                    DA.bultos,
-                                    DA.dut,
-                                    DA.liberado,
-                                    A.poliza,
-                                    A.cant_clientes,
-                                    DATE_FORMAT(A.fecha_almacen, '%m/%d/%Y') as fechaI
-                            FROM detalle_almacen as DA INNER JOIN 
-                                almacen as A ON A.id_almacen = DA.id_almacen
-                        where DA.id_detalle = :id_detalle");
-            $rsp->bindParam(":id_detalle", $iddetallea);
-            $rsp->execute();
-            $rsp = $rsp->fetch(PDO::FETCH_OBJ);
-            if ($rsp) {
-                return $rsp;
-            }
-        } catch (\Throwable $th) {
-            return 0;
-        }
-    }
+
     public function listarDetallePlantilla($idplantilla)
     {
         $con = Conexion::getConexion();
@@ -147,20 +84,45 @@ class detallePlantilla
                                         DP.por_dia,
                                         C.nombre
                                     FROM plantilla_calculoa AS P INNER JOIN 
-                                         detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
-			                             catalogo AS C ON C.id_catalogo = DP.id_catalogo
+                                        detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
+			                            catalogo AS C ON C.id_catalogo = DP.id_catalogo
                                     WHERE P.id_plantilla =:idplantilla");
             $rsp->bindParam(":idplantilla", $idplantilla);
             $rsp->execute();
             $rsp = $rsp->fetchAll(PDO::FETCH_OBJ);
             if ($rsp) {
                 return $rsp;
-            }
-            else {
+            } else {
                 return $rsp = array();
             }
         } catch (\Throwable $th) {
             return 0;
         }
+    }
+    public function mostrarDetalleP($iddetalle)
+    {
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("SELECT DP.id_detalle, 
+                                        DP.id_catalogo,
+                                        DP.minimo,
+                                        DP.tarifa,
+                                        DP.porcentaje,
+                                        DP.por_peso,
+                                        DP.por_volumen,
+                                        DP.por_dia
+                                    FROM detalle_plantillaa AS DP 
+                                    WHERE DP.id_detalle =:iddetalle ");
+            $rsp->bindParam(":iddetalle", $iddetalle);
+            $rsp->execute();
+            $rsp = $rsp->fetch(PDO::FETCH_OBJ);
+            if ($rsp) {
+                return $rsp;
+            } else {
+                return $rsp = array();
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }  
     }
 }

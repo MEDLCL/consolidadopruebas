@@ -744,7 +744,7 @@ function limpiarDetallePlantilla() {
     $("#porPeso").prop("checked", false);
     $("#porVolumen").prop("checked", false);
     $("#porDia").prop("checked", false);
-    $("#iddetallePlnatilla").val(0);
+    $("#iddetallePlantilla").val(0);
     $("#btnGrabarDetallePlantilla").prop("disabled", "true");
 }
 
@@ -763,7 +763,7 @@ function grabarDetallePlantilla() {
     var idplantilla = $("#idplantillaMP").val();
 
     if (idplantilla == 0 || idplantilla.trim() == "") {
-        alertify.alert("Campo Vacio", "Debe de Seeccionar una Plantilla");
+        alertify.alert("Campo Vacio", "Debe de Seleccionar una Plantilla");
         return false;
     } else if (idcatalogo == -1 || idcatalogo == 0) {
         alertify.alert("Campo Vacio", "Debe de Seleccionar una Descripciòn");
@@ -817,4 +817,42 @@ function listarDetallePlantillaA(idplantillaMP) {
             ] //order los datos
     });
 }
+function mostrarDetallePlantilla(iddetallePlantilla){
+    $.post(
+        "../ajax/detalle_plantillaA.php?op=mostrarDP", {
+            iddetallePlantilla: iddetallePlantilla
+        },
+        
+        function(data, status) {
+            data = JSON.parse(data);
+            if (data.id_detalle >= 1) {
+                $("#iddetallePlantilla").val(data.id_detalle);
+                $("#catalogoPlantillaAlmacen").val(data.id_catalogo);
+                $("#catalogoPlantillaAlmacen").selectpicker("refresh");
+                $("#minimoDetallePlantillaA").val(data.minimo);
+                $("#tarifaDetallePlantillaA").val(data.tarifa);
+                $("#porcentajeDetallePA").val(data.porcentaje);
+
+                if (data.por_peso == "1") {
+                    $("#porPeso").prop("checked", true);
+                } else {
+                    $("#porPeso").prop("checked", false);
+                }
+
+                if (data.por_volumen == "1") {
+                    $("#porVolumen").prop("checked", true);
+                } else {
+                    $("#porVolumen").prop("checked", false);
+                }
+                if (data.por_dia == "1") {
+                    $("#por_dia").prop("checked", true);
+                } else {
+                    $("#por_dia").prop("checked", false);
+                }
+                //$("#btnGrabarDetallePlantilla").removeAttr("disabled");
+            }
+        }
+    );
+}
+
 init();

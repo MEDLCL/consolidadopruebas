@@ -385,36 +385,58 @@ if (!$_SESSION['nombre']) {
     <script src="scritps/catalogo.js"></script>
     <script type="text/javascript" src="scritps/kardex.js"></script>
     <script>
-        $(document).ready(function() {
-            $("#cifCalculo").change(function() {
+       /*  $(document).ready(function() {
+            $("#cifCalculo").change(function(event) {
+                event.preventDefault(); 
+                sumaCifImpuesto();
+            });
+        }); */
+        $(function() {
+            //$("#alCalculoA").bind("keyup keydown change", function() {
+            $("#cifCalculo").bind("change", function(event) {
+                event.preventDefault(); 
                 sumaCifImpuesto();
             });
         });
 
-        $(document).ready(function() {
-            $("#impuestoCalculo").change(function() {
+     /*    $(document).ready(function() {
+            $("#impuestoCalculo").change(function(event) {
+                event.preventDefault(); 
+                sumaCifImpuesto();
+            });
+        }); */
+        $(function() {
+            //$("#alCalculoA").bind("keyup keydown change", function() {
+            $("#impuestoCalculo").bind("change", function(event) {
+                event.preventDefault(); 
                 sumaCifImpuesto();
             });
         });
+
+
         $(function() {
             //$("#alCalculoA").bind("keyup keydown change", function() {
-            $("#alCalculoA").bind("change", function() {
+            $("#alCalculoA").bind("change", function(event) {
+                event.preventDefault(); 
                 calcularDias();
             });
         });
         $(function(){
-            $("#tipoCambioCalculo").bind("change",function(){
+            $("#tipoCambioCalculo").bind("change",function(event){
+                event.preventDefault(); 
                 calcularCifDolares();
             });
         });
         $(function(){
-            $("#cifgtdolar").bind("change",function(){
+            $("#cifgtdolar").bind("change",function(event){
+                event.preventDefault(); 
                 calcularCifDolares();
             });
         });
 
         $(function(){
-            $("#btnmodalPlantilla").bind("click",function(){              
+            $("#btnmodalPlantilla").bind("click",function(event){    
+                event.preventDefault();  
                 limpiarPlantillaG();
                 $("#grabarNuevaP").prop("disabled","true");
                 llenaMoneda();
@@ -423,13 +445,15 @@ if (!$_SESSION['nombre']) {
         });
         
         $(function(){
-            $("#plantillaBG").bind("click change",function(){
+            $("#plantillaBG").bind("click change",function(event){
+                event.preventDefault();
                 cargaNombrePlantilla(1);
             });
         });
-        
+
         $(function(){
-            $("#agregarPlantilla").bind("click change",function(){
+            $("#agregarPlantilla").bind("click change",function(event){
+                event.preventDefault();
                 cargaNombrePlantilla(0);
             });
         });

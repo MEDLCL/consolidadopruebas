@@ -16,7 +16,7 @@
 
                             <input type="hidden" name="idplantillaMP" id="idplantillaMP" class="form-control">
                             <input type="hidden" name="idMonedaPlantillaMP" id="idMonedaPlantillaMP">
-                            <input type="hidden" name="iddetallePlnatilla" id="iddetallePlnatilla">
+                            <input type="hidden" name="iddetallePlantilla" id="iddetallePlantilla">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
