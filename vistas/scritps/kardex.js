@@ -780,7 +780,7 @@ function grabarDetallePlantilla() {
             if (datos > 0) {
                 alertify.success("Proceso Realizado con exito");
                 $("#btnGrabarDetallePlantilla").prop("disabled", "true");
-                //$('#TplantillaG').DataTable().ajax.reload();
+                $('#TplantillaG').DataTable().ajax.reload();
                 listarDetallePlantillaA(idplantilla);
             } else {
                 alertify.error("Proceso no se pudo realizar") + " " + datos;
@@ -817,12 +817,13 @@ function listarDetallePlantillaA(idplantillaMP) {
             ] //order los datos
     });
 }
-function mostrarDetallePlantilla(iddetallePlantilla){
+
+function mostrarDetallePlantilla(iddetallePlantilla) {
     $.post(
         "../ajax/detalle_plantillaA.php?op=mostrarDP", {
             iddetallePlantilla: iddetallePlantilla
         },
-        
+
         function(data, status) {
             data = JSON.parse(data);
             if (data.id_detalle >= 1) {
@@ -845,11 +846,11 @@ function mostrarDetallePlantilla(iddetallePlantilla){
                     $("#porVolumen").prop("checked", false);
                 }
                 if (data.por_dia == "1") {
-                    $("#por_dia").prop("checked", true);
+                    $("#porDia").prop("checked", true);
                 } else {
-                    $("#por_dia").prop("checked", false);
+                    $("#porDia").prop("checked", false);
                 }
-                //$("#btnGrabarDetallePlantilla").removeAttr("disabled");
+                $("#btnGrabarDetallePlantilla").removeAttr("disabled");
             }
         }
     );

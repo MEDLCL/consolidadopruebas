@@ -60,14 +60,15 @@ switch ($_GET["op"]) {
             }
 
             $data[] = array(
-                "0" => $reg->nombre,
-                "1" => '<button type ="button" class="btn btn-warning" onclick="mostrarDetallePlantilla(' . $reg->id_detalle .')"><i class="fa fa-pencil"></i></button>',
+                "0" => '<button type ="button" class="btn btn-warning" onclick="mostrarDetallePlantilla(' . $reg->id_detalle .')"><i class="fa fa-pencil"></i></button>'
+                        .'<button type ="button" class="btn btn-danger" onclick="eliminarDetallePlantilla(' . $reg->id_detalle .')"><i class="fa fa-close"></i></button>',
+                "1" => $reg->nombre,
                 "2" => $reg->minimo,
                 "3" => $reg->tarifa,
                 "4" => $reg->porcentaje,
                 "5" => '<input disabled name="porP[]" class="form-check-input" type="checkbox" value="1" ' . $porp . '>',
                 "6" => '<input disabled name="porv[]" class="form-check-input" type="checkbox" value="1" ' . $porv . '>',
-                "7" => '<input disabled name="pord[]" class="form-check-input" type="checkbox" value="1" ' . $porv . '>'
+                "7" => '<input disabled name="pord[]" class="form-check-input" type="checkbox" value="1" ' . $pord . '>'
             );
         }
         $results = array(

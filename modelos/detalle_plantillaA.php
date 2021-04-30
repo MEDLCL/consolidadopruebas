@@ -41,14 +41,14 @@ class detallePlantilla
         $con = Conexion::getConexion();
         try {
 
-            $stmt = $con->prepare("UPDATE detalle_almacen 
-                    SET id_catalogo=:idcliente,
-                        minimo=:idembalaje,
-                        tarifa=:peso,
-                        porcentaje=:volumen,
-                        por_peso=:bultos,
-                        por_volumen=:nohbl,
-                        por_dia=:ubicacion
+            $stmt = $con->prepare("UPDATE detalle_plantillaa 
+                    SET id_catalogo=:idcatalogo,
+                        minimo=:minimo,
+                        tarifa=:tarifa,
+                        porcentaje=:porcentaje,
+                        por_peso=:porpeso,
+                        por_volumen=:porvolumen,
+                        por_dia=:pordia
                     WHERE id_detalle=:id_detalle");
             $stmt->bindParam(":idcatalogo", $idcatalogo);
             $stmt->bindParam(":minimo", $minimo);

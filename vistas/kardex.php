@@ -457,6 +457,28 @@ if (!$_SESSION['nombre']) {
                 cargaNombrePlantilla(0);
             });
         });
+
+        $(function(){
+            $("#porPeso").bind("change",function(event){
+                event.preventDefault();
+                $("#porVolumen").prop("checked", false);
+                $("#porDia").prop("checked", false);
+            });
+        });
+        $(function(){
+            $("#porVolumen").bind("change",function(event){
+                event.preventDefault();
+                $("#porPeso").prop("checked", false);
+                $("#porDia").prop("checked", false);
+            });
+        });
+        $(function(){
+            $("#porDia").bind("change",function(event){
+                event.preventDefault();
+                $("#porPeso").prop("checked", false);
+                $("#porVolumen").prop("checked", false);
+            });
+        });
     </script>
 
 <?php }

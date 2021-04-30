@@ -98,7 +98,7 @@
                         <div class="panel-body table-responsive">
                             <table class="table table-condensed table-hover table-bordered" id="TplantillaG" style="text-align: center;">
                                 <thead>
-                                    <th>Editar</th>
+                                    <th>Acciones</th>
                                     <th>Descripcion</th>
                                     <th>Minimo</th>
                                     <th>Tarifa</th>
