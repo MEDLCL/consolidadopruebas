@@ -125,4 +125,21 @@ class detallePlantilla
             return 0;
         }  
     }
+    public function eliminaDetalle($iddetalle){
+        $con = Conexion::getConexion();
+        try {
+
+            $stmt = $con->prepare("DELETE FROM detalle_plantillaa WHERE id_detalle= :iddetalle ");
+            $stmt->bindParam(":iddetalle", $iddetalle);
+            $stmt->execute();
+            if ($stmt !== false) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (\Throwable $th) {
+            // echo $th->getMessage();
+            return 0;
+        }
+    }
 }

@@ -782,6 +782,7 @@ function grabarDetallePlantilla() {
                 $("#btnGrabarDetallePlantilla").prop("disabled", "true");
                 $('#TplantillaG').DataTable().ajax.reload();
                 listarDetallePlantillaA(idplantilla);
+                limpiarDetallePlantilla();
             } else {
                 alertify.error("Proceso no se pudo realizar") + " " + datos;
             }
@@ -851,6 +852,28 @@ function mostrarDetallePlantilla(iddetallePlantilla) {
                     $("#porDia").prop("checked", false);
                 }
                 $("#btnGrabarDetallePlantilla").removeAttr("disabled");
+            }
+        }
+    );
+}
+function eliminarDetallePlantilla(iddetallePlantilla){
+    var idplantilla = $("#idplantillaMP").val();
+    $.post(
+        "../ajax/detalle_plantillaA.php?op=eliminaDetalleP", {
+            iddetallePlantilla: iddetallePlantilla
+        },
+
+        function(data, status) {
+
+            data = JSON.parse(data);
+            if (data >= 1) {
+
+                listarDetallePlantillaA(idplantilla);
+                Swal.fire(
+                    'Eliminado con Exito!',
+                    'Aceptar!',
+                    'success'
+                )
             }
         }
     );

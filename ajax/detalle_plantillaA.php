@@ -84,4 +84,11 @@ switch ($_GET["op"]) {
         $rsp = $detalleP->mostrarDetalleP($iddetalle);
         echo json_encode($rsp);
         break;
+    
+    case 'eliminaDetalleP':
+        $rsp = $detalleP->eliminaDetalle($iddetalle);
+        echo $rsp;
+    break;
+    
+
 }
