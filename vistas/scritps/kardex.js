@@ -25,6 +25,7 @@ function init() {
     llenaCatalogoCalculoA();
     listarDetallePlantillaA();
     limpiarDetallePlantilla();
+    $('#plantillaCalculoAlmacen').hide();
 }
 
 
@@ -490,6 +491,7 @@ function sumaCifImpuesto() {
 }
 
 function CargaCalculoNuevo(iddetalleAlmacen) {
+    $('#plantillaCalculoAlmacen').hide();
     nuevoCalculo();
     $.post("../ajax/calculoAlmacen.php?op=MostrarCalculoNuevo", {
             iddetalleAlmacen: iddetalleAlmacen
@@ -511,12 +513,14 @@ function CargaCalculoNuevo(iddetalleAlmacen) {
                 $("#clienteCalculoA").prop("selectedIndex", 2);
                 $("#clienteCalculoA").selectpicker("refresh");
                 llenaPlantillaBM("#plantilla");
+
             } else {
                 alertify.alert("Error", "Ha ocurrido un error");
             }
 
         })
 }
+
 
 function listarClienteCalculo(iddetalleAlmacen) {
     $.post("../ajax/calculoAlmacen.php?op=listarCliente", {
@@ -636,6 +640,7 @@ function llenaPlantillaBM(selecPlantilla) {
         }
     );
 }
+
 
 function llenaMoneda() {
     $("#monedaPlantillaG").empty();
@@ -782,6 +787,7 @@ function grabarDetallePlantilla() {
                 $("#btnGrabarDetallePlantilla").prop("disabled", "true");
                 $('#TplantillaG').DataTable().ajax.reload();
                 listarDetallePlantillaA(idplantilla);
+
                 limpiarDetallePlantilla();
             } else {
                 alertify.error("Proceso no se pudo realizar") + " " + datos;
@@ -856,7 +862,8 @@ function mostrarDetallePlantilla(iddetallePlantilla) {
         }
     );
 }
-function eliminarDetallePlantilla(iddetallePlantilla){
+
+function eliminarDetallePlantilla(iddetallePlantilla) {
     var idplantilla = $("#idplantillaMP").val();
     $.post(
         "../ajax/detalle_plantillaA.php?op=eliminaDetalleP", {
@@ -879,4 +886,38 @@ function eliminarDetallePlantilla(iddetallePlantilla){
     );
 }
 
+function nuevaPlantillaCalculo() {
+    $('#plantillaCalculoAlmacen').show();
+    $('#calculoAlmacen').hide();
+
+}
+
+function cancelarPlantillaCalculo() {
+    $('#plantillaCalculoAlmacen').hide();
+    $('#calculoAlmacen').show();
+}
+
+function cargaCalulosPlantilla() {
+    var idplantilla = $("#plantilla").val();
+    $('#TcalculosALmacenP').dataTable({
+        "aProcessing": true, //Activamos el procesamiento del datatables
+        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
+        dom: 'Bfrtip', //Definimos los elementos de control de tabla
+        buttons: ['pdfHtml5'],
+        "ajax": {
+            url: '../ajax/calculoAlmacen.php?op=calcular',
+            type: "post",
+            dataType: "json",
+            data: { "idplantilla": idplantilla },
+            error: function(e) {
+                console.log(e.responseText);
+            }
+        },
+        "bDestroy": true,
+        "iDisplayLenth": 10, //paginacion
+        "order": [
+                [0, "desc"]
+            ] //order los datos
+    });
+}
 init();

@@ -125,7 +125,7 @@
                             <span class="fa fa-floppy-o"></span>
                         </button>
 
-                        <button type="button" class="btn btn-large btn-danger">Cancelar
+                        <button type="button" class="btn btn-large btn-danger" onclick="cancelarPlantillaCalculo()">Cancelar
                             <span class="fa fa-close"></span>
                         </button>
 

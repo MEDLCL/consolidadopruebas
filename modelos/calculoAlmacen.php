@@ -204,4 +204,25 @@ class calculoAlmacen
             return 0;
         }
     }
+
+    public function calcular($idplantilla){
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("SELECT C.nombre
+                                    FROM plantilla_calculoa AS P INNER JOIN 
+                                        detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
+			                            catalogo AS C ON C.id_catalogo = DP.id_catalogo
+                                    WHERE P.id_plantilla =:idplantilla");
+            $rsp->bindParam(":idplantilla", $idplantilla);
+            $rsp->execute();
+            $rsp = $rsp->fetchALL(PDO::FETCH_OBJ);
+            if ($rsp) {
+                return $rsp;
+            }else{
+               return  $rsp = array();
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
 }

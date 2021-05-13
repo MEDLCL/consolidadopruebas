@@ -189,7 +189,7 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="panel-body table-responsive">
-                                    <table class="table table-condensed table-hover table-bordered" id="Tcontactos">
+                                    <table class="table table-condensed table-hover table-bordered" id="TcalculosALmacenP">
                                         <thead>
                                             <th>Descripcion</th>
                                             <th>Signo</th>

@@ -479,6 +479,14 @@ if (!$_SESSION['nombre']) {
                 $("#porVolumen").prop("checked", false);
             });
         });
+
+        $(function(){
+            $("#plantilla").bind("click change",function(event){
+                event.preventDefault();
+                cargaCalulosPlantilla();
+            });
+        });
+
     </script>
 
 <?php }
