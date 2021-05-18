@@ -205,24 +205,41 @@ class calculoAlmacen
         }
     }
 
-    public function calcular($idplantilla){
+    public function mostrarPlantillaCalcular($idplantilla)
+    {
         $con = Conexion::getConexion();
         try {
-            $rsp = $con->prepare("SELECT C.nombre
+            $rsp = $con->prepare("SELECT C.nombre,
+                                    DP.minimo,
+                                    DP.tarifa,
+                                    DP.porcentaje,
+                                    DP.por_peso,
+                                    DP.por_volumen,
+                                    DP.por_dia,
+                                    MO.signo
                                     FROM plantilla_calculoa AS P INNER JOIN 
                                         detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
-			                            catalogo AS C ON C.id_catalogo = DP.id_catalogo
+                                        catalogo AS C ON C.id_catalogo = DP.id_catalogo INNER JOIN 
+                                        moneda as MO on MO.id_moneda = DP.id_moneda
                                     WHERE P.id_plantilla =:idplantilla");
             $rsp->bindParam(":idplantilla", $idplantilla);
             $rsp->execute();
             $rsp = $rsp->fetchALL(PDO::FETCH_OBJ);
             if ($rsp) {
                 return $rsp;
-            }else{
-               return  $rsp = array();
+            } else {
+                return  $rsp = array();
             }
         } catch (\Throwable $th) {
             return 0;
         }
+    }
+    public function calcularAlmacen($minimo,$tarifa,$porcentaje){
+        if ($_SESSION["idpais"]==93){
+            $res =0 ;
+            $res = $tarifa * $porcentaje;
+        }
+
+
     }
 }

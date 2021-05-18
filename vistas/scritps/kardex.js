@@ -898,6 +898,10 @@ function cancelarPlantillaCalculo() {
 }
 
 function cargaCalulosPlantilla() {
+    // enviar fecha desde hasta
+    // enviar peso y volumen
+    // base para seguro
+    //bultos y clientes para cuadrilla 
     var idplantilla = $("#plantilla").val();
     $('#TcalculosALmacenP').dataTable({
         "aProcessing": true, //Activamos el procesamiento del datatables

@@ -51,7 +51,7 @@ switch ($_GET["op"]) {
         echo intval($dias) + 1;
         break;
     case 'calcular':
-        $rspt = $calculo->calcular($idplantilla);
+        $rspt = $calculo->mostrarPlantillaCalcular($idplantilla);
 
         mb_internal_encoding('UTF-8');
         //se declara un array para almacenar todo el query
@@ -60,7 +60,7 @@ switch ($_GET["op"]) {
         foreach ($rspt as $reg) {
             $data[] = array(
                 "0" => $reg->nombre,
-                "1" => '',
+                "1" => $reg->signo,
                 "2" => '',
                 "3" => '',
                 "4" => '',
