@@ -484,6 +484,7 @@ if (!$_SESSION['nombre']) {
             $("#plantilla").bind("click change",function(event){
                 event.preventDefault();
                 cargaCalulosPlantilla();
+                cargaPlantillaparaCalculo();
             });
         });
 

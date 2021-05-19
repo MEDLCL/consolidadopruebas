@@ -175,11 +175,11 @@ class calculoAlmacen
         $con = Conexion::getConexion();
         try {
             $rsp = $con->prepare("SELECT EM.Razons,
-                                         EM.id_empresa
+                                        EM.id_empresa
                                         FROM empresas  AS EM
                                     WHERE EM.id_empresa IN (
             
-                                         SELECT E.id_empresa 
+                                        SELECT E.id_empresa 
                                             FROM (
                                                 SELECT  AL.id_consignado AS id_empresa
                                                 FROM almacen AS AL INNER JOIN 
@@ -189,11 +189,11 @@ class calculoAlmacen
                                                     UNION ALL 
                                                 SELECT  DA.id_cliente AS id_empresa
                                                 FROM almacen AS AL INNER JOIN 
-                                                     detalle_almacen AS DA ON DA.id_almacen = AL.id_almacen
+                                                    detalle_almacen AS DA ON DA.id_almacen = AL.id_almacen
                                                 WHERE DA.id_detalle = :iddetalle	
                                                 GROUP BY DA.id_cliente
                                     ) AS E						
-                                 )");
+                                )");
             $rsp->bindParam(":iddetalle", $iddetalleA);
             $rsp->execute();
             $rsp = $rsp->fetchAll(PDO::FETCH_OBJ);
@@ -216,8 +216,10 @@ class calculoAlmacen
                                     DP.por_peso,
                                     DP.por_volumen,
                                     DP.por_dia,
-                                    MO.signo
-                                    FROM plantilla_calculoa AS P INNER JOIN 
+                                    MO.signo,
+                                    P.omitir_almacenaje as OA,
+                                    P.dias_libres
+                                FROM plantilla_calculoa AS P INNER JOIN 
                                         detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
                                         catalogo AS C ON C.id_catalogo = DP.id_catalogo INNER JOIN 
                                         moneda as MO on MO.id_moneda = DP.id_moneda
@@ -234,12 +236,14 @@ class calculoAlmacen
             return 0;
         }
     }
-    public function calcularAlmacen($minimo,$tarifa,$porcentaje){
-        if ($_SESSION["idpais"]==93){
-            $res =0 ;
-            $res = $tarifa * $porcentaje;
+    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$omita,$diasl){
+        if ($_SESSION["idpais"]==92){
+
         }
 
+
+    }
+    public function Almacengt(){
 
     }
 }

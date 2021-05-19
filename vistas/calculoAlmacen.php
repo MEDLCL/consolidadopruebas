@@ -96,6 +96,11 @@
 
                             <select id="plantilla" name="plantilla" class="form-control selectpicker" data-live-search="true">
                             </select>
+                            
+                            <input type="hidden" name="TotalMinimo" id="TotalMinimo">
+                            <input type="hidden" name="diaslPC" id="diaslPC">
+                            <input type="hidden" name="diascompletoPC" id="diascompletoPC">
+                            
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-info fa fa-plus" onclick="nuevaPlantillaCalculo()"></button>
                             </span>

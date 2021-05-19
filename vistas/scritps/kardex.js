@@ -902,7 +902,24 @@ function cargaCalulosPlantilla() {
     // enviar peso y volumen
     // base para seguro
     //bultos y clientes para cuadrilla 
+
     var idplantilla = $("#plantilla").val();
+    var delCalculo  = $("#delCalculoA").val();
+    var alcalculo= $("#alCalculoA").val();
+    var impuesto= $("#impuestoCalculo").val();
+    var baseparas =$("#bSeguroCalculo").val();
+    var peso = $("#pesoCalculo").val();
+    var volumen = $("#VolumenCalculo").val();
+    var bultos = $("#bultosCalculoPen").val();
+    var cntclie = $("#clientesCuadrilla").val();
+    var diaslibres =$("#diaslPC").val();
+    var totalminimo = $("#TotalMinimo").val();
+    var dcompleto = $("#diascompletoPC").val();
+
+    //$("#diaslPC").val(data.dias_libres);
+    //$("#TotalMinimo").val(data.tarifa_minima);
+    //$("#diascompletoPC").val(1);
+
     $('#TcalculosALmacenP').dataTable({
         "aProcessing": true, //Activamos el procesamiento del datatables
         "aServerSide": true, //Paginacion y fltrado realizado por el servidor
@@ -912,7 +929,19 @@ function cargaCalulosPlantilla() {
             url: '../ajax/calculoAlmacen.php?op=calcular',
             type: "post",
             dataType: "json",
-            data: { "idplantilla": idplantilla },
+            data: { "idplantilla": idplantilla,
+                    "delCalculo":delCalculo,
+                    "alCalculo":alcalculo,
+                    "impuesto":impuesto,
+                    "baseparas":baseparas,
+                    "peso":peso,
+                    "volumen":volumen,
+                    "bultos":bultos,
+                    "cntclie":cntclie,
+                    "diaslibres":diaslibres,
+                    "tminimo":totalminimo,
+                    "dcompleto":dcompleto           
+        },
             error: function(e) {
                 console.log(e.responseText);
             }
@@ -923,5 +952,25 @@ function cargaCalulosPlantilla() {
                 [0, "desc"]
             ] //order los datos
     });
+}
+function cargaPlantillaparaCalculo(){
+    var idplantillaG = $("#plantilla").val();
+        $.post(
+            "../ajax/plantillaCalculoAlmacen.php?op=mostrarP", {
+                idplantillaG: idplantillaG
+            },
+            function(data, status) {
+                data = JSON.parse(data);
+                if (data.id_plantilla >= 1) {    
+                    $("#diaslPC").val(data.dias_libres);
+                    $("#TotalMinimo").val(data.tarifa_minima);
+                    if (data.omitir_almacenaje == "1") {
+                        $("#diascompletoPC").val(1);
+                    } else {
+                        $("#diascompletoPC").val(0);
+                    }
+                }
+            }
+        );
 }
 init();
