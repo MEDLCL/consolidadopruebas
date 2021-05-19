@@ -510,7 +510,7 @@ CREATE TABLE `empresas` (
   `estado` tinyint(1) NOT NULL DEFAULT 1,
   `porcentaje_comision` float NOT NULL,
   `tipo_comision` varchar(15) NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp()
+  `fecha` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
