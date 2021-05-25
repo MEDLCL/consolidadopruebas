@@ -236,14 +236,28 @@ class calculoAlmacen
             return 0;
         }
     }
-    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$omita,$diasl){
+    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl){
         if ($_SESSION["idpais"]==92){
+            if ($descripcion== "Almacenaje"){
+                $res = self::Almacengt($minimo,$porcentaje,$impuesto,$diasAlma);
+                return $res;
+            }else{
+                return "";
+            }
 
         }
 
 
     }
-    public function Almacengt(){
+    public static function Almacengt($minimo,$porcentaje,$impuesto,$diasAlma){
+        if ($impuesto == ""){
+            $impuesto =0;
+        }
+        $res = ($impuesto*($porcentaje/100))*$diasAlma;
+        if ($res<$minimo){
+            $res = $minimo;
+        }
 
+        return $res;
     }
 }

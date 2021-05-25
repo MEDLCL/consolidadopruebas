@@ -551,6 +551,7 @@ function calcularDias() {
         },
         function(data, status) {
             $("#totalDias").val(data);
+            calculardiaslmacenaje();
         }
     );
 }
@@ -915,7 +916,8 @@ function cargaCalulosPlantilla() {
     var diaslibres =$("#diaslPC").val();
     var totalminimo = $("#TotalMinimo").val();
     var dcompleto = $("#diascompletoPC").val();
-
+    var diasAlmacenaje = $("#diasAlmacenaje").val();
+    
     //$("#diaslPC").val(data.dias_libres);
     //$("#TotalMinimo").val(data.tarifa_minima);
     //$("#diascompletoPC").val(1);
@@ -940,7 +942,8 @@ function cargaCalulosPlantilla() {
                     "cntclie":cntclie,
                     "diaslibres":diaslibres,
                     "tminimo":totalminimo,
-                    "dcompleto":dcompleto           
+                    "dcompleto":dcompleto,
+                    "diasAlmacenaje":diasAlmacenaje           
         },
             error: function(e) {
                 console.log(e.responseText);
@@ -963,14 +966,32 @@ function cargaPlantillaparaCalculo(){
                 data = JSON.parse(data);
                 if (data.id_plantilla >= 1) {    
                     $("#diaslPC").val(data.dias_libres);
+                    $("#diasLibre").val(data.dias_libres);
                     $("#TotalMinimo").val(data.tarifa_minima);
                     if (data.omitir_almacenaje == "1") {
                         $("#diascompletoPC").val(1);
                     } else {
                         $("#diascompletoPC").val(0);
                     }
+                    calculardiaslmacenaje();
                 }
             }
         );
+}
+function calculardiaslmacenaje(){
+
+    var tdias = $("#totalDias").val();
+    var diasl = $("#diasLibre").val();
+    var diasa =0;
+    if (tdias=="") {
+        tdias = 0;
+    }
+
+    if (diasl==""){
+        diasl = 0;
+    }
+    diasa = tdias-diasl;
+    $("#diasAlmacenaje").val(diasa);
+
 }
 init();

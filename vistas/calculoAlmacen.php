@@ -26,11 +26,14 @@
                         <input type="text" class="form-control input-sm" name="totalDias" id="totalDias" readonly>
                     </div>
 
-                    <div class="form-group col-md-2">
+                    <!-- <div class="form-group col-md-2">
                         <label>Dias Calculo:</label>
                         <input type="text" class="form-control input-sm" name="diasCaclculo" id="diasCalculo" readonly>
+                    </div>-->
+                    <div class="form-group col-md-2">
+                        <label>Dias Almacenaje:</label>
+                        <input type="text" class="form-control input-sm" name="diasAlmacenaje" id="diasAlmacenaje" readonly>
                     </div>
-
                     <div class="form-group col-md-4">
                         <label for="comment">Direccion(*):</label>
                         <textarea class="form-control" rows="2" id="direccionCalculo" name="direccionCalculo"></textarea>
@@ -40,14 +43,14 @@
                         <input type="text" class="form-control" name="nitCalculo" id="nitCalculo">
                     </div>
 
-                    <div class="form-group col-md-3">
+                    <!--  <div class="form-group col-md-3">
                         <label>Dias Almacenaje:</label>
                         <input type="text" class="form-control input-sm" name="diasAlmacenaje" id="diasAlmacenaje" readonly>
-                    </div>
+                    </div> -->
 
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                         <label>Dias Libres:</label>
-                        <input type="text" class="form-control input-sm" name="diasLibre" id="diasLibres" readonly>
+                        <input type="text" class="form-control input-sm" name="diasLibre" id="diasLibre" readonly>
                     </div>
 
                     <div class="col-md-12"></div>
@@ -96,11 +99,11 @@
 
                             <select id="plantilla" name="plantilla" class="form-control selectpicker" data-live-search="true">
                             </select>
-                            
+
                             <input type="hidden" name="TotalMinimo" id="TotalMinimo">
                             <input type="hidden" name="diaslPC" id="diaslPC">
                             <input type="hidden" name="diascompletoPC" id="diascompletoPC">
-                            
+
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-info fa fa-plus" onclick="nuevaPlantillaCalculo()"></button>
                             </span>
@@ -122,7 +125,7 @@
                     <div id="detallePlantillaCalculo">
                         <div class="row">
                             <div class="col-md-4">
-                            <div class="form-group col-md-7">
+                                <div class="form-group col-md-7">
                                     <label for="cif" class="control-label">CIF:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
@@ -144,7 +147,7 @@
                                     <label for="cif" class="control-label">CIF(*):</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
-                                            
+
                                         </div>
                                         <input type="number" name="cifCalculo" id="cifCalculo" class="form-control" onkeyup="sumaCifImpuesto()">
                                     </div>
@@ -162,7 +165,7 @@
                                     <label for="impuestoCalculo" class="control-label">Impuesto(*):</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
-                                            
+
                                         </div>
                                         <input type="number" name="impuestoCalculo" id="impuestoCalculo" class="form-control" onkeyup="sumaCifImpuesto()">
                                     </div>
