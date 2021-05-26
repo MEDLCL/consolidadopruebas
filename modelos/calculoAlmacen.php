@@ -236,11 +236,13 @@ class calculoAlmacen
             return 0;
         }
     }
-    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl){
+    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl,$baseParaS){
         if ($_SESSION["idpais"]==92){
             if ($descripcion== "Almacenaje"){
                 $res = self::Almacengt($minimo,$porcentaje,$impuesto,$diasAlma);
                 return $res;
+            }else if ($descripcion == "Seguro"){
+                $res = self::SeguroGT($minimo,$porcentaje,$baseParaS);
             }else{
                 return "";
             }
@@ -259,5 +261,9 @@ class calculoAlmacen
         }
 
         return $res;
+    }
+    public static function SeguroGT($minimo,$porcentaje,$baseParaS){
+        
+
     }
 }

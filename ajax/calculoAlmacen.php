@@ -70,7 +70,7 @@ switch ($_GET["op"]) {
             $data[] = array(
                 "0" => $reg->nombre,
                 "1" => $reg->signo,
-                "2" => $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres),
+                "2" => $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS),
                 "3" => '',
                 "4" => '',
                 "5" => '',
