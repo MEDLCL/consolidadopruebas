@@ -263,7 +263,7 @@ class calculoAlmacen
         return $res;
     }
     public static function SeguroGT($minimo,$porcentaje,$baseParaS){
-        
+        $res  = ($baseParaS * ($porcentaje/100))/365;
 
     }
 }
