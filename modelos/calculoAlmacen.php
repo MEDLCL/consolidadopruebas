@@ -236,24 +236,26 @@ class calculoAlmacen
             return 0;
         }
     }
-    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl,$baseParaS){
+    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl,$baseParaS,$totaldias){
         if ($_SESSION["idpais"]==92){
             if ($descripcion== "Almacenaje"){
                 $res = self::Almacengt($minimo,$porcentaje,$impuesto,$diasAlma);
                 return $res;
             }else if ($descripcion == "Seguro"){
-                $res = self::SeguroGT($minimo,$porcentaje,$baseParaS);
+                return $res = self::SeguroGT($minimo,$porcentaje,$baseParaS,$totaldias);
             }else{
                 return "";
             }
 
         }
 
-
     }
     public static function Almacengt($minimo,$porcentaje,$impuesto,$diasAlma){
         if ($impuesto == ""){
             $impuesto =0;
+        }
+        if ($diasAlma==""){
+            $diasAlma = 0 ;
         }
         $res = ($impuesto*($porcentaje/100))*$diasAlma;
         if ($res<$minimo){
@@ -262,11 +264,15 @@ class calculoAlmacen
 
         return $res;
     }
-    public static function SeguroGT($minimo,$porcentaje,$baseParaS){
-        $res  = ($baseParaS * ($porcentaje/100))/365;
+    public static function SeguroGT($minimo,$porcentaje,$baseParaS,$totaldias){
+        if ($totaldias == ""){
+            $totaldias = 0;
+        }
+        $res  = ($baseParaS * (($porcentaje/100))/365)*$totaldias;
         if ($res<$minimo){
             $res = $minimo;
         }
+        return $res;
 
     }
 }

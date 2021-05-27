@@ -917,7 +917,7 @@ function cargaCalulosPlantilla() {
     var totalminimo = $("#TotalMinimo").val();
     var dcompleto = $("#diascompletoPC").val();
     var diasAlmacenaje = $("#diasAlmacenaje").val();
-    
+    var totaldias = $("#totalDias").val();
     //$("#diaslPC").val(data.dias_libres);
     //$("#TotalMinimo").val(data.tarifa_minima);
     //$("#diascompletoPC").val(1);
@@ -943,8 +943,9 @@ function cargaCalulosPlantilla() {
                     "diaslibres":diaslibres,
                     "tminimo":totalminimo,
                     "dcompleto":dcompleto,
-                    "diasAlmacenaje":diasAlmacenaje           
-        },
+                    "diasAlmacenaje":diasAlmacenaje,
+                    "totaldias": totaldias
+        },  
             error: function(e) {
                 console.log(e.responseText);
             }

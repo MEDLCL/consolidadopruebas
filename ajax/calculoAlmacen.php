@@ -21,6 +21,8 @@ $diaslibres = isset($_POST['diaslibres']) ?$diaslibres= limpia($_POST['diaslibre
 $tminimo = isset($_POST["tminimo"]) ? $tminimo= limpia($_POST["tminimo"]) : $tminimo = 0; 
 $dcompleto = isset($_POST["dcompleto"])? $dcompleto = limpia($_POST["dcompleto"]):$dcompleto= 0;
 $diasalma = isset($_POST["diasAlmacenaje"])?$diasalma = limpia($_POST["diasAlmacenaje"]):$diasalma = 0;
+$totaldias = isset($_POST["totaldias"]) ? $totaldias = limpia($_POST['totaldias']):$totaldias =0;
+
 if ($impuesto == ""){
     $impuesto = 0;
 }
@@ -70,7 +72,7 @@ switch ($_GET["op"]) {
             $data[] = array(
                 "0" => $reg->nombre,
                 "1" => $reg->signo,
-                "2" => $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS),
+                "2" => $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias),
                 "3" => '',
                 "4" => '',
                 "5" => '',
