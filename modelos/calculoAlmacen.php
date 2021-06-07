@@ -264,6 +264,37 @@ class calculoAlmacen
 
         return $res;
     }
+    public static function gastosGT($minimo,$diasAlma,$cif,$porcentaje){
+        if ($diasAlma==""){
+            $diasAlma =0;
+        }
+
+        $res= (($cif*($porcentaje/100))/30)*$diasAlma;
+        if ($res<$minimo){
+            $res = $minimo;
+        }
+        return $res;
+    }
+
+    public static function manejoGT($peso,$tarifa,$minimo){
+    /*     r = (Round((peso / 1000) + 0.5)) * 1000
+        r = Round(r)
+        res = (r * CDbl(Me.grid.Columns(4).Value)) / 1000 */
+    //revisar formulara todos deben de subir a mayor 10 
+        $res = $tarifa/1000;
+
+    }
+    public static function TransmisionGT($baseParaS,$minimo,$cantCli){
+        $res = ($baseParaS /$cantCli);
+        if ($res<$minimo){
+            $res = $minimo;
+        }
+        return $res;
+    }
+    public static function descargaGT(){
+
+    }
+
     public static function SeguroGT($minimo,$porcentaje,$baseParaS,$totaldias){
         if ($totaldias == ""){
             $totaldias = 0;
