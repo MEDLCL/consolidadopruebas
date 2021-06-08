@@ -281,8 +281,12 @@ class calculoAlmacen
         r = Round(r)
         res = (r * CDbl(Me.grid.Columns(4).Value)) / 1000 */
     //revisar formulara todos deben de subir a mayor 10 
-        $res = $tarifa/1000;
-
+    $multiplo = (round(($peso/1000)+0.5)) *1000;
+        $res = ($multiplo * $tarifa)*1000;
+        if ($res<$minimo){
+            $res = $minimo;
+        }
+        return $minimo;
     }
     public static function TransmisionGT($baseParaS,$minimo,$cantCli){
         $res = ($baseParaS /$cantCli);
