@@ -236,21 +236,29 @@ class calculoAlmacen
             return 0;
         }
     }
-    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl,$baseParaS,$totaldias){
+    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl,$baseParaS,$totaldias,$peso,$tipocambio){
         if ($_SESSION["idpais"]==92){
             if ($descripcion== "Almacenaje"){
                 $res = self::Almacengt($minimo,$porcentaje,$impuesto,$diasAlma);
                 return $res;
             }else if ($descripcion == "Seguro"){
                 return $res = self::SeguroGT($minimo,$porcentaje,$baseParaS,$totaldias);
-            }else{
+            }else if ($descripcion=="Manejo")
+                return $res = self::manejoGT($peso,$tarifa,$minimo);
+            else{
                 return "";
             }
-
-        }
-
+        }//fin guatemala
+        else if ($_SESSION["idpais"]==59){
+            if ($descripcion == "Almacenaje"){
+                return self::almacenajeCR($tarifa,$baseParaS,$diasAlma,$minimo);
+            }else if ($descripcion == "Almacenaje Adicional"){
+                return self::almacenajeAdicionalCR($diasAlma,$tipocambio);
+            }
+        }// fin costarica 
     }
     public static function Almacengt($minimo,$porcentaje,$impuesto,$diasAlma){
+        
         if ($impuesto == ""){
             $impuesto =0;
         }
@@ -262,7 +270,7 @@ class calculoAlmacen
             $res = $minimo;
         }
 
-        return $res;
+        return redondear10($res);
     }
     public static function gastosGT($minimo,$diasAlma,$cif,$porcentaje){
         if ($diasAlma==""){
@@ -273,7 +281,7 @@ class calculoAlmacen
         if ($res<$minimo){
             $res = $minimo;
         }
-        return $res;
+        return redondear10($res);
     }
 
     public static function manejoGT($peso,$tarifa,$minimo){
@@ -310,4 +318,33 @@ class calculoAlmacen
         return $res;
 
     }
+
+
+public static function almacenajeCR($tarifa,$baseParaS,$diasAlma,$minimo){
+    $res = $tarifa* ($baseParaS/1000)* ($diasAlma/30);
+    if ($res <$minimo){
+        $res = $minimo;
+    }
+
+    return $res;
 }
+public static function almacenajeAdicionalCR($diasAlma,$tipoCambio){
+    $res = ($diasAlma-10)*3*$tipoCambio;
+    return $res;
+}
+public static function manejoCR($tarifa,$peso,$minimo){
+    $res = $tarifa*$peso;
+    if ($res<$minimo){
+        $res = $minimo;
+    }
+    return $res;
+}
+public static function seguroCR($diasAlma,$tarifa,$minimo,$baseParaS){
+    $res = $tarifa*($baseParaS/1000)*($diasAlma/30);
+    if ($res <$minimo){
+        $res = $minimo;
+    }
+    return $res;
+}
+
+}//final de la clase 

@@ -12,9 +12,11 @@
                             <select id="clienteCalculoA" name="clienteCalculoA" class="form-control selectpicker" data-live-search="true">
                             </select>
                             <span class="input-group-btn">
+                                <button type="button" class="btn btn-info fa fa-building" disabled></button>
                             </span>
                         </div>
                     </div>
+
                     <div class="form-group col-md-2">
                         <label>Poliza Da:</label>
                         <input type="text" class="form-control input-sm" name="polizaEntradaCalculo" id="polizaEntradaCalculo" readonly>
@@ -34,6 +36,7 @@
                         <label>Dias Almacenaje:</label>
                         <input type="text" class="form-control input-sm" name="diasAlmacenaje" id="diasAlmacenaje" readonly>
                     </div>
+                    <div class="col-md-12"></div>
                     <div class="form-group col-md-4">
                         <label for="comment">Direccion(*):</label>
                         <textarea class="form-control" rows="2" id="direccionCalculo" name="direccionCalculo"></textarea>

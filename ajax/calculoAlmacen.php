@@ -13,16 +13,16 @@ $al = isset($_POST['alcalculo']) ? $al = limpia($_POST['alcalculo']) : $al = dat
 $idplantilla = isset($_POST['idplantilla']) ?  $idplantilla= limpia($_POST['idplantilla']) : $idplantilla = '';
 $impuesto = isset($_POST['impuesto']) ? $impuesto = $_POST['impuesto'] : $impuesto = 0;
 $baseParaS= isset($_POST['baseparas'])? $baseParaS = $_POST['baseparas']: $baseParaS = 0 ;
-$peso = isset($_POST['peso']) ? limpia($_POST['peso']) : $peso = '';
-$volumen = isset($_POST['volumen']) ? limpia($_POST['volumen']) : $volumen = '';
-$bultos = isset($_POST['bultos']) ? limpia($_POST['bultos']) : $bultosT = '';
-$cntclie = isset($_POST['cntclie']) ? $cntclie =limpia($_POST['cntclie']) : $cntclie = '';
+$peso = isset($_POST['peso']) ? limpia($_POST['peso']) : $peso = 0;
+$volumen = isset($_POST['volumen']) ? limpia($_POST['volumen']) : $volumen = 0;
+$bultos = isset($_POST['bultos']) ? limpia($_POST['bultos']) : $bultosT = 0;
+$cntclie = isset($_POST['cntclie']) ? $cntclie =limpia($_POST['cntclie']) : $cntclie = 0;
 $diaslibres = isset($_POST['diaslibres']) ?$diaslibres= limpia($_POST['diaslibres']) : $diaslibres = 0;
 $tminimo = isset($_POST["tminimo"]) ? $tminimo= limpia($_POST["tminimo"]) : $tminimo = 0; 
 $dcompleto = isset($_POST["dcompleto"])? $dcompleto = limpia($_POST["dcompleto"]):$dcompleto= 0;
 $diasalma = isset($_POST["diasAlmacenaje"])?$diasalma = limpia($_POST["diasAlmacenaje"]):$diasalma = 0;
 $totaldias = isset($_POST["totaldias"]) ? $totaldias = limpia($_POST['totaldias']):$totaldias =0;
-
+$tipocambio = isset($_POST["tipocambio"])?$tipoCambio = limpia($_POST["tipocambio"]):$tipocambio =0 ;
 if ($impuesto == ""){
     $impuesto = 0;
 }
@@ -72,7 +72,7 @@ switch ($_GET["op"]) {
             $data[] = array(
                 "0" => $reg->nombre,
                 "1" => $reg->signo,
-                "2" => $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias),
+                "2" => $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias,$peso,$tipocambio),
                 "3" => '',
                 "4" => '',
                 "5" => '',

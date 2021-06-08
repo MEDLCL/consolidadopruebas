@@ -513,6 +513,7 @@ function CargaCalculoNuevo(iddetalleAlmacen) {
                 $("#clienteCalculoA").prop("selectedIndex", 2);
                 $("#clienteCalculoA").selectpicker("refresh");
                 llenaPlantillaBM("#plantilla");
+                $("calculoAlmacen").show();
 
             } else {
                 alertify.alert("Error", "Ha ocurrido un error");
@@ -918,6 +919,7 @@ function cargaCalulosPlantilla() {
     var dcompleto = $("#diascompletoPC").val();
     var diasAlmacenaje = $("#diasAlmacenaje").val();
     var totaldias = $("#totalDias").val();
+    var tipocambio = $("#tipoCambioCalculo").val();
     //$("#diaslPC").val(data.dias_libres);
     //$("#TotalMinimo").val(data.tarifa_minima);
     //$("#diascompletoPC").val(1);
@@ -944,7 +946,8 @@ function cargaCalulosPlantilla() {
                     "tminimo":totalminimo,
                     "dcompleto":dcompleto,
                     "diasAlmacenaje":diasAlmacenaje,
-                    "totaldias": totaldias
+                    "totaldias": totaldias,
+                    "tipocambio":tipocambio
         },  
             error: function(e) {
                 console.log(e.responseText);

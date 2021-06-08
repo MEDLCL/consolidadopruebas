@@ -8,7 +8,7 @@ function limpia($cadena){
     return $cadena;
 }
 
-function Redondear($valor){
+function Redondear10($valor){
 /*     Dim rnd
 Dim srnd
        srnd = numero / 10
@@ -21,7 +21,17 @@ Dim srnd
        ElseIf srnd < rnd Then
             redondear = Round((numero / 10)) * 10
        End If */
-return $valor;
+$res=0;       
+$redondear = round($valor/10);
+$sinR = ($valor/10);
+if ($redondear = $sinR){
+    $res = $valor;
+}elseif($sinR>$redondear){
+    $res = (round($sinR+1))*10;
+}elseif ($sinR < $redondear){
+    $res = (round($valor/10))*10;
 }
- ?>
+    return $res;
+}
+?>
 

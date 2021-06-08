@@ -65,16 +65,18 @@ class plantillaA
         $con = Conexion::getConexion();
         try {
             $rsp = $con->prepare("SELECT P.id_plantilla, 
-                                         P.nombre, 
-                                         P.tarifa_minima, 
-                                         P.dias_libres, 
-                                         P.omitir_almacenaje, 
-                                         P.moneda,
-                                         ifnull(M.signo,'')as signo
+                                        P.nombre, 
+                                        P.tarifa_minima, 
+                                        P.dias_libres, 
+                                        P.omitir_almacenaje, 
+                                        P.moneda,
+                                        ifnull(M.signo,'')as signo
                                         FROM plantilla_calculoa  as P left join
-                                             moneda as  M on M.id_moneda = P.moneda
-                                    WHERE P.id_plantilla = :idplantilla");
+                                            moneda as  M on M.id_moneda = P.moneda
+                                    WHERE P.id_plantilla = :idplantilla 
+                                            and P.id_sucursal = :idsucursal");
             $rsp->bindParam(":idplantilla",$idplantilla);
+            $rsp->bindParam(":idsucursal",$_SESSION['idsucursal']);
             $rsp->execute();
             $rsp = $rsp->fetch(PDO::FETCH_OBJ);
             if ($rsp) {
