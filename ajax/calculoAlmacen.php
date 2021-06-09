@@ -72,8 +72,8 @@ switch ($_GET["op"]) {
             $data[] = array(
                 "0" => $reg->nombre,
                 "1" => $reg->signo,
-                "2" => $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias,$peso,$tipocambio),
-                "3" => '',
+                "2" => '<input style="width: 70px;" type="text" name="valorDescripcion[]" value = '. $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias,$peso,$tipocambio).'>', //,
+                "3" => '<input style="width: 70px;" type="text" name="valorsumar[]">',
                 "4" => '',
                 "5" => '',
                 "6" => ''
@@ -90,3 +90,102 @@ switch ($_GET["op"]) {
         break;    
 
 }
+
+/* 
+probar simulacion de click
+const element = document.getElementById("cohort");
+const event = new MouseEvent("mousedown");
+element.dispatchEvent(event);
+
+var selectedOptionText = $('#mySelectID').find(":selected").text();//selected option text
+var selectedOptionVal = $('#mySelectID').find(":selected").val();//selected option value
+
+$(function() {
+    $("#datepicker").datepicker();
+    
+    $("#datepicker").val();
+    
+    $("#datepicker").on("change",function(){
+        var selected = $(this).val();
+        alert(selected);
+    });
+});
+
+
+function agregarDetalle(idarticulo,articulo,precio_venta)
+  {
+  	var cantidad=1;
+    var descuento=0;
+
+    if (idarticulo!="")
+    {
+    	var subtotal=cantidad*precio_venta;
+    	var fila='<tr class="filas" id="fila'+cont+'">'+
+    	'<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
+    	'<td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td>'+
+    	'<td><input type="number" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
+    	'<td><input type="number" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'"></td>'+
+    	'<td><input type="number" name="descuento[]" value="'+descuento+'"></td>'+
+    	'<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
+    	'<td><button type="button" onclick="modificarSubototales()" class="btn btn-info"><i class="fa fa-refresh"></i></button></td>'+
+    	'</tr>';
+    	cont++;
+    	detalles=detalles+1;
+    	$('#detalles').append(fila);
+    	modificarSubototales();
+    }
+    else
+    {
+    	alert("Error al ingresar el detalle, revisar los datos del artículo");
+    }
+  }
+
+  function modificarSubototales()
+  {
+  	var cant = document.getElementsByName("cantidad[]");
+    var prec = document.getElementsByName("precio_venta[]");
+    var desc = document.getElementsByName("descuento[]");
+    var sub = document.getElementsByName("subtotal");
+
+    for (var i = 0; i <cant.length; i++) {
+    	var inpC=cant[i];
+    	var inpP=prec[i];
+    	var inpD=desc[i];
+    	var inpS=sub[i];
+
+    	inpS.value=(inpC.value * inpP.value)-inpD.value;
+    	document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
+    }
+    calcularTotales();
+
+  }
+  function calcularTotales(){
+  	var sub = document.getElementsByName("subtotal");
+  	var total = 0.0;
+
+  	for (var i = 0; i <sub.length; i++) {
+		total += document.getElementsByName("subtotal")[i].value;
+	}
+	$("#total").html("S/. " + total);
+    $("#total_venta").val(total);
+    evaluar();
+  }
+
+  function evaluar(){
+  	if (detalles>0)
+    {
+      $("#btnGuardar").show();
+    }
+    else
+    {
+      $("#btnGuardar").hide(); 
+      cont=0;
+    }
+  }
+
+  function eliminarDetalle(indice){
+  	$("#fila" + indice).remove();
+  	calcularTotales();
+  	detalles=detalles-1;
+  	evaluar()
+  } */
