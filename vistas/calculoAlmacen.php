@@ -6,7 +6,7 @@
 
                 <form action="" method="POST" class="" role="form">
                     <div class="form-group col-md-6">
-                        <label for="consiganado" class="">Cliente/Consignado(*) </label>
+                        <label for="clienteCalculoA" class="">Cliente/Consignado(*) </label>
                         <div class="input-group input-group-sm">
 
                             <select id="clienteCalculoA" name="clienteCalculoA" class="form-control selectpicker" data-live-search="true">
@@ -107,7 +107,7 @@
                             <input type="hidden" name="diaslPC" id="diaslPC">
                             <input type="hidden" name="diascompletoPC" id="diascompletoPC">
 
-                            <span class="input-group-btn" >
+                            <span class="input-group-btn">
                                 <button type="button" class="btn btn-info fa fa-plus" onclick="nuevaPlantillaCalculo()"></button>
                             </span>
                         </div>
@@ -217,27 +217,72 @@
                             </div> <!-- col md 8 tabla -->
                         </div><!--  row -->
                     </div><!-- div area de formulas -->
+                    <div class="totalescr col-md-12">
+                        <div class="form-group col-md-2 col-md-offset-4">
+                            <label for="financiado" class="control-label">Finaciacion:</label>
+                            <input type="text" name="financiado" id="financiado" class="form-control">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="porcentajefinanciado" class="control-label">% Finaciacion:</label>
+                            <input type="text" name="porcentajefinanciado" id="porcentajefinanciado" class="form-control" value= "3.50">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                    </div>
 
                     <div class="row totales">
+                        <div class="form-group col-md-2">
+                            <label for="total" class="control-label">Sub-Total</label>
+                            <input type="text" name="subtotal" id="subtotal" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="total" class="control-label">Iva</label>
+                            <input type="text" name="iva" id="iva" class="form-control" readonly>
+                        </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-2">
                             <label for="total" class="control-label">Total</label>
                             <input type="text" name="total" id="total" class="form-control" readonly>
                         </div>
                     </div>
+
                     <div class="col-md-12"></div>
+
+
+                    <div class="totalesgt col-md-12">
+
+                    </div>
+                    <div class="totalesnic col-md-12">
+
+                    </div>
+
                     <div class="box-footer">
-                        <button type="button" class="btn btn-large btn-primary col-xs-offset-2">Nuevo</button>
+                        <div class="btnscalculo">
+                            <button type="button" class="btn btn-large btn-primary col-xs-offset-2">Nuevo
+                                <span class="fa  fa-plus"></span>
+                            </button>
 
-                        <button type="button" class="btn btn-large btn-info">Grabar
-                            <span class="fa fa-floppy-o"></span>
-                        </button>
+                            <button type="button" class="btn btn-large btn-info">Grabar
+                                <span class="fa fa-floppy-o"></span>
+                            </button>
 
-                        <button type="button" class="btn btn-large btn-danger">Cancelar
-                            <span class="fa fa-close"></span>
-                        </button>
+                            <button type="button" class="btn btn-large btn-danger">Cancelar
+                                <span class="fa fa-close"></span>
+                            </button>
 
-                        <button type="button" class="btn btn-large btn-success">Calcular</button>
+                            <button type="button" class="btn btn-large btn-success" id="btnCalcular">Calcular
+                                <span class="fa fa-refresh"></span>
+                            </button>
+
+                            <button type="button" class="btn btn-large btn-primary col-xs-offset-2">Factura
+                                <span class="fa fa-file-text"></span>
+                            </button>
+
+                            <button type="button" class="btn btn-large btn-primary">Recibo
+                                <span class="fa fa-file-text"></span>
+                            </button>
+                        </div>
+
                     </div>
 
                 </form>

@@ -23,6 +23,8 @@ $dcompleto = isset($_POST["dcompleto"])? $dcompleto = limpia($_POST["dcompleto"]
 $diasalma = isset($_POST["diasAlmacenaje"])?$diasalma = limpia($_POST["diasAlmacenaje"]):$diasalma = 0;
 $totaldias = isset($_POST["totaldias"]) ? $totaldias = limpia($_POST['totaldias']):$totaldias =0;
 $tipocambio = isset($_POST["tipocambio"])?$tipoCambio = limpia($_POST["tipocambio"]):$tipocambio =0 ;
+$idcliente = isset($_POST["cliente"])?$idcliente = limpia($_POST["cliente"]):$idcliente =0 ;
+
 if ($impuesto == ""){
     $impuesto = 0;
 }
@@ -53,6 +55,11 @@ switch ($_GET["op"]) {
         }
         echo $selec;
         break;
+    case 'datosCliente':
+        $rspt = $calculo->datosCliente($idcliente);
+        mb_internal_encoding('UTF-8');
+        echo json_encode($rspt);
+    break;
 
     case 'contarDias':
         $fechadel = new DateTime ($del);
@@ -70,13 +77,20 @@ switch ($_GET["op"]) {
         
         foreach ($rspt as $reg) {
             $data[] = array(
-                "0" => $reg->nombre,
+                /*  "0" => $reg->nombre,
                 "1" => $reg->signo,
                 "2" => '<input style="width: 70px;" type="text" name="valorDescripcion[]" value = '. $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias,$peso,$tipocambio).'>', //,
                 "3" => '<input style="width: 70px;" type="text" name="valorsumar[]">',
                 "4" => '',
                 "5" => '',
-                "6" => ''
+                "6" => '' */
+                "0" => $reg->nombre,
+                "1" => $reg->signo,
+                "2" => '<input style="width: 70px;" type="text" name="valorDescripcion[]" value = "10">', //,
+                "3" => '<input style="width: 70px;" type="text" name="valorsumar[]" id="valorsumar[]">',
+                "4" => '<input type="checkbox" name="ocultar[]" id="ocultar[]">',
+                "5" => '<input type="checkbox" name="prorratear[]" id="prorratear[]">',
+                "6" => '<input style="width: 70px;" type="text" name="descuento[]" id="descuento[]">'
             );
         }
         $results = array(

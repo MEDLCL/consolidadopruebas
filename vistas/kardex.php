@@ -485,10 +485,23 @@ if (!$_SESSION['nombre']) {
                 event.preventDefault();
                 cargaPlantillaparaCalculo();
                 cargaCalulosPlantilla();
-                
+               // sumarcalculo();
             });
         });
 
+        $(function(){
+            $("#btnCalcular").bind("click",function(event){
+                event.preventDefault();
+                sumarcalculo();
+            });
+        });
+        
+        $(function(){
+            $("#clienteCalculoA").bind("click change",function(event){
+                event.preventDefault();
+                buscarDatosclienteCalculo($("#clienteCalculoA").val());
+            });
+        });
     </script>
 
 <?php }

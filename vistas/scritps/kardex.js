@@ -506,6 +506,9 @@ function CargaCalculoNuevo(iddetalleAlmacen) {
                 $("#pesoCalculo").val(data.peso);
                 $("#VolumenCalculo").val(data.volumen);
                 $("#bultosCalculoTotal").val(data.bultos);
+
+                $("#bultosCalculoPen").val(data.bultos);
+                
                 $("#clientesCuadrilla").val(data.cant_clientes);
                 $("#CantClientes").val(data.cant_clientes);
                 $("#delCalculoA").val(data.fechaI);
@@ -514,6 +517,8 @@ function CargaCalculoNuevo(iddetalleAlmacen) {
                 $("#clienteCalculoA").selectpicker("refresh");
                 llenaPlantillaBM("#plantilla");
                 $("calculoAlmacen").show();
+                
+                buscarDatosclienteCalculo( $("#clienteCalculoA").val());
 
             } else {
                 alertify.alert("Error", "Ha ocurrido un error");
@@ -522,6 +527,20 @@ function CargaCalculoNuevo(iddetalleAlmacen) {
         })
 }
 
+function buscarDatosclienteCalculo(cliente){
+    $.post("../ajax/calculoAlmacen.php?op=datosCliente", {
+            cliente: cliente
+        },
+        function(data, status) {
+            data = JSON.parse(data);
+            if (data > 0) {
+                $("#direccionCalculo").val(data.direccion);
+                $("#nitCalculo").val(data.identififacion);
+            } else {
+                alertify.alert("Error", "Ha ocurrido un error");
+            }
+        })
+}
 
 function listarClienteCalculo(iddetalleAlmacen) {
     $.post("../ajax/calculoAlmacen.php?op=listarCliente", {
@@ -796,8 +815,6 @@ function grabarDetallePlantilla() {
             }
         }
     });
-
-
 }
 
 function nuevaPlantillaCalculo() {
@@ -871,7 +888,6 @@ function eliminarDetallePlantilla(iddetallePlantilla) {
         "../ajax/detalle_plantillaA.php?op=eliminaDetalleP", {
             iddetallePlantilla: iddetallePlantilla
         },
-
         function(data, status) {
 
             data = JSON.parse(data);
@@ -960,6 +976,18 @@ function cargaCalulosPlantilla() {
             ] //order los datos
     });
 }
+function sumarcalculo(){
+    var valor = document.getElementsByName("valorDescripcion[]");
+    var total = 0;
+    var contval = 0 ; 
+
+    for (var i = 0; i <valor.length; i++) {
+        contval = valor[i];
+        total= total +   parseFloat(contval.value);
+    }
+        $("#total").val(total);
+}
+
 function cargaPlantillaparaCalculo(){
     var idplantillaG = $("#plantilla").val();
         $.post(
