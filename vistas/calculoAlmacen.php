@@ -202,6 +202,7 @@
                                 <div class="panel-body table-responsive">
                                     <table class="table table-condensed table-hover table-bordered" id="TcalculosALmacenP" style="text-align: center;">
                                         <thead>
+                                            <th>Id</th>
                                             <th>Descripcion</th>
                                             <th>Signo</th>
                                             <th>Valor</th>

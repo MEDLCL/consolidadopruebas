@@ -4,13 +4,13 @@ var tablaDetalleP = "";
 
 function init() {
     $("#fechaI").datepicker({
-        autoclose: true
+        autoclose: true,
     });
     $("#delCalculoA").datepicker({
-        autoclose: true
+        autoclose: true,
     });
     $("#alCalculoA").datepicker({
-        autoclose: true
+        autoclose: true,
     });
     //$('#Tkardex').DataTable();
     nuevoDetalle("false");
@@ -25,9 +25,8 @@ function init() {
     llenaCatalogoCalculoA();
     listarDetallePlantillaA();
     limpiarDetallePlantilla();
-    $('#plantillaCalculoAlmacen').hide();
+    $("#plantillaCalculoAlmacen").hide();
 }
-
 
 function llenaconsignado() {
     $("#consignado").empty();
@@ -36,7 +35,7 @@ function llenaconsignado() {
             id: "id_empresa",
             tipoe: "CO",
         },
-        function(data, status) {
+        function (data, status) {
             $("#consignado").html(data);
             $("#consignado").selectpicker("refresh");
             $("#consignado").val(0);
@@ -45,14 +44,13 @@ function llenaconsignado() {
     );
 }
 
-
 function llenaCliente() {
     $.post(
         "../modelos/pais.php?op=selecEmpresa&tabla=empresas&campo=Razons", {
             id: "id_empresa",
             tipoe: "CL",
         },
-        function(data, status) {
+        function (data, status) {
             $("#cliente").html(data);
             $("#cliente").selectpicker("refresh");
             $("#cliente").val(0);
@@ -125,10 +123,9 @@ function llenaEmpaqueModal() {
             id: "id_empaque",
             tipoe: "",
         },
-        function(data, status) {
+        function (data, status) {
             $("#empaqueB").html(data);
             $("#empaqueB").selectpicker("refresh");
-
         }
     );
 }
@@ -139,7 +136,7 @@ function llenaEmpaqueDetalle() {
             id: "id_empaque",
             tipoe: "",
         },
-        function(data, status) {
+        function (data, status) {
             $("#embalajeD").html(data);
             $("#embalajeD").selectpicker("refresh");
         }
@@ -147,7 +144,7 @@ function llenaEmpaqueDetalle() {
 }
 
 function grabaEmpaque() {
-    var nombre = $('#nombreE').val();
+    var nombre = $("#nombreE").val();
     var id_empaque = $("#id_empaque").val();
     if (nombre.trim() == "") {
         alertify.alert("Campo Vacio", "Debe de ingresar campo nombre Empaque");
@@ -156,40 +153,35 @@ function grabaEmpaque() {
     $.post(
         "../ajax/empaque.php?op=guardaryeditar", {
             id_empaque: id_empaque,
-            nombre: nombre
+            nombre: nombre,
         },
-        function(data) {
+        function (data) {
             if (data == 1) {
                 llenaEmpaqueDetalle();
                 $("#modalEmaqpue").modal("hide");
             }
-
         }
     );
-
 }
 
 function nuevoConsignado() {
-    $('.nav-tabs a:first').tab('show')
+    $(".nav-tabs a:first").tab("show");
     $("#titulomodale").text("Consignado");
     nuevo("consignado");
     $("#tituloh").html("Consignado");
     $("#llama").val("kardex");
     //consignado ingreso almacen
-    $("#queActualizar").val("conAL")
-
+    $("#queActualizar").val("conAL");
 }
 
 function nuevoCliente() {
-    $('.nav-tabs a:first').tab('show')
+    $(".nav-tabs a:first").tab("show");
     nuevo("cliente");
     $("#llama").val("kardex");
     $("#tituloh").html("Cliente");
     //cliente detalle almacen
-    $("#queActualizar").val("cliDA")
+    $("#queActualizar").val("cliDA");
     $("#modalempresa").modal("show");
-
-
 }
 
 function limpiaEmpaque() {
@@ -197,7 +189,7 @@ function limpiaEmpaque() {
     $("#nombreE").val("");
     $("#id_empaque").val(0);
     /*  $("#empaqueB").val(0);
-        $("#empaqueB").selectpicker("refresh"); */
+          $("#empaqueB").selectpicker("refresh"); */
 }
 
 function grabarAlmacen() {
@@ -239,70 +231,66 @@ function grabarAlmacen() {
         return false;
     }
     var formAlmacen = new FormData($("#formAlmacen")[0]);
-    $.post(
-        "../ajax/kardex.php?op=codigo", {},
-        function(data, status) {
-            if (status == "success") {
-                $("#codigoAlmacen").val(data);
-                formAlmacen = new FormData($("#formAlmacen")[0]);
-                $.ajax({
-
-                    url: "../ajax/kardex.php?op=guardaryeditar",
-                    type: "POST",
-                    data: formAlmacen,
-                    contentType: false,
-                    processData: false,
-                    success: function(datos) {
-                        if (datos > 0) {
-                            //limpiar();
-                            // $('#listadosucursal').DataTable().ajax.reload();
-                            $('#Tkardex').DataTable().ajax.reload();
-                            $("#idAlmacenD").val(datos);
-                            alertify.success("Proceso Realizado con exito");
-                            $("#btnNuevoDetalle").removeAttr("disabled");
-                            $("#grabaAlmacen").attr("disabled", "false");
-
-                        } else {
-                            alertify.error("Proceso no se pudo realizar") + " " + datos;
-                        }
+    $.post("../ajax/kardex.php?op=codigo", {}, function (data, status) {
+        if (status == "success") {
+            $("#codigoAlmacen").val(data);
+            formAlmacen = new FormData($("#formAlmacen")[0]);
+            $.ajax({
+                url: "../ajax/kardex.php?op=guardaryeditar",
+                type: "POST",
+                data: formAlmacen,
+                contentType: false,
+                processData: false,
+                success: function (datos) {
+                    if (datos > 0) {
+                        //limpiar();
+                        // $('#listadosucursal').DataTable().ajax.reload();
+                        $("#Tkardex").DataTable().ajax.reload();
+                        $("#idAlmacenD").val(datos);
+                        alertify.success("Proceso Realizado con exito");
+                        $("#btnNuevoDetalle").removeAttr("disabled");
+                        $("#grabaAlmacen").attr("disabled", "false");
+                    } else {
+                        alertify.error("Proceso no se pudo realizar") + " " + datos;
                     }
-                });
-            } else {
-                alertify.alert("Error al Genera el Codigo");
-            }
+                },
+            });
+        } else {
+            alertify.alert("Error al Genera el Codigo");
         }
-    );
+    });
 }
 
 function listarKardex() {
-    tablaK = $('#Tkardex').dataTable({
-        "aProcessing": true, //Activamos el procesamiento del datatables
-        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
-        dom: 'Bfrtip', //Definimos los elementos de control de tabla
-        buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5'],
-        "ajax": {
-            url: '../ajax/kardex.php?op=listarK',
+    tablaK = $("#Tkardex").dataTable({
+        aProcessing: true, //Activamos el procesamiento del datatables
+        aServerSide: true, //Paginacion y fltrado realizado por el servidor
+        dom: "Bfrtip", //Definimos los elementos de control de tabla
+        buttons: ["copyHtml5", "excelHtml5", "pdfHtml5"],
+        ajax: {
+            url: "../ajax/kardex.php?op=listarK",
             type: "get",
             dataType: "json",
-            error: function(e) {
+            error: function (e) {
                 console.log(e.responseText);
-            }
+            },
         },
-        "bDestroy": true,
-        "iDisplayLenth": 10, //paginacion
-        "order": [
-                [8, "desc"]
-            ] //order los datos
+        bDestroy: true,
+        iDisplayLenth: 10, //paginacion
+        order: [
+            [8, "desc"]
+        ], //order los datos
     });
 }
 
 function ListarAlmacen(idAlmacen) {
     nuevoAlma();
-    $.post("../ajax/kardex.php?op=mostrarA", {
-            idAlmacen: idAlmacen
+    $.post(
+        "../ajax/kardex.php?op=mostrarA", {
+            idAlmacen: idAlmacen,
         },
 
-        function(data, status) {
+        function (data, status) {
             data = JSON.parse(data);
             if (data.id_almacen > 0) {
                 ocultaAlma(true);
@@ -326,8 +314,8 @@ function ListarAlmacen(idAlmacen) {
             } else {
                 alertify.alert("Error", "Ha ocurrido un error");
             }
-
-        })
+        }
+    );
 }
 
 function grabaDetalle() {
@@ -364,52 +352,52 @@ function grabaDetalle() {
         data: formDAlmacen,
         contentType: false,
         processData: false,
-        success: function(datos) {
+        success: function (datos) {
             if (datos > 0) {
-                $('#Tdetalle').DataTable().ajax.reload();
-                $('#Tkardex').DataTable().ajax.reload();
+                $("#Tdetalle").DataTable().ajax.reload();
+                $("#Tkardex").DataTable().ajax.reload();
                 alertify.success("Proceso Realizado con exito");
                 $("#btnNuevoDetalle").removeAttr("disabled");
                 nuevoDetalle("false");
             } else {
                 alertify.error("Proceso no se pudo realizar") + " " + datos;
             }
-        }
+        },
     });
-
 }
 
 function listarTablaDA(idAlmacenD) {
-    tablaDA = $('#Tdetalle').dataTable({
-        "aProcessing": true, //Activamos el procesamiento del datatables
-        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
-        dom: 'Bfrtip', //Definimos los elementos de control de tabla
-        buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5'],
-        "ajax": {
-            url: '../ajax/detalleAlmacen.php?op=listarDA',
+    tablaDA = $("#Tdetalle").dataTable({
+        aProcessing: true, //Activamos el procesamiento del datatables
+        aServerSide: true, //Paginacion y fltrado realizado por el servidor
+        dom: "Bfrtip", //Definimos los elementos de control de tabla
+        buttons: ["copyHtml5", "excelHtml5", "pdfHtml5"],
+        ajax: {
+            url: "../ajax/detalleAlmacen.php?op=listarDA",
             type: "post",
             data: {
-                idAlmacenD: idAlmacenD
+                idAlmacenD: idAlmacenD,
             },
             dataType: "json",
-            error: function(e) {
+            error: function (e) {
                 console.log(e.responseText);
-            }
+            },
         },
-        "bDestroy": true,
-        "iDisplayLenth": 10, //paginacion
-        "order": [
-                [0, "desc"]
-            ] //order los datos
+        bDestroy: true,
+        iDisplayLenth: 10, //paginacion
+        order: [
+            [0, "desc"]
+        ], //order los datos
     });
 }
 
 function mostrarDetalleA(iddetallealmacen) {
     nuevoDetalle("true");
-    $.post("../ajax/detalleAlmacen.php?op=mostrarDetalleA", {
-            iddetallealmacen: iddetallealmacen
+    $.post(
+        "../ajax/detalleAlmacen.php?op=mostrarDetalleA", {
+            iddetallealmacen: iddetallealmacen,
         },
-        function(data, status) {
+        function (data, status) {
             data = JSON.parse(data);
             if (data.id_detalle > 0) {
                 $("#iddetallealmacen").val(data.id_detalle);
@@ -428,7 +416,6 @@ function mostrarDetalleA(iddetallealmacen) {
                 $("#embalajeD").selectpicker("refresh");
                 if (data.liberado == "1") {
                     $("#liberado").prop("checked", "true");
-
                 } else {
                     $("#liberado").removeAttr("checked");
                 }
@@ -439,39 +426,38 @@ function mostrarDetalleA(iddetallealmacen) {
                 $("#linea").val(data.linea);
                 $("#mercaderia").val(data.mercaderia);
                 $("#observaciones").val(data.observaciones);
-
             } else {
                 alertify.alert("Error", "Ha ocurrido un error");
             }
-
-        })
+        }
+    );
 }
 
 function anulaDetalle(iddetallealmacen) {
-    var confirm = alertify.confirm('', 'Desea Anular Detalle', null, null).set('labels', {
-        ok: 'Anular',
-        cancel: 'Cancelar'
-    });
+    var confirm = alertify
+        .confirm("", "Desea Anular Detalle", null, null)
+        .set("labels", {
+            ok: "Anular",
+            cancel: "Cancelar",
+        });
 
     confirm.set({
-        transition: 'slide'
+        transition: "slide",
     });
 
-    confirm.set('onok', function() {
+    confirm.set("onok", function () {
         $.post(
             "../ajax/detalleAlmacen.php?op=anularDetalle", {
-                iddetallealmacen: iddetallealmacen
+                iddetallealmacen: iddetallealmacen,
             },
-            function(data) {
+            function (data) {
                 if (data > 0) {
-                    $('#Tkardex').DataTable().ajax.reload();
+                    $("#Tkardex").DataTable().ajax.reload();
                     alertify.alert("", "Detalle Anulado");
                 }
-
             }
         );
     });
-
 }
 
 function sumaCifImpuesto() {
@@ -487,17 +473,17 @@ function sumaCifImpuesto() {
     }
     baseS = parseFloat(cif) + parseFloat(impuesto);
     $("#bSeguroCalculo").val(baseS);
-
 }
 
 function CargaCalculoNuevo(iddetalleAlmacen) {
-    $('#plantillaCalculoAlmacen').hide();
+    $("#plantillaCalculoAlmacen").hide();
     nuevoCalculo();
-    $.post("../ajax/calculoAlmacen.php?op=MostrarCalculoNuevo", {
-            iddetalleAlmacen: iddetalleAlmacen
+    $.post(
+        "../ajax/calculoAlmacen.php?op=MostrarCalculoNuevo", {
+            iddetalleAlmacen: iddetalleAlmacen,
         },
 
-        function(data, status) {
+        function (data, status) {
             data = JSON.parse(data);
             if (data.id_detalle > 0) {
                 // $("#idAlmacen").val(data.id_almacen);
@@ -508,7 +494,7 @@ function CargaCalculoNuevo(iddetalleAlmacen) {
                 $("#bultosCalculoTotal").val(data.bultos);
 
                 $("#bultosCalculoPen").val(data.bultos);
-                
+
                 $("#clientesCuadrilla").val(data.cant_clientes);
                 $("#CantClientes").val(data.cant_clientes);
                 $("#delCalculoA").val(data.fechaI);
@@ -517,36 +503,37 @@ function CargaCalculoNuevo(iddetalleAlmacen) {
                 $("#clienteCalculoA").selectpicker("refresh");
                 llenaPlantillaBM("#plantilla");
                 $("calculoAlmacen").show();
-                
-                buscarDatosclienteCalculo( $("#clienteCalculoA").val());
-
+                buscarDatosclienteCalculo(data.id_cliente);
             } else {
                 alertify.alert("Error", "Ha ocurrido un error");
             }
-
-        })
+        }
+    );
 }
 
-function buscarDatosclienteCalculo(cliente){
-    $.post("../ajax/calculoAlmacen.php?op=datosCliente", {
-            cliente: cliente
+function buscarDatosclienteCalculo(cliente) {
+    $.post(
+        "../ajax/calculoAlmacen.php?op=datosCliente", {
+            cliente: cliente,
         },
-        function(data, status) {
+        function (data, status) {
             data = JSON.parse(data);
-            if (data > 0) {
+            if (data.id_empresa > 0) {
                 $("#direccionCalculo").val(data.direccion);
-                $("#nitCalculo").val(data.identififacion);
+                $("#nitCalculo").val(data.identificacion);
             } else {
                 alertify.alert("Error", "Ha ocurrido un error");
             }
-        })
+        }
+    );
 }
 
 function listarClienteCalculo(iddetalleAlmacen) {
-    $.post("../ajax/calculoAlmacen.php?op=listarCliente", {
-            iddetalleAlmacen: iddetalleAlmacen
+    $.post(
+        "../ajax/calculoAlmacen.php?op=listarCliente", {
+            iddetalleAlmacen: iddetalleAlmacen,
         },
-        function(data, status) {
+        function (data, status) {
             $("#clienteCalculoA").html(data);
             $("#clienteCalculoA").selectpicker("refresh");
             $("#clienteCalculoA").prop("selectedIndex", 2);
@@ -565,11 +552,12 @@ function calcularDias() {
     var alcalculo = $("#alCalculoA").val();
     $("#totalDias").val(0);
 
-    $.post("../ajax/calculoAlmacen.php?op=contarDias", {
+    $.post(
+        "../ajax/calculoAlmacen.php?op=contarDias", {
             delCalculo: delCalculo,
-            alcalculo: alcalculo
+            alcalculo: alcalculo,
         },
-        function(data, status) {
+        function (data, status) {
             $("#totalDias").val(data);
             calculardiaslmacenaje();
         }
@@ -584,14 +572,13 @@ function calcularCifDolares() {
         tc = 0;
     }
     if (cif.trim() == "") {
-        cif = 0
+        cif = 0;
     }
     res = parseFloat(tc) * parseFloat(cif);
     res = res.toFixed(3);
     $("#cifCalculo").val(res);
     sumaCifImpuesto();
 }
-
 
 function limpiarPlantillaG() {
     $("#nombrePlantillaG").val("");
@@ -630,7 +617,7 @@ function grabarPlnatillaAlmacen() {
         data: frmPlantilla,
         contentType: false,
         processData: false,
-        success: function(datos) {
+        success: function (datos) {
             if (datos > 0) {
                 alertify.success("Proceso Realizado con exito");
                 $("#grabarNuevaP").prop("disabled", "true");
@@ -640,9 +627,8 @@ function grabarPlnatillaAlmacen() {
             } else {
                 alertify.error("Proceso no se pudo realizar") + " " + datos;
             }
-        }
+        },
     });
-
 }
 //
 
@@ -653,7 +639,7 @@ function llenaPlantillaBM(selecPlantilla) {
             id: "id_plantilla",
             tipoe: "",
         },
-        function(data, status) {
+        function (data, status) {
             $(selecPlantilla).html(data);
             $(selecPlantilla).selectpicker("refresh");
             $(selecPlantilla).val(0);
@@ -662,18 +648,14 @@ function llenaPlantillaBM(selecPlantilla) {
     );
 }
 
-
 function llenaMoneda() {
     $("#monedaPlantillaG").empty();
-    $.post(
-        "../modelos/pais.php?op=llenaMoneda", {},
-        function(data, status) {
-            $("#monedaPlantillaG").html(data);
-            $("#monedaPlantillaG").selectpicker("refresh");
-            $("#monedaPlantillaG").val(0);
-            $("#monedaPlantillaG").selectpicker("refresh");
-        }
-    );
+    $.post("../modelos/pais.php?op=llenaMoneda", {}, function (data, status) {
+        $("#monedaPlantillaG").html(data);
+        $("#monedaPlantillaG").selectpicker("refresh");
+        $("#monedaPlantillaG").val(0);
+        $("#monedaPlantillaG").selectpicker("refresh");
+    });
 }
 
 function cargaNombrePlantilla(quienLLama) {
@@ -682,9 +664,9 @@ function cargaNombrePlantilla(quienLLama) {
         limpiarPlantillaG();
         $.post(
             "../ajax/plantillaCalculoAlmacen.php?op=mostrarP", {
-                idplantillaG: idplantillaG
+                idplantillaG: idplantillaG,
             },
-            function(data, status) {
+            function (data, status) {
                 data = JSON.parse(data);
                 if (data.id_plantilla >= 1) {
                     $("#nombrePlantillaG").val(data.nombre);
@@ -703,14 +685,13 @@ function cargaNombrePlantilla(quienLLama) {
                 }
             }
         );
-
     } else {
         var idplantillaG = $("#agregarPlantilla").val();
         $.post(
             "../ajax/plantillaCalculoAlmacen.php?op=mostrarP", {
-                idplantillaG: idplantillaG
+                idplantillaG: idplantillaG,
             },
-            function(data, status) {
+            function (data, status) {
                 data = JSON.parse(data);
                 if (data.id_plantilla >= 1) {
                     $("#monedaPlantillaG").selectpicker("refresh");
@@ -720,7 +701,7 @@ function cargaNombrePlantilla(quienLLama) {
                     $("#idplantillaMP").val(data.id_plantilla);
                     $("#idMonedaPlantillaMP").val(data.moneda);
 
-                    $("#tarifaMinimaMP").val(data.signo + ' ' + data.tarifa_minima);
+                    $("#tarifaMinimaMP").val(data.signo + " " + data.tarifa_minima);
                     if (data.omitir_almacenaje == "1") {
                         $("#omitirDias").prop("checked", true);
                     } else {
@@ -741,7 +722,7 @@ function llenaCatalogoCalculoA() {
             id: "id_catalogo",
             tipoe: "",
         },
-        function(data, status) {
+        function (data, status) {
             $("#catalogoPlantillaAlmacen").html(data);
             $("#catalogoPlantillaAlmacen").selectpicker("refresh");
             $("#catalogoPlantillaAlmacen").val(0);
@@ -776,15 +757,15 @@ function limpiarDetallePlantilla() {
 
 function grabarDetallePlantilla() {
     /*     idplantillaMP
-        idMonedaPlantillaMP
-        catalogoPlantillaAlmacen
-        minimoDetallePlantillaA
-        porPeso
-        tarifaDetallePlantillaA
-        porVolumen
-        porcentajeDetallePA
-        porDia
-     */
+          idMonedaPlantillaMP
+          catalogoPlantillaAlmacen
+          minimoDetallePlantillaA
+          porPeso
+          tarifaDetallePlantillaA
+          porVolumen
+          porcentajeDetallePA
+          porDia
+       */
     var idcatalogo = $("#catalogoPlantillaAlmacen").prop("selectedIndex");
     var idplantilla = $("#idplantillaMP").val();
 
@@ -802,18 +783,18 @@ function grabarDetallePlantilla() {
         data: frmPlantilla,
         contentType: false,
         processData: false,
-        success: function(datos) {
+        success: function (datos) {
             if (datos > 0) {
                 alertify.success("Proceso Realizado con exito");
                 $("#btnGrabarDetallePlantilla").prop("disabled", "true");
-                $('#TplantillaG').DataTable().ajax.reload();
+                $("#TplantillaG").DataTable().ajax.reload();
                 listarDetallePlantillaA(idplantilla);
 
                 limpiarDetallePlantilla();
             } else {
                 alertify.error("Proceso no se pudo realizar") + " " + datos;
             }
-        }
+        },
     });
 }
 
@@ -822,35 +803,37 @@ function nuevaPlantillaCalculo() {
 }
 
 function listarDetallePlantillaA(idplantillaMP) {
-    $('#TplantillaG').dataTable({
-        "aProcessing": true, //Activamos el procesamiento del datatables
-        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
-        dom: 'Bfrtip', //Definimos los elementos de control de tabla
-        buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5'],
-        "ajax": {
-            url: '../ajax/detalle_plantillaA.php?op=listarDP',
+    $("#TplantillaG").dataTable({
+        aProcessing: true, //Activamos el procesamiento del datatables
+        aServerSide: true, //Paginacion y fltrado realizado por el servidor
+        dom: "Bfrtip", //Definimos los elementos de control de tabla
+        buttons: ["copyHtml5", "excelHtml5", "pdfHtml5"],
+        ajax: {
+            url: "../ajax/detalle_plantillaA.php?op=listarDP",
             type: "post",
             dataType: "json",
-            data: { "idplantillaMP": idplantillaMP },
-            error: function(e) {
+            data: {
+                idplantillaMP: idplantillaMP
+            },
+            error: function (e) {
                 console.log(e.responseText);
-            }
+            },
         },
-        "bDestroy": true,
-        "iDisplayLenth": 10, //paginacion
-        "order": [
-                [0, "desc"]
-            ] //order los datos
+        bDestroy: true,
+        iDisplayLenth: 10, //paginacion
+        order: [
+            [0, "desc"]
+        ], //order los datos
     });
 }
 
 function mostrarDetallePlantilla(iddetallePlantilla) {
     $.post(
         "../ajax/detalle_plantillaA.php?op=mostrarDP", {
-            iddetallePlantilla: iddetallePlantilla
+            iddetallePlantilla: iddetallePlantilla,
         },
 
-        function(data, status) {
+        function (data, status) {
             data = JSON.parse(data);
             if (data.id_detalle >= 1) {
                 $("#iddetallePlantilla").val(data.id_detalle);
@@ -886,144 +869,188 @@ function eliminarDetallePlantilla(iddetallePlantilla) {
     var idplantilla = $("#idplantillaMP").val();
     $.post(
         "../ajax/detalle_plantillaA.php?op=eliminaDetalleP", {
-            iddetallePlantilla: iddetallePlantilla
+            iddetallePlantilla: iddetallePlantilla,
         },
-        function(data, status) {
-
+        function (data, status) {
             data = JSON.parse(data);
             if (data >= 1) {
-
                 listarDetallePlantillaA(idplantilla);
-                Swal.fire(
-                    'Eliminado con Exito!',
-                    'Aceptar!',
-                    'success'
-                )
+                Swal.fire("Eliminado con Exito!", "Aceptar!", "success");
             }
         }
     );
 }
 
 function nuevaPlantillaCalculo() {
-    $('#plantillaCalculoAlmacen').show();
-    $('#calculoAlmacen').hide();
-
+    $("#plantillaCalculoAlmacen").show();
+    $("#calculoAlmacen").hide();
 }
 
 function cancelarPlantillaCalculo() {
-    $('#plantillaCalculoAlmacen').hide();
-    $('#calculoAlmacen').show();
+    $("#plantillaCalculoAlmacen").hide();
+    $("#calculoAlmacen").show();
 }
 
 function cargaCalulosPlantilla() {
     // enviar fecha desde hasta
     // enviar peso y volumen
     // base para seguro
-    //bultos y clientes para cuadrilla 
+    //bultos y clientes para cuadrilla
 
     var idplantilla = $("#plantilla").val();
-    var delCalculo  = $("#delCalculoA").val();
-    var alcalculo= $("#alCalculoA").val();
-    var impuesto= $("#impuestoCalculo").val();
-    var baseparas =$("#bSeguroCalculo").val();
+    //$("#diaslPC").val(data.dias_libres);
+    //$("#TotalMinimo").val(data.tarifa_minima);
+    //$("#diascompletoPC").val(1);
+
+    $("#TcalculosALmacenP").dataTable({
+        aProcessing: true, //Activamos el procesamiento del datatables
+        aServerSide: true, //Paginacion y fltrado realizado por el servidor
+        dom: "Bfrtip", //Definimos los elementos de control de tabla
+        buttons: ["pdfHtml5"],
+        ajax: {
+            url: "../ajax/calculoAlmacen.php?op=llenaTablacalculo",
+            type: "post",
+            dataType: "json",
+            data: {
+                idplantilla: idplantilla
+            },
+            error: function (e) {
+                console.log(e.responseText);
+            },
+        },
+        bDestroy: true,
+        iDisplayLenth: 10, //paginacion
+        order: [
+            [0, "desc"]
+        ], //order los datos
+    });
+}
+
+function sumarcalculo() {
+    var valor = document.getElementsByName("Descripcion[]");
+    
+    var total = 0;
+    var contval = 0;
+    var iddetalle ;
+    
+
+    for (var i = 0; i < valor.length; i++) {
+        iddetalle = document.getElementById("TcalculosALmacenP").rows[i+1].cells[0].innerText;
+            ejecutarFormulas(iddetalle, function(resp) {
+        //$("input[name="valorDescripcion[]:eq(i)").val(20);
+        //$("input[name='valorDescripcion[]']").eq(i).val(resp);
+        //valor.eq(i).val(resp); 
+        contval = resp;
+            });    
+        $("#valorDescripcion"+i).val(contval);
+       // console.log (val);
+       // valor[i].value  = datosDevueltos 
+        
+       // contval = $("#valorDescripcion"+i).val();
+
+ //       total = total + parseFloat(contval);
+
+    }
+//    $("#subtotal").val(total);
+}
+/* 
+function funcionAsync (datos, callback){
+    jQuery.ajax({
+      type: 'POST',
+      url: ajaxurl,
+      data: datos,
+      success: function (data) {
+         callback(null, data);
+      },
+      error: function (errorThrown) {callback(errorThown);}
+    });
+  } */
+ /*  Y para la ejecución de la función :
+  
+  funcionAsync(mis_datos, function(errorLanzado, datosDevueltos){
+    if(errorLanzado) // Ha habido un error, deberías manejarlo :/
+      return;
+    // Tu código para hacer algo con datosDevueltos va aquí
+  }); */
+
+
+function ejecutarFormulas(iddetalle,callback) {
+    var delCalculo = $("#delCalculoA").val();
+    var alcalculo = $("#alCalculoA").val();
+    var impuesto = $("#impuestoCalculo").val();
+    var baseparas = $("#bSeguroCalculo").val();
     var peso = $("#pesoCalculo").val();
     var volumen = $("#VolumenCalculo").val();
     var bultos = $("#bultosCalculoPen").val();
     var cntclie = $("#clientesCuadrilla").val();
-    var diaslibres =$("#diaslPC").val();
+    var diaslibres = $("#diaslPC").val();
     var totalminimo = $("#TotalMinimo").val();
     var dcompleto = $("#diascompletoPC").val();
     var diasAlmacenaje = $("#diasAlmacenaje").val();
     var totaldias = $("#totalDias").val();
     var tipocambio = $("#tipoCambioCalculo").val();
-    //$("#diaslPC").val(data.dias_libres);
-    //$("#TotalMinimo").val(data.tarifa_minima);
-    //$("#diascompletoPC").val(1);
-
-    $('#TcalculosALmacenP').dataTable({
-        "aProcessing": true, //Activamos el procesamiento del datatables
-        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
-        dom: 'Bfrtip', //Definimos los elementos de control de tabla
-        buttons: ['pdfHtml5'],
-        "ajax": {
-            url: '../ajax/calculoAlmacen.php?op=calcular',
-            type: "post",
-            dataType: "json",
-            data: { "idplantilla": idplantilla,
-                    "delCalculo":delCalculo,
-                    "alCalculo":alcalculo,
-                    "impuesto":impuesto,
-                    "baseparas":baseparas,
-                    "peso":peso,
-                    "volumen":volumen,
-                    "bultos":bultos,
-                    "cntclie":cntclie,
-                    "diaslibres":diaslibres,
-                    "tminimo":totalminimo,
-                    "dcompleto":dcompleto,
-                    "diasAlmacenaje":diasAlmacenaje,
-                    "totaldias": totaldias,
-                    "tipocambio":tipocambio
-        },  
-            error: function(e) {
-                console.log(e.responseText);
-            }
+    var valor;
+$.post(
+        "../ajax/calculoAlmacen.php?op=calcular", {
+            delCalculo: delCalculo,
+            alCalculo: alcalculo,
+            impuesto: impuesto,
+            baseparas: baseparas,
+            peso: peso,
+            volumen: volumen,
+            bultos: bultos,
+            cntclie: cntclie,
+            diaslibres: diaslibres,
+            tminimo: totalminimo,
+            dcompleto: dcompleto,
+            diasAlmacenaje: diasAlmacenaje,
+            totaldias: totaldias,
+            tipocambio: tipocambio,
+            iddetalle: iddetalle
         },
-        "bDestroy": true,
-        "iDisplayLenth": 10, //paginacion
-        "order": [
-                [0, "desc"]
-            ] //order los datos
-    });
-}
-function sumarcalculo(){
-    var valor = document.getElementsByName("valorDescripcion[]");
-    var total = 0;
-    var contval = 0 ; 
-
-    for (var i = 0; i <valor.length; i++) {
-        contval = valor[i];
-        total= total +   parseFloat(contval.value);
-    }
-        $("#total").val(total);
+        function (data, status) {
+            valor = data;
+            callback(valor); //AQUI
+        }
+    );
+    return valor;
 }
 
-function cargaPlantillaparaCalculo(){
+function cargaPlantillaparaCalculo() {
     var idplantillaG = $("#plantilla").val();
-        $.post(
-            "../ajax/plantillaCalculoAlmacen.php?op=mostrarP", {
-                idplantillaG: idplantillaG
-            },
-            function(data, status) {
-                data = JSON.parse(data);
-                if (data.id_plantilla >= 1) {    
-                    $("#diaslPC").val(data.dias_libres);
-                    $("#diasLibre").val(data.dias_libres);
-                    $("#TotalMinimo").val(data.tarifa_minima);
-                    if (data.omitir_almacenaje == "1") {
-                        $("#diascompletoPC").val(1);
-                    } else {
-                        $("#diascompletoPC").val(0);
-                    }
-                    calculardiaslmacenaje();
+    $.post(
+        "../ajax/plantillaCalculoAlmacen.php?op=mostrarP", {
+            idplantillaG: idplantillaG,
+        },
+        function (data, status) {
+            data = JSON.parse(data);
+            if (data.id_plantilla >= 1) {
+                $("#diaslPC").val(data.dias_libres);
+                $("#diasLibre").val(data.dias_libres);
+                $("#TotalMinimo").val(data.tarifa_minima);
+                if (data.omitir_almacenaje == "1") {
+                    $("#diascompletoPC").val(1);
+                } else {
+                    $("#diascompletoPC").val(0);
                 }
+                calculardiaslmacenaje();
             }
-        );
+        }
+    );
 }
-function calculardiaslmacenaje(){
 
+function calculardiaslmacenaje() {
     var tdias = $("#totalDias").val();
     var diasl = $("#diasLibre").val();
-    var diasa =0;
-    if (tdias=="") {
+    var diasa = 0;
+    if (tdias == "") {
         tdias = 0;
     }
 
-    if (diasl==""){
+    if (diasl == "") {
         diasl = 0;
     }
-    diasa = tdias-diasl;
+    diasa = tdias - diasl;
     $("#diasAlmacenaje").val(diasa);
-
 }
 init();

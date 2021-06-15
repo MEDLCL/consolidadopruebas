@@ -24,6 +24,8 @@ $diasalma = isset($_POST["diasAlmacenaje"])?$diasalma = limpia($_POST["diasAlmac
 $totaldias = isset($_POST["totaldias"]) ? $totaldias = limpia($_POST['totaldias']):$totaldias =0;
 $tipocambio = isset($_POST["tipocambio"])?$tipoCambio = limpia($_POST["tipocambio"]):$tipocambio =0 ;
 $idcliente = isset($_POST["cliente"])?$idcliente = limpia($_POST["cliente"]):$idcliente =0 ;
+$iddetalle = isset($_POST["iddetalle"])?$iddetalle = limpia($_POST["iddetalle"]):$iddetalle =0 ;
+
 
 if ($impuesto == ""){
     $impuesto = 0;
@@ -68,13 +70,13 @@ switch ($_GET["op"]) {
         $dias = $diff->days;
         echo intval($dias) + 1;
         break;
-    case 'calcular':
+    case 'llenaTablacalculo':
         $rspt = $calculo->mostrarPlantillaCalcular($idplantilla);
 
         mb_internal_encoding('UTF-8');
         //se declara un array para almacenar todo el query
         $data = array();
-        
+        $i = 0; 
         foreach ($rspt as $reg) {
             $data[] = array(
                 /*  "0" => $reg->nombre,
@@ -84,14 +86,16 @@ switch ($_GET["op"]) {
                 "4" => '',
                 "5" => '',
                 "6" => '' */
-                "0" => $reg->nombre,
-                "1" => $reg->signo,
-                "2" => '<input style="width: 70px;" type="text" name="valorDescripcion[]" value = "10">', //,
-                "3" => '<input style="width: 70px;" type="text" name="valorsumar[]" id="valorsumar[]">',
-                "4" => '<input type="checkbox" name="ocultar[]" id="ocultar[]">',
-                "5" => '<input type="checkbox" name="prorratear[]" id="prorratear[]">',
-                "6" => '<input style="width: 70px;" type="text" name="descuento[]" id="descuento[]">'
+                "0"=>  $reg->id_detalle,
+                "1" => '<input type="text" name="Descripcion[]"  value = '.$reg->nombre.' readonly>',
+                "2" => $reg->signo,
+                "3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$i.'"  id="valorDescripcion'.$i.'" value = "0">', //,
+                "4" => '<input style="width: 70px;" type="text" name="valorsumar[]" values= "0">',
+                "5" => '<input type="checkbox" name="ocultar[]">',
+                "6" => '<input type="checkbox" name="prorratear[]" >',
+                "7" => '<input style="width: 70px;" type="text" name="descuento[]"  value = "0">'
             );
+            $i = $i+1;
         }
         $results = array(
             "sEcho" => 1, //informacion para el datatable
@@ -101,8 +105,12 @@ switch ($_GET["op"]) {
         );
         echo json_encode($results);
 
-        break;    
-
+        break; 
+        case 'calcular':
+            $reg = $calculo->mostrarDetalleplantillCalculando($iddetalle);
+            $resp = $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias,$peso,$tipocambio);
+            echo  $resp;
+            break;   
 }
 
 /* 

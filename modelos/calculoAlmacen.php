@@ -156,7 +156,8 @@ class calculoAlmacen
                                     DA.liberado,
                                     A.poliza,
                                     A.cant_clientes,
-                                    DATE_FORMAT(A.fecha_almacen, '%m/%d/%Y') as fechaI
+                                    DATE_FORMAT(A.fecha_almacen, '%m/%d/%Y') as fechaI,
+                                    DA.id_cliente
                             FROM detalle_almacen as DA INNER JOIN 
                                 almacen as A ON A.id_almacen = DA.id_almacen
                         where DA.id_detalle = :id_detalle");
@@ -208,8 +209,9 @@ class calculoAlmacen
         $con = Conexion::getConexion();
         try {
             $rsp = $con->prepare("SELECT C.direccion,
-                                        C.identificacion 
-                                FROM empresas AS C INNER JOIN 
+                                        C.identificacion,
+                                        C.id_empresa 
+                                FROM empresas AS C  
                                     WHERE C.id_empresa = :idcliente ");
             $rsp->bindParam(":idcliente", $idcliente);
             $rsp->execute();
@@ -236,7 +238,8 @@ class calculoAlmacen
                                     DP.por_dia,
                                     MO.signo,
                                     P.omitir_almacenaje as OA,
-                                    P.dias_libres
+                                    P.dias_libres,
+                                    DP.id_detalle
                                 FROM plantilla_calculoa AS P INNER JOIN 
                                         detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
                                         catalogo AS C ON C.id_catalogo = DP.id_catalogo INNER JOIN 
@@ -254,6 +257,39 @@ class calculoAlmacen
             return 0;
         }
     }
+
+    public function mostrarDetalleplantillCalculando($iddetalle){
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("SELECT C.nombre,
+                                    DP.minimo,
+                                    DP.tarifa,
+                                    DP.porcentaje,
+                                    DP.por_peso,
+                                    DP.por_volumen,
+                                    DP.por_dia,
+                                    MO.signo,
+                                    P.omitir_almacenaje as OA,
+                                    P.dias_libres,
+                                    DP.id_detalle
+                                FROM plantilla_calculoa AS P INNER JOIN 
+                                        detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
+                                        catalogo AS C ON C.id_catalogo = DP.id_catalogo INNER JOIN 
+                                        moneda as MO on MO.id_moneda = DP.id_moneda
+                                    WHERE DP.id_detalle =:iddetalle");
+            $rsp->bindParam(":iddetalle", $iddetalle);
+            $rsp->execute();
+            $rsp = $rsp->fetch(PDO::FETCH_OBJ);
+            if ($rsp) {
+                return $rsp;
+            } else {
+                return  $rsp = 0;
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
+
     public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl,$baseParaS,$totaldias,$peso,$tipocambio){
         if ($_SESSION["idpais"]==92){
             if ($descripcion== "Almacenaje"){
@@ -264,7 +300,7 @@ class calculoAlmacen
             }else if ($descripcion=="Manejo")
                 return $res = self::manejoGT($peso,$tarifa,$minimo);
             else{
-                return "";
+                return 0;
             }
         }//fin guatemala
         else if ($_SESSION["idpais"]==59){
