@@ -932,26 +932,29 @@ function sumarcalculo() {
     var total = 0;
     var contval = 0;
     var iddetalle ;
-    
+    contval = valor.length;
 
     for (var i = 0; i < valor.length; i++) {
         iddetalle = document.getElementById("TcalculosALmacenP").rows[i+1].cells[0].innerText;
-            ejecutarFormulas(iddetalle, function(resp) {
-        //$("input[name="valorDescripcion[]:eq(i)").val(20);
-        //$("input[name='valorDescripcion[]']").eq(i).val(resp);
-        //valor.eq(i).val(resp); 
-        contval = resp;
+            contval = contval -1;
+            ejecutarFormulas(iddetalle, contval,function(resp) {
             });    
-        $("#valorDescripcion"+i).val(contval);
-       // console.log (val);
-       // valor[i].value  = datosDevueltos 
-        
-       // contval = $("#valorDescripcion"+i).val();
-
- //       total = total + parseFloat(contval);
-
+        //contval = $("#valorDescripcion"+i).val();
+        //total = total + parseFloat(contval);
     }
-//    $("#subtotal").val(total);
+    //$("#subtotal").val(total);
+}
+function sumarValores(){
+    var cont = document.getElementsByName("Descripcion[]");
+    
+    var total = 0;
+    var valor
+
+    for (var i = 0; i < cont.length; i++) {
+        valor = $("#valorDescripcion"+i).val();
+        total = total + parseFloat(valor);
+    }
+    $("#subtotal").val(total);
 }
 /* 
 function funcionAsync (datos, callback){
@@ -974,7 +977,7 @@ function funcionAsync (datos, callback){
   }); */
 
 
-function ejecutarFormulas(iddetalle,callback) {
+function ejecutarFormulas(iddetalle,i,callback) {
     var delCalculo = $("#delCalculoA").val();
     var alcalculo = $("#alCalculoA").val();
     var impuesto = $("#impuestoCalculo").val();
@@ -990,7 +993,8 @@ function ejecutarFormulas(iddetalle,callback) {
     var totaldias = $("#totalDias").val();
     var tipocambio = $("#tipoCambioCalculo").val();
     var valor;
-$.post(
+
+    $.post(
         "../ajax/calculoAlmacen.php?op=calcular", {
             delCalculo: delCalculo,
             alCalculo: alcalculo,
@@ -1010,7 +1014,8 @@ $.post(
         },
         function (data, status) {
             valor = data;
-            callback(valor); //AQUI
+            $("#valorDescripcion"+i).val(data);
+            sumarValores();
         }
     );
     return valor;
