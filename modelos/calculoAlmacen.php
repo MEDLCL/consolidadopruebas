@@ -290,7 +290,7 @@ class calculoAlmacen
         }
     }
 
-    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl,$baseParaS,$totaldias,$peso,$tipocambio){
+    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl,$baseParaS,$totaldias,$peso,$tipocambio,$cif){
         if ($_SESSION["idpais"]==92){
             if ($descripcion== "Almacenaje"){
                 $res = self::Almacengt($minimo,$porcentaje,$impuesto,$diasAlma);
@@ -310,7 +310,14 @@ class calculoAlmacen
                 return self::almacenajeAdicionalCR($diasAlma,$tipocambio);
             }
         }// fin costarica 
+        else if ($_SESSION["idpais"]==157){
+            if ($descripcion == "Almacenaje"){
+                return self::almacenajeNI($minimo,$porcentaje,$cif,$diascompletos,$diasAlma );
+            }
+        }
     }
+
+    //gt formulas
     public static function Almacengt($minimo,$porcentaje,$impuesto,$diasAlma){
         
         if ($impuesto == ""){
@@ -373,19 +380,20 @@ class calculoAlmacen
 
     }
 
-
+// costarica formulas
 public static function almacenajeCR($tarifa,$baseParaS,$diasAlma,$minimo){
     $res = $tarifa* ($baseParaS/1000)* ($diasAlma/30);
     if ($res <$minimo){
         $res = $minimo;
     }
-
     return $res;
 }
+
 public static function almacenajeAdicionalCR($diasAlma,$tipoCambio){
     $res = ($diasAlma-10)*3*$tipoCambio;
     return $res;
 }
+
 public static function manejoCR($tarifa,$peso,$minimo){
     $res = $tarifa*$peso;
     if ($res<$minimo){
@@ -393,6 +401,7 @@ public static function manejoCR($tarifa,$peso,$minimo){
     }
     return $res;
 }
+
 public static function seguroCR($diasAlma,$tarifa,$minimo,$baseParaS){
     $res = $tarifa*($baseParaS/1000)*($diasAlma/30);
     if ($res <$minimo){
@@ -400,5 +409,21 @@ public static function seguroCR($diasAlma,$tarifa,$minimo,$baseParaS){
     }
     return $res;
 }
-
+// precintos cr
+public static function precintosCR(){
+    
+}
+// nicaragua
+public static function almacenajeNI($minimo,$porcentaje,$cif,$diascompletos,$diasAlma){
+    $res =0;
+    if ($diascompletos == 1){
+        $res = $minimo;
+    }else{
+        $res = ($cif*$porcentaje)* ceil(($diasAlma/15));
+        if ($res<$minimo){
+            $res = $minimo;
+        } 
+    }
+    return $res;
+}
 }//final de la clase 

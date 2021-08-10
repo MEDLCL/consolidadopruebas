@@ -26,6 +26,7 @@ $tipocambio = isset($_POST["tipocambio"])?$tipoCambio = limpia($_POST["tipocambi
 $idcliente = isset($_POST["cliente"])?$idcliente = limpia($_POST["cliente"]):$idcliente =0 ;
 $iddetalle = isset($_POST["iddetalle"])?$iddetalle = limpia($_POST["iddetalle"]):$iddetalle =0 ;
 
+$cif = isset($_POST["cif"])?$cif = limpia($_POST["cif"]):$cif =0 ;
 
 if ($impuesto == ""){
     $impuesto = 0;
@@ -89,7 +90,9 @@ switch ($_GET["op"]) {
                 "0"=>  $reg->id_detalle,
                 "1" => '<input type="text" name="Descripcion[]"  value = '.$reg->nombre.' readonly>',
                 "2" => $reg->signo,
-                "3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$i.'"  id="valorDescripcion'.$i.'" value = "0">', //,
+                "3" => '<input style="width: 70px;" type="text" name="valorDescripcion[]"  id="valorDescripcion'.$reg->id_detalle.'" value = "0">',
+                //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$reg->id_detalle.'"  id="valorDescripcion'.$reg->id_detalle.'" value = "0">',
+                //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$i.'"  id="valorDescripcion'.$i.'" value = "0">', //,
                 "4" => '<input style="width: 70px;" type="text" name="valorsumar[]" values= "0">',
                 "5" => '<input type="checkbox" name="ocultar[]">',
                 "6" => '<input type="checkbox" name="prorratear[]" >',
@@ -108,9 +111,12 @@ switch ($_GET["op"]) {
         break; 
         case 'calcular':
             $reg = $calculo->mostrarDetalleplantillCalculando($iddetalle);
-            $resp = $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias,$peso,$tipocambio);
+            $resp = $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias,$peso,$tipocambio,$cif);
             echo  $resp;
-            break;   
+            break; 
+            case 'calculariva':
+            # code...
+            break;  
 }
 
 /* 
