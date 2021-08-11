@@ -34,7 +34,9 @@ html {
     width: 150;
     height: 120;
 }
-
+.montos{
+    width: 50px;
+}
 
 /*
 @font-face {

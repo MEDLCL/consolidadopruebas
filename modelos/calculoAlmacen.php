@@ -156,7 +156,8 @@ class calculoAlmacen
                                     DA.liberado,
                                     A.poliza,
                                     A.cant_clientes,
-                                    DATE_FORMAT(A.fecha_almacen, '%m/%d/%Y') as fechaI
+                                    DATE_FORMAT(A.fecha_almacen, '%m/%d/%Y') as fechaI,
+                                    DA.id_cliente
                             FROM detalle_almacen as DA INNER JOIN 
                                 almacen as A ON A.id_almacen = DA.id_almacen
                         where DA.id_detalle = :id_detalle");
@@ -204,7 +205,26 @@ class calculoAlmacen
             return 0;
         }
     }
-
+    public function datosCliente($idcliente){
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("SELECT C.direccion,
+                                        C.identificacion,
+                                        C.id_empresa 
+                                FROM empresas AS C  
+                                    WHERE C.id_empresa = :idcliente ");
+            $rsp->bindParam(":idcliente", $idcliente);
+            $rsp->execute();
+            $rsp = $rsp->fetch(PDO::FETCH_OBJ);
+            if ($rsp) {
+                return $rsp;
+            } else {
+                return  $rsp = 0;
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
     public function mostrarPlantillaCalcular($idplantilla)
     {
         $con = Conexion::getConexion();
@@ -218,7 +238,8 @@ class calculoAlmacen
                                     DP.por_dia,
                                     MO.signo,
                                     P.omitir_almacenaje as OA,
-                                    P.dias_libres
+                                    P.dias_libres,
+                                    DP.id_detalle
                                 FROM plantilla_calculoa AS P INNER JOIN 
                                         detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
                                         catalogo AS C ON C.id_catalogo = DP.id_catalogo INNER JOIN 
@@ -236,21 +257,69 @@ class calculoAlmacen
             return 0;
         }
     }
-    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl,$baseParaS,$totaldias){
+
+    public function mostrarDetalleplantillCalculando($iddetalle){
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("SELECT C.nombre,
+                                    DP.minimo,
+                                    DP.tarifa,
+                                    DP.porcentaje,
+                                    DP.por_peso,
+                                    DP.por_volumen,
+                                    DP.por_dia,
+                                    MO.signo,
+                                    P.omitir_almacenaje as OA,
+                                    P.dias_libres,
+                                    DP.id_detalle
+                                FROM plantilla_calculoa AS P INNER JOIN 
+                                        detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
+                                        catalogo AS C ON C.id_catalogo = DP.id_catalogo INNER JOIN 
+                                        moneda as MO on MO.id_moneda = DP.id_moneda
+                                    WHERE DP.id_detalle =:iddetalle");
+            $rsp->bindParam(":iddetalle", $iddetalle);
+            $rsp->execute();
+            $rsp = $rsp->fetch(PDO::FETCH_OBJ);
+            if ($rsp) {
+                return $rsp;
+            } else {
+                return  $rsp = 0;
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
+
+    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl,$baseParaS,$totaldias,$peso,$tipocambio,$cif){
         if ($_SESSION["idpais"]==92){
             if ($descripcion== "Almacenaje"){
                 $res = self::Almacengt($minimo,$porcentaje,$impuesto,$diasAlma);
                 return $res;
             }else if ($descripcion == "Seguro"){
                 return $res = self::SeguroGT($minimo,$porcentaje,$baseParaS,$totaldias);
-            }else{
-                return "";
+            }else if ($descripcion=="Manejo")
+                return $res = self::manejoGT($peso,$tarifa,$minimo);
+            else{
+                return 0;
             }
-
+        }//fin guatemala
+        else if ($_SESSION["idpais"]==59){
+            if ($descripcion == "Almacenaje"){
+                return self::almacenajeCR($tarifa,$baseParaS,$diasAlma,$minimo);
+            }else if ($descripcion == "Almacenaje Adicional"){
+                return self::almacenajeAdicionalCR($diasAlma,$tipocambio);
+            }
+        }// fin costarica 
+        else if ($_SESSION["idpais"]==157){
+            if ($descripcion == "Almacenaje"){
+                return self::almacenajeNI($minimo,$porcentaje,$cif,$diascompletos,$diasAlma );
+            }
         }
-
     }
+
+    //gt formulas
     public static function Almacengt($minimo,$porcentaje,$impuesto,$diasAlma){
+        
         if ($impuesto == ""){
             $impuesto =0;
         }
@@ -262,7 +331,7 @@ class calculoAlmacen
             $res = $minimo;
         }
 
-        return $res;
+        return redondear10($res);
     }
     public static function gastosGT($minimo,$diasAlma,$cif,$porcentaje){
         if ($diasAlma==""){
@@ -273,7 +342,7 @@ class calculoAlmacen
         if ($res<$minimo){
             $res = $minimo;
         }
-        return $res;
+        return redondear10($res);
     }
 
     public static function manejoGT($peso,$tarifa,$minimo){
@@ -310,4 +379,51 @@ class calculoAlmacen
         return $res;
 
     }
+
+// costarica formulas
+public static function almacenajeCR($tarifa,$baseParaS,$diasAlma,$minimo){
+    $res = $tarifa* ($baseParaS/1000)* ($diasAlma/30);
+    if ($res <$minimo){
+        $res = $minimo;
+    }
+    return $res;
 }
+
+public static function almacenajeAdicionalCR($diasAlma,$tipoCambio){
+    $res = ($diasAlma-10)*3*$tipoCambio;
+    return $res;
+}
+
+public static function manejoCR($tarifa,$peso,$minimo){
+    $res = $tarifa*$peso;
+    if ($res<$minimo){
+        $res = $minimo;
+    }
+    return $res;
+}
+
+public static function seguroCR($diasAlma,$tarifa,$minimo,$baseParaS){
+    $res = $tarifa*($baseParaS/1000)*($diasAlma/30);
+    if ($res <$minimo){
+        $res = $minimo;
+    }
+    return $res;
+}
+// precintos cr
+public static function precintosCR(){
+    
+}
+// nicaragua
+public static function almacenajeNI($minimo,$porcentaje,$cif,$diascompletos,$diasAlma){
+    $res =0;
+    if ($diascompletos == 1){
+        $res = $minimo;
+    }else{
+        $res = ($cif*$porcentaje)* ceil(($diasAlma/15));
+        if ($res<$minimo){
+            $res = $minimo;
+        } 
+    }
+    return $res;
+}
+}//final de la clase 
