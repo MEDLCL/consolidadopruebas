@@ -35,7 +35,7 @@ class Empresa
                     $rspt = $con->prepare("INSERT INTO contactos_e(id_empresa,nombre,apellido,correo,telefono,puesto)
                         VALUES (:idempresa,:nombre,:apellido,:correo,:telefono,:puesto)");
                     $contador = count($nombres);
-                    echo $contador;
+                    //echo $contador;
                     while ($cont < count($nombres)) {
                         $rspt->bindParam(":idempresa", $idempresa);
                         $rspt->bindParam(":nombre", $nombres[$cont]);

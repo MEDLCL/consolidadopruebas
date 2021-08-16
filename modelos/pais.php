@@ -74,7 +74,7 @@ function selecEmpresa($tabla, $campo, $id,$tipoe)
 }
 function selectNomal($tabla,$campo,$id){
     $con = Conexion::getConexion();
-    $stmt = $con->prepare("SELECT * FROM $tabla  ORDER  BY $campo ASC");
+    $stmt = $con->prepare("SELECT * FROM $tabla  WHERE id_sucursal = :id_sucursal ORDER  BY $campo ASC");
     $stmt->bindParam(":id_sucursal",$_SESSION['idsucursal']);
     $stmt->execute();
     $selec = '';

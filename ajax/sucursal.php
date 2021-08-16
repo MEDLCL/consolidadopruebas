@@ -31,8 +31,8 @@ switch ($_GET["op"]) {
                 $fecha = date("Y-m-d");
                 $estado = 1;
                 $con = Conexion::getConexion();
-                $stmt = $con->prepare("INSERT INTO sucursal (razons,nombrec,Telefono,identificacion,direccion,logo,fechaingreso,estado,codigo) 
-                                VALUES (:razon,:nombrec,:tel,:identifi,:dir,:logo,:fecha,:estado,:codigo)");
+                $stmt = $con->prepare("INSERT INTO sucursal (razons,nombrec,Telefono,identificacion,direccion,logo,fechaingreso,estado,codigo,idpais) 
+                                VALUES (:razon,:nombrec,:tel,:identifi,:dir,:logo,:fecha,:estado,:codigo,:idpais)");
                 $stmt->bindParam(':razon', $razons);
                 $stmt->bindParam(':nombrec', $nombrec);
                 $stmt->bindParam(':tel', $telefono);
@@ -42,6 +42,7 @@ switch ($_GET["op"]) {
                 $stmt->bindParam(":fecha", $fecha);
                 $stmt->bindParam(":estado", $estado);
                 $stmt->bindParam(":codigo", $codigo);
+                $stmt->bindParam(":idpais",$pais);
                 $stmt->execute();
                 if ($stmt->rowCount() > 0) {
                     echo  1;

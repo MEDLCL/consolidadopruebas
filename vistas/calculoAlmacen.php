@@ -210,6 +210,7 @@
                                             <th>Ocultar</th>
                                             <th>Prorratear</th>
                                             <th>Descuento</th>
+                                            <th>Iva</th>
                                         </thead>
                                         <tbody id="tbodyC">
                                         </tbody>

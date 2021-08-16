@@ -205,7 +205,8 @@ class calculoAlmacen
             return 0;
         }
     }
-    public function datosCliente($idcliente){
+    public function datosCliente($idcliente)
+    {
         $con = Conexion::getConexion();
         try {
             $rsp = $con->prepare("SELECT C.direccion,
@@ -258,7 +259,8 @@ class calculoAlmacen
         }
     }
 
-    public function mostrarDetalleplantillCalculando($iddetalle){
+    public function mostrarDetalleplantillCalculando($iddetalle)
+    {
         $con = Conexion::getConexion();
         try {
             $rsp = $con->prepare("SELECT C.nombre,
@@ -290,140 +292,194 @@ class calculoAlmacen
         }
     }
 
-    public function calculosDescripciones($descripcion,$minimo,$tarifa,$porcentaje,$impuesto,$diasAlma,$diascompletos,$diasl,$baseParaS,$totaldias,$peso,$tipocambio,$cif){
-        if ($_SESSION["idpais"]==92){
-            if ($descripcion== "Almacenaje"){
-                $res = self::Almacengt($minimo,$porcentaje,$impuesto,$diasAlma);
+    public function calculosDescripciones($descripcion, $minimo, $tarifa, $porcentaje, $impuesto, $diasAlma, $diascompletos, $diasl, $baseParaS, $totaldias, $peso, $tipocambio, $cif)
+    {
+        if ($_SESSION["idpais"] == 92) {
+            if ($descripcion == "Almacenaje") {
+                $res = self::Almacengt($minimo, $porcentaje, $impuesto, $diasAlma);
                 return $res;
-            }else if ($descripcion == "Seguro"){
-                return $res = self::SeguroGT($minimo,$porcentaje,$baseParaS,$totaldias);
-            }else if ($descripcion=="Manejo")
-                return $res = self::manejoGT($peso,$tarifa,$minimo);
-            else{
+            } else if ($descripcion == "Seguro") {
+                return $res = self::SeguroGT($minimo, $porcentaje, $baseParaS, $totaldias);
+            } else if ($descripcion == "Manejo")
+                return $res = self::manejoGT($peso, $tarifa, $minimo);
+            else {
                 return 0;
             }
-        }//fin guatemala
-        else if ($_SESSION["idpais"]==59){
-            if ($descripcion == "Almacenaje"){
-                return self::almacenajeCR($tarifa,$baseParaS,$diasAlma,$minimo);
-            }else if ($descripcion == "Almacenaje Adicional"){
-                return self::almacenajeAdicionalCR($diasAlma,$tipocambio);
+        } //fin guatemala
+        else if ($_SESSION["idpais"] == 59) {
+            if ($descripcion == "Almacenaje") {
+                return self::almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo);
+            } else if ($descripcion == "Almacenaje Adicional") {
+                return self::almacenajeAdicionalCR($diasAlma, $tipocambio);
+            } else if ($descripcion == "Manejo") {
+                return self::manejoCR($tarifa, $peso, $minimo);
+            } else if ($descripcion == "Seguro") {
+                return self::seguroCR($diasAlma, $tarifa, $minimo, $baseParaS);
+            } else if ($descripcion == "Precintos") {
+                return self::precintosCR($tarifa);
+            } else {
+                return 0;
             }
-        }// fin costarica 
-        else if ($_SESSION["idpais"]==157){
-            if ($descripcion == "Almacenaje"){
-                return self::almacenajeNI($minimo,$porcentaje,$cif,$diascompletos,$diasAlma );
+        } // fin costarica 
+        else if ($_SESSION["idpais"] == 157) {
+            if ($descripcion == "Almacenaje") {
+                return self::almacenajeNI($minimo, $porcentaje, $cif, $diascompletos, $diasAlma);
             }
         }
     }
 
     //gt formulas
-    public static function Almacengt($minimo,$porcentaje,$impuesto,$diasAlma){
-        
-        if ($impuesto == ""){
-            $impuesto =0;
+    public static function Almacengt($minimo, $porcentaje, $impuesto, $diasAlma)
+    {
+
+        if ($impuesto == "") {
+            $impuesto = 0;
         }
-        if ($diasAlma==""){
-            $diasAlma = 0 ;
+        if ($diasAlma == "") {
+            $diasAlma = 0;
         }
-        $res = ($impuesto*($porcentaje/100))*$diasAlma;
-        if ($res<$minimo){
+        $res = ($impuesto * ($porcentaje / 100)) * $diasAlma;
+        if ($res < $minimo) {
             $res = $minimo;
         }
 
         return redondear10($res);
     }
-    public static function gastosGT($minimo,$diasAlma,$cif,$porcentaje){
-        if ($diasAlma==""){
-            $diasAlma =0;
+    public static function gastosGT($minimo, $diasAlma, $cif, $porcentaje)
+    {
+        if ($diasAlma == "") {
+            $diasAlma = 0;
         }
 
-        $res= (($cif*($porcentaje/100))/30)*$diasAlma;
-        if ($res<$minimo){
+        $res = (($cif * ($porcentaje / 100)) / 30) * $diasAlma;
+        if ($res < $minimo) {
             $res = $minimo;
         }
         return redondear10($res);
     }
 
-    public static function manejoGT($peso,$tarifa,$minimo){
-    /*     r = (Round((peso / 1000) + 0.5)) * 1000
+    public static function manejoGT($peso, $tarifa, $minimo)
+    {
+        /*     r = (Round((peso / 1000) + 0.5)) * 1000
         r = Round(r)
         res = (r * CDbl(Me.grid.Columns(4).Value)) / 1000 */
-    //revisar formulara todos deben de subir a mayor 10 
-    $multiplo = (round(($peso/1000)+0.5)) *1000;
-        $res = ($multiplo * $tarifa)*1000;
-        if ($res<$minimo){
+        //revisar formulara todos deben de subir a mayor 10 
+        $multiplo = (round(($peso / 1000) + 0.5)) * 1000;
+        $res = ($multiplo * $tarifa) * 1000;
+        if ($res < $minimo) {
             $res = $minimo;
         }
         return $minimo;
     }
-    public static function TransmisionGT($baseParaS,$minimo,$cantCli){
-        $res = ($baseParaS /$cantCli);
-        if ($res<$minimo){
+    public static function TransmisionGT($baseParaS, $minimo, $cantCli)
+    {
+        $res = ($baseParaS / $cantCli);
+        if ($res < $minimo) {
             $res = $minimo;
         }
         return $res;
     }
-    public static function descargaGT(){
-
+    public static function descargaGT()
+    {
     }
 
-    public static function SeguroGT($minimo,$porcentaje,$baseParaS,$totaldias){
-        if ($totaldias == ""){
+    public static function SeguroGT($minimo, $porcentaje, $baseParaS, $totaldias)
+    {
+        if ($totaldias == "") {
             $totaldias = 0;
         }
-        $res  = ($baseParaS * (($porcentaje/100))/365)*$totaldias;
-        if ($res<$minimo){
+        $res  = ($baseParaS * (($porcentaje / 100)) / 365) * $totaldias;
+        if ($res < $minimo) {
             $res = $minimo;
         }
         return $res;
-
     }
 
-// costarica formulas
-public static function almacenajeCR($tarifa,$baseParaS,$diasAlma,$minimo){
-    $res = $tarifa* ($baseParaS/1000)* ($diasAlma/30);
-    if ($res <$minimo){
-        $res = $minimo;
-    }
-    return $res;
-}
+    // costarica formulas
+    public static function almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo)
+    {
+        $json = array();
 
-public static function almacenajeAdicionalCR($diasAlma,$tipoCambio){
-    $res = ($diasAlma-10)*3*$tipoCambio;
-    return $res;
-}
-
-public static function manejoCR($tarifa,$peso,$minimo){
-    $res = $tarifa*$peso;
-    if ($res<$minimo){
-        $res = $minimo;
-    }
-    return $res;
-}
-
-public static function seguroCR($diasAlma,$tarifa,$minimo,$baseParaS){
-    $res = $tarifa*($baseParaS/1000)*($diasAlma/30);
-    if ($res <$minimo){
-        $res = $minimo;
-    }
-    return $res;
-}
-// precintos cr
-public static function precintosCR(){
-    
-}
-// nicaragua
-public static function almacenajeNI($minimo,$porcentaje,$cif,$diascompletos,$diasAlma){
-    $res =0;
-    if ($diascompletos == 1){
-        $res = $minimo;
-    }else{
-        $res = ($cif*$porcentaje)* ceil(($diasAlma/15));
-        if ($res<$minimo){
+        $res = $tarifa * ($baseParaS / 1000) * ($diasAlma / 30);
+        if ($res < $minimo) {
             $res = $minimo;
-        } 
+        }
+        //return $res;
+        $iva = $res * $_SESSION["Impuesto"];
+        $iva = ceil($iva);
+
+        $json = array();
+        $json['iva'] = $iva;
+        $json['valor'] = $res;
+        return $json;
     }
-    return $res;
-}
+
+    public static function almacenajeAdicionalCR($diasAlma, $tipoCambio)
+    {
+        $res = ($diasAlma - 10) * 3 * $tipoCambio;
+        if ($res > 0) {
+        } else {
+            $res = 0;
+        }
+        $iva = $res * $_SESSION["Impuesto"];
+        $iva = ceil($iva); 
+        $json = array();
+        $json['iva'] = $iva;
+        $json['valor'] = $res;
+        return $json;
+    }
+
+    public static function manejoCR($tarifa, $peso, $minimo)
+    {
+        $res = $tarifa * $peso;
+        if ($res < $minimo) {
+            $res = $minimo;
+        }
+        $iva = $res * $_SESSION["Impuesto"];
+        $iva = ceil($iva); 
+        $json = array();
+        $json['iva'] = $iva;
+        $json['valor'] = $res;
+        return $json;
+    }
+
+    public static function seguroCR($diasAlma, $tarifa, $minimo, $baseParaS)
+    {
+        $res = $tarifa * ($baseParaS / 1000) * ($diasAlma / 30);
+        if ($res < $minimo) {
+            $res = $minimo;
+        }
+        $iva = $res * $_SESSION["Impuesto"];
+        $iva = ceil($iva); 
+        $json = array();
+        $json['iva'] = $iva;
+        $json['valor'] = $res;
+        return $json;
+    }
+    // precintos cr
+    public static function precintosCR($tarifa)
+    {
+        $res = $tarifa;
+        
+        $iva = $res * $_SESSION["Impuesto"];
+        $iva = ceil($iva); 
+        $json = array();
+        $json['iva'] = $iva;
+        $json['valor'] = $res;
+        return $json;
+    }
+    // nicaragua
+    public static function almacenajeNI($minimo, $porcentaje, $cif, $diascompletos, $diasAlma)
+    {
+        $res = 0;
+        if ($diascompletos == 1) {
+            $res = $minimo;
+        } else {
+            $res = ($cif * $porcentaje) * ceil(($diasAlma / 15));
+            if ($res < $minimo) {
+                $res = $minimo;
+            }
+        }
+        return $res;
+    }
 }//final de la clase 

@@ -26,6 +26,8 @@ $tipocambio = isset($_POST["tipocambio"])?$tipoCambio = limpia($_POST["tipocambi
 $idcliente = isset($_POST["cliente"])?$idcliente = limpia($_POST["cliente"]):$idcliente =0 ;
 $iddetalle = isset($_POST["iddetalle"])?$iddetalle = limpia($_POST["iddetalle"]):$iddetalle =0 ;
 
+$subtotal = isset($_POST["subtotal"])?$subtotal = limpia($_POST["subtotal"]):$subtotal =0 ;
+
 $cif = isset($_POST["cif"])?$cif = limpia($_POST["cif"]):$cif =0 ;
 
 if ($impuesto == ""){
@@ -88,15 +90,16 @@ switch ($_GET["op"]) {
                 "5" => '',
                 "6" => '' */
                 "0"=>  $reg->id_detalle,
-                "1" => '<input type="text" name="Descripcion[]"  value = '.$reg->nombre.' readonly>',
+                "1" => '<input  type="text" name="Descripcion[]"  value = "'.$reg->nombre.'" readonly>',
                 "2" => $reg->signo,
                 "3" => '<input style="width: 70px;" type="text" name="valorDescripcion[]"  id="valorDescripcion'.$reg->id_detalle.'" value = "0">',
                 //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$reg->id_detalle.'"  id="valorDescripcion'.$reg->id_detalle.'" value = "0">',
                 //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$i.'"  id="valorDescripcion'.$i.'" value = "0">', //,
-                "4" => '<input style="width: 70px;" type="text" name="valorsumar[]" values= "0">',
+                "4" => '<input style="width: 70px;" type="text" name="valorSumar[]"  id="valorSumar'.$reg->id_detalle.'" value= "0">',
                 "5" => '<input type="checkbox" name="ocultar[]">',
                 "6" => '<input type="checkbox" name="prorratear[]" >',
-                "7" => '<input style="width: 70px;" type="text" name="descuento[]"  value = "0">'
+                "7" => '<input style="width: 70px;" type="text" name="descuento[]"  value = "0">',
+                "8" => '<input style="width: 70px;" type="text" name="ivaDescripcion[]"  id="ivaDescripcion'.$reg->id_detalle.'" value = "0">'
             );
             $i = $i+1;
         }
@@ -112,11 +115,14 @@ switch ($_GET["op"]) {
         case 'calcular':
             $reg = $calculo->mostrarDetalleplantillCalculando($iddetalle);
             $resp = $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias,$peso,$tipocambio,$cif);
-            echo  $resp;
+            
+            echo  json_encode($resp);
             break; 
-            case 'calculariva':
-            # code...
-            break;  
+
+        case 'calculariva':
+            $reg = $subtotal * $_SESSION["Impuesto"];
+            echo doubleval($reg);
+        break;  
 }
 
 /* 

@@ -85,9 +85,10 @@ class detallePlantilla
                                         C.nombre
                                     FROM plantilla_calculoa AS P INNER JOIN 
                                         detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
-			                            catalogo AS C ON C.id_catalogo = DP.id_catalogo
-                                    WHERE P.id_plantilla =:idplantilla");
+	                                    catalogo AS C ON C.id_catalogo = DP.id_catalogo
+                                    WHERE P.id_plantilla =:idplantilla AND P.id_sucursal = :idsucursal");
             $rsp->bindParam(":idplantilla", $idplantilla);
+            $rsp->bindParam("idsucursal",$_SESSION["idsucursal"]);
             $rsp->execute();
             $rsp = $rsp->fetchAll(PDO::FETCH_OBJ);
             if ($rsp) {
