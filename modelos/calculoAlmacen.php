@@ -157,7 +157,10 @@ class calculoAlmacen
                                     A.poliza,
                                     A.cant_clientes,
                                     DATE_FORMAT(A.fecha_almacen, '%m/%d/%Y') as fechaI,
-                                    DA.id_cliente
+                                    DA.id_cliente,
+                                    (select financiacion 
+                                            from sucursal as s 
+                                        where s.id_sucursal = A.id_sucursal) as financiacion
                             FROM detalle_almacen as DA INNER JOIN 
                                 almacen as A ON A.id_almacen = DA.id_almacen
                         where DA.id_detalle = :id_detalle");
@@ -240,7 +243,8 @@ class calculoAlmacen
                                     MO.signo,
                                     P.omitir_almacenaje as OA,
                                     P.dias_libres,
-                                    DP.id_detalle
+                                    DP.id_detalle,
+                                    C.id_catalogo
                                 FROM plantilla_calculoa AS P INNER JOIN 
                                         detalle_plantillaa AS DP ON DP.id_plantilla = P.id_plantilla INNER JOIN 
                                         catalogo AS C ON C.id_catalogo = DP.id_catalogo INNER JOIN 
@@ -292,7 +296,7 @@ class calculoAlmacen
         }
     }
 
-    public function calculosDescripciones($descripcion, $minimo, $tarifa, $porcentaje, $impuesto, $diasAlma, $diascompletos, $diasl, $baseParaS, $totaldias, $peso, $tipocambio, $cif)
+    public function calculosDescripciones($descripcion, $minimo, $tarifa, $porcentaje, $impuesto, $diasAlma, $diascompletos, $diasl, $baseParaS, $totaldias, $peso, $tipocambio, $cif,$otrovalor)
     {
         if ($_SESSION["idpais"] == 92) {
             if ($descripcion == "Almacenaje") {
@@ -308,19 +312,20 @@ class calculoAlmacen
         } //fin guatemala
         else if ($_SESSION["idpais"] == 59) {
             if ($descripcion == "Almacenaje") {
-                return self::almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo);
+                return self::almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo,$otrovalor);
             } else if ($descripcion == "Almacenaje Adicional") {
-                return self::almacenajeAdicionalCR($diasAlma, $tipocambio);
+                return self::almacenajeAdicionalCR($diasAlma, $tipocambio,$otrovalor);
             } else if ($descripcion == "Manejo") {
-                return self::manejoCR($tarifa, $peso, $minimo);
+                return self::manejoCR($tarifa, $peso, $minimo,$otrovalor);
             } else if ($descripcion == "Seguro") {
-                return self::seguroCR($diasAlma, $tarifa, $minimo, $baseParaS);
+                return self::seguroCR($diasAlma, $tarifa, $minimo, $baseParaS,$otrovalor);
             } else if ($descripcion == "Precintos") {
-                return self::precintosCR($tarifa);
+                return self::precintosCR($tarifa,$otrovalor);
             } else {
                 return 0;
             }
         } // fin costarica 
+
         else if ($_SESSION["idpais"] == 157) {
             if ($descripcion == "Almacenaje") {
                 return self::almacenajeNI($minimo, $porcentaje, $cif, $diascompletos, $diasAlma);
@@ -396,7 +401,7 @@ class calculoAlmacen
     }
 
     // costarica formulas
-    public static function almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo)
+    public static function almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo,$otrovalor)
     {
         $json = array();
 
@@ -405,7 +410,7 @@ class calculoAlmacen
             $res = $minimo;
         }
         //return $res;
-        $iva = $res * $_SESSION["Impuesto"];
+        $iva = ($res + $otrovalor) * $_SESSION["Impuesto"];
         $iva = ceil($iva);
 
         $json = array();
@@ -414,14 +419,15 @@ class calculoAlmacen
         return $json;
     }
 
-    public static function almacenajeAdicionalCR($diasAlma, $tipoCambio)
+    public static function almacenajeAdicionalCR($diasAlma, $tipoCambio,$otrovalor)
     {
         $res = ($diasAlma - 10) * 3 * $tipoCambio;
         if ($res > 0) {
         } else {
             $res = 0;
         }
-        $iva = $res * $_SESSION["Impuesto"];
+        $iva = ($res + $otrovalor) * $_SESSION["Impuesto"];
+        
         $iva = ceil($iva); 
         $json = array();
         $json['iva'] = $iva;
@@ -429,13 +435,14 @@ class calculoAlmacen
         return $json;
     }
 
-    public static function manejoCR($tarifa, $peso, $minimo)
+    public static function manejoCR($tarifa, $peso, $minimo,$otrovalor)
     {
         $res = $tarifa * $peso;
         if ($res < $minimo) {
             $res = $minimo;
         }
-        $iva = $res * $_SESSION["Impuesto"];
+
+        $iva = ($res + $otrovalor) * $_SESSION["Impuesto"];
         $iva = ceil($iva); 
         $json = array();
         $json['iva'] = $iva;
@@ -443,13 +450,14 @@ class calculoAlmacen
         return $json;
     }
 
-    public static function seguroCR($diasAlma, $tarifa, $minimo, $baseParaS)
+    public static function seguroCR($diasAlma, $tarifa, $minimo, $baseParaS,$otrovalor)
     {
         $res = $tarifa * ($baseParaS / 1000) * ($diasAlma / 30);
         if ($res < $minimo) {
             $res = $minimo;
         }
-        $iva = $res * $_SESSION["Impuesto"];
+
+        $iva = ($res + $otrovalor) * $_SESSION["Impuesto"];
         $iva = ceil($iva); 
         $json = array();
         $json['iva'] = $iva;
@@ -457,11 +465,11 @@ class calculoAlmacen
         return $json;
     }
     // precintos cr
-    public static function precintosCR($tarifa)
+    public static function precintosCR($tarifa,$otrovalor)
     {
         $res = $tarifa;
         
-        $iva = $res * $_SESSION["Impuesto"];
+        $iva = ($res + $otrovalor) * $_SESSION["Impuesto"];
         $iva = ceil($iva); 
         $json = array();
         $json['iva'] = $iva;

@@ -4,7 +4,7 @@
             <div class="box-header with-border"></div>
             <div class="box-body">
 
-                <form action="" method="POST" class="" role="form">
+                <form action="" method="POST" class="" id ="frmCalculoAlmacen" name="frmCalculoAlmacen">
                     <div class="form-group col-md-6">
                         <label for="clienteCalculoA" class="">Cliente/Consignado(*) </label>
                         <div class="input-group input-group-sm">
@@ -226,7 +226,15 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="porcentajefinanciado" class="control-label">% Finaciacion:</label>
-                            <input type="text" name="porcentajefinanciado" id="porcentajefinanciado" class="form-control" value= "3.50">
+                            <input type="text" name="porcentajefinanciado" id="porcentajefinanciado" class="form-control">
+                        </div>
+                        <div class="form-group col-md-2">
+                        <label for=""></label>
+                            <div class="form-check">
+                                <input id="aplicaF" class="form-check-input" type="checkbox" name="aplicaF" value=1>
+                                <label for="aplicaF" class="form-check-label">Aplicar</label>
+                            </div>
+                            <label for="porDia"></label>
                         </div>
                     </div>
                     <div class="form-group col-md-4">
@@ -264,7 +272,7 @@
                                 <span class="fa  fa-plus"></span>
                             </button>
 
-                            <button type="button" class="btn btn-large btn-info">Grabar
+                            <button type="button" class="btn btn-large btn-info" onclick="grabarCalculo()">Grabar
                                 <span class="fa fa-floppy-o"></span>
                             </button>
 

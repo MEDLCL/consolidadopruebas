@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 28-04-2021 a las 07:33:38
+-- Tiempo de generación: 24-08-2021 a las 01:22:28
 -- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.33
+-- Versión de PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -91,7 +91,9 @@ select L.id_usuario,
        S.Telefono,
        S.identificacion,
        S.idpais,
-       P.nombre as puesto
+       P.nombre as puesto,
+       S.impuesto,
+       S.financiacion
 		from login as L INNER JOIN
             sucursal as S on S.id_sucursal = L.id_sucursal INNER JOIN 
             puesto as P on P.id_puesto = L.id_puesto
@@ -133,21 +135,22 @@ CREATE TABLE `almacen` (
 --
 
 INSERT INTO `almacen` (`id_almacen`, `id_usuario`, `id_sucursal`, `id_consignado`, `codigo`, `contenedor_placa`, `poliza`, `referencia`, `peso`, `id_medida_peso`, `volumen`, `id_medida_volumen`, `bultos`, `cant_clientes`, `fecha_almacen`, `fecha_graba`, `id_usuario_modifica`, `fecha_modifica`) VALUES
-(1, 52, 27, 64, '03.31.21', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
+(1, 52, 3, 64, '03.31.21', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
 (2, 52, 27, 64, '03.32.21', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
 (3, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
 (4, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
 (5, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
 (6, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '0000-00-00', '2021-03-14', 52, 2021),
-(7, 52, 27, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '2021-03-03', '2021-03-14', 52, 2021),
-(8, 52, 27, 64, '', 'CONTENEDOR', 'poliza', 'REFERENCIA', 1, NULL, 1, NULL, 1, 0, '2021-03-16', '2021-03-16', 52, 2021),
-(9, 52, 27, 64, '', 'ASDF', 'asdf33', '12312', 1, NULL, 1, NULL, 1, 0, '2021-03-18', '2021-03-16', 52, 2021),
-(10, 52, 27, 64, '03.42.21', 'ASDFASDFSADF', 'asd', 'ASD', 1, NULL, 1, NULL, 1, 0, '2021-03-24', '2021-03-16', 52, 2021),
-(11, 52, 27, 64, '03.43.21', 'ASDF', 'asdf', 'ASDF33234', 2, NULL, 2, NULL, 2, 3, '2021-03-30', '2021-03-18', 52, 2021),
-(12, 52, 27, 64, '03.44.21', 'PRUEBA', 'asdf', 'ASDF', 2, NULL, 3, NULL, 3, 3, '2021-03-16', '2021-03-18', 52, 2021),
-(13, 52, 27, 64, '03.45.21', 'ASDF', 'asdfasdf', 'ASDF', 1, NULL, 1, NULL, 1, 3, '2021-03-17', '2021-03-18', 52, 2021),
-(14, 52, 27, 64, '03.46.21', 'PLACA DE PRUEBA123', 'poliza de prueba', 'REFERENCIA DE PRUEBA', 12, NULL, 23, NULL, 12, 12, '2021-04-02', '2021-03-18', 52, 2021),
-(15, 52, 27, 64, '03.47.21', 'PLACA DE PRUEBA CAMBIO', 'poliza de prueba cambio', 'REFERENCIA DE PRUEBA CAMBIO', 10, NULL, 10, NULL, 10, 10, '2021-03-30', '2021-03-20', 52, 2021);
+(7, 52, 3, 64, '', 'ASDF', 'asdf', 'ASDF', 1, NULL, 1, NULL, 1, 0, '2021-03-03', '2021-03-14', 52, 2021),
+(8, 52, 3, 64, '', 'CONTENEDOR', 'poliza', 'REFERENCIA', 1, NULL, 1, NULL, 1, 0, '2021-03-16', '2021-03-16', 52, 2021),
+(9, 52, 3, 64, '', 'ASDF', 'asdf33', '12312', 1, NULL, 1, NULL, 1, 0, '2021-03-18', '2021-03-16', 52, 2021),
+(10, 52, 3, 64, '03.42.21', 'ASDFASDFSADF', 'asd', 'ASD', 1, NULL, 1, NULL, 1, 0, '2021-03-24', '2021-03-16', 52, 2021),
+(11, 52, 3, 64, '03.43.21', 'ASDF', 'asdf', 'ASDF33234', 2, NULL, 2, NULL, 2, 3, '2021-03-30', '2021-03-18', 52, 2021),
+(12, 52, 3, 64, '03.44.21', 'PRUEBA', 'asdf', 'ASDF', 2, NULL, 3, NULL, 3, 3, '2021-03-16', '2021-03-18', 52, 2021),
+(13, 52, 3, 64, '03.45.21', 'ASDF', 'asdfasdf', 'ASDF', 1, NULL, 1, NULL, 1, 3, '2021-03-17', '2021-03-18', 52, 2021),
+(14, 52, 3, 64, '03.46.21', 'PLACA DE PRUEBA123', 'poliza de prueba', 'REFERENCIA DE PRUEBA', 12, NULL, 23, NULL, 12, 12, '2021-04-02', '2021-03-18', 52, 2021),
+(15, 52, 27, 64, '03.47.21', 'PLACA DE PRUEBA CAMBIO', 'poliza de prueba cambio', 'REFERENCIA DE PRUEBA CAMBIO', 10, NULL, 10, NULL, 10, 10, '2021-03-30', '2021-03-20', 52, 2021),
+(16, 58, 4, 80, '08.1.21', 'CRFG-12365', 'poliza entrada 1', 'REFERENCIA 502', 100, NULL, 10, NULL, 500, 5, '2021-08-12', '2021-08-12', 58, 2021);
 
 -- --------------------------------------------------------
 
@@ -190,7 +193,16 @@ INSERT INTO `asigna_menu` (`idasigna_menu`, `id_usuario`, `id_menu`) VALUES
 (110, 52, 13),
 (111, 52, 14),
 (112, 52, 19),
-(113, 52, 20);
+(113, 52, 20),
+(122, 58, 1),
+(123, 58, 6),
+(124, 58, 7),
+(125, 58, 8),
+(126, 58, 12),
+(127, 58, 13),
+(128, 58, 14),
+(129, 58, 19),
+(130, 58, 20);
 
 -- --------------------------------------------------------
 
@@ -210,7 +222,54 @@ CREATE TABLE `asigna_moneda` (
 
 INSERT INTO `asigna_moneda` (`id_asigna_moneda`, `id_moneda`, `id_sucursal`) VALUES
 (1, 3, 27),
-(2, 5, 27);
+(2, 5, 27),
+(3, 1, 4),
+(4, 5, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `calculo_almacen`
+--
+
+CREATE TABLE `calculo_almacen` (
+  `id_calculo` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL DEFAULT 0,
+  `id_cliente` int(11) NOT NULL DEFAULT 0,
+  `id_plantilla` int(11) NOT NULL DEFAULT 0,
+  `id_detalle_almacen` int(11) NOT NULL DEFAULT 0,
+  `direccion` varchar(1000) NOT NULL,
+  `identificacion` varchar(50) NOT NULL,
+  `total_dias` smallint(6) NOT NULL DEFAULT 0,
+  `dias_almacen` smallint(6) NOT NULL DEFAULT 0,
+  `dias_libres` smallint(6) NOT NULL DEFAULT 0,
+  `del` date NOT NULL,
+  `al` date NOT NULL,
+  `dut` varchar(75) NOT NULL DEFAULT '0',
+  `poliza_salida` varchar(75) NOT NULL DEFAULT '0',
+  `orden_salida` varchar(75) NOT NULL DEFAULT '0',
+  `tipo_cambio` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `cif_dolares` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `cif` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `impuesto` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `base_seguro` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `bultos_retirados` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `peso` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `volumen` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `cnt_clientes` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `cnt_cuadrilla` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `descuento_porcentaje` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `descuento_valor` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `financiacion_valor` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `financiacion_porcentaje` decimal(3,2) NOT NULL DEFAULT 0.00,
+  `aplica_financiacion` tinyint(4) NOT NULL DEFAULT 0,
+  `subtotal` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `iva` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `exento_iva` tinyint(4) NOT NULL DEFAULT 0,
+  `total` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `isr` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `alcaldia` decimal(10,2) NOT NULL DEFAULT 0.00
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='se almacena los campos principales de los calculo de almacenaje de ';
 
 -- --------------------------------------------------------
 
@@ -225,6 +284,11 @@ CREATE TABLE `catalogo` (
   `nombre` varchar(100) NOT NULL,
   `nombre_ingles` varchar(100) NOT NULL,
   `codigo` varchar(50) NOT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
+  `partida_arancelaria` varchar(50) DEFAULT NULL,
+  `factor_iva` decimal(5,2) DEFAULT NULL,
+  `otro_cargo` smallint(6) DEFAULT NULL,
+  `porcentaje_impuesto` decimal(5,2) DEFAULT NULL,
   `fecha_graba` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -232,8 +296,19 @@ CREATE TABLE `catalogo` (
 -- Volcado de datos para la tabla `catalogo`
 --
 
-INSERT INTO `catalogo` (`id_catalogo`, `id_usuario`, `id_sucursal`, `nombre`, `nombre_ingles`, `codigo`, `fecha_graba`) VALUES
-(1, 52, 27, 'Flete Maritimo', 'freight', '', '2021-04-16');
+INSERT INTO `catalogo` (`id_catalogo`, `id_usuario`, `id_sucursal`, `nombre`, `nombre_ingles`, `codigo`, `descripcion`, `partida_arancelaria`, `factor_iva`, `otro_cargo`, `porcentaje_impuesto`, `fecha_graba`) VALUES
+(1, 52, 27, 'Seguro', 'secure', '', NULL, NULL, NULL, NULL, NULL, '2021-04-16'),
+(2, 52, 27, 'Flete Aereo', 'freight Air', '3', NULL, NULL, NULL, NULL, NULL, '2021-04-30'),
+(3, 52, 27, 'Almacenaje', 'gargabe', '3', NULL, NULL, NULL, NULL, NULL, '2021-05-25'),
+(4, 52, 3, 'Manejo', '', '001', NULL, NULL, NULL, NULL, NULL, '2021-06-09'),
+(5, 52, 3, 'Papeleria', 'paper', '5', NULL, NULL, NULL, NULL, NULL, '2021-08-07'),
+(6, 52, 3, 'Descargue', 'download', '', NULL, NULL, NULL, NULL, NULL, '2021-08-07'),
+(7, 52, 3, 'Cargue', 'up', '', NULL, NULL, NULL, NULL, NULL, '2021-08-07'),
+(8, 58, 4, 'Almacenaje', 'gargabe', '', NULL, NULL, NULL, NULL, NULL, '2021-08-12'),
+(9, 58, 4, 'Almacenaje Adicional', '', '', NULL, NULL, NULL, NULL, NULL, '2021-08-12'),
+(10, 58, 4, 'Manejo', '', '', NULL, NULL, NULL, NULL, NULL, '2021-08-12'),
+(11, 58, 4, 'Seguro', '', '', NULL, NULL, NULL, NULL, NULL, '2021-08-12'),
+(12, 58, 4, 'Precintos', '', '', NULL, NULL, NULL, NULL, NULL, '2021-08-12');
 
 -- --------------------------------------------------------
 
@@ -261,7 +336,17 @@ INSERT INTO `contactos_e` (`id_contacto`, `id_empresa`, `nombre`, `apellido`, `c
 (20, 34, 'francisco', 'taquira', 'accguatemala3@sercogua.com', '2303-7000', 'cobros'),
 (21, 35, 'francisco', 'taquira', 'accguatemala3@sercogua.com', '2303-7000', 'cobros'),
 (22, 36, 'francisco', 'taquira', 'accguatemala3@sercogua.com', '2303-7000', 'cobros'),
-(23, 37, 'francisco', 'taquira', 'accguatemala3@sercogua.com', '2303-7000', 'cobros');
+(23, 37, 'francisco', 'taquira', 'accguatemala3@sercogua.com', '2303-7000', 'cobros'),
+(24, 67, 'manuel', 'cruz', 'opguatemala@sercogua.com', '45285945', 'it'),
+(25, 69, 'estuardo', 'cruz', 'it@gmail.com', '4528594', 'programador'),
+(26, 70, 'estuardo', 'cruz', 'it@gmail.com', '4528594', 'programador'),
+(27, 71, 'estuardo', 'cruz', 'it@gmail.com', '4528594', 'programador'),
+(28, 72, 'estuardo', 'cruz', 'it@gmail.com', '4528594', 'programador'),
+(29, 73, 'estuardo', 'cruz', 'it@gmail.com', '4528594', 'programador'),
+(30, 74, 'estuardo', 'cruz', 'it@gmail.com', '4528594', 'programador'),
+(31, 75, 'estuardo', 'cruz', 'it@gmail.com', '4528594', 'programador'),
+(32, 76, 'estuardo', 'cruz', 'it@gmail.com', '4528594', 'programador'),
+(33, 80, 'est', 'lopez', 'it@gmail.com', '45285948', 'it');
 
 -- --------------------------------------------------------
 
@@ -371,7 +456,8 @@ INSERT INTO `correlativo_almacen` (`idcorrelativo`, `mes`, `annio`, `contador`, 
 (81, 3, 21, 62, 27),
 (82, 3, 21, 63, 27),
 (83, 3, 21, 64, 27),
-(84, 3, 21, 65, 27);
+(84, 3, 21, 65, 27),
+(85, 8, 21, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -436,7 +522,7 @@ CREATE TABLE `detalle_almacen` (
 --
 
 INSERT INTO `detalle_almacen` (`id_detalle`, `id_almacen`, `id_cliente`, `id_usuario`, `id_embalaje`, `peso`, `volumen`, `bultos`, `nohbl`, `estado`, `ubicacion`, `linea`, `resa`, `dti`, `no_cancel`, `no_orden`, `liberado`, `dut`, `mercaderia`, `observaciones`, `fecha_graba`, `fecha_modificacion`, `id_usuario_modifica`, `bultos_retirados`, `carga_retenida`) VALUES
-(1, 14, 65, 52, 1, 2, 1, 3, 'no hbl', 1, 'ubicacion', 'linea', 'resa', 'dti', 'nocancel', 'no orden', 0, 'dut', 'mercaderia', 'observaciones', '2021-03-21', '2021-03-21', 52, NULL, NULL);
+(5, 16, 81, 58, 1, 26, 10, 500, 'pendiente', 1, 'rack 10', '', '', '', '', '', 0, '', 'prueba de mercaderia', 'pruebas', '2021-08-12', '2021-08-14', 58, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -453,7 +539,7 @@ CREATE TABLE `detalle_plantillaa` (
   `id_usuario` int(11) NOT NULL,
   `minimo` float NOT NULL,
   `tarifa` float NOT NULL,
-  `porcentaje` int(11) NOT NULL,
+  `porcentaje` float NOT NULL,
   `por_peso` int(11) NOT NULL,
   `por_volumen` int(11) NOT NULL,
   `por_dia` int(11) NOT NULL
@@ -464,11 +550,17 @@ CREATE TABLE `detalle_plantillaa` (
 --
 
 INSERT INTO `detalle_plantillaa` (`id_detalle`, `id_plantilla`, `id_catalogo`, `id_moneda`, `id_sucursal`, `id_usuario`, `minimo`, `tarifa`, `porcentaje`, `por_peso`, `por_volumen`, `por_dia`) VALUES
-(1, 1, 1, 1, 27, 1, 123, 12, 2, 1, 1, 1),
-(2, 1, 1, 5, 27, 52, 18, 0, 0, 0, 0, 0),
-(3, 1, 1, 5, 27, 52, 18, 0, 0, 0, 0, 0),
-(4, 1, 1, 5, 27, 52, 18, 0, 0, 0, 0, 0),
-(5, 1, 1, 5, 27, 52, 0, 10, 0, 0, 0, 0);
+(1, 1, 4, 5, 27, 1, 25, 3.25, 0, 0, 1, 0),
+(2, 1, 1, 5, 27, 52, 21, 0, 0.11, 0, 1, 0),
+(7, 1, 3, 5, 27, 52, 90, 0, 0.25, 0, 0, 0),
+(8, 1, 5, 5, 3, 52, 0, 4, 0, 0, 0, 0),
+(9, 1, 6, 5, 3, 52, 15, 4, 0, 0, 1, 0),
+(10, 1, 7, 5, 3, 52, 15, 4, 0, 0, 1, 0),
+(11, 4, 8, 1, 4, 58, 20500, 16, 0, 0, 0, 0),
+(12, 4, 10, 1, 4, 58, 22658, 5, 0, 0, 0, 0),
+(13, 4, 11, 1, 4, 58, 20500, 3, 0, 0, 0, 0),
+(14, 4, 12, 1, 4, 58, 0, 1000, 0, 0, 0, 0),
+(15, 4, 9, 1, 4, 58, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -478,6 +570,7 @@ INSERT INTO `detalle_plantillaa` (`id_detalle`, `id_plantilla`, `id_catalogo`, `
 
 CREATE TABLE `empaque` (
   `id_empaque` int(11) NOT NULL,
+  `id_sucursal` int(11) NOT NULL,
   `nombre` varchar(75) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -485,9 +578,11 @@ CREATE TABLE `empaque` (
 -- Volcado de datos para la tabla `empaque`
 --
 
-INSERT INTO `empaque` (`id_empaque`, `nombre`) VALUES
-(1, 'Cajas'),
-(2, 'Cartones');
+INSERT INTO `empaque` (`id_empaque`, `id_sucursal`, `nombre`) VALUES
+(1, 4, 'Cajas'),
+(2, 4, 'Cartones'),
+(3, 1, 'Cartones'),
+(4, 2, 'Cartones');
 
 -- --------------------------------------------------------
 
@@ -510,7 +605,7 @@ CREATE TABLE `empresas` (
   `estado` tinyint(1) NOT NULL DEFAULT 1,
   `porcentaje_comision` float NOT NULL,
   `tipo_comision` varchar(15) NOT NULL,
-  `fecha` datetime NOT NULL DEFAULT current_timestamp()
+  `fecha` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -518,9 +613,8 @@ CREATE TABLE `empresas` (
 --
 
 INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `id_pais`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`, `fecha`) VALUES
-(64, 27, 52, 92, 'MANUEL', 'MANUEL', '12332', 'GUATEMALA', '234', 'CO', '1', 1, 1, 'cbm', '2021-03-03'),
-(65, 27, 52, 4, 'CLIENTE 1', 'CLIENTE 1', 'asdf', 'ASDF', '123', 'CL', '1', 1, 0, '', '2021-03-13'),
-(66, 27, 52, 157, 'SERCOGUA NICARAGUA', 'SERCOGUA NICARAGUA', '12355', 'NICARAGUA', '50523659', 'CO', '2', 1, 0, '', '2021-03-19');
+(80, 4, 58, 59, 'SERCOGUA CR', 'SERVICIOS COMERCIALES DE GUATEMALA COSTARICA', '56231', 'CIUDAD COSTARICA', '50623037000', 'CO', '1', 1, 0, 'cbm', '2021-08-12'),
+(81, 4, 58, 59, 'CLIENTE 1 DE COSTARICA', 'CLIENTE 1 DE COSTARICA', '698574', 'CIUDAD DE COSTARICA', '4569852', 'CL', '1', 1, 0, 'cbm', '2021-08-12');
 
 -- --------------------------------------------------------
 
@@ -547,8 +641,9 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id_usuario`, `id_sucursal`, `id_depto`, `id_puesto`, `acceso`, `pass`, `avatar`, `nombre`, `apellido`, `correo`, `estado`) VALUES
-(52, 27, 3, 6, '123456', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1608505306.png', 'Manuel', 'De La Cruz', 'manuelcruz86@gmail.com', 1),
-(53, 27, 1, 5, '1234', '1234', '', 'maritza', 'De La Cruz', 'itguatemala@gmail.com', 1);
+(52, 3, 3, 6, '123456', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1608505306.png', 'Manuel', 'De La Cruz', 'manuelcruz86@gmail.com', 1),
+(53, 1, 1, 5, '1234', '1234', '', 'maritza', 'De La Cruz', 'itguatemala@gmail.com', 1),
+(58, 4, 1, 6, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '', 'Manuel de la cruz', 'lopez', 'itguatemala@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -917,9 +1012,10 @@ CREATE TABLE `plantilla_calculoa` (
 --
 
 INSERT INTO `plantilla_calculoa` (`id_plantilla`, `id_usuario`, `id_sucursal`, `nombre`, `tarifa_minima`, `moneda`, `dias_libres`, `omitir_almacenaje`, `fecha_grabacion`) VALUES
-(1, 52, 27, 'calculo 18%', 8006, 5, 13, 0, '2021-04-11'),
-(2, 52, 27, 'calculo 30%', 800, 3, 12, 1, '2021-04-11'),
-(3, 52, 27, 'calculo sercogua 26', 900, 3, 15, 1, '2021-04-13');
+(1, 52, 3, 'calculo 18%', 8006, 5, 13, 0, '2021-04-11'),
+(2, 52, 3, 'calculo 30%', 800, 3, 12, 1, '2021-04-11'),
+(3, 52, 3, 'calculo sercogua 26', 900, 3, 15, 1, '2021-04-13'),
+(4, 58, 4, 'Plantilla Normal', 80000, 1, 10, 0, '2021-08-12');
 
 -- --------------------------------------------------------
 
@@ -962,17 +1058,20 @@ CREATE TABLE `sucursal` (
   `fechaingreso` date DEFAULT NULL,
   `estado` tinyint(1) DEFAULT NULL,
   `idpais` int(11) NOT NULL,
-  `codigo` varchar(30) NOT NULL
+  `codigo` varchar(30) NOT NULL,
+  `impuesto` decimal(10,2) DEFAULT NULL,
+  `financiacion` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `sucursal`
 --
 
-INSERT INTO `sucursal` (`id_sucursal`, `razons`, `nombrec`, `Telefono`, `identificacion`, `direccion`, `logo`, `fechaingreso`, `estado`, `idpais`, `codigo`) VALUES
-(0, 'ALAMDISA DE NICARAGUA', 'ALMADISA DE NUCA', '50222123085', 'identi', 'nicaragua', '', '2021-01-20', 1, 0, 'ALMNI3'),
-(1, 'Servicios Comerciales de Guatemala', 'Sercogua', '50223037000', '22354589', '0 calle b 17-10 colonia el maestro zona 15, Guatemala', 'logo2.jfif', '2021-01-06', 1, 92, 'SERGT1'),
-(27, 'Almacenamiento Manejo y Distribuci&oacute;n de Guatemala', 'Almadisa', '50222123085', '123445', 'Interior Alpasa', '', '2021-01-06', 1, 92, 'ALMGT1');
+INSERT INTO `sucursal` (`id_sucursal`, `razons`, `nombrec`, `Telefono`, `identificacion`, `direccion`, `logo`, `fechaingreso`, `estado`, `idpais`, `codigo`, `impuesto`, `financiacion`) VALUES
+(1, 'ALAMDISA DE NICARAGUA', 'ALMADISA DE NICARAGUA', '50222123085', 'identi', 'nicaragua', '', '2021-01-20', 1, 0, 'ALMNI3', '0.15', '1.00'),
+(2, 'Servicios Comerciales de Guatemala', 'Sercogua', '50223037000', '22354589', '0 calle b 17-10 colonia el maestro zona 15, Guatemala', 'logo2.jfif', '2021-01-06', 1, 92, 'SERGT1', '0.12', '1.00'),
+(3, 'Almacenamiento Manejo y Distribuci&oacute;n de Guatemala', 'Almadisa', '50222123085', '123445', 'Interior Alpasa', '', '2021-01-06', 1, 92, 'ALMGT1', '0.12', '1.00'),
+(4, 'ALMADISA CR', 'ALMACENAMIENTO MANEJO Y DISTRIBUCION COSTA RICA', '50623037000', '123456789101112', 'bodega caldera costa rica', '', '2021-08-11', 1, 59, 'ALMCR4', '0.13', '3.75');
 
 --
 -- Índices para tablas volcadas
@@ -995,6 +1094,12 @@ ALTER TABLE `asigna_menu`
 --
 ALTER TABLE `asigna_moneda`
   ADD PRIMARY KEY (`id_asigna_moneda`);
+
+--
+-- Indices de la tabla `calculo_almacen`
+--
+ALTER TABLE `calculo_almacen`
+  ADD PRIMARY KEY (`id_calculo`);
 
 --
 -- Indices de la tabla `catalogo`
@@ -1111,37 +1216,43 @@ ALTER TABLE `sucursal`
 -- AUTO_INCREMENT de la tabla `almacen`
 --
 ALTER TABLE `almacen`
-  MODIFY `id_almacen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_almacen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `asigna_menu`
 --
 ALTER TABLE `asigna_menu`
-  MODIFY `idasigna_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `idasigna_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT de la tabla `asigna_moneda`
 --
 ALTER TABLE `asigna_moneda`
-  MODIFY `id_asigna_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_asigna_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `calculo_almacen`
+--
+ALTER TABLE `calculo_almacen`
+  MODIFY `id_calculo` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `catalogo`
 --
 ALTER TABLE `catalogo`
-  MODIFY `id_catalogo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_catalogo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `contactos_e`
 --
 ALTER TABLE `contactos_e`
-  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_contacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `correlativo_almacen`
 --
 ALTER TABLE `correlativo_almacen`
-  MODIFY `idcorrelativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `idcorrelativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT de la tabla `depto`
@@ -1153,31 +1264,31 @@ ALTER TABLE `depto`
 -- AUTO_INCREMENT de la tabla `detalle_almacen`
 --
 ALTER TABLE `detalle_almacen`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_plantillaa`
 --
 ALTER TABLE `detalle_plantillaa`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `empaque`
 --
 ALTER TABLE `empaque`
-  MODIFY `id_empaque` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_empaque` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de la tabla `menu`
@@ -1207,13 +1318,19 @@ ALTER TABLE `permiso`
 -- AUTO_INCREMENT de la tabla `plantilla_calculoa`
 --
 ALTER TABLE `plantilla_calculoa`
-  MODIFY `id_plantilla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_plantilla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `puesto`
 --
 ALTER TABLE `puesto`
   MODIFY `id_puesto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `sucursal`
+--
+ALTER TABLE `sucursal`
+  MODIFY `id_sucursal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
