@@ -314,7 +314,7 @@ class calculoAlmacen
             if ($descripcion == "Almacenaje"){
                 return self::almacenajeNI($minimo,$porcentaje,$cif,$diascompletos,$diasAlma );
             }
-        }
+        }// fin nicaragua
     }
 
     //gt formulas
