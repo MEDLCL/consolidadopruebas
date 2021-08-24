@@ -81,6 +81,10 @@ class plantillaA
             $rsp = $rsp->fetch(PDO::FETCH_OBJ);
             if ($rsp) {
                 return $rsp;
+            }else {
+                $json = array();
+                $json['id_plantilla'] = 0;
+                return $json;
             }
         } catch (\Throwable $th) {
             return 0;

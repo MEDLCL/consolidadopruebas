@@ -475,12 +475,12 @@ function sumaCifImpuesto() {
     $("#bSeguroCalculo").val(baseS);
 }
 
-function CargaCalculoNuevo(iddetalleAlmacen) {
+function CargaCalculoNuevo(id_detalleA_calculo) {
     $("#plantillaCalculoAlmacen").hide();
     limpiaNuevoCalculo();
     $.post(
         "../ajax/calculoAlmacen.php?op=MostrarCalculoNuevo", {
-            iddetalleAlmacen: iddetalleAlmacen,
+            id_detalleA_calculo: id_detalleA_calculo,
         },
 
         function (data, status) {
@@ -503,8 +503,10 @@ function CargaCalculoNuevo(iddetalleAlmacen) {
                 $("#clienteCalculoA").selectpicker("refresh");
                 llenaPlantillaBM("#plantilla");
                 $("calculoAlmacen").show();
+                $("#porcentajefinanciado").val(data.financiacion);
                 buscarDatosclienteCalculo(data.id_cliente);
                 $("#alCalculoA").datepicker("setDate", "0");
+
                 calcularDias();
             } else {
                 alertify.alert("Error", "Ha ocurrido un error");
@@ -571,6 +573,7 @@ function limpiaNuevoCalculo() {
     $("#total").val(0);
     $("#TcalculosALmacenP").DataTable().clear().draw();
     $("#diasLibre").val(0);
+    $("#aplicaF").prop("checked",false);
 }
 
 function calcularDias() {
@@ -949,6 +952,13 @@ function cargaCalulosPlantilla() {
         order: [
             [0, "desc"]
         ], //order los datos
+       /*  "columnDefs": [
+            {
+                "targets": [ 8 ],
+                "visible": false,
+                "searchable": false
+            }
+        ] */
     });
 }
 
@@ -980,25 +990,60 @@ function sumarcalculo() {
     var total = 0;
     var contval = 0;
     var iddetalle;
+    var sumaotros = 0;
+    var iva =0 ;
+    var subtotal = 0;
+
+    var valor1 =0 ;
+    var total1 =0 ;
+
     contval = valor.length;
 
-    for (var i = 0; i < valor.length; i++) {
-        iddetalle =
-            document.getElementById("TcalculosALmacenP").rows[i + 1].cells[0]
-            .innerText;
-        contval = contval - 1;
-        ejecutarFormulas(iddetalle, contval, function (resp) {});
+    //for (var i = 0; i < valor.length; i++) {
+    //    iddetalle = document.getElementById("TcalculosALmacenP").rows[i + 1].cells[0]
+    //        .innerText;
+    //    contval = contval - 1;
+    //    ejecutarFormulas(iddetalle, $("#valorSumar"+iddetalle).val(), function (resp) {});
         //contval = $("#valorDescripcion"+i).val();
         //total = total + parseFloat(contval);
-    }
-    //$("#subtotal").val(total);
-    //calcular iva mandar a traer el valor del iva enviando el valor total de la suma
+   //}
+    $("input[name='id_detalle[]']").each(function (indice, elemento) {
+        //console.log('El elemento con el índice '+indice+' contiene '+$(elemento).val());
+        iddetalle = $(elemento).val();
+        ejecutarFormulas(iddetalle, $("#valorSumar"+iddetalle).val(), function (resp) {});
+        /*     for (var i = 0; i < cont.length; i++) {
+            valor = $("#valorDescripcion"+i).val();
+            total = total + parseFloat(valor);
+        } */
+    }); 
+    /* for (var i = 0; i < valor.length; i++) {
+        iddetalle = document.getElementById("TcalculosALmacenP").rows[i + 1].cells[0].innerText;
+        subtotal = parseFloat($("#valorDescripcion"+iddetalle).val());
+        sumaotros = sumaotros + parseFloat($("#ivaDescripcion"+iddetalle).val());
+    } */
+
+  /*  $("input[name='ivaDescripcion[]']").each(function (indice, elemento) {
+        valor1 = $(elemento).val();
+        total1 = total1 + parseFloat(valor1);
+    });
+    $("#iva").val(total1);
+   iva = $("#iva").val();
+   subtotal = $("#subtotal").val(); */
 }
 
 function sumarValores() {
     var total = 0;
     var valor = 0;
+    var valor1 =0;
+    
+    var total1 = 0 ;
+    
+    var  valor2= 0 ;
+    var total2 =0;
+
     $("#subtotal").val(0);
+    $("#iva").val(0);
+    $("#financiado").val(0);
     // var oi=0;  //Objeto indicie
     // var thisObj;
     // var objs = document.getElementsByName("valorDescripcion[]");
@@ -1016,16 +1061,50 @@ function sumarValores() {
             total = total + parseFloat(valor);
         } */
     });
-    $("#subtotal").val(total);
+    $("input[name='valorSumar[]']").each(function (indice, elemento) {
+        //console.log('El elemento con el índice '+indice+' contiene '+$(elemento).val());
+        valor2 = $(elemento).val();
+        total2 = total2 + parseFloat(valor2);
+        /*     for (var i = 0; i < cont.length; i++) {
+            valor = $("#valorDescripcion"+i).val();
+            total = total + parseFloat(valor);
+        } */
+    });
+    $("input[name='ivaDescripcion[]']").each(function (indice, elemento) {
+        //console.log('El elemento con el índice '+indice+' contiene '+$(elemento).val());
+        valor1 = $(elemento).val();
+        total1 = total1 + parseFloat(valor1);
+        /*     for (var i = 0; i < cont.length; i++) {
+            valor = $("#valorDescripcion"+i).val();
+            total = total + parseFloat(valor);
+        } */
+    });
+
+    $("#iva").val(total1);
+    $("#subtotal").val(parseFloat (total)+ parseFloat(total2));
+   
+    $("#total").val(parseFloat(total1)+parseFloat(total)+parseFloat($("#financiado").val()));
+    if ($('#aplicaF').prop('checked')){
+        $("#financiado").val( parseFloat($("#total").val()) * parseFloat($("#porcentajefinanciado").val()/100)); 
+        //
+        $("#financiado").val($("#financiado").val()); 
+    }
+ /*    $("input[name='ivaDescripcion[]']").each(function (indice, elemento) {    
+        valor1 = $(elemento).val();
+        total1 = total1 + parseFloat(valor1);
+    });
+    $("#iva").val(total1); */
+
 }
-function calcularIvaTotal(subtotal){
-    
+function calcularIvaTotal(subtotal,iddetalle){
+    var valor;
+    var elemento = $("#ivaDescripcion"+iddetalle);
     $.post(
         "../ajax/calculoAlmacen.php?op=calculariva", {
             subtotal: subtotal
         },
         function (data, status) {
-            $("#iva").val(data);
+            elemento.val(data);
         }
     );
     return valor;  
@@ -1051,25 +1130,57 @@ function funcionAsync (datos, callback){
     // Tu código para hacer algo con datosDevueltos va aquí
   }); */
 
-function ejecutarFormulas(iddetalle, i, callback) {
-    var delCalculo = $("#delCalculoA").val();
-    var alcalculo = $("#alCalculoA").val();
-    var impuesto = $("#impuestoCalculo").val();
-    var baseparas = $("#bSeguroCalculo").val();
-    var peso = $("#pesoCalculo").val();
-    var volumen = $("#VolumenCalculo").val();
-    var bultos = $("#bultosCalculoPen").val();
-    var cntclie = $("#clientesCuadrilla").val();
-    var diaslibres = $("#diaslPC").val();
-    var totalminimo = $("#TotalMinimo").val();
-    var dcompleto = $("#diascompletoPC").val();
+function ejecutarFormulas(iddetalle, otrovalor, callback) {
+    var delCalculoA = $("#delCalculoA").val();
+    var alCalculoA = $("#alCalculoA").val();
+    var impuestoCalculo = $("#impuestoCalculo").val();
+    var bSeguroCalculo = $("#bSeguroCalculo").val();
+    var pesoCalculo = $("#pesoCalculo").val();
+    var VolumenCalculo = $("#VolumenCalculo").val();
+    var bultosCalculoPen = $("#bultosCalculoPen").val();
+    var clientesCuadrilla = $("#clientesCuadrilla").val();
+    var diaslPC = $("#diaslPC").val();
+    var TotalMinimo = $("#TotalMinimo").val();
+    var diascompletoPC = $("#diascompletoPC").val();
     var diasAlmacenaje = $("#diasAlmacenaje").val();
-    var totaldias = $("#totalDias").val();
-    var tipocambio = $("#tipoCambioCalculo").val();
+    var totalDias = $("#totalDias").val();
+    var tipoCambioCalculo = $("#tipoCambioCalculo").val();
     var valor;
     var cif = $("#cifCalculo").val();
+    $.ajax({
+        async:true,
+        cache:false,
+        dataType:"html",
+        type: 'POST',
+        url: "../ajax/calculoAlmacen.php?op=calcular",
+        data:  { delCalculoA : delCalculoA,
+                alCalculoA: alCalculoA,
+                impuestoCalculo: impuestoCalculo,
+                bSeguroCalculo: bSeguroCalculo,
+                pesoCalculo: pesoCalculo,
+                VolumenCalculo: VolumenCalculo,
+                bultosCalculoPen: bultosCalculoPen,
+                clientesCuadrilla: clientesCuadrilla,
+                diaslPC: diaslPC,
+                TotalMinimo: TotalMinimo,
+                diascompletoPC: diascompletoPC,
+                diasAlmacenaje: diasAlmacenaje,
+                totalDias: totalDias,
+                tipoCambioCalculo: tipoCambioCalculo,
+                iddetalle: iddetalle,
+                cif: cif,
+                otrovalor:otrovalor},
+        success:  function(respuesta){
+            respuesta = JSON.parse(respuesta);
+            $("#valorDescripcion" + iddetalle).val(respuesta.valor);
+            $("#ivaDescripcion"+iddetalle).val(respuesta.iva);
+            sumarValores(); 
+        },
+        beforeSend:function(){},
 
-    $.post(
+    });
+
+/*    $.post(
         "../ajax/calculoAlmacen.php?op=calcular", {
             delCalculo: delCalculo,
             alCalculo: alcalculo,
@@ -1089,13 +1200,11 @@ function ejecutarFormulas(iddetalle, i, callback) {
             cif: cif,
         },
         function (data, status) {
-            //valor = data;
+            valor = data;
             $("#valorDescripcion" + iddetalle).val(data);
-            // valor = parseFloat($("#subtotal").val()) + parseFloat(data);
-            // $("#subtotal").val(valor);
             sumarValores();
         }
-    );
+    ); */
     return valor;
 }
 
@@ -1138,5 +1247,45 @@ function calculardiaslmacenaje() {
 }
 
 function nuevocalculoMismoCliente() {}
+
+function grabarCalculo() {
+    var cif = $("#cifCalculo").val();
+    var impuesto = $("#impuestoCalculo").val();
+    var fechaf = $("#alCalculoA").val();
+    var idplantilla = $("#plantilla").val();
+
+    if (cif == 0 || cif.trim() == "") {
+        alertify.alert("Error", "Debe de Ingresar el Valor CIF");
+        return false;
+    }
+    if (impuesto == 0 || impuesto.trim() == "") {
+        alertify.alert("Error", "Debe de ingresar el valor Impuesto");
+        return false;
+    }
+    if (fechaf.trim() == "") {
+        alertify.alert("Error", "Debe de ingresar la fecha Final del Calculo");
+        return false;
+    }
+    if (idplantilla == 0) {
+        alertify.alert("Error", "Debe de seleccionar una plantilla");
+        return false;
+    }
+    var frmCalculoAlmacen = new FormData($("#frmCalculoAlmacen")[0]);
+
+    $.ajax({
+        url: "../ajax/calculoAlmacen.php?op=guardaryeditar",
+        type: "POST",
+        data: frmCalculoAlmacen,
+        contentType: false,
+        processData: false,
+        success:  function(respuesta){
+            
+        },
+        beforeSend:function(){},
+
+    });
+
+
+}
 
 init();

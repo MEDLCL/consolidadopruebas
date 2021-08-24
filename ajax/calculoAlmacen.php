@@ -6,26 +6,27 @@ require_once "../modelos/calculoAlmacen.php";
 
 $calculo = new calculoAlmacen();
 
-
-$iddetalleAlmacen = isset($_POST["iddetalleAlmacen"]) ? $iddetalleAlmacen = $_POST["iddetalleAlmacen"] : $iddetalleAlmacen = 0;
-$del = isset($_POST['delCalculo']) ? $del= limpia($_POST['delCalculo']) : $del= date('Y-m-d');
-$al = isset($_POST['alcalculo']) ? $al = limpia($_POST['alcalculo']) : $al = date('Y-m-d');
+$iddetalleAlmacen = isset($_POST["id_detalleA_calculo"]) ? $iddetalleAlmacen = $_POST["id_detalleA_calculo"] : $iddetalleAlmacen = 0;
+$del = isset($_POST['delCalculoA']) ? $del= limpia($_POST['delCalculoA']) : $del= date('Y-m-d');
+$al = isset($_POST['alCalculoA']) ? $al = limpia($_POST['alCalculoA']) : $al = date('Y-m-d');
 $idplantilla = isset($_POST['idplantilla']) ?  $idplantilla= limpia($_POST['idplantilla']) : $idplantilla = '';
-$impuesto = isset($_POST['impuesto']) ? $impuesto = $_POST['impuesto'] : $impuesto = 0;
-$baseParaS= isset($_POST['baseparas'])? $baseParaS = $_POST['baseparas']: $baseParaS = 0 ;
-$peso = isset($_POST['peso']) ? limpia($_POST['peso']) : $peso = 0;
-$volumen = isset($_POST['volumen']) ? limpia($_POST['volumen']) : $volumen = 0;
-$bultos = isset($_POST['bultos']) ? limpia($_POST['bultos']) : $bultosT = 0;
-$cntclie = isset($_POST['cntclie']) ? $cntclie =limpia($_POST['cntclie']) : $cntclie = 0;
-$diaslibres = isset($_POST['diaslibres']) ?$diaslibres= limpia($_POST['diaslibres']) : $diaslibres = 0;
-$tminimo = isset($_POST["tminimo"]) ? $tminimo= limpia($_POST["tminimo"]) : $tminimo = 0; 
-$dcompleto = isset($_POST["dcompleto"])? $dcompleto = limpia($_POST["dcompleto"]):$dcompleto= 0;
+$impuesto = isset($_POST['impuestoCalculo']) ? $impuesto = $_POST['impuestoCalculo'] : $impuesto = 0;
+$baseParaS= isset($_POST['bSeguroCalculo'])? $baseParaS = $_POST['bSeguroCalculo']: $baseParaS = 0 ;
+$peso = isset($_POST['pesoCalculo']) ? limpia($_POST['pesoCalculo']) : $peso = 0;
+$volumen = isset($_POST['VolumenCalculo']) ? limpia($_POST['VolumenCalculo']) : $volumen = 0;
+$bultos = isset($_POST['bultosCalculoPen']) ? limpia($_POST['bultosCalculoPen']) : $bultosT = 0;
+$cntclie = isset($_POST['clientesCuadrilla']) ? $cntclie =limpia($_POST['clientesCuadrilla']) : $cntclie = 0;
+$diaslibres = isset($_POST['diaslPC']) ?$diaslibres= limpia($_POST['diaslPC']) : $diaslibres = 0;
+$tminimo = isset($_POST["TotalMinimo"]) ? $tminimo= limpia($_POST["TotalMinimo"]) : $tminimo = 0; 
+$dcompleto = isset($_POST["diascompletoPC"])? $dcompleto = limpia($_POST["diascompletoPC"]):$dcompleto= 0;
 $diasalma = isset($_POST["diasAlmacenaje"])?$diasalma = limpia($_POST["diasAlmacenaje"]):$diasalma = 0;
-$totaldias = isset($_POST["totaldias"]) ? $totaldias = limpia($_POST['totaldias']):$totaldias =0;
-$tipocambio = isset($_POST["tipocambio"])?$tipoCambio = limpia($_POST["tipocambio"]):$tipocambio =0 ;
+$totaldias = isset($_POST["totalDias"]) ? $totaldias = limpia($_POST['totalDias']):$totaldias =0;
+$tipocambio = isset($_POST["tipoCambioCalculo"])?$tipoCambio = limpia($_POST["tipoCambioCalculo"]):$tipocambio =0 ;
 $idcliente = isset($_POST["cliente"])?$idcliente = limpia($_POST["cliente"]):$idcliente =0 ;
 $iddetalle = isset($_POST["iddetalle"])?$iddetalle = limpia($_POST["iddetalle"]):$iddetalle =0 ;
 
+$subtotal = isset($_POST["subtotal"])?$subtotal = limpia($_POST["subtotal"]):$subtotal =0 ;
+$otrovalor = isset($_POST["otrovalor"])?$otrovalor = limpia($_POST["otrovalor"]):$otrovalor =0 ;
 $cif = isset($_POST["cif"])?$cif = limpia($_POST["cif"]):$cif =0 ;
 
 if ($impuesto == ""){
@@ -37,7 +38,7 @@ if ($baseParaS==""){
 
 switch ($_GET["op"]) {
     case 'guardaryeditar':
-        
+
         break;
 
     case 'mostrar':
@@ -47,6 +48,7 @@ switch ($_GET["op"]) {
     case 'MostrarCalculoNuevo':
         $rspt = $calculo->MostrarNuevoCalculo($iddetalleAlmacen);
         mb_internal_encoding('UTF-8');
+
         echo json_encode($rspt);
         break;
 
@@ -86,17 +88,27 @@ switch ($_GET["op"]) {
                 "3" => '<input style="width: 70px;" type="text" name="valorsumar[]">',
                 "4" => '',
                 "5" => '',
-                "6" => '' */
-                "0"=>  $reg->id_detalle,
-                "1" => '<input type="text" name="Descripcion[]"  value = '.$reg->nombre.' readonly>',
+                "6" => '' 
+                "0"=>  $reg->id_detalle,*/
+                "0"=>'<input  type="text" name="id_detalle[]" id="id_detalle
+                
+                
+                
+                
+                
+                
+                '.$reg->id_detalle.'" value = "'.$reg->id_detalle.'" readonly style="width: 30px;">',
+                
+                "1" => '<input  type="text" name="Descripcion[]"  value = "'.$reg->nombre.'" readonly>',
                 "2" => $reg->signo,
-                "3" => '<input style="width: 70px;" type="text" name="valorDescripcion[]"  id="valorDescripcion'.$reg->id_detalle.'" value = "0">',
+                "3" => '<input style="width: 70px;" type="number" name="valorDescripcion[]"  id="valorDescripcion'.$reg->id_detalle.'" value = "0" readonly>',
                 //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$reg->id_detalle.'"  id="valorDescripcion'.$reg->id_detalle.'" value = "0">',
                 //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$i.'"  id="valorDescripcion'.$i.'" value = "0">', //,
-                "4" => '<input style="width: 70px;" type="text" name="valorsumar[]" values= "0">',
+                "4" => '<input style="width: 70px;" type="number" name="valorSumar[]"  id="valorSumar'.$reg->id_detalle.'" value= "0">',
                 "5" => '<input type="checkbox" name="ocultar[]">',
                 "6" => '<input type="checkbox" name="prorratear[]" >',
-                "7" => '<input style="width: 70px;" type="text" name="descuento[]"  value = "0">'
+                "7" => '<input style="width: 70px;" type="number" name="descuento[]"  value = "0">',
+                "8" => '<input style="width: 70px;" type="number" name="ivaDescripcion[]"  id="ivaDescripcion'.$reg->id_detalle.'" value = "0" readonly>'
             );
             $i = $i+1;
         }
@@ -111,12 +123,16 @@ switch ($_GET["op"]) {
         break; 
         case 'calcular':
             $reg = $calculo->mostrarDetalleplantillCalculando($iddetalle);
-            $resp = $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias,$peso,$tipocambio,$cif);
-            echo  $resp;
+            $resp = $calculo->calculosDescripciones($reg->nombre,$reg->minimo,$reg->tarifa,$reg->porcentaje,$impuesto,$diasalma,$reg->OA,$reg->dias_libres,$baseParaS,$totaldias,$peso,$tipocambio,$cif,$otrovalor);
+            
+            echo  json_encode($resp);
             break; 
-            case 'calculariva':
-            # code...
-            break;  
+
+        case 'calculariva':
+            $reg = $subtotal * $_SESSION["Impuesto"];
+            echo doubleval($reg);
+        break;  
+
 }
 
 /* 

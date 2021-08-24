@@ -13,8 +13,9 @@ switch ($_GET["op"]) {
             //insertar nuevos registros
             try {
                 $con = Conexion::getConexion();
-                $stmt = $con->prepare("INSERT INTO empaque (nombre) VALUES (:nombre)");
+                $stmt = $con->prepare("INSERT INTO empaque (nombre,id_sucursal) VALUES (:nombre,:idsucursal)");
                 $stmt->bindParam(':nombre', $nombre);
+                $stmt->bindParam(':idsucursal',$_SESSION["idsucursal"]);
                 $stmt->execute();
                 
                 if ($stmt) {
