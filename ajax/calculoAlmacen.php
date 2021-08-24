@@ -9,11 +9,11 @@ $calculo = new calculoAlmacen();
 $iddetalleAlmacen = isset($_POST["id_detalleA_calculo"]) ? $iddetalleAlmacen = $_POST["id_detalleA_calculo"] : $iddetalleAlmacen = 0;
 $del = isset($_POST['delCalculoA']) ? $del= limpia($_POST['delCalculoA']) : $del= date('Y-m-d');
 $al = isset($_POST['alCalculoA']) ? $al = limpia($_POST['alCalculoA']) : $al = date('Y-m-d');
-$idplantilla = isset($_POST['idplantilla']) ?  $idplantilla= limpia($_POST['idplantilla']) : $idplantilla = '';
+$idplantilla = isset($_POST['plantilla']) ?  $idplantilla= limpia($_POST['plantilla']) : $idplantilla = '';
 $impuesto = isset($_POST['impuestoCalculo']) ? $impuesto = $_POST['impuestoCalculo'] : $impuesto = 0;
 $baseParaS= isset($_POST['bSeguroCalculo'])? $baseParaS = $_POST['bSeguroCalculo']: $baseParaS = 0 ;
 $peso = isset($_POST['pesoCalculo']) ? limpia($_POST['pesoCalculo']) : $peso = 0;
-$volumen = isset($_POST['VolumenCalculo']) ? limpia($_POST['VolumenCalculo']) : $volumen = 0;
+$volumen = isset($_POST['volumenCalculo']) ? limpia($_POST['volumenCalculo']) : $volumen = 0;
 $bultos = isset($_POST['bultosCalculoPen']) ? limpia($_POST['bultosCalculoPen']) : $bultosT = 0;
 $cntclie = isset($_POST['clientesCuadrilla']) ? $cntclie =limpia($_POST['clientesCuadrilla']) : $cntclie = 0;
 $diaslibres = isset($_POST['diaslPC']) ?$diaslibres= limpia($_POST['diaslPC']) : $diaslibres = 0;
@@ -22,12 +22,20 @@ $dcompleto = isset($_POST["diascompletoPC"])? $dcompleto = limpia($_POST["diasco
 $diasalma = isset($_POST["diasAlmacenaje"])?$diasalma = limpia($_POST["diasAlmacenaje"]):$diasalma = 0;
 $totaldias = isset($_POST["totalDias"]) ? $totaldias = limpia($_POST['totalDias']):$totaldias =0;
 $tipocambio = isset($_POST["tipoCambioCalculo"])?$tipoCambio = limpia($_POST["tipoCambioCalculo"]):$tipocambio =0 ;
-$idcliente = isset($_POST["cliente"])?$idcliente = limpia($_POST["cliente"]):$idcliente =0 ;
+$idcliente = isset($_POST["ClienteCalculoA"])?$idcliente = limpia($_POST["ClienteCalculoA"]):$idcliente =0 ;
 $iddetalle = isset($_POST["iddetalle"])?$iddetalle = limpia($_POST["iddetalle"]):$iddetalle =0 ;
 
 $subtotal = isset($_POST["subtotal"])?$subtotal = limpia($_POST["subtotal"]):$subtotal =0 ;
 $otrovalor = isset($_POST["otrovalor"])?$otrovalor = limpia($_POST["otrovalor"]):$otrovalor =0 ;
-$cif = isset($_POST["cif"])?$cif = limpia($_POST["cif"]):$cif =0 ;
+$cif = isset($_POST["cifCalculo"])?$cif = limpia($_POST["cifCalculo"]):$cif =0 ;
+
+/* $total 
+$descripciones
+$iddetalles
+$valor 
+$sumarvalores
+$descuento */
+
 
 if ($impuesto == ""){
     $impuesto = 0;
@@ -90,15 +98,7 @@ switch ($_GET["op"]) {
                 "5" => '',
                 "6" => '' 
                 "0"=>  $reg->id_detalle,*/
-                "0"=>'<input  type="text" name="id_detalle[]" id="id_detalle
-                
-                
-                
-                
-                
-                
-                '.$reg->id_detalle.'" value = "'.$reg->id_detalle.'" readonly style="width: 30px;">',
-                
+                "0"=>'<input  type="text" name="id_detalle[]" id="id_detalle'.$reg->id_detalle.'" value = "'.$reg->id_detalle.'" readonly style="width: 30px;">',   
                 "1" => '<input  type="text" name="Descripcion[]"  value = "'.$reg->nombre.'" readonly>',
                 "2" => $reg->signo,
                 "3" => '<input style="width: 70px;" type="number" name="valorDescripcion[]"  id="valorDescripcion'.$reg->id_detalle.'" value = "0" readonly>',

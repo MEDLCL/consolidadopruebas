@@ -515,10 +515,10 @@ function CargaCalculoNuevo(id_detalleA_calculo) {
     );
 }
 
-function buscarDatosclienteCalculo(cliente) {
+function buscarDatosclienteCalculo(ClienteCalculoA) {
     $.post(
         "../ajax/calculoAlmacen.php?op=datosCliente", {
-            cliente: cliente,
+            ClienteCalculoA: ClienteCalculoA,
         },
         function (data, status) {
             data = JSON.parse(data);
@@ -926,7 +926,7 @@ function cargaCalulosPlantilla() {
     // base para seguro
     //bultos y clientes para cuadrilla
 
-    var idplantilla = $("#plantilla").val();
+    var plantilla = $("#plantilla").val();
     //$("#diaslPC").val(data.dias_libres);
     //$("#TotalMinimo").val(data.tarifa_minima);
     //$("#diascompletoPC").val(1);
@@ -941,7 +941,7 @@ function cargaCalulosPlantilla() {
             type: "post",
             dataType: "json",
             data: {
-                idplantilla: idplantilla,
+                plantilla: plantilla,
             },
             error: function (e) {
                 console.log(e.responseText);
@@ -1136,7 +1136,7 @@ function ejecutarFormulas(iddetalle, otrovalor, callback) {
     var impuestoCalculo = $("#impuestoCalculo").val();
     var bSeguroCalculo = $("#bSeguroCalculo").val();
     var pesoCalculo = $("#pesoCalculo").val();
-    var VolumenCalculo = $("#VolumenCalculo").val();
+    var volumenCalculo = $("#volumenCalculo").val();
     var bultosCalculoPen = $("#bultosCalculoPen").val();
     var clientesCuadrilla = $("#clientesCuadrilla").val();
     var diaslPC = $("#diaslPC").val();
@@ -1146,7 +1146,7 @@ function ejecutarFormulas(iddetalle, otrovalor, callback) {
     var totalDias = $("#totalDias").val();
     var tipoCambioCalculo = $("#tipoCambioCalculo").val();
     var valor;
-    var cif = $("#cifCalculo").val();
+    var cifCalculo = $("#cifCalculo").val();
     $.ajax({
         async:true,
         cache:false,
@@ -1158,7 +1158,7 @@ function ejecutarFormulas(iddetalle, otrovalor, callback) {
                 impuestoCalculo: impuestoCalculo,
                 bSeguroCalculo: bSeguroCalculo,
                 pesoCalculo: pesoCalculo,
-                VolumenCalculo: VolumenCalculo,
+                volumenCalculo: volumenCalculo,
                 bultosCalculoPen: bultosCalculoPen,
                 clientesCuadrilla: clientesCuadrilla,
                 diaslPC: diaslPC,
@@ -1168,7 +1168,7 @@ function ejecutarFormulas(iddetalle, otrovalor, callback) {
                 totalDias: totalDias,
                 tipoCambioCalculo: tipoCambioCalculo,
                 iddetalle: iddetalle,
-                cif: cif,
+                cifCalculo: cifCalculo,
                 otrovalor:otrovalor},
         success:  function(respuesta){
             respuesta = JSON.parse(respuesta);

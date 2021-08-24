@@ -8,44 +8,54 @@ class calculoAlmacen
     public function __construct()
     {
     }
-    public function grabar($idalmacen, $idcliente, $nohbl, $ubicacion, $peso, $volumen, $dut, $bultos, $embalajeD, $liberado, $resa, $dti, $ncancel, $norden, $mercaderia, $observaciones, $linea)
+    public function grabar()
     {
-        $fechaG = date("Y-m-d");
-        $estado = 1;
         $con = Conexion::getConexion();
         try {
-            $stmt = $con->prepare("INSERT INTO detalle_almacen(id_almacen, id_cliente,id_usuario,id_embalaje,peso,volumen,bultos, nohbl, estado, ubicacion, linea, resa, dti, no_cancel, no_orden, liberado, dut, mercaderia, observaciones, fecha_graba, fecha_modificacion, id_usuario_modifica)
-                                VALUES (:idalmacen,:idcliente,:idusuario,:idembalaje,:peso,:volumen,:bultos,:nohbl,:estado,:ubicacion,:linea,:resa,:dti,:ncancel,:norden,:liberado,:dut,:mercaderia,:observaciones,:fechaG,:fechaM,:idusuarioM)");
-            $stmt->bindParam(":idalmacen", $idalmacen);
-            $stmt->bindParam(":idcliente", $idcliente);
-            $stmt->bindParam(":idusuario", $_SESSION["idusuario"]);
-            $stmt->bindParam(":idembalaje", $embalajeD);
-            $stmt->bindParam(":peso", $peso);
-            $stmt->bindParam(":volumen", $volumen);
-            $stmt->bindParam(":bultos", $bultos);
-            $stmt->bindParam(":nohbl", $nohbl);
-            $stmt->bindParam(":peso", $peso);
-            $stmt->bindParam(":volumen", $volumen);
-            $stmt->bindParam(":bultos", $bultos);
-            $stmt->bindParam(":estado", $estado);
-            $stmt->bindParam(":ubicacion", $ubicacion);
-            $stmt->bindParam(":linea", $linea);
-            $stmt->bindParam(":resa", $resa);
-            $stmt->bindParam(":dti", $dti);
-            $stmt->bindParam(":ncancel", $ncancel);
-            $stmt->bindParam(":norden", $norden);
-            $stmt->bindParam(":liberado", $liberado);
-            $stmt->bindParam(":dut", $dut);
-            $stmt->bindParam(":mercaderia", $mercaderia);
-            $stmt->bindParam(":observaciones", $observaciones);
-            $stmt->bindParam(":fechaG", $fechaG);
-            $stmt->bindParam(":fechaM", $fechaG);
-            $stmt->bindParam(":idusuarioM", $_SESSION["idusuario"]);
-            $stmt->execute();
-            if ($stmt) {
-                return $con->lastInsertId();
+            $con->beginTransaction();
+            $rspt = $con->prepare("INSERT INTO empresas (codigo,Tipoe,id_sucursal,id_usuario,Razons,Nombrec,identificacion,telefono,direccion,porcentaje_comision,tipo_comision,id_pais)
+                            values(:codigo,:tipoe,:idsucursal,:idusuario,:razons,:nombrec,:nit,:telefono,:dire,:comision,:cbmtarifa,:idpais)");
+            $rspt->bindParam(":codigo", $codigo);
+            $rspt->bindParam(":tipoe", $tipoe);
+            $rspt->bindParam(":idsucursal", $_SESSION['idsucursal']);
+            $rspt->bindParam(":idusuario", $_SESSION['idusuario']);
+            $rspt->bindParam(":razons", $razons);
+            $rspt->bindParam(":nombrec", $nombrec);
+            $rspt->bindParam(":nit", $nit);
+            $rspt->bindParam(":telefono", $telefono);
+            $rspt->bindParam(":dire", $dire);
+            $rspt->bindParam(":comision", $comision);
+            $rspt->bindParam(":cbmtarifa", $cbmtarifa);
+            $rspt->bindParam(":idpais",$idpaisEmpresa);
+            $rspt->execute();
+
+            if ($rspt) {
+                $idempresa =   $con->lastInsertId();
+                $cont = 0;
+                if (count($nombres) > 0) {
+                    $rspt = $con->prepare("INSERT INTO contactos_e(id_empresa,nombre,apellido,correo,telefono,puesto)
+                        VALUES (:idempresa,:nombre,:apellido,:correo,:telefono,:puesto)");
+                    $contador = count($nombres);
+                    //echo $contador;
+                    while ($cont < count($nombres)) {
+                        $rspt->bindParam(":idempresa", $idempresa);
+                        $rspt->bindParam(":nombre", $nombres[$cont]);
+                        $rspt->bindParam(":apellido", $apellidos[$cont]);
+                        $rspt->bindParam(":correo", $correos[$cont]);
+                        $rspt->bindParam(":telefono", $telefonos[$cont]);
+                        $rspt->bindParam("puesto", $puestos[$cont]);
+                        $rspt->execute();
+
+                        $cont++;
+                    }
+                }
             }
+            $con->commit();
+            //$con = Conexion::cerrar();
+            return 1;
         } catch (\Throwable $th) {
+            $con->rollBack();
+            //$con = Conexion::cerrar();
             return 0;
         }
     }
