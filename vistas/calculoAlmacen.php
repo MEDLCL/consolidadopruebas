@@ -113,7 +113,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="consiganado" class="">Descuento(*) </label>
+                        <label for="descuento" class="">Descuento(*) </label>
                         <div class="input-group input-group-sm">
 
                             <select id="descuento" name="descuento" class="form-control selectpicker" data-live-search="true">
@@ -253,6 +253,10 @@
                         <div class="form-group col-md-2">
                             <label for="total" class="control-label">Total</label>
                             <input type="text" name="total" id="total" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label for="descuentoValor" class="control-label">Descuento</label>
+                            <input type="text" name="descuentoValor" id="descuentoValor" class="form-control" readonly>
                         </div>
                     </div>
 

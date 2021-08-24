@@ -8,44 +8,80 @@ class calculoAlmacen
     public function __construct()
     {
     }
-    public function grabar($idalmacen, $idcliente, $nohbl, $ubicacion, $peso, $volumen, $dut, $bultos, $embalajeD, $liberado, $resa, $dti, $ncancel, $norden, $mercaderia, $observaciones, $linea)
+    public function grabarCalculo($idcliente,$idplantilla,$iddetalleAlmacen,$direccion,$nit,$totaldias,$diasAlma,$diasl,$del,$al,$dut,$polizaSalida,$ordenSalida,$tipoCambio,$cifDolares,$cif,$impuesto,$baseSeguro,$bultosRetirados,$peso,$volumen,$cntClientes,$cntCuadrilla,$descuentoP,$descuentoValor,$financiacionV,$financiacionP,$aplicaF,$subtotal,$iva,$exentoIva)
     {
-        $fechaG = date("Y-m-d");
-        $estado = 1;
+
+   // ````````total``isr``alcaldia`
+        $del = date("Y-m-d", strtotime($del)); 
+        $al = date("Y-m-d", strtotime($al)); 
+
         $con = Conexion::getConexion();
-        try {
-            $stmt = $con->prepare("INSERT INTO detalle_almacen(id_almacen, id_cliente,id_usuario,id_embalaje,peso,volumen,bultos, nohbl, estado, ubicacion, linea, resa, dti, no_cancel, no_orden, liberado, dut, mercaderia, observaciones, fecha_graba, fecha_modificacion, id_usuario_modifica)
-                                VALUES (:idalmacen,:idcliente,:idusuario,:idembalaje,:peso,:volumen,:bultos,:nohbl,:estado,:ubicacion,:linea,:resa,:dti,:ncancel,:norden,:liberado,:dut,:mercaderia,:observaciones,:fechaG,:fechaM,:idusuarioM)");
-            $stmt->bindParam(":idalmacen", $idalmacen);
-            $stmt->bindParam(":idcliente", $idcliente);
-            $stmt->bindParam(":idusuario", $_SESSION["idusuario"]);
-            $stmt->bindParam(":idembalaje", $embalajeD);
-            $stmt->bindParam(":peso", $peso);
-            $stmt->bindParam(":volumen", $volumen);
-            $stmt->bindParam(":bultos", $bultos);
-            $stmt->bindParam(":nohbl", $nohbl);
-            $stmt->bindParam(":peso", $peso);
-            $stmt->bindParam(":volumen", $volumen);
-            $stmt->bindParam(":bultos", $bultos);
-            $stmt->bindParam(":estado", $estado);
-            $stmt->bindParam(":ubicacion", $ubicacion);
-            $stmt->bindParam(":linea", $linea);
-            $stmt->bindParam(":resa", $resa);
-            $stmt->bindParam(":dti", $dti);
-            $stmt->bindParam(":ncancel", $ncancel);
-            $stmt->bindParam(":norden", $norden);
-            $stmt->bindParam(":liberado", $liberado);
-            $stmt->bindParam(":dut", $dut);
-            $stmt->bindParam(":mercaderia", $mercaderia);
-            $stmt->bindParam(":observaciones", $observaciones);
-            $stmt->bindParam(":fechaG", $fechaG);
-            $stmt->bindParam(":fechaM", $fechaG);
-            $stmt->bindParam(":idusuarioM", $_SESSION["idusuario"]);
-            $stmt->execute();
-            if ($stmt) {
-                return $con->lastInsertId();
+                try {
+            $con->beginTransaction();
+            $rspt = $con->prepare("INSERT INTO calculo_almacen (id_usuario,id_cliente,id_plantilla,id_detalle_almacen,direccion,identificacion,total_dias,dias_almacen,dias_libres,del,al,dut,poliza_salida,orden_salida,tipo_cambio,cif_dolares,cif,impuesto,base_seguro,bultos_retirados,peso,volumen,cnt_clientes,cnt_cuadrilla,id_descuento,descuento_valor,financiacion_valor,financiacion_porcentaje,aplica_financiacion,subtotal,iva,exento_iva)
+                            values(:id_usuario,:id_cliente,:id_plantilla,:id_detalle_almacen,:direccion,:identificacion,:total_dias,:dias_almacen,:dias_libres,:del,:al,:dut,:poliza_salida,:orden_salida,tipo_cambio,:cif_dolares,:cif,:impuesto,:base_seguro,:bultos_retirados,:peso,:volumen,:cnt_clientes,:cnt_cuadrilla,:id_descuento,:descuento_valor,:financiacion_valor,:financiacion_porcentaje,:aplica_financiacion,:subtotal,:iva,:exento_iva)");
+            $rspt->bindParam(":id_usuario",$_SESSION["idusuario"]);
+            $rspt->bindParam(":id_cliente",$idcliente);
+            $rspt->bindParam(":id_plantilla",$idplantilla);
+            $rspt->bindParam(":id_detalle_almacen",$iddetalleAlmacen);
+            $rspt->bindParam(":direccion",$direccion);
+            $rspt->bindParam(":identificacion",$nit);
+            $rspt->bindParam(":total_dias",$totaldias);
+            $rspt->bindParam(":dias_almacen",$diasAlma);
+            $rspt->bindParam(":dias_libres",$diasl);
+            $rspt->bindParam(":del",$del);
+            $rspt->bindParam(":al",$al);
+            $rspt->bindParam(":dut",$dut);
+            $rspt->bindParam(":poliza_salida",$polizaSalida);
+            $rspt->bindParam(":orden_salida",$ordenSalida);
+            $rspt->bindParam(":tipo_cambio",$tipoCambio);
+            $rspt->bindParam(":cif_dolares",$cifDolares);
+            $rspt->bindParam(":cif",$cif);
+            $rspt->bindParam(":impuesto",$impuesto);
+            $rspt->bindParam(":base_seguro",$baseSeguro);
+            $rspt->bindParam(":bultos_retirados",$bultosRetirados);
+            $rspt->bindParam(":peso",$peso);
+            $rspt->bindParam(":volumen",$volumen);
+            $rspt->bindParam(":cnt_clientes",$cntClientes);
+            $rspt->bindParam(":cnt_cuadrilla",$cntCuadrilla);
+            $rspt->bindParam(":id_descuento",$descuentoP);
+            $rspt->bindParam(":descuento_valor",$descuentoValor);
+            $rspt->bindParam(":financiacion_valor",$financiacionV);
+            $rspt->bindParam(":financiacion_porcentaje",$financiacionP);
+            $rspt->bindParam(":aplica_financiacion",$aplicaF);
+            $rspt->bindParam(":subtotal",$subtotal);
+            $rspt->bindParam(":iva",$iva);
+            $rspt->bindParam(":exento_iva",$exentoIva);
+
+            $rspt->execute();
+
+            if ($rspt) {
+                $idempresa =   $con->lastInsertId();
+                $cont = 0;
+                if (count($nombres) > 0) {
+                    $rspt = $con->prepare("INSERT INTO contactos_e(id_empresa,nombre,apellido,correo,telefono,puesto)
+                        VALUES (:idempresa,:nombre,:apellido,:correo,:telefono,:puesto)");
+                    $contador = count($nombres);
+                    //echo $contador;
+                    while ($cont < count($nombres)) {
+                        $rspt->bindParam(":idempresa", $idempresa);
+                        $rspt->bindParam(":nombre", $nombres[$cont]);
+                        $rspt->bindParam(":apellido", $apellidos[$cont]);
+                        $rspt->bindParam(":correo", $correos[$cont]);
+                        $rspt->bindParam(":telefono", $telefonos[$cont]);
+                        $rspt->bindParam("puesto", $puestos[$cont]);
+                        $rspt->execute();
+
+                        $cont++;
+                    }
+                }
             }
+            $con->commit();
+            //$con = Conexion::cerrar();
+            return 1;
         } catch (\Throwable $th) {
+            $con->rollBack();
+            //$con = Conexion::cerrar();
             return 0;
         }
     }
@@ -330,7 +366,7 @@ class calculoAlmacen
             if ($descripcion == "Almacenaje") {
                 return self::almacenajeNI($minimo, $porcentaje, $cif, $diascompletos, $diasAlma);
             }
-        }
+        }// fin nicaragua
     }
 
     //gt formulas
