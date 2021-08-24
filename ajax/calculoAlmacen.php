@@ -26,7 +26,9 @@ $idcliente = isset($_POST["cliente"])?$idcliente = limpia($_POST["cliente"]):$id
 $iddetalle = isset($_POST["iddetalle"])?$iddetalle = limpia($_POST["iddetalle"]):$iddetalle =0 ;
 
 $subtotal = isset($_POST["subtotal"])?$subtotal = limpia($_POST["subtotal"]):$subtotal =0 ;
+
 $otrovalor = isset($_POST["otrovalor"])?$otrovalor = limpia($_POST["otrovalor"]):$otrovalor =0 ;
+
 $cif = isset($_POST["cif"])?$cif = limpia($_POST["cif"]):$cif =0 ;
 
 if ($impuesto == ""){
