@@ -75,6 +75,7 @@ function limpiar() {
 
 function nuevo(tipoe) {
     limpiar();
+    $('#consignadoa').hide();
     $("#codigo").prop("readonly", true)
     var tipo = '';
     if (tipoe == 'agentee') {
@@ -183,8 +184,15 @@ function llenaEmpresaEnModal() {
         } else if (queActu == "cliDA") {
             llenaCliente();
         }
+    } else if (llama=="CreaMar"){
+        if (queActu=='AgenteE'){
+            llenaAgente();
+        }else if (queActu=='Naviera'){
+            llenaNaviera();
+        }else if (queActu =='AgenciaC'){
+            llenaAGenciaCarga();
+        }
     }
-
 }
 
 function listar() {
@@ -211,7 +219,7 @@ function listar() {
 
 function mostrarempresa(idempresa) {
     limpiar();
-    $("#codigo").prop("readonly", false)
+    $("#codigo").prop("readonly", false);
     $.post("../ajax/empresa.php?op=mostrare", { idempresa: idempresa },
         function(data, status) {
             data = JSON.parse(data);

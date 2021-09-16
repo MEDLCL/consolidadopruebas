@@ -3,8 +3,22 @@
         <div class="box box-info">
             <div class="box-header with-border"></div>
             <div class="box-body">
+            <form action="" method="POST" class="" id="frmCalculoAlmacen" name="frmCalculoAlmacen">  
+                <div class="form-group col-md-4 col-md-offset-4">
+                    <label for="cntCalculo" class="">Calculos Realizados</label>
+                    <div class="input-group input-group-sm">
 
-                <form action="" method="POST" class="" id ="frmCalculoAlmacen" name="frmCalculoAlmacen">
+                        <select id="cntCalculo" name="cntCalculo" class="form-control selectpicker" data-live-search="true">
+                        </select>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-info fa fa-building" disabled></button>
+                        </span>
+                    </div>
+                </div>
+                
+                <input type="hidden" name="id_calculos" id="id_calculos" class="form-control" value="0">
+                
+                
                     <div class="form-group col-md-6">
                         <label for="clienteCalculoA" class="">Cliente/Consignado(*) </label>
                         <div class="input-group input-group-sm">
@@ -97,7 +111,7 @@
                     </div>
 
                     <div class="form-group col-md-6 col-md-offset-2">
-                        <label for="consiganado" class="">Plantilla(*) </label>
+                        <label for="plantilla" class="">Plantilla(*) </label>
                         <div class="input-group input-group-sm">
 
                             <select id="plantilla" name="plantilla" class="form-control selectpicker" data-live-search="true">
@@ -113,7 +127,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="descuento" class="">Descuento(*) </label>
+                        <label for="descuento" class="">Descuento % </label>
                         <div class="input-group input-group-sm">
 
                             <select id="descuento" name="descuento" class="form-control selectpicker" data-live-search="true">
@@ -180,7 +194,7 @@
                                 </div>
 
                                 <div class="form-group col-md-7">
-                                    <label for="pesoCalculo" class="control-label">Base Seguro:</label>
+                                    <label for="bSeguroCalculo" class="control-label">Base Seguro:</label>
                                     <input type="number" name="bSeguroCalculo" id="bSeguroCalculo" class="form-control" readonly>
                                 </div>
 
@@ -220,7 +234,16 @@
                         </div><!--  row -->
                     </div><!-- div area de formulas -->
                     <div class="totalescr col-md-12">
-                        <div class="form-group col-md-2 col-md-offset-4">
+                        <div class="form-group col-md-2">
+                            <label for="isrCalculo" class="control-label">ISR:</label>
+                            <input type="text" name="isrCalculo" id="isrCalculo" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="alcaldiaCalculo" class="control-label">Alcaldia:</label>
+                            <input type="text" name="alcaldiaCalculo" id="alcaldiaCalculo" class="form-control" readonly>
+                        </div>
+
+                        <div class="form-group col-md-2">
                             <label for="financiado" class="control-label">Finaciacion:</label>
                             <input type="text" name="financiado" id="financiado" class="form-control">
                         </div>
@@ -229,19 +252,21 @@
                             <input type="text" name="porcentajefinanciado" id="porcentajefinanciado" class="form-control">
                         </div>
                         <div class="form-group col-md-2">
-                        <label for=""></label>
+                            <label for=""></label>
                             <div class="form-check">
                                 <input id="aplicaF" class="form-check-input" type="checkbox" name="aplicaF" value=1>
                                 <label for="aplicaF" class="form-check-label">Aplicar</label>
                             </div>
                             <label for="porDia"></label>
                         </div>
-                    </div>
-                    <div class="form-group col-md-4">
+                        <div class="form-group col-md-2">
+                            <label for="descuentoValor" class="control-label">Descuento</label>
+                            <input type="text" name="descuentoValor" id="descuentoValor" class="form-control" readonly>
+                        </div>
                     </div>
 
-                    <div class="row totales">
-                        <div class="form-group col-md-2">
+                    <div class="totales col-md-12">
+                        <div class="form-group col-md-2 col-md-offset-4">
                             <label for="total" class="control-label">Sub-Total</label>
                             <input type="text" name="subtotal" id="subtotal" class="form-control" readonly>
                         </div>
@@ -249,20 +274,21 @@
                             <label for="total" class="control-label">Iva</label>
                             <input type="text" name="iva" id="iva" class="form-control" readonly>
                         </div>
-
+                        <div class="form-group col-md-2">
+                            <label for=""></label>
+                            <div class="form-check">
+                                <input id="exentoIva" class="form-check-input" type="checkbox" name="exentoIva" value=1>
+                                <label for="exentoIva" class="form-check-label">Exento Iva</label>
+                            </div>
+                            <label for="porDia"></label>
+                        </div>
                         <div class="form-group col-md-2">
                             <label for="total" class="control-label">Total</label>
                             <input type="text" name="total" id="total" class="form-control" readonly>
                         </div>
-                        <div class="form-group col-xs-2">
-                            <label for="descuentoValor" class="control-label">Descuento</label>
-                            <input type="text" name="descuentoValor" id="descuentoValor" class="form-control" readonly>
-                        </div>
                     </div>
 
                     <div class="col-md-12"></div>
-
-
                     <div class="totalesgt col-md-12">
 
                     </div>

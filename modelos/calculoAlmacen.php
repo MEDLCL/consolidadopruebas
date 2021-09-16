@@ -8,70 +8,75 @@ class calculoAlmacen
     public function __construct()
     {
     }
-    public function grabarCalculo($idcliente,$idplantilla,$iddetalleAlmacen,$direccion,$nit,$totaldias,$diasAlma,$diasl,$del,$al,$dut,$polizaSalida,$ordenSalida,$tipoCambio,$cifDolares,$cif,$impuesto,$baseSeguro,$bultosRetirados,$peso,$volumen,$cntClientes,$cntCuadrilla,$descuentoP,$descuentoValor,$financiacionV,$financiacionP,$aplicaF,$subtotal,$iva,$exentoIva)
+    public function grabarCalculo($idcliente, $idplantilla, $iddetalleAlmacen, $direccion, $nit, $totaldias, $diasAlma, $diasl, $del, $al, $dut, $polizaSalida, $ordenSalida, $tipoCambio, $cifDolares, $cif, $impuesto, $baseSeguro, $bultosRetirados, $peso, $volumen, $cntClientes, $cntCuadrilla, $descuentoP, $descuentoValor, $financiacionV, $financiacionP, $aplicaF, $subtotal, $iva, $exentoIva, $total, $isr, $alcaldia, $iddetalle, $valor, $descuentos, $ivas, $signo, $valorSumar, $ocultar, $prorratear)
     {
 
-   // ````````total``isr``alcaldia`
-        $del = date("Y-m-d", strtotime($del)); 
-        $al = date("Y-m-d", strtotime($al)); 
+        $del = date("Y-m-d", strtotime($del));
+        $al = date("Y-m-d", strtotime($al));
 
         $con = Conexion::getConexion();
-                try {
+        try {
             $con->beginTransaction();
-            $rspt = $con->prepare("INSERT INTO calculo_almacen (id_usuario,id_cliente,id_plantilla,id_detalle_almacen,direccion,identificacion,total_dias,dias_almacen,dias_libres,del,al,dut,poliza_salida,orden_salida,tipo_cambio,cif_dolares,cif,impuesto,base_seguro,bultos_retirados,peso,volumen,cnt_clientes,cnt_cuadrilla,id_descuento,descuento_valor,financiacion_valor,financiacion_porcentaje,aplica_financiacion,subtotal,iva,exento_iva)
-                            values(:id_usuario,:id_cliente,:id_plantilla,:id_detalle_almacen,:direccion,:identificacion,:total_dias,:dias_almacen,:dias_libres,:del,:al,:dut,:poliza_salida,:orden_salida,tipo_cambio,:cif_dolares,:cif,:impuesto,:base_seguro,:bultos_retirados,:peso,:volumen,:cnt_clientes,:cnt_cuadrilla,:id_descuento,:descuento_valor,:financiacion_valor,:financiacion_porcentaje,:aplica_financiacion,:subtotal,:iva,:exento_iva)");
-            $rspt->bindParam(":id_usuario",$_SESSION["idusuario"]);
-            $rspt->bindParam(":id_cliente",$idcliente);
-            $rspt->bindParam(":id_plantilla",$idplantilla);
-            $rspt->bindParam(":id_detalle_almacen",$iddetalleAlmacen);
-            $rspt->bindParam(":direccion",$direccion);
-            $rspt->bindParam(":identificacion",$nit);
-            $rspt->bindParam(":total_dias",$totaldias);
-            $rspt->bindParam(":dias_almacen",$diasAlma);
-            $rspt->bindParam(":dias_libres",$diasl);
-            $rspt->bindParam(":del",$del);
-            $rspt->bindParam(":al",$al);
-            $rspt->bindParam(":dut",$dut);
-            $rspt->bindParam(":poliza_salida",$polizaSalida);
-            $rspt->bindParam(":orden_salida",$ordenSalida);
-            $rspt->bindParam(":tipo_cambio",$tipoCambio);
-            $rspt->bindParam(":cif_dolares",$cifDolares);
-            $rspt->bindParam(":cif",$cif);
-            $rspt->bindParam(":impuesto",$impuesto);
-            $rspt->bindParam(":base_seguro",$baseSeguro);
-            $rspt->bindParam(":bultos_retirados",$bultosRetirados);
-            $rspt->bindParam(":peso",$peso);
-            $rspt->bindParam(":volumen",$volumen);
-            $rspt->bindParam(":cnt_clientes",$cntClientes);
-            $rspt->bindParam(":cnt_cuadrilla",$cntCuadrilla);
-            $rspt->bindParam(":id_descuento",$descuentoP);
-            $rspt->bindParam(":descuento_valor",$descuentoValor);
-            $rspt->bindParam(":financiacion_valor",$financiacionV);
-            $rspt->bindParam(":financiacion_porcentaje",$financiacionP);
-            $rspt->bindParam(":aplica_financiacion",$aplicaF);
-            $rspt->bindParam(":subtotal",$subtotal);
-            $rspt->bindParam(":iva",$iva);
-            $rspt->bindParam(":exento_iva",$exentoIva);
-
+            $rspt = $con->prepare("INSERT INTO calculo_almacen (id_usuario, id_cliente, id_plantilla, id_detalle_almacen, direccion, identificacion, total_dias, dias_almacen, dias_libres, del, al, dut, poliza_salida, orden_salida, tipo_cambio, cif_dolares, cif,impuesto, base_seguro, bultos_retirados, peso, volumen, cnt_clientes, cnt_cuadrilla, id_descuento, descuento_valor, financiacion_valor, financiacion_porcentaje, aplica_financiacion, subtotal, iva, exento_iva, total,isr,alcaldia)
+                            values(:id_usuario,:id_cliente,:id_plantilla,:id_detalle_almacen,:direccion,:identificacion,:total_dias,:dias_almacen,:dias_libres,:del,:al,:dut,:poliza_salida,:orden_salida,:tipo_cambio,:cif_dolares,:cif,:impuesto,:base_seguro,:bultos_retirados,:peso,:volumen,:cnt_clientes,:cnt_cuadrilla,:id_descuento,:descuento_valor,:financiacion_valor,:financiacion_porcentaje,:aplica_financiacion,:subtotal,:iva,:exento_iva,:total,:isr,:alcaldia)");
+            $rspt->bindParam(":id_usuario", $_SESSION["idusuario"]);
+            $rspt->bindParam(":id_cliente", $idcliente);
+            $rspt->bindParam(":id_plantilla", $idplantilla);
+            $rspt->bindParam(":id_detalle_almacen", $iddetalleAlmacen);
+            $rspt->bindParam(":direccion", $direccion);
+            $rspt->bindParam(":identificacion", $nit);
+            $rspt->bindParam(":total_dias", $totaldias);
+            $rspt->bindParam(":dias_almacen", $diasAlma);
+            $rspt->bindParam(":dias_libres", $diasl);
+            $rspt->bindParam(":del", $del);
+            $rspt->bindParam(":al", $al);
+            $rspt->bindParam(":dut", $dut);
+            $rspt->bindParam(":poliza_salida", $polizaSalida);
+            $rspt->bindParam(":orden_salida", $ordenSalida);
+            $rspt->bindParam(":tipo_cambio", $tipoCambio);
+            $rspt->bindParam(":cif_dolares", $cifDolares);
+            $rspt->bindParam(":cif", $cif);
+            $rspt->bindParam(":impuesto", $impuesto);
+            $rspt->bindParam(":base_seguro", $baseSeguro);
+            $rspt->bindParam(":bultos_retirados", $bultosRetirados);
+            $rspt->bindParam(":peso", $peso);
+            $rspt->bindParam(":volumen", $volumen);
+            $rspt->bindParam(":cnt_clientes", $cntClientes);
+            $rspt->bindParam(":cnt_cuadrilla", $cntCuadrilla);
+            $rspt->bindParam(":id_descuento", $descuentoP);
+            $rspt->bindParam(":descuento_valor", $descuentoValor);
+            $rspt->bindParam(":financiacion_valor", $financiacionV);
+            $rspt->bindParam(":financiacion_porcentaje", $financiacionP);
+            $rspt->bindParam(":aplica_financiacion", $aplicaF);
+            $rspt->bindParam(":subtotal", $subtotal);
+            $rspt->bindParam(":iva", $iva);
+            $rspt->bindParam(":exento_iva", $exentoIva);
+            $rspt->bindParam(":total", $total);
+            $rspt->bindParam(":isr", $isr);
+            $rspt->bindParam(":alcaldia", $alcaldia);
             $rspt->execute();
 
             if ($rspt) {
-                $idempresa =   $con->lastInsertId();
+                $id_calculo =   $con->lastInsertId();
                 $cont = 0;
-                if (count($nombres) > 0) {
-                    $rspt = $con->prepare("INSERT INTO contactos_e(id_empresa,nombre,apellido,correo,telefono,puesto)
-                        VALUES (:idempresa,:nombre,:apellido,:correo,:telefono,:puesto)");
-                    $contador = count($nombres);
+                $temp = 0;
+                //```````````````descuento```
+                if (count($iddetalle) > 0) {
+                    $rspt = $con->prepare("INSERT INTO detalle_calculo(id_calculo,id_detalle_plantilla,signo,valor,otro_valor,ocultar,prorratear,descuento,iva)
+                        VALUES (:id_calculo,:id_detalle_plantilla,:signo,:valor,:otro_valor,:ocultar,:prorratear,:descuento,:iva)");
+                    // $contador = count($iddetalle);
                     //echo $contador;
-                    while ($cont < count($nombres)) {
-                        $rspt->bindParam(":idempresa", $idempresa);
-                        $rspt->bindParam(":nombre", $nombres[$cont]);
-                        $rspt->bindParam(":apellido", $apellidos[$cont]);
-                        $rspt->bindParam(":correo", $correos[$cont]);
-                        $rspt->bindParam(":telefono", $telefonos[$cont]);
-                        $rspt->bindParam("puesto", $puestos[$cont]);
+                    while ($cont < count($iddetalle)) {
+                        $rspt->bindParam(":id_calculo", $id_calculo);
+                        $rspt->bindParam(":id_detalle_plantilla", $iddetalle[$cont]);
+                        $rspt->bindParam(":signo", $signo[$cont]);
+                        $rspt->bindParam(":valor", $valor[$cont]);
+                        $rspt->bindParam(":otro_valor", $valorSumar[$cont]);
+                        $rspt->bindParam(":ocultar", $temp/* $ocultar[$cont] */);
+                        $rspt->bindParam(":prorratear", $temp /* $prorratear[$cont] */);
+                        $rspt->bindParam(":descuento", $descuentos[$cont]);
+                        $rspt->bindParam(":iva", $ivas[$cont]);
                         $rspt->execute();
-
                         $cont++;
                     }
                 }
@@ -82,6 +87,108 @@ class calculoAlmacen
         } catch (\Throwable $th) {
             $con->rollBack();
             //$con = Conexion::cerrar();
+            return 0;
+        }
+    }
+    function llenacntCalculos($iddetalleA)
+    {
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("SELECT CA.id_calculo  
+                                    FROM  calculo_almacen AS CA 
+                                    WHERE id_detalle_almacen= :iddetalleA");
+            $rsp->bindParam(":iddetalleA", $iddetalleA);
+            $rsp->execute();
+            $rsp = $rsp->fetchAll(PDO::FETCH_OBJ);
+            if ($rsp) {
+                return $rsp;
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
+    function buscaCalculoid($id_calculo){
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("SELECT id_calculo, 
+                                        id_usuario,
+                                        id_cliente,
+                                        id_plantilla,
+                                        id_detalle_almacen,
+                                        direccion,
+                                        identificacion,
+                                        total_dias,
+                                        dias_almacen,
+                                        dias_libres,
+                                        DATE_FORMAT(del, '%m/%d/%Y') as del,
+                                        DATE_FORMAT(al, '%m/%d/%Y') as al,
+                                        dut,
+                                        poliza_salida,
+                                        orden_salida,
+                                        tipo_cambio,
+                                        cif_dolares,
+                                        cif,
+                                        impuesto,
+                                        base_seguro,
+                                        bultos_retirados,
+                                        peso,
+                                        volumen,
+                                        cnt_clientes,
+                                        cnt_cuadrilla,
+                                        id_descuento,
+                                        descuento_valor,
+                                        financiacion_valor,
+                                        financiacion_porcentaje,
+                                        aplica_financiacion,
+                                        subtotal,
+                                        iva,
+                                        exento_iva,
+                                        total,
+                                        isr,
+                                        alcaldia
+                                    FROM calculo_almacen 
+                                WHERE id_calculo= :id_calculo");
+            $rsp->bindParam(":id_calculo",$id_calculo);
+            $rsp->execute();
+            $rsp = $rsp->fetch(PDO::FETCH_OBJ);
+            if ($rsp){
+                return $rsp;
+            }
+            else {
+                $json = array();
+                $json['id_calculo'] = 0;
+                return $json;
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
+    public function buscaDetalleCalculo($idcalculo){
+        $con = Conexion::getConexion();
+        try {
+            $rsp = $con->prepare("SELECT DCA.id_detalle_plantilla,
+                                        DCA.signo,
+                                        DCA.valor,
+                                        DCA.otro_valor,
+                                        DCA.ocultar,
+                                        DCA.prorratear,
+                                        DCA.descuento,
+                                        DCA.iva,
+                                        CAT.nombre 
+                                    FROM  calculo_almacen AS CA INNER JOIN  
+                                        detalle_calculo AS DCA ON DCA.id_calculo = CA.id_calculo INNER JOIN 
+                                        detalle_plantillaa AS DTP ON DTP.id_detalle = DCA.id_detalle_plantilla INNER JOIN 
+                                        catalogo  as CAT  ON CAT.id_catalogo = DTP.id_catalogo
+                                    WHERE CA.id_calculo = :id_calculo");
+            $rsp->bindParam(":id_calculo",$idcalculo);                        
+            $rsp->execute();
+            $rsp = $rsp->fetchAll(PDO::FETCH_OBJ);
+            if ($rsp){
+                return $rsp;
+            }else {
+                return 0;
+            }
+        } catch (\Throwable $th) {
             return 0;
         }
     }
@@ -332,7 +439,7 @@ class calculoAlmacen
         }
     }
 
-    public function calculosDescripciones($descripcion, $minimo, $tarifa, $porcentaje, $impuesto, $diasAlma, $diascompletos, $diasl, $baseParaS, $totaldias, $peso, $tipocambio, $cif,$otrovalor)
+    public function calculosDescripciones($descripcion, $minimo, $tarifa, $porcentaje, $impuesto, $diasAlma, $diascompletos, $diasl, $baseParaS, $totaldias, $peso, $tipocambio, $cif, $otrovalor)
     {
         if ($_SESSION["idpais"] == 92) {
             if ($descripcion == "Almacenaje") {
@@ -348,15 +455,15 @@ class calculoAlmacen
         } //fin guatemala
         else if ($_SESSION["idpais"] == 59) {
             if ($descripcion == "Almacenaje") {
-                return self::almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo,$otrovalor);
+                return self::almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo, $otrovalor);
             } else if ($descripcion == "Almacenaje Adicional") {
-                return self::almacenajeAdicionalCR($diasAlma, $tipocambio,$otrovalor);
+                return self::almacenajeAdicionalCR($diasAlma, $tipocambio, $otrovalor);
             } else if ($descripcion == "Manejo") {
-                return self::manejoCR($tarifa, $peso, $minimo,$otrovalor);
+                return self::manejoCR($tarifa, $peso, $minimo, $otrovalor);
             } else if ($descripcion == "Seguro") {
-                return self::seguroCR($diasAlma, $tarifa, $minimo, $baseParaS,$otrovalor);
+                return self::seguroCR($diasAlma, $tarifa, $minimo, $baseParaS, $otrovalor);
             } else if ($descripcion == "Precintos") {
-                return self::precintosCR($tarifa,$otrovalor);
+                return self::precintosCR($tarifa, $otrovalor);
             } else {
                 return 0;
             }
@@ -366,7 +473,7 @@ class calculoAlmacen
             if ($descripcion == "Almacenaje") {
                 return self::almacenajeNI($minimo, $porcentaje, $cif, $diascompletos, $diasAlma);
             }
-        }// fin nicaragua
+        } // fin nicaragua
     }
 
     //gt formulas
@@ -437,9 +544,9 @@ class calculoAlmacen
     }
 
     // costarica formulas
-    public static function almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo,$otrovalor)
+    public static function almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo, $otrovalor)
     {
-        $json = array();
+        //$json = array();
 
         $res = $tarifa * ($baseParaS / 1000) * ($diasAlma / 30);
         if ($res < $minimo) {
@@ -455,7 +562,7 @@ class calculoAlmacen
         return $json;
     }
 
-    public static function almacenajeAdicionalCR($diasAlma, $tipoCambio,$otrovalor)
+    public static function almacenajeAdicionalCR($diasAlma, $tipoCambio, $otrovalor)
     {
         $res = ($diasAlma - 10) * 3 * $tipoCambio;
         if ($res > 0) {
@@ -463,15 +570,15 @@ class calculoAlmacen
             $res = 0;
         }
         $iva = ($res + $otrovalor) * $_SESSION["Impuesto"];
-        
-        $iva = ceil($iva); 
+
+        $iva = ceil($iva);
         $json = array();
         $json['iva'] = $iva;
         $json['valor'] = $res;
         return $json;
     }
 
-    public static function manejoCR($tarifa, $peso, $minimo,$otrovalor)
+    public static function manejoCR($tarifa, $peso, $minimo, $otrovalor)
     {
         $res = $tarifa * $peso;
         if ($res < $minimo) {
@@ -479,14 +586,14 @@ class calculoAlmacen
         }
 
         $iva = ($res + $otrovalor) * $_SESSION["Impuesto"];
-        $iva = ceil($iva); 
+        $iva = ceil($iva);
         $json = array();
         $json['iva'] = $iva;
         $json['valor'] = $res;
         return $json;
     }
 
-    public static function seguroCR($diasAlma, $tarifa, $minimo, $baseParaS,$otrovalor)
+    public static function seguroCR($diasAlma, $tarifa, $minimo, $baseParaS, $otrovalor)
     {
         $res = $tarifa * ($baseParaS / 1000) * ($diasAlma / 30);
         if ($res < $minimo) {
@@ -494,19 +601,19 @@ class calculoAlmacen
         }
 
         $iva = ($res + $otrovalor) * $_SESSION["Impuesto"];
-        $iva = ceil($iva); 
+        $iva = ceil($iva);
         $json = array();
         $json['iva'] = $iva;
         $json['valor'] = $res;
         return $json;
     }
     // precintos cr
-    public static function precintosCR($tarifa,$otrovalor)
+    public static function precintosCR($tarifa, $otrovalor)
     {
         $res = $tarifa;
-        
+
         $iva = ($res + $otrovalor) * $_SESSION["Impuesto"];
-        $iva = ceil($iva); 
+        $iva = ceil($iva);
         $json = array();
         $json['iva'] = $iva;
         $json['valor'] = $res;

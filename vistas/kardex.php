@@ -385,6 +385,7 @@ if (!$_SESSION['nombre']) {
     <script src="scritps/catalogo.js"></script>
     <script type="text/javascript" src="scritps/kardex.js"></script>
     <script>
+       
        /*  $(document).ready(function() {
             $("#cifCalculo").change(function(event) {
                 event.preventDefault(); 
@@ -500,6 +501,13 @@ if (!$_SESSION['nombre']) {
             $("#clienteCalculoA").bind("click change",function(event){
                 event.preventDefault();
                 buscarDatosclienteCalculo($("#clienteCalculoA").val());
+            });
+        });
+
+        $(function(){
+            $("#cntCalculo").bind("click change",function(event){
+                event.preventDefault();
+                lleDatosCalculo($("#cntCalculo").val());
             });
         });
     </script>

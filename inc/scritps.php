@@ -26,5 +26,6 @@
 <script src="../plantilla/js/sweetalert.js"></script>
 <!-- bootstrap datepicker -->
 <script src="../plantilla/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="../plantilla/plugins/input-mask/jquery.inputmask.js"> </script>
 </body>
 </html>

@@ -6,9 +6,6 @@ if (!$_SESSION['nombre']) {
     header('LOCATION: ../index.php');
 } else {
 
-    require_once("../inc/head.php");
-    require_once("../inc/header.php");
-
     $tipoe = isset($_GET['tipo']) ? $tipoe = $_GET['tipo'] : $tipoe = '';
     if ($tipoe == 'agentee') {
         $tipoempresa = 'AGENTE EMBARCADOR';
