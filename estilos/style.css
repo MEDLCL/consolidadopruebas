@@ -38,6 +38,11 @@ html {
     width: 50px;
 }
 
+.CreaMPreviw{
+    display: flex;
+    justify-content:flex-start; 
+}
+
 /*
 @font-face {
 font-family: 'thebit';

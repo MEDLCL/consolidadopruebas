@@ -211,7 +211,9 @@
                             <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
                         </ul>
                     </li>
-                    <li class="treeview">
+                    
+                    <?php  if ($_SESSION['Bancos'] == 1) : ?>
+                        <li class="treeview">
                         <a href="#">
                             <i class="fa fa-money"></i> <span>Bancos</span>
                             <span class="pull-right-container">
@@ -219,10 +221,12 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
+                            <li><a href="movBancario.php"><i class="fa fa-circle-o"></i>Movimientos Bancarios</a></li>
                             <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
                         </ul>
                     </li>
+                    <?php endif;  ?>
+
                     <?php if ($_SESSION['Almacen'] == 1) : ?>
                         <li class="treeview">
                             <a href="#">

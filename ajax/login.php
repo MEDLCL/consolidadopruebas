@@ -36,6 +36,7 @@ switch ($_GET['op']) {
                 $_SESSION['Impuesto']= $stmt->impuesto;
                 $_SESSION['financiacion']= $stmt->financiacion;
                 $_SESSION['CodigoArea']= $stmt->codigo_area;
+                $_SESSION['codigoS']= $stmt->codigo_sucursal;
                 $stmtper = $con->prepare("SELECT * FROM asigna_menu WHERE id_usuario = :idusuario");
                 $stmtper->bindParam(':idusuario', $_SESSION['idusuario']);
                 $stmtper->execute();
@@ -66,7 +67,7 @@ switch ($_GET['op']) {
 
                 in_array(21, $arraypermisos) ? $_SESSION['Operaciones'] = 1 : $_SESSION['Operaciones'] = 0;
                 in_array(22, $arraypermisos) ? $_SESSION['Maritimo'] = 1 : $_SESSION['Maritimo'] = 0;
-
+                in_array(23, $arraypermisos) ? $_SESSION['Bancos'] = 1 : $_SESSION['Bancos'] = 0;
                 echo 1;
             } else {
                 echo 0;
