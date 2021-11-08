@@ -7,13 +7,14 @@ class Empresa
     public function __construct()
     {
     }
-    public function grabar($codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos,$idpaisEmpresa)
+    public function grabar($codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos,$idpaisEmpresa,$giroN,$tipoCarga,$tamanoEmp,$canalD)
     {
+
         $con = Conexion::getConexion();
         try {
             $con->beginTransaction();
-            $rspt = $con->prepare("INSERT INTO empresas (codigo,Tipoe,id_sucursal,id_usuario,Razons,Nombrec,identificacion,telefono,direccion,porcentaje_comision,tipo_comision,id_pais)
-                            values(:codigo,:tipoe,:idsucursal,:idusuario,:razons,:nombrec,:nit,:telefono,:dire,:comision,:cbmtarifa,:idpais)");
+            $rspt = $con->prepare("INSERT INTO empresas (codigo,Tipoe,id_sucursal,id_usuario,Razons,Nombrec,identificacion,telefono,direccion,porcentaje_comision,tipo_comision,id_pais,id_giro_negocio,id_tipo_carga,id_tamano_empresa,id_canal_distribucion,id_aslo)
+                            values(:codigo,:tipoe,:idsucursal,:idusuario,:razons,:nombrec,:nit,:telefono,:dire,:comision,:cbmtarifa,:idpais:id_giro_negocio,:id_tipo_carga,:id_tamano_empresa,:id_canal_distribucion,:id_aslo)");
             $rspt->bindParam(":codigo", $codigo);
             $rspt->bindParam(":tipoe", $tipoe);
             $rspt->bindParam(":idsucursal", $_SESSION['idsucursal']);
@@ -26,6 +27,11 @@ class Empresa
             $rspt->bindParam(":comision", $comision);
             $rspt->bindParam(":cbmtarifa", $cbmtarifa);
             $rspt->bindParam(":idpais",$idpaisEmpresa);
+            $rspt->bindParam(":id_giro_negocio",$giroN);
+            $rspt->bindParam(":id_tipo_carga",$tipoCarga);
+            $rspt->bindParam(":id_tamano_empresa",$tamanoEmp);
+            $rspt->bindParam(":id_canal_distribucion",$canalD);
+            $rspt->bindParam(":id_aslo",$_SESSION['idusuario']);
             $rspt->execute();
 
             if ($rspt) {
@@ -58,7 +64,7 @@ class Empresa
             return 0;
         }
     }
-    public function editarE($idempresa,$codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos,$idpaisEmpresa)
+    public function editarE($idempresa,$codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos,$idpaisEmpresa,$giroN,$tipoCarga,$tamanoEmp,$canalD)
     {
         $con = Conexion::getConexion();
         try {
@@ -72,7 +78,11 @@ class Empresa
                                     direccion=:dire,
                                     porcentaje_comision=:comision,
                                     tipo_comision=:cbmtarifa,
-                                    id_pais=:idpais
+                                    id_pais=:idpais,
+                                    id_giro_negocio=:id_giro_negocio,
+                                    id_tipo_carga=:id_tipo_carga,
+                                    id_tamano_empresa=:id_tamano_empresa,
+                                    id_canal_distribucion=:id_canal_distribucion
                                     WHERE id_empresa = :idempresa");
             $rspt->bindParam(":codigo", $codigo);
             $rspt->bindParam(":razons", $razons);
@@ -84,6 +94,10 @@ class Empresa
             $rspt->bindParam(":cbmtarifa", $cbmtarifa);
             $rspt->bindParam(":idempresa", $idempresa);
             $rspt->bindParam(":idpais",$idpaisEmpresa);
+            $rspt->bindParam(":id_giro_negocio",$giroN);
+            $rspt->bindParam(":id_tipo_carga",$tipoCarga);
+            $rspt->bindParam(":id_tamano_empresa",$tamanoEmp);
+            $rspt->bindParam(":id_canal_distribucion",$canalD);
             $rspt->execute();
             if ($rspt) {
                 $rspt = $con->prepare("DELETE FROM contactos_e where id_empresa= :idempresa");

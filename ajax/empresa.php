@@ -22,6 +22,11 @@ $puestosc = isset($_POST['puestosc']) ? $puestosc =  $_POST['puestosc'] : $puest
 $idcontacto = isset($_POST['id_contacto'])?$idcontacto = $_POST['id_contacto']:$idcontacto = 0;
 $idpaisEmpresa = isset($_POST["paisEmpresa"])?$idpaisEmpresa= $_POST["paisEmpresa"]:$idpaisEmpresa =0;
 
+$gironegocio = isset($_POST['giroNegocio']) ? $gironegocio = $_POST['giroNegocio'] : $gironegocio = 0;
+$tamEmpresa = isset($_POST['tamanoEmpresa']) ? $tamEmpresa =  $_POST['tamanoEmpresa'] : $tamEmpresa = 0;
+$tipoCarga = isset($_POST['tipoCargaEmpresa'])?$tipoCarga = $_POST['tipoCargaEmpresa']:$tipoCarga = 0;
+$canalDis = isset($_POST["canalDistribucion"])?$canalDis= $_POST["canalDistribucion"]:$canalDis =0;
+
 $res = 0;
 switch ($_GET['op']) {
     case 'guardaryeditar':
@@ -31,7 +36,7 @@ switch ($_GET['op']) {
                 echo $verifica;
             } else if ($verifica == 3) {
                 $codigo =$empresa->codigo($tipoE); 
-                $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa);
+                $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa,$gironegocio,$tipoCarga,$tamEmpresa,$canalDis);
                 echo $res;
 
             } else {
@@ -43,7 +48,7 @@ switch ($_GET['op']) {
             if ($verifica == 2) {
                 echo $verifica;
             } else if ($verifica == 3) {
-                $res = $empresa->editarE($idempresa, $codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa);
+                $res = $empresa->editarE($idempresa, $codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa,$gironegocio,$tipoCarga,$tamEmpresa,$canalDis);
                 echo $res;
             }
         }

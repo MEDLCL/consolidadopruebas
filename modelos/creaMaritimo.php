@@ -126,7 +126,7 @@ class creaMaritimo
                         $rspt->bindParam(":original", $orinales[$contdoc]);
                         $rspt->bindParam(":copia", $copias[$contdoc]);
                         $rspt->bindParam(":observaciones", $obserM[$contdoc]);
-                        $rspt->bindParam(":tipo_documento",$tiposDoc[$contdoc]);
+                        $rspt->bindParam(":tipo_documento", $tiposDoc[$contdoc]);
                         $rspt->execute();
                         $contdoc++;
                     }
@@ -186,7 +186,6 @@ class creaMaritimo
                 // subir los archivos y crear el embarque 
 
                 $diranio = $dirsucursal . '/' . $anio;
-
                 if (!file_exists($dirsucursal)) {
                     mkdir($dirsucursal, 0777);
                 }
@@ -212,10 +211,14 @@ class creaMaritimo
                     if (!file_exists($dirimpor)) {
                         mkdir($dirimpor, 0777);
                         $directorio = $dirimpor . '/' . $codigoEmbarque;
+                    }else{
+                        $directorio = $dirimpor . '/' . $codigoEmbarque;
                     }
                 } else {
                     if (!file_exists($direxpor)) {
                         mkdir($direxpor, 0777);
+                        $directorio = $direxpor . '/' . $codigoEmbarque;
+                    }else{
                         $directorio = $direxpor . '/' . $codigoEmbarque;
                     }
                 }
@@ -239,7 +242,7 @@ class creaMaritimo
                             //````````
                             $rspt = $con->prepare("INSERT INTO archivos_embarques(id_embarque,tipo_e,nombre_archivo,ubicacion)
                         VALUES (:id_embarque,:tipo_e,:nombre_archivo,:ubicacion)");
-                            $rspt->bindParam(":id_embarque",$idembarque);
+                            $rspt->bindParam(":id_embarque", $idembarque);
                             $rspt->bindParam(":tipo_e", $tipoEmbarque);
                             $rspt->bindParam(":nombre_archivo", $filename);
                             $rspt->bindParam(":ubicacion", $directorio);
@@ -269,12 +272,13 @@ class creaMaritimo
             //$con = Conexion::cerrar();
             $json = array();
             $json['idembarque'] = 0;
+            $json['mensaje']= 'Embarque Ingresado con Exito';
         }
     }
 
-    public function editarE($idembarque, $idtipocarga, $idbarco, $viaje, $idnavage, $idusuarioA)
+    public function editarE($idembarque, $idtipocarga, $idbarco, $viaje, $idnavage, $idusuarioA,$idtiposervicio,$fechai,$codigoEmbarque,$archivos)
     {
-        
+
         $con = Conexion::getConexion();
         try {
             $con->beginTransaction();
@@ -294,6 +298,86 @@ class creaMaritimo
             $rspt->execute();
             $con->commit();
             //$con = Conexion::cerrar();
+
+            // subir los archivos y crear el embarque 
+            $fechai = date("Y-m-d", strtotime($fechai));
+            $anio = date("Y", strtotime($fechai)); //date_format($fechai, "Y");
+            $tipoEmbarque = 'M';
+        
+
+            $dirsucursal = '../' . $_SESSION['codigoS'];
+            $diranio = $dirsucursal . '/' . $anio;
+
+            if (!file_exists($dirsucursal)) {
+                mkdir($dirsucursal, 0777);
+            }
+
+            if (!file_exists($diranio)) {
+                mkdir($diranio, 0777);
+            }
+
+            $dirembarque = $diranio . '/Embarques';
+
+            if (!file_exists($dirembarque)) {
+                mkdir($dirembarque, 0777);
+            }
+            $dirmaritimo = $dirembarque . '/Maritimo';
+
+            if (!file_exists($dirmaritimo)) {
+                mkdir($dirmaritimo, 0777);
+            }
+
+            $dirimpor = $dirmaritimo . '/Importacion';
+            $direxpor = $dirmaritimo . '/Exportacion';
+            if ($idtiposervicio == 1) {
+                if (!file_exists($dirimpor)) {
+                    mkdir($dirimpor, 0777);
+                    $directorio = $dirimpor . '/' . $codigoEmbarque;
+                }else{
+                    $directorio = $dirimpor . '/' . $codigoEmbarque;
+                }
+            } else {
+                if (!file_exists($direxpor)) {
+                    mkdir($direxpor, 0777);
+                    $directorio = $direxpor . '/' . $codigoEmbarque;
+                }else{
+                    $directorio = $direxpor . '/' . $codigoEmbarque;
+                }
+            }
+            if (!file_exists($directorio)) {
+                mkdir($directorio, 0777);
+            }
+
+            foreach ($archivos['tmp_name'] as $key => $tmp_name) {
+                //Validamos que el archivo exista
+                if ($archivos["name"][$key]) {
+                    $filename = $archivos["name"][$key]; //Obtenemos el nombre original del archivo
+                    $source = $archivos["tmp_name"][$key]; //Obtenemos un nombre temporal del archivo
+
+                    $dir = opendir($directorio); //Abrimos el directorio de destino
+                    $target_path = $directorio . '/' . $filename; //Indicamos la ruta de destino, así como el nombre del archivo
+
+                    //Movemos y validamos que el archivo se haya cargado correctamente
+                    //El primer campo es el origen y el segundo el destino
+                    if (move_uploaded_file($source, $target_path)) {
+                        //archivo movido al directorio indicado
+                        //````````
+                        $rspt = $con->prepare("INSERT INTO archivos_embarques(id_embarque,tipo_e,nombre_archivo,ubicacion)
+                                VALUES (:id_embarque,:tipo_e,:nombre_archivo,:ubicacion)");
+                        $rspt->bindParam(":id_embarque", $idembarque);
+                        $rspt->bindParam(":tipo_e", $tipoEmbarque);
+                        $rspt->bindParam(":nombre_archivo", $filename);
+                        $rspt->bindParam(":ubicacion", $directorio);
+                        $rspt->execute();
+                    } else {
+                        //echo "Ha ocurrido un error, por favor inténtelo de nuevo.<br>";
+                    }
+                    //include($_SERVER['DOCUMENT_ROOT']."/config.php");
+
+                    closedir($dir); //Cerramos el directorio de destino
+                }
+            }
+
             $json = array();
             $json['idembarque'] = $idembarque;
             return $json;
@@ -302,6 +386,7 @@ class creaMaritimo
             //$con = Conexion::cerrar();
             $json = array();
             $json['idembarque'] = 0;
+            $json['mensaje'] = 'Embarque Actualizado con Exito';
             return $json;
         }
     }
@@ -401,7 +486,8 @@ class creaMaritimo
             return 0;
         }
     }
-    public function eliminaDcoumento($iddocumento){
+    public function eliminaDcoumento($iddocumento)
+    {
         try {
             $con = Conexion::getConexion();
             $rspt = $con->prepare("DELETE FROM documentos_embarque WHERE id_documentos = :id_documentos");
@@ -418,8 +504,9 @@ class creaMaritimo
     }
 
     //pendiente 
-    public function listarArchivosM($idembarque){
-        $tipoe= 'M';
+    public function listarArchivosM($idembarque)
+    {
+        $tipoe = 'M';
         try {
             $con = Conexion::getConexion();
             $rspt = $con->prepare("SELECT id_archivos,
@@ -443,7 +530,8 @@ class creaMaritimo
         }
     }
 
-    public function anulaEmbarque($idembarque){
+    public function anulaEmbarque($idembarque)
+    {
         $con = Conexion::getConexion();
         $estado = 0;
         try {

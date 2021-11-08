@@ -1,8 +1,94 @@
 function init() {
     listar();
     llenaPaisEmpresas();
+    llenaAslos();
+    llenagiro();
+    llenaTamanos();
+    llenaTipoCargaEmpresa();
+    llenaCanalaDis();
+    $("#asloEmpresa").prop("disabled", true);
 }
+
 var cont = 0;
+
+function llenagiro(){
+    $("#giroNegocio").empty();
+    $.post(
+        "../modelos/pais.php?op=General&tabla=giro_negocio&campo=nombre", {
+            id: "id_giro_negocio",
+            tipoe: "",
+        },
+        function (data, status) {
+            $("#giroNegocio").html(data);
+            $("#giroNegocio").selectpicker("refresh");
+            $("#giroNegocio").val(0);
+            $("#giroNegocio").selectpicker("refresh");
+        }
+    );
+}
+
+function llenaTamanos(){
+    $("#tamanoEmpresa").empty();
+    $.post(
+        "../modelos/pais.php?op=General&tabla=tamano_empresa&campo=nombre", {
+            id: "id_tamano",
+            tipoe: "",
+        },
+        function (data, status) {
+            $("#tamanoEmpresa").html(data);
+            $("#tamanoEmpresa").selectpicker("refresh");
+            $("#tamanoEmpresa").val(0);
+            $("#tamanoEmpresa").selectpicker("refresh");
+        }
+    );
+}
+
+function llenaTipoCargaEmpresa(){
+    $("#tipoCargaEmpresa").empty();
+    $.post(
+        "../modelos/pais.php?op=General&tabla=tipo_carga_empresa&campo=nombre", {
+            id: "id_tipo_carga_empresa",
+            tipoe: "",
+        },
+        function (data, status) {
+            $("#tipoCargaEmpresa").html(data);
+            $("#tipoCargaEmpresa").selectpicker("refresh");
+            $("#tipoCargaEmpresa").val(0);
+            $("#tipoCargaEmpresa").selectpicker("refresh");
+        }
+    );
+}
+function llenaCanalaDis(){
+    $("#canalDistribucion").empty();
+    $.post(
+        "../modelos/pais.php?op=General&tabla=canal_distribucion&campo=nombre", {
+            id: "id_canal_distribucion",
+            tipoe: "",
+        },
+        function (data, status) {
+            $("#canalDistribucion").html(data);
+            $("#canalDistribucion").selectpicker("refresh");
+            $("#canalDistribucion").val(0);
+            $("#canalDistribucion").selectpicker("refresh");
+        }
+    );
+}
+
+function llenaAslos(){
+    $("#asloEmpresa").empty();
+    $.post(
+        "../modelos/pais.php?op=selectN&tabla=login&campo=acceso", {
+            id: "id_usuario",
+            tipoe: "",
+        },
+        function (data, status) {
+            $("#asloEmpresa").html(data);
+            $("#asloEmpresa").selectpicker("refresh");
+            $("#asloEmpresa").val(0);
+            $("#asloEmpresa").selectpicker("refresh");
+        }
+    );
+}
 
 function registrarc() {
     var nombre = $('#Nombre').val();
@@ -71,12 +157,34 @@ function limpiar() {
     $('#consignadoa').hide();
     $("#paisEmpresa").val(0);
     $("#paisEmpresa").selectpicker("refresh");
+
+    $("#giroNegocio").val(0);
+    $("#giroNegocio").selectpicker("refresh");
+
+    $("#tamanoEmpresa").val(0);
+    $("#tamanoEmpresa").selectpicker("refresh");
+
+    $("#tipoCargaEmpresa").val(0);
+    $("#tipoCargaEmpresa").selectpicker("refresh");
+
+    $("#canalDistribucion").val(0);
+    $("#canalDistribucion").selectpicker("refresh");
+
+    $("#asloEmpresa").val(0);
+    $("#asloEmpresa").selectpicker("refresh");
+
 }
 
 function nuevo(tipoe) {
     limpiar();
     $('#consignadoa').hide();
+    $("#otrosTruck").hide();
     $("#codigo").prop("readonly", true)
+    
+    $("#flota-tab").hide();
+    $("#experiencia-tab").hide();
+    $("#categoria-tab").hide();
+    $("#paraPagoProveedor").hide()
     var tipo = '';
     if (tipoe == 'agentee') {
         tipo = 'AE';
@@ -93,6 +201,7 @@ function nuevo(tipoe) {
     } else if (tipoe == 'cliente') {
         tipo = 'CL';
         $("#titulomodale").html("Cliente");
+        $("#otrosTruck").show();
     } else if (tipoe == 'consignado') {
         tipo = 'CO';
         $("#titulomodale").html("Consignado");
@@ -109,6 +218,11 @@ function nuevo(tipoe) {
     } else if (tipoe == 'transporte') {
         tipo = 'TR';
         $("#titulomodale").html("Transportista");
+        
+        $("#flota-tab").show();
+        $("#experiencia-tab").show();
+        $("#categoria-tab").show();
+        $("#paraPagoProveedor").show()
     }
     $('#tipoE').val(tipo);
 }
@@ -220,6 +334,12 @@ function listar() {
 function mostrarempresa(idempresa) {
     limpiar();
     $("#codigo").prop("readonly", false);
+
+    $("#flota-tab").hide();
+    $("#experiencia-tab").hide();
+    $("#categoria-tab").hide();
+    $("#paraPagoProveedor").hide();
+
     $.post("../ajax/empresa.php?op=mostrare", { idempresa: idempresa },
         function(data, status) {
             data = JSON.parse(data);
@@ -245,6 +365,33 @@ function mostrarempresa(idempresa) {
             } else if (data.tipo_comision == 'tarifa') {
                 $("#tarifa").prop("checked", true);
             }
+
+            if (data.Tipoe=="CL"){
+                $('#otrosTruck').show();
+            }else{
+                $('#otrosTruck').hide();
+            }
+            if (data.tipo=="TR"){
+                $("#flota-tab").show();
+                $("#experiencia-tab").show();
+                $("#categoria-tab").show();
+                $("#paraPagoProveedor").show();
+            }
+
+            $("#giroNegocio").val(data.id_giro_negocio);
+            $("#giroNegocio").selectpicker("refresh");
+
+            $("#tamanoEmpresa").val(data.id_tamano_empresa);
+            $("#tamanoEmpresa").selectpicker("refresh");
+
+            $("#tipoCargaEmpresa").val(data.id_tipo_carga);
+            $("#tipoCargaEmpresa").selectpicker("refresh");
+
+            $("#canalDistribucion").val(data.id_canal_distribucion);
+            $("#canalDistribucion").selectpicker("refresh");
+
+            $("#asloEmpresa").val(data.id_aslo);
+            $("#asloEmpresa").selectpicker("refresh");
         })
     $.ajax({
         type: "POST",

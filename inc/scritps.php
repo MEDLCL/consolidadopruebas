@@ -27,5 +27,6 @@
 <!-- bootstrap datepicker -->
 <script src="../plantilla/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="../plantilla/plugins/input-mask/jquery.inputmask.js"> </script>
+<script src="../plantilla/plugins/jqueryformat/jformat.js"> </script>
 </body>
 </html>

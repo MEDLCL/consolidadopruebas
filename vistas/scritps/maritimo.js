@@ -820,7 +820,6 @@ function mostrarEmbarque(idembarquemaritimo) {
 
 function desabilitaModificacion() {
     //$('#tipocarga').prop("disabled",true);
-    $("#tipoServicio").prop("disabled", true);
     $("#envioCourier").prop("disabled", true);
     $("#cntClientes").prop("disabled", true);
     $("#agente").prop("disabled", true);

@@ -20,6 +20,7 @@ if (!$_SESSION['nombre']) {
             include_once("../vistas/modal/empaque.php");
             include_once("../vistas/modal/modalempresa.php");
             include_once("calculoAlmacen.php");
+            include_once("../vistas/modal/facturaAlmacen.php")
             ?>
             <div class="row" id="Almacen">
                 <div class="col-md-4">

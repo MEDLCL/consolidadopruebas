@@ -1355,8 +1355,9 @@ function lleDatosCalculo(id_calculo) {
                 $("#clientesCuadrilla").val(data.cnt_cuadrilla);
                 $("#descuento").val(data.id_descuento);
                 $("#descuento").selectpicker("refresh");
-                $("#descuentoValor").val(data.descuento_valor);
+                $("#descuentoValor").val(data.descuento_valor);               
                 $("#financiado").val(data.financiacion_valor);
+                $("#financiado").number(true,2);
                 $("#porcentajefinanciado").val(data.financiacion_porcentaje);
                 if (data.aplica_financiacion == 1) {
                     $("#aplicaF").prop("checked", true);

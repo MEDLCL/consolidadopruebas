@@ -8,6 +8,7 @@ $tipomedio = isset($_GET['tipomedio']) ? $tipomedio = $_GET['tipomedio'] : $tipo
 $id = isset($_POST['id']) ? $id = $_POST['id'] : $id = '';
 $tipoe = isset($_POST['tipoe'])?$tipoe = $_POST['tipoe']:$tipoe = '';
 $idpadre = isset ($_POST['idpadre']) ? $idpadre = $_POST['idpadre']:$idpadre= 0;
+$campo2 = isset($_GET['campo2']) ? $campo2 = $_GET['campo2'] : $campo2 = '';
 
 switch ($_GET['op']) {
     case 'pais':
@@ -34,6 +35,9 @@ switch ($_GET['op']) {
     case 'Dependiente':
         selectDependiente($tabla,$idpadre,$campo,$id);
     break;
+    case 'cuentaBanco':
+        cuentaBancosMov($idpadre);
+        break;
     default:
     break;
 }
@@ -163,4 +167,26 @@ function selectDependiente($tabla,$idpadre,$campo,$id){
     echo $selec;
     $con = Conexion::cerrar();
     $stmt = NULL;
+}
+
+function cuentaBancosMov($idpadre){
+    $con = Conexion::getConexion();
+    $stmt = $con->prepare("SELECT C.idcuenta_bancaria,
+                            C.nombre,
+                            C.numero_cuenta,
+                            M.signo
+                                FROM cuentabancaria AS C INNER JOIN 
+                                    moneda AS M ON M.id_moneda = C.id_moneda
+                            WHERE id_banco = :idbanco");
+    
+    $stmt->bindParam(":idbanco",$idpadre);
+    $stmt->execute();
+    $selec = '';
+    $selec = '<option value="0" selected>Seleccione una Opcion</option>';
+    foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as  $resp) {
+        $selec = $selec . '<option value="' . $resp->idcuenta_bancaria . '">' . $resp->nombre ." - ".$resp->signo. '</option>';
+    }
+    echo $selec;
+    $con = Conexion::cerrar();
+    $stmt = NULL; 
 }

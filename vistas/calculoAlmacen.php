@@ -314,7 +314,7 @@
                                 <span class="fa fa-refresh"></span>
                             </button>
 
-                            <button type="button" class="btn btn-large btn-primary col-xs-offset-2">Factura
+                            <button type="button" class="btn btn-large btn-primary col-xs-offset-2" data-toggle="modal" data-target="#modalFacturaAlmacen">Factura
                                 <span class="fa fa-file-text"></span>
                             </button>
 

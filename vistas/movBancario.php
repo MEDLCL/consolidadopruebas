@@ -22,7 +22,7 @@ if (!$_SESSION['nombre']) {
                 <div class="col-md-6">
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            
+
                         </div>
                         <div class="box-body">
                             <div class="form-horizontal">
@@ -30,11 +30,11 @@ if (!$_SESSION['nombre']) {
                                     <label for="movBanco" class="">Nombre Banco(*) </label>
                                     <div class="input-group input-group-sm">
                                         <select id="movBanco" name="movBanco" class="form-control selectpicker"
-                                            data-live-search="true">
+                                            data-live-search="true" onchange="cargaCuentasMov(0)">
                                         </select>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-info fa fa-plus" data-toggle="modal"
-                                                data-target="#modalempresa" onclick="nuevoBanco()"></button>
+                                            <button type="button" class="btn btn-info fa fa-plus"
+                                                onclick="habilitarNuevoBanco()"></button>
                                         </span>
                                         <input type="hidden" name="idmovbancario" id="idmovbancario">
                                     </div>
@@ -43,14 +43,14 @@ if (!$_SESSION['nombre']) {
                                     <span>.</span>
                                 </di>
                                 <div class="col-md-12">
-                                    <label for="consigmovcuentaBancariaanado" class="">Numero de Cuenta(*)</label>
+                                    <label for="" class="">Numero de Cuenta(*)</label>
                                     <div class="input-group input-group-sm">
                                         <select id="movcuentaBancaria" name="movcuentaBancaria"
                                             class="form-control selectpicker" data-live-search="true">
                                         </select>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-info fa fa-plus" data-toggle="modal"
-                                                data-target="#modalempresa" onclick="nuevoBanco()"></button>
+                                            <button type="button" class="btn btn-info fa fa-plus"
+                                                onclick="habilitarNuevoBanco()"></button>
                                         </span>
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@ if (!$_SESSION['nombre']) {
                                             class="form-control selectpicker" data-live-search="true">
                                         </select>
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-info fa fa-genderless"></button>
+                                            <!-- <button type="button" class="btn btn-info fa fa-genderless"></button> -->
                                         </span>
                                     </div>
                                 </div>
@@ -126,15 +126,15 @@ if (!$_SESSION['nombre']) {
 
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-9">
-                                        <button class="btn btn-default" type="button" onclick="" id="">Nuevo
+                                        <button class="btn btn-default" type="button" onclick="nuevoMoviemintoBancario()" id="">Nuevo
                                             <span class="fa fa-file-o"></span>
                                         </button>
 
-                                        <button class="btn btn-primary" type="button" onclick="" id="grabaAlmacen">Graba
+                                        <button class="btn btn-primary" type="button" onclick="grabarEditarMovbancario()" id="btngrabaMovimiento">Graba
                                             <span class="fa fa-floppy-o"></span>
                                         </button>
 
-                                        <button class="btn btn-danger" type="button" onclick="" id="cancelarA">Cancelar
+                                        <button class="btn btn-danger" type="button" onclick="" id="">Cancelar
                                             <span class="fa fa-close"></span>
                                         </button>
                                     </div>
@@ -222,9 +222,7 @@ if (!$_SESSION['nombre']) {
                                         <th>Monto</th>
                                         <th>Cheque Caja</th>
                                         <th>Fecha Operacion</th>
-                                        <th>Fecha Ingreso</th>
                                         <th>No Operacion</th>
-                                        <th>Cant. Clientes</th>
                                         <th>Benefeciario</th>
                                         <th>Observaciones</th>
                                     </tr>
@@ -245,7 +243,7 @@ if (!$_SESSION['nombre']) {
     require_once("../inc/scritps.php");
     ?>
 
-<!-- <script src="scritps/empresa.js"></script> -->
+<script src="scritps/movBancario.js"></script>
 <?php }
 ob_end_flush();
 ?>

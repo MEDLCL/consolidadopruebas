@@ -148,7 +148,7 @@
                                         </a>
                                         <ul class="treeview-menu">
                                             <li><a href="maritimo.php"><i class="fa fa-circle-o"></i>Crear Maritimo</a></li>
-                                            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
+                                            <li><a href="ingresoEmbarqueMaritimo.php"><i class="fa fa-circle-o"></i>Ingreso Embarque</a></li>
                                             <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
                                             <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
                                             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
@@ -175,6 +175,22 @@
                             <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
                             <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
                             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa  fa-truck"></i>
+                            <span>Truck And Delivery</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="evaluacionProyecto.php"><i class="fa fa-circle-o"></i>Evaluacion Del Proyecto</a></li>
+                            <li><a href="tarifarioTruck.php"><i class="fa fa-money"></i>Tarifario</a></li>
+                            <li><a href="ventaTruck.php"><i class="fa fa-file-text"></i> Venta</a></li>
+                            <li><a href="operacionesTruck.php"><i class="fa fa-truck"></i>Operaciones</a></li>
+                            <li><a href="liquidacionTruck.php"><i class="fa fa-money"></i>Liquidacion</a></li>
                         </ul>
                     </li>
 

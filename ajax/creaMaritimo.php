@@ -29,7 +29,8 @@ $obserM = isset($_POST['obserM']) ? $obserM = $_POST['obserM'] : $obserM = array
 $numeroM = isset($_POST['nodocM']) ? $numeroM =  $_POST['nodocM'] : $numeroM = array();
 $fechai = isset($_POST['fechaingreso']) ? $fechai =  $_POST['fechaingreso'] : $fechai = date('Y-m-d');
 $archivos = isset($_FILES['CMarchivos']) ? $archivos =  $_FILES['CMarchivos'] : $archivos = array();
-$iddocumento=isset($_POST['iddocumento']) ? $fechai =  $_POST['iddocumento'] : $fechai = 0;
+$iddocumento=isset($_POST['iddocumento']) ? $iddocumento =  $_POST['iddocumento'] : $iddocumento = 0;
+$codigoembarque=isset($_POST['codigoMaritimo']) ? $codigoembarque =  $_POST['codigoMaritimo'] : $codigoembarque = '';
 
 switch ($_GET['op']) {
     case 'guardaryeditar':
@@ -40,7 +41,7 @@ switch ($_GET['op']) {
             echo json_encode($res);
         } else {
             // editar crea embarque
-            $res = $creaMaritimo->editarE($idembarque, $idtipocarga, $idbarco, $viaje, $idnavage, $idusuarioA);
+            $res = $creaMaritimo->editarE($idembarque, $idtipocarga, $idbarco, $viaje, $idnavage, $idusuarioA,$idtiposervicio,$fechai,$codigoembarque,$archivos);
             echo json_encode($res);
         }
         break;
