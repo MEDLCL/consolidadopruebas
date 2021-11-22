@@ -7,11 +7,55 @@ function init() {
     llenaTipoCargaEmpresa();
     llenaCanalaDis();
     $("#asloEmpresa").prop("disabled", true);
+    llenaMonedaPago();
+    llenaEquipos();
+    llenalicencias();
+    $("#tblEquipos").DataTable({
+        dom: 'rti'
+    });
+    $("#tblPilotos").DataTable({
+        dom: 'rti'
+    });
 }
 
 var cont = 0;
 
-function llenagiro(){
+function llenaEquipos() {
+    $("#tipoEquipo").empty();
+    $.post("../modelos/pais.php?op=equipo", {}, function (data, status) {
+        $("#tipoEquipo").html(data);
+        $("#tipoEquipo").selectpicker("refresh");
+        $("#tipoEquipo").val(0);
+        $("#tipoEquipo").selectpicker("refresh");
+    });
+}
+
+function llenalicencias(){
+    $("#tipoLicencia").empty();
+    $.post(
+        "../modelos/pais.php?op=General&tabla=tipo_licencia&campo=nombre", {
+            id: "id_giro_negocio",
+            tipoe: "",
+        },
+        function (data, status) {
+            $("#tipoLicencia").html(data);
+            $("#tipoLicencia").selectpicker("refresh");
+            $("#tipoLicencia").val(0);
+            $("#tipoLicencia").selectpicker("refresh");
+        }
+    );  
+}
+function llenaMonedaPago() {
+    $("#monedaPago").empty();
+    $.post("../modelos/pais.php?op=llenaMoneda", {}, function (data, status) {
+        $("#monedaPago").html(data);
+        $("#monedaPago").selectpicker("refresh");
+        $("#monedaPago").val(0);
+        $("#monedaPago").selectpicker("refresh");
+    });
+}
+
+function llenagiro() {
     $("#giroNegocio").empty();
     $.post(
         "../modelos/pais.php?op=General&tabla=giro_negocio&campo=nombre", {
@@ -27,7 +71,7 @@ function llenagiro(){
     );
 }
 
-function llenaTamanos(){
+function llenaTamanos() {
     $("#tamanoEmpresa").empty();
     $.post(
         "../modelos/pais.php?op=General&tabla=tamano_empresa&campo=nombre", {
@@ -43,7 +87,7 @@ function llenaTamanos(){
     );
 }
 
-function llenaTipoCargaEmpresa(){
+function llenaTipoCargaEmpresa() {
     $("#tipoCargaEmpresa").empty();
     $.post(
         "../modelos/pais.php?op=General&tabla=tipo_carga_empresa&campo=nombre", {
@@ -58,7 +102,8 @@ function llenaTipoCargaEmpresa(){
         }
     );
 }
-function llenaCanalaDis(){
+
+function llenaCanalaDis() {
     $("#canalDistribucion").empty();
     $.post(
         "../modelos/pais.php?op=General&tabla=canal_distribucion&campo=nombre", {
@@ -74,7 +119,7 @@ function llenaCanalaDis(){
     );
 }
 
-function llenaAslos(){
+function llenaAslos() {
     $("#asloEmpresa").empty();
     $.post(
         "../modelos/pais.php?op=selectN&tabla=login&campo=acceso", {
@@ -125,8 +170,10 @@ function registrarc() {
 //funcion para eliminar fila de la tabla contactos
 function eliminarfila(id_contacto) {
 
-    $.post("../ajax/empresa.php?op=eliminaC", { id_contacto: id_contacto },
-        function(data) {
+    $.post("../ajax/empresa.php?op=eliminaC", {
+            id_contacto: id_contacto
+        },
+        function (data) {
             if (data == 1) {
                 $('#fila' + id_contacto).remove();
                 alertify.warning("Contacto eliminado");
@@ -180,7 +227,7 @@ function nuevo(tipoe) {
     $('#consignadoa').hide();
     $("#otrosTruck").hide();
     $("#codigo").prop("readonly", true)
-    
+
     $("#flota-tab").hide();
     $("#experiencia-tab").hide();
     $("#categoria-tab").hide();
@@ -218,7 +265,7 @@ function nuevo(tipoe) {
     } else if (tipoe == 'transporte') {
         tipo = 'TR';
         $("#titulomodale").html("Transportista");
-        
+
         $("#flota-tab").show();
         $("#experiencia-tab").show();
         $("#categoria-tab").show();
@@ -244,8 +291,8 @@ function grabareditar() {
     } else if (dire.trim() == '') {
         alertify.alert('Campo Vacio', 'Debe de ingresar la Dirección');
         return false;
-    }else if (idpaisE == -1 || idpaisE ==0){
-        alertify.alert("Campo Vacio","Debe de seleccionar el Pais");
+    } else if (idpaisE == -1 || idpaisE == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar el Pais");
         return false;
     }
     if (nit.trim() == '') {
@@ -274,7 +321,7 @@ function grabareditar() {
         cache: false,
         contentType: false,
         processData: false,
-        success: function(datos) {
+        success: function (datos) {
             if (datos == 1) {
                 $('#Tempresas').DataTable().ajax.reload();
                 alertify.success('Proceso Realizado con exito');
@@ -298,12 +345,12 @@ function llenaEmpresaEnModal() {
         } else if (queActu == "cliDA") {
             llenaCliente();
         }
-    } else if (llama=="CreaMar"){
-        if (queActu=='AgenteE'){
+    } else if (llama == "CreaMar") {
+        if (queActu == 'AgenteE') {
             llenaAgente();
-        }else if (queActu=='Naviera'){
+        } else if (queActu == 'Naviera') {
             llenaNaviera();
-        }else if (queActu =='AgenciaC'){
+        } else if (queActu == 'AgenciaC') {
             llenaAGenciaCarga();
         }
     }
@@ -319,15 +366,15 @@ function listar() {
             url: '../ajax/empresa.php?op=listare',
             type: "get",
             dataType: "json",
-            error: function(e) {
+            error: function (e) {
                 console.log(e.responseText);
             }
         },
         "bDestroy": true,
         "iDisplayLenth": 10, //paginacion
         "order": [
-                [0, "desc"]
-            ] //order los datos
+            [0, "desc"]
+        ] //order los datos
     });
 }
 
@@ -340,8 +387,10 @@ function mostrarempresa(idempresa) {
     $("#categoria-tab").hide();
     $("#paraPagoProveedor").hide();
 
-    $.post("../ajax/empresa.php?op=mostrare", { idempresa: idempresa },
-        function(data, status) {
+    $.post("../ajax/empresa.php?op=mostrare", {
+            idempresa: idempresa
+        },
+        function (data, status) {
             data = JSON.parse(data);
             $('#codigo').val(data.codigo);
             $('#idempresa').val(data.id_empresa);
@@ -366,12 +415,12 @@ function mostrarempresa(idempresa) {
                 $("#tarifa").prop("checked", true);
             }
 
-            if (data.Tipoe=="CL"){
+            if (data.Tipoe == "CL") {
                 $('#otrosTruck').show();
-            }else{
+            } else {
                 $('#otrosTruck').hide();
             }
-            if (data.tipo=="TR"){
+            if (data.tipo == "TR") {
                 $("#flota-tab").show();
                 $("#experiencia-tab").show();
                 $("#categoria-tab").show();
@@ -398,21 +447,98 @@ function mostrarempresa(idempresa) {
         dataType: "html",
         url: "../ajax/empresa.php?op=cargac",
         data: "idempresa=" + idempresa,
-        success: function(resp) {
-            $('#tbodyC').append(resp);
+        success: function (resp) {
+            $('#tbodyDetaplantilla').append(resp);
         }
     });
 }
+
 function llenaPaisEmpresas() {
     $("#paisEmpresa").empty();
     $.post(
         "../modelos/pais.php?op=pais&tabla=pais&campo=nombre", {},
-        function(data, status) {
+        function (data, status) {
             $("#paisEmpresa").html(data);
             $("#paisEmpresa").selectpicker("refresh");
             $("#paisEmpresa").val(0);
             $("#paisEmpresa").selectpicker("refresh");
         }
     );
+}
+
+function registrarEquipo() {
+    var tipoequipo = $('#tipoEquipo').prop("selectedIndex");
+    var equipo = $("#tipoEquipo option:selected").html();
+    var placaCabezal = $('#placaCabezal').val();
+    var placaFurgon = $('#placaFurgon').val();
+    var tarjetaC = $('#tarjetaCirculacion').val();
+    var gps = $('#gps').val();
+    /* tipoEquipo 
+        placaCabezal
+        placaFurgon
+        tarjetaCirculacion
+        gps */
+        
+    if (idempresa == 0) {
+
+    }
+    if (tipoequipo==-1 || tipoequipo ==0) {
+        alertify.alert('Campo vacio', 'Debe de Seleccionar el equipo');
+        return false;
+    } else if (placaCabezal.trim() == '') {
+        alertify.alert('Campo Vacio', 'Debe de ingresar La Placa del Cabezal');
+        return false;
+    } else if (placaFurgon.trim() == '') {
+        alertify.alert('Campo Vacio', 'Debe de ingresar La Placa del Furgon');
+        return false;
+    } else if (tarjetaC.trim()=='') {
+        alertify.alert('Validando', 'Debe de ingresar la tarjeta de Circulacion');
+        return false;
+    }
+    var fila =
+        '<tr class="filas" id ="fila' + cont + '">' +
+        '<td><button type="button" class="btn btn-danger btn-sm" onclick="eliminarfila(' + cont + ')"><span class="fa fa-trash-o"></span></button></td>' +
+        '<td ><input type "text"  style="width: 25px;"  name ="idsequipo[]" id ="idsequipo[]" value="' + cont + '"></td>' +
+        '<td ><input type "text"  style="width: 100px;"  name ="Equipos[]" id ="Equipos[]" value="' + equipo + '"></td>' +
+        '<td ><input type "text"  style="width: 100px;"  name ="placasCabezal[]" id ="placasCabezal[]" value="' + placaCabezal + '"></td>' +
+        '<td ><input type "text"  style="width: 100px;"  name ="placasfurgon[]" id ="placasfurgon[]" value="' + placaFurgon + '"></td>' +
+        '<td ><input type "text"  style="width: 100px;"  name ="tarjetasC[]" id ="tarjetasC[]" value="' + tarjetaC + '"></td>' +
+        '<td ><input type "text"  style="width: 100px;"  name ="gpss[]" id ="gpss[]" value="' + gps + '"></td>' +
+        '</tr>';
+    cont++;
+    $('#tbodyEquipos').append(fila);
+}
+function eliminarEquipo(){
+
+}
+function registrarPiloto() {
+    var idtipolicencia = $('#tipoLicencia').prop("selectedIndex");
+    var tipolicencia = $("#tipoLicencia option:selected").html();
+    var numeroLicencia = $('#numeroLicencia').val();
+    var nombrePiloto = $('#nombrePiloto').val();
+
+        
+    if (idempresa == 0) {
+    }
+    if (nombrePiloto.trim()=="") {
+        alertify.alert('Campo vacio', 'Debe de ingresar el Nombre del piloto');
+        return false;
+    } else if (idtipolicencia == -1 || idtipolicencia ==0) {
+        alertify.alert('Campo Vacio', 'Debe de seleccionar el tipo de licencia');
+        return false;
+    } else if (numeroLicencia.trim() == '') {
+        alertify.alert('Campo Vacio', 'Debe de ingresar el numero de licencia');
+        return false;
+    } 
+    var fila =
+        '<tr class="filas" id ="fila' + cont + '">' +
+        '<td><button type="button" class="btn btn-danger btn-sm" onclick="eliminarfila(' + cont + ')"><span class="fa fa-trash-o"></span></button></td>' +
+        '<td ><input type "text"  style="width: 25px;"  name ="idslicencias[]" id ="idslicencias[]" value="' + cont + '"></td>' +
+        '<td ><input type "text"  style="width: 100px;"  name ="nombresPilotos[]" id ="nombresPilotos[]" value="' + nombrePiloto + '"></td>' +
+        '<td ><input type "text"  style="width: 100px;"  name ="tiposLicencias[]" id ="tiposLicencias[]" value="' + tipolicencia + '"></td>' +
+        '<td ><input type "text"  style="width: 100px;"  name ="numerosLicencias[]" id ="numerosLicencias[]" value="' + numeroLicencia + '"></td>' +
+        '</tr>';
+    cont++;
+    $('#tbodypilotos').append(fila);
 }
 init();

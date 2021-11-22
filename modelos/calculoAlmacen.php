@@ -59,7 +59,8 @@ class calculoAlmacen
             if ($rspt) {
                 $id_calculo =   $con->lastInsertId();
                 $cont = 0;
-                $temp = 0;
+                $ocultarchk = 0;
+                $prorratearchk =0;
                 //```````````````descuento```
                 if (count($iddetalle) > 0) {
                     $rspt = $con->prepare("INSERT INTO detalle_calculo(id_calculo,id_detalle_plantilla,signo,valor,otro_valor,ocultar,prorratear,descuento,iva)
@@ -67,13 +68,24 @@ class calculoAlmacen
                     // $contador = count($iddetalle);
                     //echo $contador;
                     while ($cont < count($iddetalle)) {
+                        if (in_array($iddetalle[$cont], $ocultar)) {
+                            $ocultarchk = 1;
+                        } else {
+                            $ocultarchk =0;
+                        }
+            
+                        if (in_array($iddetalle[$cont], $prorratear)) {
+                            $prorratearchk = 1;
+                        } else {
+                            $prorratearchk = 0;
+                        }
                         $rspt->bindParam(":id_calculo", $id_calculo);
                         $rspt->bindParam(":id_detalle_plantilla", $iddetalle[$cont]);
                         $rspt->bindParam(":signo", $signo[$cont]);
                         $rspt->bindParam(":valor", $valor[$cont]);
                         $rspt->bindParam(":otro_valor", $valorSumar[$cont]);
-                        $rspt->bindParam(":ocultar", $temp/* $ocultar[$cont] */);
-                        $rspt->bindParam(":prorratear", $temp /* $prorratear[$cont] */);
+                        $rspt->bindParam(":ocultar", $ocultarchk/* $ocultar[$cont] */);
+                        $rspt->bindParam(":prorratear", $prorratearchk /* $prorratear[$cont] */);
                         $rspt->bindParam(":descuento", $descuentos[$cont]);
                         $rspt->bindParam(":iva", $ivas[$cont]);
                         $rspt->execute();
@@ -439,7 +451,7 @@ class calculoAlmacen
         }
     }
 
-    public function calculosDescripciones($descripcion, $minimo, $tarifa, $porcentaje, $impuesto, $diasAlma, $diascompletos, $diasl, $baseParaS, $totaldias, $peso, $tipocambio, $cif, $otrovalor)
+    public function calculosDescripciones($descripcion, $minimo, $tarifa, $porcentaje, $impuesto, $diasAlma, $diascompletos, $diasl, $baseParaS, $totaldias, $peso, $tipocambio, $cif, $otrovalor,$descuentos)
     {
         if ($_SESSION["idpais"] == 92) {
             if ($descripcion == "Almacenaje") {
@@ -455,7 +467,7 @@ class calculoAlmacen
         } //fin guatemala
         else if ($_SESSION["idpais"] == 59) {
             if ($descripcion == "Almacenaje") {
-                return self::almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo, $otrovalor);
+                return self::almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo, $otrovalor,$descuentos);
             } else if ($descripcion == "Almacenaje Adicional") {
                 return self::almacenajeAdicionalCR($diasAlma, $tipocambio, $otrovalor);
             } else if ($descripcion == "Manejo") {
@@ -544,13 +556,18 @@ class calculoAlmacen
     }
 
     // costarica formulas
-    public static function almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo, $otrovalor)
+    public static function almacenajeCR($tarifa, $baseParaS, $diasAlma, $minimo, $otrovalor,$descuentos)
     {
         //$json = array();
-
+        if ($descuentos == ""){
+            $descuentos = 0;
+        }
         $res = $tarifa * ($baseParaS / 1000) * ($diasAlma / 30);
         if ($res < $minimo) {
             $res = $minimo;
+        }
+        if ($descuentos >0){
+            $res = ceil($res-(($descuentos/100)* $res));
         }
         //return $res;
         $iva = ($res + $otrovalor) * $_SESSION["Impuesto"];
@@ -558,7 +575,7 @@ class calculoAlmacen
 
         $json = array();
         $json['iva'] = $iva;
-        $json['valor'] = $res;
+        $json['valor'] = redondear_dos_decimal($res);
         return $json;
     }
 

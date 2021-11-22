@@ -60,12 +60,15 @@ $otrovalor = isset($_POST["otrovalor"]) ? $otrovalor = limpia($_POST["otrovalor"
 
 $id_detalles =  isset($_POST["id_detalle"]) ? $id_detalle = $_POST["id_detalle"] : $id_detalle = array();
 $valorDescripcion =  isset($_POST["valorDescripcion"]) ? $valorDescripcion = $_POST["valorDescripcion"] : $valorDescripcion = array();
-$descuentos =  isset($_POST["descuentos"]) ? $descuento = $_POST["descuentos"] : $descuento = array();
+$descuentos =  isset($_POST["descuentos"]) ? $descuentos = $_POST["descuentos"] : $descuentos = array();
 $ivaDescripcion =  isset($_POST["ivaDescripcion"]) ? $ivaDescripcion = $_POST["ivaDescripcion"] : $ivaDescripcion = array();
 $signo  =  isset($_POST["signo"]) ? $signo = $_POST["signo"] : $signo = array();
 $valorSumar =  isset($_POST["valorSumar"]) ? $valorSumar = $_POST["valorSumar"] : $valorSumar = array();
 $ocultar =  isset($_POST["ocultar"]) ? $ocultar = $_POST["ocultar"] : $ocultar = array();
 $prorratear = isset($_POST["prorratear"]) ? $prorratear = $_POST["prorratear"] : $prorratear = array();
+
+$Descripcion = isset($_POST["Descripcion"]) ? $Descripcion = $_POST["Descripcion"] : $Descripcion = array();
+
 /* $iddetalles
 $valor 
 $sumarvalores
@@ -128,15 +131,15 @@ switch ($_GET["op"]) {
                 "5" => '',
                 "6" => '' 
                 "0"=>  $reg->id_detalle,*/
-                "0" => '<input  type="text" name="id_detalle[]" id="id_detalle' . $reg->id_detalle . '" value = "' . $reg->id_detalle . '" readonly style="width: 30px;">',
+                "0" => '<input class = "idsdetalles" type="text" name="id_detalle[]" id="id_detalle' . $reg->id_detalle . '" value = "' . $reg->id_detalle . '" readonly style="width: 30px;">',
                 "1" => '<input  type="text" name="Descripcion[]"  value = "' . $reg->nombre . '" readonly>',
                 "2" => '<input style="width: 50px;" type="text" name="signo[]"  value = "' . $reg->signo . '" readonly>',
                 "3" => '<input style="width: 70px;" type="number" name="valorDescripcion[]"  id="valorDescripcion' . $reg->id_detalle . '" value = "0" readonly>',
                 //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$reg->id_detalle.'"  id="valorDescripcion'.$reg->id_detalle.'" value = "0">',
                 //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$i.'"  id="valorDescripcion'.$i.'" value = "0">', //,
-                "4" => '<input style="width: 70px;" type="number" name="valorSumar[]"  id="valorSumar' . $reg->id_detalle . '" value= "0">',
-                "5" => '<input type="checkbox" name="ocultar[]" value = "1">',
-                "6" => '<input type="checkbox" name="prorratear[]" value = "1">',
+                "4" => '<input style="width: 70px;" type="number" name="valorSumar[]"  id="valorSumar' . $reg->id_detalle . '" value= "0" readonly>',
+                "5" => '<input type="checkbox" name="ocultar[]" id="ocultar' . $reg->id_detalle . '" value = "'. $reg->id_detalle .'" onClick= "verificaOcultarchk(' . $reg->id_detalle . ')">',
+                "6" => '<input type="checkbox" name="prorratear[]" id="prorratear' . $reg->id_detalle . '" value = "' . $reg->id_detalle . '" onClick = "verificarProrratearcheck(' . $reg->id_detalle . ')" >',
                 "7" => '<input style="width: 70px;" type="number" name="descuentos[]" id="descuentos' . $reg->id_detalle . '"  value = "0">',
                 "8" => '<input style="width: 70px;" type="number" name="ivaDescripcion[]"  id="ivaDescripcion' . $reg->id_detalle . '" value = "0" readonly>'
             );
@@ -156,6 +159,7 @@ switch ($_GET["op"]) {
         $resp = $calculo->calculosDescripciones($reg->nombre, $reg->minimo, $reg->tarifa, $reg->porcentaje, $impuesto, $diasalma, $reg->OA, $reg->dias_libres, $baseParaS, $totaldias, $peso, $tipocambio, $cif, $otrovalor);
 
         echo  json_encode($resp);
+
         break;
 
     case 'calculariva':
@@ -178,39 +182,39 @@ switch ($_GET["op"]) {
         $reg = $calculo->buscaCalculoid($id_calculo);
         echo json_encode($reg);
         break;
-
+    
     case 'buscaCalculoDetalle':
         $rspt = $calculo->buscaDetalleCalculo($id_calculo);
         mb_internal_encoding('UTF-8');
         //se declara un array para almacenar todo el query
         $data = array();
         $i = 0;
-        $ocultar=0;
-        $prorratear=0;
+        $ocultar = 0;
+        $prorratear = 0;
         foreach ($rspt as $reg) {
-                if ($reg->ocultar==1){
-                    $ocultar = 'checke';
-                }else{
-                    $ocultar ='';
-                }
-                if ($reg->prorratear ==1){
-                    $prorratear = 'checked';
-                }else{
-                    $prorratear = '';
-                }
+            if ($reg->ocultar == 1) {
+                $ocultar = 'checked';
+            } else {
+                $ocultar = '';
+            }
+            if ($reg->prorratear == 1) {
+                $prorratear = 'checked';
+            } else {
+                $prorratear = '';
+            }
 
             $data[] = array(
-                "0" => '<input  type="text" name="id_detalle[]" id="id_detalle' . $reg->id_detalle_plantilla . '" value = "' . $reg->id_detalle_plantilla . '" readonly style="width: 30px;">',
+                "0" => '<input class = "idsdetalles" type="text" name="id_detalle[]" id="id_detalle' . $reg->id_detalle_plantilla . '" value = "' . $reg->id_detalle_plantilla . '" readonly style="width: 30px;">',
                 "1" => '<input  type="text" name="Descripcion[]"  value = "' . $reg->nombre . '" readonly>',
                 "2" => '<input style="width: 50px;" type="text" name="signo[]"  value = "' . $reg->signo . '" readonly>',
-                "3" => '<input style="width: 70px;" type="number" name="valorDescripcion[]"  id="valorDescripcion' . $reg->id_detalle_plantilla . '" value = "'.$reg->valor. '" readonly>',
+                "3" => '<input style="width: 70px;" type="number" name="valorDescripcion[]"  id="valorDescripcion' . $reg->id_detalle_plantilla . '" value = "' . $reg->valor . '" readonly>',
                 //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$reg->id_detalle.'"  id="valorDescripcion'.$reg->id_detalle.'" value = "0">',
                 //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$i.'"  id="valorDescripcion'.$i.'" value = "0">', //,
-                "4" => '<input style="width: 70px;" type="number" name="valorSumar[]"  id="valorSumar' . $reg->id_detalle_plantilla . '" value= "'.$reg->otro_valor.'">',
-                "5" => '<input type="checkbox" name="ocultar[] "' .$ocultar.  '" value = "1">',
-                "6" => '<input type="checkbox" name="prorratear[] "' . $prorratear .  '" value = "1">',
-                "7" => '<input style="width: 70px;" type="number" name="descuentos[]" id="descuentos' . $reg->id_detalle_plantilla . '"  value = "'.$reg->descuento.'">',
-                "8" => '<input style="width: 70px;" type="number" name="ivaDescripcion[]"  id="ivaDescripcion' . $reg->id_detalle_plantilla . '" value = "'.$reg->iva.'" readonly>'
+                "4" => '<input style="width: 70px;" type="number" name="valorSumar[]"  id="valorSumar' . $reg->id_detalle_plantilla . '" value= "' . $reg->otro_valor . '" readonly>',
+                "5" => '<input type="checkbox" name="ocultar[] "' . $ocultar .  ' value = "1" disabled>',
+                "6" => '<input type="checkbox" name="prorratear[] "' . $prorratear .  ' value = "1" disabled>',
+                "7" => '<input style="width: 70px;" type="number" name="descuentos[]" id="descuentos' . $reg->id_detalle_plantilla . '"  value = "' . $reg->descuento . '">',
+                "8" => '<input style="width: 70px;" type="number" name="ivaDescripcion[]"  id="ivaDescripcion' . $reg->id_detalle_plantilla . '" value = "' . $reg->iva . '" readonly>'
             );
             $i = $i + 1;
         }
@@ -221,6 +225,105 @@ switch ($_GET["op"]) {
             "aaData" => $data
         );
         echo json_encode($results);
+        break;
+    case 'sumar':
+        $subtotal =0;
+        $j=0;
+        $resp =array();
+        while ($j < count($id_detalles)) {
+           $subtotal= $subtotal+ $valorDescripcion[$j];
+            $j++;
+        }
+        $resp['subtotal'] = $subtotal;
+        echo json_encode($resp);
+        
+            break;
+    case 'CalcularTotal':
+        $cantOcultar = count($ocultar);
+        $TotalProrratear = 0;
+        $valorProrratreado = 0;
+        $cantProrratear = count($prorratear);
+        $j = 0;
+        $k = 0;
+        $m =0;
+        while ($j < count($id_detalles)) {
+            $reg = $calculo->mostrarDetalleplantillCalculando($id_detalles[$j]);
+            $resp = $calculo->calculosDescripciones($reg->nombre, $reg->minimo, $reg->tarifa, $reg->porcentaje, $impuesto, $diasalma, $reg->OA, $reg->dias_libres, $baseParaS, $totaldias, $peso, $tipocambio, $cif, $otrovalor[$j],$descuentos[$j]);
+            $valorDescripcion[$j] = $resp["valor"];
+            $ivaDescripcion[$j] = $resp["iva"];
+            $j++;
+        }
+        while ($m < count($id_detalles)) {
+            if (in_array($id_detalles[$m], $ocultar)) {
+                $TotalProrratear = $TotalProrratear + $valorDescripcion[$m];
+            }
+            $m++;
+        }
+        if ($cantOcultar > 0 && $TotalProrratear >0) {
+            $valorProrratreado = $TotalProrratear / $cantProrratear;
+        }
+
+        while ($k < count($id_detalles)) {
+            if (in_array($id_detalles[$k], $prorratear)) {
+                $valorSumar[$k] = $valorProrratreado;
+            }
+            $k++;
+        }
+
+        // cargar todo a la tabla del array 
+        $data = array();
+        $i = 0;
+        $ocultarchk = 0;
+        $prorratearchk = 0;
+        $tablac = '';
+        $valorDescuento =0;
+        while ($i < count($id_detalles)) {
+            if (in_array($id_detalles[$i], $ocultar)) {
+                $ocultarchk = 'checked';
+            } else {
+                $ocultarchk = '';
+            }
+
+            if (in_array($id_detalles[$i], $prorratear)) {
+                $prorratearchk = 'checked';
+            } else {
+                $prorratearchk = '';
+            }
+            if ($descuentos[$i]==""){
+                $valorDescuento=0;
+            }else{
+                $valorDescuento = $descuentos[$i];
+            }
+
+            $tablac = $tablac
+            . '<tr>'
+            . '<td><input  type="text" name="id_detalle[]" id="id_detalle' . $id_detalles[$i] . '" value = "' . $id_detalles[$i] . '" readonly style="width: 30px;"></td>'
+            . '<td ><input  type="text" name="Descripcion[]"  value = "' . $Descripcion[$i] . '" readonly></td>'
+            . '<td ><input style="width: 50px;" type="text" name="signo[]"  value = "' . $signo[$i] . '" readonly></td>'
+            . '<td ><input style="width: 70px;" type="number" name="valorDescripcion[]"  id="valorDescripcion' . $id_detalles[$i] . '" value = "' . $valorDescripcion[$i] . '" readonly></td>'
+            . '<td ><input style="width: 70px;" type="number" name="valorSumar[]"  id="valorSumar' . $id_detalles[$i] . '" value= "' . $valorSumar[$i] . '" readonly></td>'
+            . '<td ><input type="checkbox" name="ocultar[] "' . $ocultarchk .  ' id="ocultar' . $id_detalles[$i] . '" value = "'.$id_detalles[$i].'" onClick= "verificaOcultarchk(' . $id_detalles[$i] . ')"></td>'
+            . '<td ><input type="checkbox" name="prorratear[] "' . $prorratearchk .  ' id="prorratear' . $id_detalles[$i] . '" value = "'.$id_detalles[$i].'" onClick = "verificarProrratearcheck(' . $id_detalles[$i] . ')"></td>'
+            . '<td ><input style="width: 70px;" type="number" name="descuentos[]" id="descuentos' . $id_detalles[$i] . '"  value = "'. $valorDescuento .'"></td>'
+            . '<td ><input style="width: 70px;" type="number" name="ivaDescripcion[]"  id="ivaDescripcion' . $id_detalles[$i] . '" value = "' . $ivaDescripcion[$i] . '" readonly></td>'
+            . '</tr>';
+
+           // $data[] = array(
+           //     "0" => '<input  type="text" name="id_detalle[]" id="id_detalle' . $id_detalles[$i] . '" value = "' . $id_detalles[$i] . '" readonly style="width: 30px;">',
+            //    "1" => '<input  type="text" name="Descripcion[]"  value = "' . $Descripcion[$i] . '" readonly>',
+            //    "2" => '<input style="width: 50px;" type="text" name="signo[]"  value = "' . $signo[$i] . '" readonly>',
+            //    "3" => '<input style="width: 70px;" type="number" name="valorDescripcion[]"  id="valorDescripcion' . $id_detalles[$i] . '" value = "' . $valorDescripcion[$i] . '" readonly>',
+                //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$reg->id_detalle.'"  id="valorDescripcion'.$reg->id_detalle.'" value = "0">',
+                //"3" => '<input style="width: 70px;" type="text" name="valorDescripcion'.$i.'"  id="valorDescripcion'.$i.'" value = "0">', //,
+            //    "4" => '<input style="width: 70px;" type="number" name="valorSumar[]"  id="valorSumar' . $id_detalles[$i] . '" value= "' . $valorSumar[$i] . '">',
+            //    "5" => '<input type="checkbox" name="ocultar[] "' . $ocultarchk .  '" value = "1">',
+            //    "6" => '<input type="checkbox" name="prorratear[] "' . $prorratear .  '" value = "1">',
+            //    "7" => '<input style="width: 70px;" type="number" name="descuentos[]" id="descuentos' . $id_detalles[$i] . '"  value = "' . $reg->descuento . '">',
+            //    "8" => '<input style="width: 70px;" type="number" name="ivaDescripcion[]"  id="ivaDescripcion' . $id_detalles[$i] . '" value = "' . $valorDescripcion[$i] . '" readonly>'
+            //);
+            $i = $i + 1;
+        }       
+        echo ($tablac);
         break;
 }
 

@@ -39,6 +39,9 @@ switch ($_GET['op']) {
         cuentaBancosMov($idpadre);
         break;
     default:
+    case 'equipo':
+        equipos();
+        break;
     break;
 }
 
@@ -189,4 +192,17 @@ function cuentaBancosMov($idpadre){
     echo $selec;
     $con = Conexion::cerrar();
     $stmt = NULL; 
+}
+function equipos(){
+    $con = Conexion::getConexion();
+    $stmt = $con->prepare("SELECT * FROM equipo ORDER  BY tamano,tipo ASC");
+    $stmt->execute();
+    $selec = '';
+    $selec = '<option value="0" selected>Seleccione una Opcion</option>';
+    foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as  $resp) {
+        $selec = $selec . '<option value="' . $resp->id_tipo_equipo . '">' . $resp->tamano .' '.$resp->tipo. '</option>';
+    }
+    echo $selec;
+    $con = Conexion::cerrar();
+    $stmt = NULL;
 }

@@ -3,27 +3,29 @@
         <div class="box box-info">
             <div class="box-header with-border"></div>
             <div class="box-body">
-            <form action="" method="POST" class="" id="frmCalculoAlmacen" name="frmCalculoAlmacen">  
-                <div class="form-group col-md-4 col-md-offset-4">
-                    <label for="cntCalculo" class="">Calculos Realizados</label>
-                    <div class="input-group input-group-sm">
+                <form action="" method="POST" class="" id="frmCalculoAlmacen" name="frmCalculoAlmacen">
+                    <div class="form-group col-md-4 col-md-offset-4">
+                        <label for="cntCalculo" class="">Calculos Realizados</label>
+                        <div class="input-group input-group-sm">
 
-                        <select id="cntCalculo" name="cntCalculo" class="form-control selectpicker" data-live-search="true">
-                        </select>
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-info fa fa-building" disabled></button>
-                        </span>
+                            <select id="cntCalculo" name="cntCalculo" class="form-control selectpicker"
+                                data-live-search="true">
+                            </select>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-info fa fa-building" disabled></button>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                
-                <input type="hidden" name="id_calculos" id="id_calculos" class="form-control" value="0">
-                
-                
+
+                    <input type="hidden" name="id_calculos" id="id_calculos" class="form-control" value="0">
+
+
                     <div class="form-group col-md-6">
                         <label for="clienteCalculoA" class="">Cliente/Consignado(*) </label>
                         <div class="input-group input-group-sm">
 
-                            <select id="clienteCalculoA" name="clienteCalculoA" class="form-control selectpicker" data-live-search="true">
+                            <select id="clienteCalculoA" name="clienteCalculoA" class="form-control selectpicker"
+                                data-live-search="true">
                             </select>
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-info fa fa-building" disabled></button>
@@ -33,7 +35,8 @@
 
                     <div class="form-group col-md-2">
                         <label>Poliza Da:</label>
-                        <input type="text" class="form-control input-sm" name="polizaEntradaCalculo" id="polizaEntradaCalculo" readonly>
+                        <input type="text" class="form-control input-sm" name="polizaEntradaCalculo"
+                            id="polizaEntradaCalculo" readonly>
                         <input type="hidden" name="id_detalleA_calculo" id="id_detalleA_calculo">
                     </div>
 
@@ -48,12 +51,14 @@
                     </div>-->
                     <div class="form-group col-md-2">
                         <label>Dias Almacenaje:</label>
-                        <input type="text" class="form-control input-sm" name="diasAlmacenaje" id="diasAlmacenaje" readonly>
+                        <input type="text" class="form-control input-sm" name="diasAlmacenaje" id="diasAlmacenaje"
+                            readonly>
                     </div>
                     <div class="col-md-12"></div>
                     <div class="form-group col-md-4">
                         <label for="comment">Direccion(*):</label>
-                        <textarea class="form-control" rows="2" id="direccionCalculo" name="direccionCalculo"></textarea>
+                        <textarea class="form-control" rows="2" id="direccionCalculo"
+                            name="direccionCalculo"></textarea>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Nit(*):</label>
@@ -77,7 +82,8 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input type="text" class="form-control pull-right input-sm" id="delCalculoA" name="delCalculoA" readonly>
+                            <input type="text" class="form-control pull-right input-sm" id="delCalculoA"
+                                name="delCalculoA" readonly>
                         </div>
                     </div>
 
@@ -87,7 +93,8 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input type="text" class="form-control pull-right input-sm" id="alCalculoA" name="alCalculoA">
+                            <input type="text" class="form-control pull-right input-sm" id="alCalculoA"
+                                name="alCalculoA">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
@@ -107,14 +114,16 @@
 
                     <div class="form-group col-md-2">
                         <label for="tipoCambioCalculo" class="control-label">T. Cambio:</label>
-                        <input type="number" name="tipoCambioCalculo" id="tipoCambioCalculo" class="form-control" onkeyup="calcularCifDolares()">
+                        <input type="number" name="tipoCambioCalculo" id="tipoCambioCalculo" class="form-control"
+                            onkeyup="calcularCifDolares()">
                     </div>
 
                     <div class="form-group col-md-6 col-md-offset-2">
                         <label for="plantilla" class="">Plantilla(*) </label>
                         <div class="input-group input-group-sm">
 
-                            <select id="plantilla" name="plantilla" class="form-control selectpicker" data-live-search="true">
+                            <select id="plantilla" name="plantilla" class="form-control selectpicker"
+                                data-live-search="true">
                             </select>
 
                             <input type="hidden" name="TotalMinimo" id="TotalMinimo">
@@ -122,7 +131,8 @@
                             <input type="hidden" name="diascompletoPC" id="diascompletoPC">
 
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-info fa fa-plus" onclick="nuevaPlantillaCalculo()"></button>
+                                <button type="button" class="btn btn-info fa fa-plus"
+                                    onclick="nuevaPlantillaCalculo()"></button>
                             </span>
                         </div>
                     </div>
@@ -130,7 +140,8 @@
                         <label for="descuento" class="">Descuento % </label>
                         <div class="input-group input-group-sm">
 
-                            <select id="descuento" name="descuento" class="form-control selectpicker" data-live-search="true">
+                            <select id="descuento" name="descuento" class="form-control selectpicker"
+                                data-live-search="true">
                             </select>
                             <span class="input-group-btn">
                             </span>
@@ -148,13 +159,15 @@
                                         <div class="input-group-addon">
                                             <span>$.</span>
                                         </div>
-                                        <input type="number" name="cifgtdolar" id="cifgtdolar" class="form-control" onkeyup="calcularCifDolares()">
+                                        <input type="number" name="cifgtdolar" id="cifgtdolar" class="form-control"
+                                            onkeyup="calcularCifDolares()">
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-5">
                                     <label for="cif" class="control-label">Peso:</label>
-                                    <input type="text" name="pesoCalculo" id="pesoCalculo" class="form-control" readonly>
+                                    <input type="text" name="pesoCalculo" id="pesoCalculo" class="form-control"
+                                        readonly>
                                 </div>
                                 <!--                 <div class="form-group col-md-6">
                                     <label for="cif" class="control-label">CIF(*):</label>
@@ -166,12 +179,14 @@
                                         <div class="input-group-addon">
 
                                         </div>
-                                        <input type="number" name="cifCalculo" id="cifCalculo" class="form-control" onkeyup="sumaCifImpuesto()">
+                                        <input type="number" name="cifCalculo" id="cifCalculo" class="form-control"
+                                            onkeyup="sumaCifImpuesto()">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label for="cif" class="control-label">Volumen:</label>
-                                    <input type="text" name="volumenCalculo" id="VolumenCalculo" class="form-control" readonly>
+                                    <input type="text" name="volumenCalculo" id="VolumenCalculo" class="form-control"
+                                        readonly>
                                 </div>
 
                                 <!--  <div class="form-group col-md-6">
@@ -184,7 +199,8 @@
                                         <div class="input-group-addon">
 
                                         </div>
-                                        <input type="number" name="impuestoCalculo" id="impuestoCalculo" class="form-control" onkeyup="sumaCifImpuesto()">
+                                        <input type="number" name="impuestoCalculo" id="impuestoCalculo"
+                                            class="form-control" onkeyup="sumaCifImpuesto()">
                                     </div>
                                 </div>
 
@@ -195,61 +211,61 @@
 
                                 <div class="form-group col-md-7">
                                     <label for="bSeguroCalculo" class="control-label">Base Seguro:</label>
-                                    <input type="number" name="bSeguroCalculo" id="bSeguroCalculo" class="form-control" readonly>
+                                    <input type="number" name="bSeguroCalculo" id="bSeguroCalculo" class="form-control"
+                                        readonly>
                                 </div>
 
                                 <div class="form-group col-md-5">
                                     <label for="puesto" class="control-label">Cuadrilla:</label>
-                                    <input type="text" name="clientesCuadrilla" id="clientesCuadrilla" class="form-control">
+                                    <input type="text" name="clientesCuadrilla" id="clientesCuadrilla"
+                                        class="form-control">
                                 </div>
 
                                 <div class="form-group col-md-7">
                                     <label for="puesto" class="control-label">Bultos totales:</label>
-                                    <input type="text" name="bultosCalculoTotal" id="bultosCalculoTotal" class="form-control" readonly>
+                                    <input type="text" name="bultosCalculoTotal" id="bultosCalculoTotal"
+                                        class="form-control" readonly>
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label for="puesto" class="control-label">Bultos:</label>
-                                    <input type="text" name="bultosCalculoPen" id="bultosCalculoPen" class="form-control">
+                                    <input type="text" name="bultosCalculoPen" id="bultosCalculoPen"
+                                        class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="panel-body table-responsive">
-                                    <table class="table table-condensed table-hover table-bordered" id="TcalculosALmacenP" style="text-align: center;">
+                                    <table class="table table-condensed table-hover table-bordered"
+                                        id="TcalculosALmacenP" style="text-align: center;">
                                         <thead>
                                             <th>Id</th>
                                             <th>Descripcion</th>
                                             <th>Signo</th>
                                             <th>Valor</th>
-                                            <th>sumarValor</th>
+                                            <th>Prorrateado</th>
                                             <th>Ocultar</th>
                                             <th>Prorratear</th>
-                                            <th>Descuento</th>
+                                            <th>Descuento%</th>
                                             <th>Iva</th>
                                         </thead>
-                                        <tbody id="tbodyC">
+                                        <tbody id="tbodyDetaplantilla">
                                         </tbody>
                                     </table>
                                 </div>
                             </div> <!-- col md 8 tabla -->
                         </div><!--  row -->
                     </div><!-- div area de formulas -->
+                    <?php 
+                        if ($_SESSION["idsucursal"]<> 4):  
+                    ?>
                     <div class="totalescr col-md-12">
-                        <div class="form-group col-md-2">
-                            <label for="isrCalculo" class="control-label">ISR:</label>
-                            <input type="text" name="isrCalculo" id="isrCalculo" class="form-control" readonly>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="alcaldiaCalculo" class="control-label">Alcaldia:</label>
-                            <input type="text" name="alcaldiaCalculo" id="alcaldiaCalculo" class="form-control" readonly>
-                        </div>
-
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-2 col-md-offset-4">
                             <label for="financiado" class="control-label">Finaciacion:</label>
-                            <input type="text" name="financiado" id="financiado" class="form-control">
+                            <input type="text" name="financiado" id="financiado" class="form-control input-sm">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="porcentajefinanciado" class="control-label">% Finaciacion:</label>
-                            <input type="text" name="porcentajefinanciado" id="porcentajefinanciado" class="form-control">
+                            <input type="text" name="porcentajefinanciado" id="porcentajefinanciado"
+                                class="form-control input-sm">
                         </div>
                         <div class="form-group col-md-2">
                             <label for=""></label>
@@ -259,21 +275,11 @@
                             </div>
                             <label for="porDia"></label>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="descuentoValor" class="control-label">Descuento</label>
-                            <input type="text" name="descuentoValor" id="descuentoValor" class="form-control" readonly>
-                        </div>
                     </div>
-
+                    <?php
+                        endif; 
+                    ?>
                     <div class="totales col-md-12">
-                        <div class="form-group col-md-2 col-md-offset-4">
-                            <label for="total" class="control-label">Sub-Total</label>
-                            <input type="text" name="subtotal" id="subtotal" class="form-control" readonly>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="total" class="control-label">Iva</label>
-                            <input type="text" name="iva" id="iva" class="form-control" readonly>
-                        </div>
                         <div class="form-group col-md-2">
                             <label for=""></label>
                             <div class="form-check">
@@ -283,8 +289,56 @@
                             <label for="porDia"></label>
                         </div>
                         <div class="form-group col-md-2">
+                            <label for="subtotal" class="control-label">Sub-Total</label>
+                            <input type="text" name="subtotal" id="subtotal" class="form-control input-sm" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="iva" class="control-label">Iva</label>
+                            <input type="text" name="iva" id="iva" class="form-control input-sm" readonly>
+                        </div>
+
+                        <div class="form-group col-md-2">
                             <label for="total" class="control-label">Total</label>
-                            <input type="text" name="total" id="total" class="form-control" readonly>
+                            <input type="text" name="total" id="total" class="form-control input-sm" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="descuentoValor" class="control-label">Descuento:</label>
+                            <input type="text" name="descuentoValor" id="descuentoValor" class="form-control input-sm"
+                                readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="grantotal" class="control-label">Gran Total:</label>
+                            <input type="text" name="grantotal" id="grantotal" class="form-control input-sm" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group col-md-2 col-md-offset-4">
+                            <label for="isrCalculo" class="control-label">ISR:</label>
+                            <input type="text" name="isrCalculo" id="isrCalculo" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for=""></label>
+                            <div class="form-check">
+                                <input id="aplicaisr" name="aplicaisr" class="form-check-input" type="checkbox"
+                                    name="aplicaF" value=1>
+                                <label for="aplicaisr" class="form-check-label">Aplicar ISR</label>
+                            </div>
+                            <label for=""></label>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label for="alcaldiaCalculo" class="control-label">Alcaldia:</label>
+                            <input type="text" name="alcaldiaCalculo" id="alcaldiaCalculo" class="form-control input-sm"
+                                readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for=""></label>
+                            <div class="form-check">
+                                <input id="aplicaAlcalndia" name="aplicaAlcalndia" class="form-check-input"
+                                    type="checkbox" name="aplicaF" value=1>
+                                <label for="aplicaAlcalndia" class="form-check-label">Aplica Alcalndia</label>
+                            </div>
+                            <label for=""></label>
                         </div>
                     </div>
 
@@ -298,15 +352,18 @@
 
                     <div class="box-footer">
                         <div class="btnscalculo">
-                            <button type="button" class="btn btn-large btn-primary col-xs-offset-2">Nuevo
+                            <button type="button" class="btn btn-large btn-primary col-xs-offset-2"
+                                onclick="nuevoCalculo()">Nuevo
                                 <span class="fa  fa-plus"></span>
                             </button>
 
-                            <button type="button" class="btn btn-large btn-info" onclick="grabarCalculo()">Grabar
+                            <button type="button" class="btn btn-large btn-info" onclick="grabarCalculo()"
+                                id="btngrabarCalculo">Grabar
                                 <span class="fa fa-floppy-o"></span>
                             </button>
 
-                            <button type="button" class="btn btn-large btn-danger">Cancelar
+                            <button type="button" class="btn btn-large btn-danger"
+                                onclick="CancelarCalculoMostrado()">Cancelar
                                 <span class="fa fa-close"></span>
                             </button>
 
@@ -314,7 +371,8 @@
                                 <span class="fa fa-refresh"></span>
                             </button>
 
-                            <button type="button" class="btn btn-large btn-primary col-xs-offset-2" data-toggle="modal" data-target="#modalFacturaAlmacen">Factura
+                            <button type="button" class="btn btn-large btn-primary col-xs-offset-2" data-toggle="modal"
+                                data-target="#modalFacturaAlmacen">Factura
                                 <span class="fa fa-file-text"></span>
                             </button>
 

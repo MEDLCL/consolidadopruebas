@@ -3,18 +3,18 @@ session_start();
 include_once "../config/Conexion.php";
 class Empresa
 {
-
+    //|representante_legal|dias_credito|cuenta_Bancaria|para_cheque|id_moneda_pago
     public function __construct()
     {
     }
-    public function grabar($codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos,$idpaisEmpresa,$giroN,$tipoCarga,$tamanoEmp,$canalD)
+    public function grabar($codigo, $tipoe, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombres, $apellidos, $correos, $telefonos, $puestos,$idpaisEmpresa,$giroN,$tipoCarga,$tamanoEmp,$canalD,$representanteL,$diasc,$cuentaB,$paraChe,$id_MonedaP)
     {
 
         $con = Conexion::getConexion();
         try {
             $con->beginTransaction();
-            $rspt = $con->prepare("INSERT INTO empresas (codigo,Tipoe,id_sucursal,id_usuario,Razons,Nombrec,identificacion,telefono,direccion,porcentaje_comision,tipo_comision,id_pais,id_giro_negocio,id_tipo_carga,id_tamano_empresa,id_canal_distribucion,id_aslo)
-                            values(:codigo,:tipoe,:idsucursal,:idusuario,:razons,:nombrec,:nit,:telefono,:dire,:comision,:cbmtarifa,:idpais:id_giro_negocio,:id_tipo_carga,:id_tamano_empresa,:id_canal_distribucion,:id_aslo)");
+            $rspt = $con->prepare("INSERT INTO empresas (codigo,Tipoe,id_sucursal,id_usuario,Razons,Nombrec,identificacion,telefono,direccion,porcentaje_comision,tipo_comision,id_pais,id_giro_negocio,id_tipo_carga,id_tamano_empresa,id_canal_distribucion,id_aslo,representante_legal,dias_credito,cuenta_Bancaria,para_cheque,id_moneda_pago)
+                            values(:codigo,:tipoe,:idsucursal,:idusuario,:razons,:nombrec,:nit,:telefono,:dire,:comision,:cbmtarifa,:idpais:id_giro_negocio,:id_tipo_carga,:id_tamano_empresa,:id_canal_distribucion,:id_aslo,:representanteL,:diasCre,:cuentaBan,:parache,:idmonedaPA)");
             $rspt->bindParam(":codigo", $codigo);
             $rspt->bindParam(":tipoe", $tipoe);
             $rspt->bindParam(":idsucursal", $_SESSION['idsucursal']);
@@ -32,6 +32,11 @@ class Empresa
             $rspt->bindParam(":id_tamano_empresa",$tamanoEmp);
             $rspt->bindParam(":id_canal_distribucion",$canalD);
             $rspt->bindParam(":id_aslo",$_SESSION['idusuario']);
+            $rspt->bindParam(":representanteL",$representanteL);
+            $rspt->bindParam(":diasCre",$diasc);
+            $rspt->bindParam(":cuentaBan",$cuentaB);
+            $rspt->bindParam(":parache",$paraChe);
+            $rspt->bindParam(":idmonedaPA",$id_MonedaP);
             $rspt->execute();
 
             if ($rspt) {

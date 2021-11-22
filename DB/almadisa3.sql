@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 08-11-2021 a las 23:08:22
+-- Tiempo de generación: 22-11-2021 a las 04:39:20
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.34
 
@@ -93,6 +93,38 @@ select
             ciudad as DES on DES.id_ciudad = EM.id_destino inner join 
             login as UA on UA.id_usuario = EM.id_usuario_asignado
 where  EM.estado = 1 and EM.id_sucursal = idsucursal$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `prcListadoCreaMaritimoAsignado` (IN `idsucursal` INT, IN `idusuario` INT)  NO SQL
+select 
+		EM.id_embarque_maritimo,
+        date_format(EM.fecha_ingreso,'%m/%d/%Y') as fechaingreso,
+        EM.codigo,
+        EM.consecutivo,
+        TC.nombre as tipocarga,
+		TS.nombre as tiposervicio,
+        CO.nombre as courier,
+        B.nombre as barco,
+        EM.viaje,
+        AGE.Razons as agente,
+        NAGE.Razons as Naviera,
+        concat (PO.nombre,'  ',ORI.nombre ) as origen,
+        concat (PD.nombre,'  ',DES.nombre) as destino,
+        UA.nombre as usuarioA,
+        EM.observaciones,
+        EM.cant_clientes
+		from embarque_maritimo as EM inner join 
+			tipo_carga as TC on TC.id_tipo_carga = EM.id_tipo_carga inner join 
+            tipo_servicio as TS on TS.id_tipo_servicio = EM.id_tipo_servicio left join 
+            envio_courier as CO on CO.id_envio_courier = EM.id_courier inner join 
+            barco as B on B.id_barco = EM.id_barco inner join 
+            empresas as AGE on AGE.id_empresa = EM.id_agente inner join 
+            empresas as NAGE on NAGE.id_empresa = EM.id_nav_age inner join 
+            pais as PO on PO.idpais = EM.id_pais_origen inner join 
+            ciudad as ORI on ORI.id_ciudad = EM.id_origen inner join 
+            pais as PD on PD.idpais = EM.id_pais_destino inner join 
+            ciudad as DES on DES.id_ciudad = EM.id_destino inner join 
+            login as UA on UA.id_usuario = EM.id_usuario_asignado
+where  EM.estado = 1 and EM.id_sucursal = idsucursal and EM.id_usuario_asignado = idusuario$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `prcListadoUsuarios` ()  NO SQL
 SELECT L.id_usuario,
@@ -487,7 +519,9 @@ INSERT INTO `calculo_almacen` (`id_calculo`, `id_usuario`, `id_cliente`, `id_pla
 (7, 58, 81, 4, 5, 'CIUDAD DE COSTARICA', '698574', 1, -9, 10, '2021-08-12', '2021-08-25', '', '', '', '12354.00', '123.00', '1519542.00', '123.00', '1519665.00', '500.00', '26.000', '10.000', '5.00', '5.00', 0, '0.00', '0.00', '3.75', 1, '0.00', '0.00', 0, '0.00', '0.00', '0.00'),
 (8, 58, 81, 4, 5, 'CIUDAD DE COSTARICA', '698574', 1, -9, 10, '2021-08-12', '2021-08-25', '', '', '', '12354.00', '123.00', '1519542.00', '123.00', '1519665.00', '500.00', '26.000', '10.000', '5.00', '5.00', 0, '0.00', '2739.90', '3.75', 1, '64658.00', '8406.00', 0, '73064.00', '0.00', '0.00'),
 (9, 58, 81, 4, 5, 'CIUDAD DE COSTARICA', '698574', 1, -9, 10, '2021-08-12', '2021-08-25', '', '', '', '12354.00', '123.00', '1519542.00', '123.00', '1519665.00', '500.00', '26.000', '10.000', '5.00', '5.00', 0, '0.00', '2739.90', '3.75', 1, '64658.00', '8406.00', 0, '73064.00', '0.00', '0.00'),
-(10, 58, 81, 4, 5, 'CIUDAD DE COSTARICA', '698574', 49, 39, 0, '2021-08-12', '2021-09-29', '', '', '', '12354.00', '123.00', '1519542.00', '123.00', '1519665.00', '500.00', '26.000', '10.000', '0.00', '5.00', 0, '0.00', '2739.90', '3.75', 1, '64658.00', '8406.00', 0, '73064.00', '0.00', '0.00');
+(10, 58, 81, 4, 5, 'CIUDAD DE COSTARICA', '698574', 49, 39, 0, '2021-08-12', '2021-09-29', '', '', '', '12354.00', '123.00', '1519542.00', '123.00', '1519665.00', '500.00', '26.000', '10.000', '0.00', '5.00', 0, '0.00', '2739.90', '3.75', 1, '64658.00', '8406.00', 0, '73064.00', '0.00', '0.00'),
+(11, 58, 81, 4, 5, 'CIUDAD DE COSTARICA', '698574', 1, 0, 10, '2021-08-12', '2021-08-25', '', '', '', '123.00', '123.00', '15129.00', '123.00', '15252.00', '500.00', '26.000', '10.000', '0.00', '5.00', 0, '0.00', '2.00', '3.75', 1, '64916.00', '8440.00', 0, '73098.00', '0.00', '0.00'),
+(12, 58, 81, 4, 5, 'CIUDAD DE COSTARICA', '698574', 1, 0, 0, '2021-08-12', '2021-08-25', '', '', '', '123.00', '123.00', '15129.00', '123.00', '15252.00', '500.00', '26.000', '10.000', '0.00', '5.00', 0, '0.00', '2.00', '3.75', 1, '64916.00', '8440.00', 0, '73098.00', '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -608,7 +642,25 @@ INSERT INTO `consecutivos` (`id_consecutivo`, `id_sucursal`, `mes`, `anio`, `con
 (19, 4, 1, 1970, 7),
 (20, 4, 1, 1970, 8),
 (21, 4, 1, 1970, 9),
-(23, 4, 11, 2021, 1);
+(23, 4, 11, 2021, 1),
+(24, 4, 11, 2021, 2),
+(25, 4, 11, 2021, 3),
+(26, 4, 11, 2021, 4),
+(27, 4, 11, 2021, 5),
+(28, 4, 11, 2021, 6),
+(29, 4, 11, 2021, 7),
+(30, 4, 11, 2021, 8),
+(31, 4, 11, 2021, 9),
+(32, 4, 11, 2021, 10),
+(33, 4, 11, 2021, 11),
+(34, 4, 11, 2021, 12),
+(35, 4, 11, 2021, 13),
+(36, 4, 11, 2021, 14),
+(37, 4, 11, 2021, 15),
+(38, 4, 11, 2021, 16),
+(39, 4, 11, 2021, 17),
+(40, 4, 11, 2021, 18),
+(41, 4, 11, 2021, 19);
 
 -- --------------------------------------------------------
 
@@ -733,7 +785,25 @@ INSERT INTO `correlativoagente` (`id_correlativo`, `id_sucursal`, `id_agente`, `
 (21, 4, 0, 7, 1970),
 (22, 4, 0, 8, 1970),
 (23, 4, 0, 9, 1970),
-(25, 4, 83, 12, 2021);
+(25, 4, 83, 12, 2021),
+(26, 4, 83, 13, 2021),
+(27, 4, 84, 1, 2021),
+(28, 4, 83, 14, 2021),
+(29, 4, 0, 1, 2021),
+(30, 4, 0, 2, 2021),
+(31, 4, 0, 3, 2021),
+(32, 4, 0, 4, 2021),
+(33, 4, 0, 5, 2021),
+(34, 4, 0, 6, 2021),
+(35, 4, 0, 7, 2021),
+(36, 4, 0, 8, 2021),
+(37, 4, 0, 9, 2021),
+(38, 4, 0, 10, 2021),
+(39, 4, 0, 11, 2021),
+(40, 4, 0, 12, 2021),
+(41, 4, 0, 13, 2021),
+(42, 4, 0, 14, 2021),
+(43, 4, 0, 15, 2021);
 
 -- --------------------------------------------------------
 
@@ -888,7 +958,10 @@ CREATE TABLE `descuentocalculo` (
 
 INSERT INTO `descuentocalculo` (`id_descuento`, `id_sucursal`, `porcentaje`) VALUES
 (1, 4, '5.00'),
-(2, 4, '10.00');
+(2, 4, '10.00'),
+(3, 4, '15.00'),
+(4, 4, '20.00'),
+(5, 4, '25.00');
 
 -- --------------------------------------------------------
 
@@ -984,7 +1057,17 @@ INSERT INTO `detalle_calculo` (`id_detalle_calculo`, `id_calculo`, `id_detalle_p
 (27, 10, 12, '₡.', '22658.00', '0.00', 0, 0, '0.00', '2946.00'),
 (28, 10, 13, '₡.', '20500.00', '0.00', 0, 0, '0.00', '2665.00'),
 (29, 10, 14, '₡.', '1000.00', '0.00', 0, 0, '0.00', '130.00'),
-(30, 10, 15, '₡.', '0.00', '0.00', 0, 0, '0.00', '0.00');
+(30, 10, 15, '₡.', '0.00', '0.00', 0, 0, '0.00', '0.00'),
+(31, 11, 11, '₡.', '20500.00', '0.00', 0, 0, '0.00', '20500.00'),
+(32, 11, 12, '₡.', '22658.00', '0.00', 0, 0, '0.00', '22658.00'),
+(33, 11, 13, '₡.', '20500.00', '0.00', 0, 0, '0.00', '20500.00'),
+(34, 11, 14, '₡.', '1000.00', '0.00', 0, 0, '0.00', '1000.00'),
+(35, 11, 15, '₡.', '0.00', '0.00', 0, 0, '0.00', '0.00'),
+(36, 12, 11, '₡.', '20500.00', '0.00', 0, 0, '0.00', '2665.00'),
+(37, 12, 12, '₡.', '22658.00', '0.00', 0, 0, '0.00', '2946.00'),
+(38, 12, 13, '₡.', '20500.00', '1000.00', 0, 1, '0.00', '2665.00'),
+(39, 12, 14, '₡.', '1000.00', '0.00', 1, 0, '0.00', '130.00'),
+(40, 12, 15, '₡.', '0.00', '0.00', 1, 0, '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -1108,7 +1191,25 @@ INSERT INTO `embarque_maritimo` (`id_embarque_maritimo`, `id_usuario`, `id_sucur
 (25, 58, 4, 3, 0, 0, 2, 0, 85, 0, 0, 0, 0, 58, '506..7.70.', '01.7.70', 'ASDF', '', '2021-09-23 20:48:42', '2021-09-23', 0, b'00001'),
 (26, 58, 4, 3, 0, 0, 2, 0, 85, 0, 0, 0, 0, 58, '506..8.70.', '01.8.70', 'ASDF', '', '2021-09-23 20:48:42', '2021-09-23', 0, b'00001'),
 (27, 58, 4, 3, 0, 0, 2, 0, 85, 0, 0, 0, 0, 58, '506..9.70.', '01.9.70', 'ASDF', '', '2021-09-23 20:48:47', '2021-09-23', 0, b'00001'),
-(29, 58, 4, 3, 2, 1, 2, 83, 85, 92, 4, 92, 5, 58, '506.1.12.21.GT', '11.1.21', 'PRUEBA', 'COMENTARIOS', '2021-11-04 22:35:42', '2021-11-04', 4, b'00001');
+(29, 58, 4, 3, 2, 1, 2, 83, 85, 92, 4, 92, 5, 58, '506.1.12.21.GT', '11.1.21', 'PRUEBA10', 'COMENTARIOS', '2021-11-04 22:35:42', '2021-11-04', 4, b'00001'),
+(30, 58, 4, 3, 2, 1, 2, 83, 85, 92, 1, 92, 4, 58, '506.1.13.21.GT', '11.2.21', 'PRUEBA 3', 'PRUEBAS', '2021-11-09 16:18:13', '2021-11-09', 2, b'00001'),
+(31, 58, 4, 0, 1, 1, 2, 84, 86, 92, 3, 92, 3, 58, '506.2.1.21.GT', '11.3.21', 'PRUEBA CAMBIO', 'PRUEBAS', '2021-11-09 16:19:05', '2021-11-09', 4, b'00001'),
+(32, 58, 4, 0, 2, 1, 1, 83, 85, 92, 2, 92, 3, 58, '506.1.14.21.GT', '11.4.21', 'CAMBIO 52', 'PRUEBAS', '2021-11-09 16:19:43', '2021-11-09', 3, b'00001'),
+(33, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..1.21.', '11.5.21', '', '', '2021-11-10 19:18:58', '2021-11-10', 0, b'00001'),
+(34, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..2.21.', '11.6.21', '', '', '2021-11-10 19:19:20', '2021-11-10', 0, b'00001'),
+(35, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..3.21.', '11.7.21', '', '', '2021-11-10 19:19:35', '2021-11-10', 0, b'00001'),
+(36, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..4.21.', '11.8.21', '', '', '2021-11-10 19:24:09', '2021-11-10', 0, b'00001'),
+(37, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..5.21.', '11.9.21', '', '', '2021-11-10 19:24:09', '2021-11-10', 0, b'00001'),
+(38, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..6.21.', '11.10.21', '', '', '2021-11-10 19:51:11', '2021-11-10', 0, b'00001'),
+(39, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..7.21.', '11.11.21', '', '', '2021-11-10 19:53:07', '2021-11-10', 0, b'00001'),
+(40, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..8.21.', '11.12.21', '', '', '2021-11-10 20:01:33', '2021-11-10', 0, b'00001'),
+(41, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..9.21.', '11.13.21', '', '', '2021-11-10 21:44:57', '2021-11-10', 0, b'00001'),
+(42, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..10.21.', '11.14.21', '', '', '2021-11-10 21:47:54', '2021-11-10', 0, b'00001'),
+(43, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..11.21.', '11.15.21', '', '', '2021-11-10 21:51:00', '2021-11-10', 0, b'00001'),
+(44, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..12.21.', '11.16.21', '', '', '2021-11-10 21:51:40', '2021-11-10', 0, b'00001'),
+(45, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..13.21.', '11.17.21', '', '', '2021-11-10 21:53:10', '2021-11-10', 0, b'00001'),
+(46, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..14.21.', '11.18.21', '', '', '2021-11-10 21:53:14', '2021-11-10', 0, b'00001'),
+(47, 58, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '506..15.21.', '11.19.21', '', '', '2021-11-10 21:53:24', '2021-11-10', 0, b'00001');
 
 -- --------------------------------------------------------
 
@@ -1158,21 +1259,26 @@ CREATE TABLE `empresas` (
   `id_tamano_empresa` int(11) NOT NULL DEFAULT 0,
   `id_tipo_carga` int(11) NOT NULL DEFAULT 0,
   `id_canal_distribucion` int(11) NOT NULL DEFAULT 0,
-  `id_aslo` int(11) NOT NULL DEFAULT 0
+  `id_aslo` int(11) NOT NULL DEFAULT 0,
+  `representante_legal` varchar(100) DEFAULT NULL,
+  `dias_credito` tinyint(4) DEFAULT NULL,
+  `cuenta_Bancaria` varchar(250) DEFAULT NULL,
+  `para_cheque` varchar(250) DEFAULT NULL,
+  `id_moneda_pago` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `empresas`
 --
 
-INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `id_pais`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`, `fecha`, `id_giro_negocio`, `id_tamano_empresa`, `id_tipo_carga`, `id_canal_distribucion`, `id_aslo`) VALUES
-(80, 4, 58, 59, 'SERCOGUA CR', 'SERVICIOS COMERCIALES DE GUATEMALA COSTARICA', '56231', 'CIUDAD COSTARICA', '50623037000', 'CO', '1', 1, 0, 'cbm', '2021-08-12 06:00:00', 0, 0, 0, 0, 0),
-(81, 4, 58, 59, 'CLIENTE 1 DE COSTARICA', 'CLIENTE 1 DE COSTARICA', '698574', 'CIUDAD DE COSTARICA', '4569852', 'CL', '1', 1, 0, 'cbm', '2021-08-12 06:00:00', 1, 1, 1, 1, 58),
-(82, 4, 58, 59, 'CTM', 'CTM', '59874', 'COSTA RICA', '1236548', 'CO', '2', 1, 0, 'tarifa', '2021-08-24 15:43:58', 0, 0, 0, 0, 0),
-(83, 4, 58, 47, 'LEADER GROUP', 'LEADER', '2365458', 'CHINA', '115698854', 'AE', '1', 1, 0, '', '2021-09-02 15:44:15', 0, 0, 0, 0, 0),
-(84, 4, 58, 111, 'ONE', 'ONE', '45698', 'JAPON', '458789', 'AE', '2', 1, 0, '', '2021-09-02 16:39:00', 0, 0, 0, 0, 0),
-(85, 4, 58, 100, 'LEADER OCEAN', 'LEADER OCEAN', '45896', 'HONG KONG', '5987', 'NA', '1', 1, 0, '', '2021-09-02 16:44:27', 0, 0, 0, 0, 0),
-(86, 4, 58, 73, 'EMPRESA DE COLOADER', 'EMPRESA DE COLOADER', '120393918', 'ESPA&Ntilde;A', '101928948', 'AC', '1', 1, 0, '', '2021-09-02 16:59:48', 0, 0, 0, 0, 0);
+INSERT INTO `empresas` (`id_empresa`, `id_sucursal`, `id_usuario`, `id_pais`, `Razons`, `Nombrec`, `identificacion`, `direccion`, `telefono`, `Tipoe`, `codigo`, `estado`, `porcentaje_comision`, `tipo_comision`, `fecha`, `id_giro_negocio`, `id_tamano_empresa`, `id_tipo_carga`, `id_canal_distribucion`, `id_aslo`, `representante_legal`, `dias_credito`, `cuenta_Bancaria`, `para_cheque`, `id_moneda_pago`) VALUES
+(80, 4, 58, 59, 'SERCOGUA CR', 'SERVICIOS COMERCIALES DE GUATEMALA COSTARICA', '56231', 'CIUDAD COSTARICA', '50623037000', 'CO', '1', 1, 0, 'cbm', '2021-08-12 06:00:00', 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL),
+(81, 4, 58, 59, 'CLIENTE 1 DE COSTARICA', 'CLIENTE 1 DE COSTARICA', '698574', 'CIUDAD DE COSTARICA', '4569852', 'CL', '1', 1, 0, 'cbm', '2021-08-12 06:00:00', 1, 1, 1, 1, 58, NULL, NULL, NULL, NULL, NULL),
+(82, 4, 58, 59, 'CTM', 'CTM', '59874', 'COSTA RICA', '1236548', 'CO', '2', 1, 0, 'tarifa', '2021-08-24 15:43:58', 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL),
+(83, 4, 58, 47, 'LEADER GROUP', 'LEADER', '2365458', 'CHINA', '115698854', 'AE', '1', 1, 0, '', '2021-09-02 15:44:15', 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL),
+(84, 4, 58, 111, 'ONE', 'ONE', '45698', 'JAPON', '458789', 'AE', '2', 1, 0, '', '2021-09-02 16:39:00', 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL),
+(85, 4, 58, 100, 'LEADER OCEAN', 'LEADER OCEAN', '45896', 'HONG KONG', '5987', 'NA', '1', 1, 0, '', '2021-09-02 16:44:27', 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL),
+(86, 4, 58, 73, 'EMPRESA DE COLOADER', 'EMPRESA DE COLOADER', '120393918', 'ESPA&Ntilde;A', '101928948', 'AC', '1', 1, 0, '', '2021-09-02 16:59:48', 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1193,6 +1299,28 @@ INSERT INTO `envio_courier` (`id_envio_courier`, `nombre`) VALUES
 (1, 'E-mail'),
 (2, 'Fax'),
 (3, 'Guia');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `equipo`
+--
+
+CREATE TABLE `equipo` (
+  `id_tipo_equipo` int(11) NOT NULL,
+  `tamano` varchar(20) NOT NULL,
+  `tipo` varchar(25) NOT NULL,
+  `tara` decimal(10,2) NOT NULL,
+  `descripcion` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `equipo`
+--
+
+INSERT INTO `equipo` (`id_tipo_equipo`, `tamano`, `tipo`, `tara`, `descripcion`) VALUES
+(1, '40', 'DRY', '0.00', 'equipo normal tipo dry'),
+(2, '40', 'DRY', '0.00', 'normal');
 
 -- --------------------------------------------------------
 
@@ -1664,6 +1792,17 @@ INSERT INTO `permiso` (`id_permiso`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `permisos_especiales`
+--
+
+CREATE TABLE `permisos_especiales` (
+  `id_permiso` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `plantilla_calculoa`
 --
 
@@ -1834,6 +1973,28 @@ INSERT INTO `tipo_documento` (`id_tipo_documento`, `nombre`) VALUES
 (7, 'FAC'),
 (8, 'MAN'),
 (9, 'PKL');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_licencia`
+--
+
+CREATE TABLE `tipo_licencia` (
+  `id_tipo_licencia` int(11) NOT NULL,
+  `nombre` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tipo_licencia`
+--
+
+INSERT INTO `tipo_licencia` (`id_tipo_licencia`, `nombre`) VALUES
+(1, 'A'),
+(2, 'B'),
+(3, 'C'),
+(4, 'M'),
+(5, 'E');
 
 -- --------------------------------------------------------
 
@@ -2085,6 +2246,12 @@ ALTER TABLE `envio_courier`
   ADD PRIMARY KEY (`id_envio_courier`);
 
 --
+-- Indices de la tabla `equipo`
+--
+ALTER TABLE `equipo`
+  ADD PRIMARY KEY (`id_tipo_equipo`);
+
+--
 -- Indices de la tabla `giro_negocio`
 --
 ALTER TABLE `giro_negocio`
@@ -2141,6 +2308,12 @@ ALTER TABLE `permiso`
   ADD PRIMARY KEY (`id_permiso`);
 
 --
+-- Indices de la tabla `permisos_especiales`
+--
+ALTER TABLE `permisos_especiales`
+  ADD PRIMARY KEY (`id_permiso`);
+
+--
 -- Indices de la tabla `plantilla_calculoa`
 --
 ALTER TABLE `plantilla_calculoa`
@@ -2181,6 +2354,12 @@ ALTER TABLE `tipo_carga_empresa`
 --
 ALTER TABLE `tipo_documento`
   ADD PRIMARY KEY (`id_tipo_documento`);
+
+--
+-- Indices de la tabla `tipo_licencia`
+--
+ALTER TABLE `tipo_licencia`
+  ADD PRIMARY KEY (`id_tipo_licencia`);
 
 --
 -- Indices de la tabla `tipo_medio`
@@ -2250,7 +2429,7 @@ ALTER TABLE `barco`
 -- AUTO_INCREMENT de la tabla `calculo_almacen`
 --
 ALTER TABLE `calculo_almacen`
-  MODIFY `id_calculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_calculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `canal_distribucion`
@@ -2274,7 +2453,7 @@ ALTER TABLE `ciudad`
 -- AUTO_INCREMENT de la tabla `consecutivos`
 --
 ALTER TABLE `consecutivos`
-  MODIFY `id_consecutivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_consecutivo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `contactos_e`
@@ -2292,7 +2471,7 @@ ALTER TABLE `contenedor`
 -- AUTO_INCREMENT de la tabla `correlativoagente`
 --
 ALTER TABLE `correlativoagente`
-  MODIFY `id_correlativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_correlativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `correlativo_almacen`
@@ -2316,7 +2495,7 @@ ALTER TABLE `depto`
 -- AUTO_INCREMENT de la tabla `descuentocalculo`
 --
 ALTER TABLE `descuentocalculo`
-  MODIFY `id_descuento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_descuento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_almacen`
@@ -2328,7 +2507,7 @@ ALTER TABLE `detalle_almacen`
 -- AUTO_INCREMENT de la tabla `detalle_calculo`
 --
 ALTER TABLE `detalle_calculo`
-  MODIFY `id_detalle_calculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_detalle_calculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_plantillaa`
@@ -2346,7 +2525,7 @@ ALTER TABLE `documentos_embarque`
 -- AUTO_INCREMENT de la tabla `embarque_maritimo`
 --
 ALTER TABLE `embarque_maritimo`
-  MODIFY `id_embarque_maritimo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_embarque_maritimo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `empaque`
@@ -2365,6 +2544,12 @@ ALTER TABLE `empresas`
 --
 ALTER TABLE `envio_courier`
   MODIFY `id_envio_courier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `equipo`
+--
+ALTER TABLE `equipo`
+  MODIFY `id_tipo_equipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `giro_negocio`
@@ -2421,6 +2606,12 @@ ALTER TABLE `permiso`
   MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `permisos_especiales`
+--
+ALTER TABLE `permisos_especiales`
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `plantilla_calculoa`
 --
 ALTER TABLE `plantilla_calculoa`
@@ -2461,6 +2652,12 @@ ALTER TABLE `tipo_carga_empresa`
 --
 ALTER TABLE `tipo_documento`
   MODIFY `id_tipo_documento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_licencia`
+--
+ALTER TABLE `tipo_licencia`
+  MODIFY `id_tipo_licencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_medio`

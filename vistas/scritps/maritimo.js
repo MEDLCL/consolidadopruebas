@@ -1,5 +1,7 @@
+var tablamaritima = '';
 function init() {
     // cancelar();
+    $("#btnActualizarOPEmbarque").hide();
     $("#crearMaritimo").show();
     $("#listadoEmbarquesMaritimo").hide();
     $("#tabCrearMaritimo a:first").tab("show");
@@ -18,6 +20,8 @@ function init() {
     $("#noContenedor").inputmask("[aaaa]-999999-9");
     $("#btnGrabarCreaM").prop("disabled", true);
     listarEmbarquesCreados();
+    $("#crearMaritimo").hide();
+    $("#listadoEmbarquesMaritimo").show();
 }
 
 function estableceFecha() {
@@ -678,6 +682,7 @@ function grabarEditarCreaMaritimo() {
     }
 
     var form = new FormData($("#frmCrearMaritimo")[0]);
+
     $.ajax({
         url: "../ajax/creaMaritimo.php?op=guardaryeditar",
         type: "POST",
@@ -696,13 +701,13 @@ function grabarEditarCreaMaritimo() {
                 Swal.fire({
                     icon: "success",
                     title: "",
-                    text: "Embarque Ingresado con Exito",
+                    text: datos.mensaje,
                 });
             } else {
                 Swal.fire({
                     icon: "error",
                     title: "",
-                    text: "Se ha Producido un error",
+                    text: datos.mensaje,
                 });
                 //alertify.error("Proceso no se pudo realizar") + " " + datos;
             }
@@ -711,12 +716,12 @@ function grabarEditarCreaMaritimo() {
 }
 
 function listarEmbarquesCreados() {
-    tabla = $("#TlistadoMaritimo").dataTable({
-        aProcessing: true, //Activamos el procesamiento del datatables
-        aServerSide: true, //Paginacion y fltrado realizado por el servidor
+    tablamaritima = $("#TlistadoMaritimo").dataTable({
+        "aProcessing": true, //Activamos el procesamiento del datatables
+        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
         dom: "Bfrtip", //Definimos los elementos de control de tabla
         buttons: ["copyHtml5", "excelHtml5", "pdfHtml5"],
-        ajax: {
+        "ajax": {
             url: "../ajax/creaMaritimo.php?op=listarEmbarque",
             type: "get",
             dataType: "json",
@@ -724,9 +729,11 @@ function listarEmbarquesCreados() {
                 console.log(e.responseText);
             },
         },
-        bDestroy: true,
-        iDisplayLenth: 10, //paginacion
-        order: [
+        "bDestroy": true,
+        "pageLength" :15,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        //"iDisplayLenth": 25, //paginacion
+        "order": [
             [1, "desc"]
         ], //order los datos
     });

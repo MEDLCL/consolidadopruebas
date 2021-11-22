@@ -27,6 +27,14 @@ $tamEmpresa = isset($_POST['tamanoEmpresa']) ? $tamEmpresa =  $_POST['tamanoEmpr
 $tipoCarga = isset($_POST['tipoCargaEmpresa'])?$tipoCarga = $_POST['tipoCargaEmpresa']:$tipoCarga = 0;
 $canalDis = isset($_POST["canalDistribucion"])?$canalDis= $_POST["canalDistribucion"]:$canalDis =0;
 
+$representanteL = isset($_POST["representanteLegal"])?$representanteL= $_POST["representanteLegal"]:$representanteL ="";
+$diasCredito = isset($_POST['diasCreditoTR']) ? $diasCredito = $_POST['diasCreditoTR'] : $diasCredito = 0;
+$cuentaBan = isset($_POST['cuentaBancariaTR']) ? $cuentaBan =  $_POST['cuentaBancariaTR'] : $cuentaBan = "";
+$paraCheque = isset($_POST['paraCheque'])?$paraCheque = $_POST['paraCheque']:$paraCheque = 0;
+$idmonedaPago = isset($_POST["monedaPago"])?$idmonedaPago= $_POST["monedaPago"]:$idmonedaPago =0;
+
+
+
 $res = 0;
 switch ($_GET['op']) {
     case 'guardaryeditar':

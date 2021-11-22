@@ -263,6 +263,7 @@ class creaMaritimo
             $json['idembarque'] = $idembarque;
             $json['codigo'] = $codigoEmbarque;
             $json['consecutivo'] = $consecutivo;
+            $json["mensaje"]= "Embarque Ingresado con exito";
             return $json;
         } catch (\Throwable $th) {
             $con->rollBack();
@@ -272,7 +273,7 @@ class creaMaritimo
             //$con = Conexion::cerrar();
             $json = array();
             $json['idembarque'] = 0;
-            $json['mensaje']= 'Embarque Ingresado con Exito';
+            $json['mensaje']= 'Error al ingresar Embarque '.$th->getMessage();
         }
     }
 
@@ -347,7 +348,7 @@ class creaMaritimo
             if (!file_exists($directorio)) {
                 mkdir($directorio, 0777);
             }
-
+            if (!empty($emptyArray)) {
             foreach ($archivos['tmp_name'] as $key => $tmp_name) {
                 //Validamos que el archivo exista
                 if ($archivos["name"][$key]) {
@@ -377,16 +378,17 @@ class creaMaritimo
                     closedir($dir); //Cerramos el directorio de destino
                 }
             }
-
+        }
             $json = array();
             $json['idembarque'] = $idembarque;
+            $json['mensaje']= "Embarque Actualizado con exito";
             return $json;
         } catch (\Throwable $th) {
             $con->rollBack();
             //$con = Conexion::cerrar();
             $json = array();
             $json['idembarque'] = 0;
-            $json['mensaje'] = 'Embarque Actualizado con Exito';
+            $json['mensaje'] = 'Se ha producido un error '. $th->getMessage();
             return $json;
         }
     }

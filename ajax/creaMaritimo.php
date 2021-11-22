@@ -55,8 +55,8 @@ switch ($_GET['op']) {
         $data = array();
         foreach ($res as $reg) {
             $data[] = array(
-                "0" => '<button class="btn btn-warning" onclick="mostrarEmbarque(' . $reg->id_embarque_maritimo . ')"><i class="fa fa-pencil" ></i></button>' 
-                .' <button class="btn btn-danger" onclick="anularEmbarque(' . $reg->id_embarque_maritimo . ')"><i class="fa fa-trash" ></i></button>',               
+                "0" => '<button class="btn btn-warning btn-sm" onclick="mostrarEmbarque(' . $reg->id_embarque_maritimo . ')"><i class="fa fa-pencil" ></i></button>' 
+                .' <button class="btn btn-danger btn-sm" onclick="anularEmbarque(' . $reg->id_embarque_maritimo . ')"><i class="fa fa-trash" ></i></button>',               
                 "1" => $reg->fechaingreso,
                 "2" => $reg->codigo,
                 "3" => $reg->consecutivo,

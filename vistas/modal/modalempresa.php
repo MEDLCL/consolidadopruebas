@@ -178,13 +178,13 @@
                                                             <label for="representanteLegal"
                                                                 class="control-label">Representante Legal:</label>
                                                             <input type="text" name="representanteLegal"
-                                                                id="representanteLegal" class="form-control">
+                                                                id="representanteLegal" class="form-control input-sm">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="diasCreditoTR" class="control-label">Dias
                                                                 Credito:</label>
                                                             <input type="number" name="diasCreditoTR" id="diasCreditoTR"
-                                                                class="form-control">
+                                                                class="form-control input-sm">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="cuentaBancariaTR" class="control-label">Cuenta
@@ -231,28 +231,28 @@
                                                     <div class="form-group">
                                                         <label for="Nombre" class="control-label">Nombre:</label>
                                                         <input type="text" name="Nombre" id="Nombre"
-                                                            class="form-control">
+                                                            class="form-control input-sm">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Apellido" class="control-label">Apellido:</label>
                                                         <input type="text" name="Apellido" id="Apellido"
-                                                            class="form-control">
+                                                            class="form-control input-sm">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Correo" class="control-label">Correo:</label>
                                                         <input type="email" name="Correo" id="Correo"
-                                                            class="form-control">
+                                                            class="form-control input-sm">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="telefono" class="control-label">Telefono:</label>
                                                         <input type="text" name="telefonoc" id="telefonoc"
-                                                            class="form-control"
+                                                            class="form-control input-sm"
                                                             onkeyup="this.value=numeroTelefono(this.value)">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="puesto" class="control-label">Puesto:</label>
                                                         <input type="text" name="puesto" id="puesto"
-                                                            class="form-control">
+                                                            class="form-control input-sm">
                                                     </div>
                                                     <div class="form-group col-md-offset-3">
                                                         <button type="button" class="btn btn-large btn-success"
@@ -307,7 +307,7 @@
                                                             Transporte Aduanero:</label>
 
                                                         <input type="text" name="codigoAduanero" id="codigoAduanero"
-                                                            class="form-control">
+                                                            class="form-control input-sm">
                                                     </div>
                                                     <div class="col-md-2">
                                                         <label for="permisoEspecial" class="">Codigo CAAT:
@@ -327,7 +327,7 @@
                                                         <label for="codigoAduanero" class="control-label">Codigo</label>
 
                                                         <input type="text" name="codigoAduanero" id="codigoAduanero"
-                                                            class="form-control">
+                                                            class="form-control input-sm">
                                                     </div>
                                                     <!-- </form> -->
                                                 </div>
@@ -336,15 +336,15 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12 form-group"></div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="panel panel-primary">
                                                 <div class="panel-heading text-center">UNIDADES</div>
                                                 <div class="panel-body">
                                                     <!-- <form role="form"> -->
-                                                    <div class="form-group">
-                                                        <label for="tipoEquipoTotal" class="">Tipo Equipo: </label>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="tipoEquipo" class="">Tipo Equipo: </label>
                                                         <div class="input-group input-group-sm">
-                                                            <select id="tipoEquipoTotal" name="tipoEquipoTotal"
+                                                            <select id="tipoEquipo" name="tipoEquipo"
                                                                 class="form-control selectpicker"
                                                                 data-live-search="true">
                                                             </select>
@@ -354,61 +354,61 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="cantidadUnidadTotal"
-                                                            class="control-label">Cantidad:</label>
-                                                        <input type="text" name="cantidadUnidadTotal"
-                                                            id="cantidadUnidadTotal" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="cantidadUnidadTotal" class="control-label">Placa
+                                                    <input type="hidden" name="idasignaequipo" id="idasignaequipo">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="placaCabezal" class="control-label">Placa
                                                             Cabezal:
                                                         </label>
-                                                        <input type="text" name="cantidadUnidadTotal"
-                                                            id="cantidadUnidadTotal" class="form-control">
+                                                        <input type="text" name="placaCabezal" id="placaCabezal"
+                                                            class="form-control input-sm" onkeyup="mayusculas(this)">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="cantidadUnidadTotal" class="control-label">Placa
+                                                    <div class="form-group col-md-6">
+                                                        <label for="placaFurgon" class="control-label">Placa
                                                             Furgon:
                                                         </label>
-                                                        <input type="text" name="cantidadUnidadTotal"
-                                                            id="cantidadUnidadTotal" class="form-control">
+                                                        <input type="text" name="placaFurgon" id="placaFurgon"
+                                                            class="form-control input-sm" onkeyup="mayusculas(this)">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="cantidadUnidadTotal" class="control-label">GPS
-                                                        </label>
-                                                        <input type="text" name="cantidadUnidadTotal"
-                                                            id="cantidadUnidadTotal" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="cantidadUnidadTotal" class="control-label">Tarjeta
+
+                                                    <div class="form-group col-md-6">
+                                                        <label for="tarjetaCirculacion" class="control-label">Tarjeta
                                                             de Circulacion:
                                                         </label>
-                                                        <input type="text" name="cantidadUnidadTotal"
-                                                            id="cantidadUnidadTotal" class="form-control">
+                                                        <input type="text" name="tarjetaCirculacion"
+                                                            id="tarjetaCirculacion" class="form-control input-sm"
+                                                            onkeyup="mayusculas(this)">
                                                     </div>
-                                                    <div class="form-group col-md-offset-3">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="gps" class="control-label">GPS
+                                                        </label>
+                                                        <input type="text" name="gps" id="gps"
+                                                            class="form-control input-sm" onkeyup="mayusculas(this)">
+                                                    </div>
+                                                    <div class="col-md-12">
+
+                                                    </div>
+                                                    <div class="form-group col-md-offset-5">
                                                         <button type="button" class="btn btn-large btn-success"
-                                                            onclick="">Registrar</button>
+                                                            onclick="registrarEquipo()">Registrar</button>
                                                     </div>
                                                     <!-- </form> -->
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-6">
                                             <div class="panel-body table-responsive">
                                                 <table class="table table-condensed table-hover table-bordered"
-                                                    id="Tcontactos">
+                                                    id="tblEquipos">
                                                     <thead>
                                                         <th>Aciones</th>
+                                                        <th>id</th>
                                                         <th>Tipo Unidad</th>
-                                                        <th>Cantidad Unidades</th>
                                                         <th>Placa Cabezal</th>
                                                         <th>Placa Furgon</th>
                                                         <th>GPS</th>
                                                         <th>Tarjeta Circulacion</th>
                                                     </thead>
-                                                    <tbody id="tbodyC">
+                                                    <tbody id="tbodyEquipos">
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -418,21 +418,20 @@
                                     <div class="row">
 
                                         <div class="col-md-12 form-group"></div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="panel panel-primary">
                                                 <div class="panel-heading text-center">PILOTOS</div>
                                                 <div class="panel-body">
                                                     <!-- <form role="form"> -->
-                                                    <div class="form-group">
-                                                        <label for="cantidadUnidadTotal"
-                                                            class="control-label">Nombre:</label>
-                                                        <input type="text" name="cantidadUnidadTotal"
-                                                            id="cantidadUnidadTotal" class="form-control">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="nombrePiloto" class="control-label">Nombre:</label>
+                                                        <input type="text" name="nombrePiloto" id="nombrePiloto"
+                                                            class="form-control input-sm">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="tipoEquipoTotal" class="">Tipo Licencia:</label>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="tipoLicencia" class="">Tipo Licencia:</label>
                                                         <div class="input-group input-group-sm">
-                                                            <select id="tipoEquipoTotal" name="tipoEquipoTotal"
+                                                            <select id="tipoLicencia" name="tipoLicencia"
                                                                 class="form-control selectpicker"
                                                                 data-live-search="true">
                                                             </select>
@@ -441,33 +440,33 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="cantidadUnidadTotal" class="control-label">No.
+                                                    <div class="form-group col-md-6">
+                                                        <label for="numeroLicencia" class="control-label">No.
                                                             Licencia:
                                                         </label>
-                                                        <input type="text" name="cantidadUnidadTotal"
-                                                            id="cantidadUnidadTotal" class="form-control">
+                                                        <input type="text" name="numeroLicencia" id="numeroLicencia"
+                                                            class="form-control input-sm"  onkeyup="mayusculas(this)">
                                                     </div>
-
-                                                    <div class="form-group col-md-offset-3">
+                                                    <div class="form-group col-md-offset-5 col-md-12">
                                                         <button type="button" class="btn btn-large btn-success"
-                                                            onclick="">Registrar</button>
+                                                            onclick="registrarPiloto()">Registrar</button>
                                                     </div>
                                                     <!-- </form> -->
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-7">
+                                        <div class="col-md-6">
                                             <div class="panel-body table-responsive">
                                                 <table class="table table-condensed table-hover table-bordered"
-                                                    id="Tcontactos">
+                                                    id="tblPilotos">
                                                     <thead>
                                                         <th>Aciones</th>
+                                                        <th>id</th>
                                                         <th>Nombre</th>
                                                         <th>Tipo Licencia</th>
                                                         <th>No. Licencia</th>
                                                     </thead>
-                                                    <tbody id="tbodyC">
+                                                    <tbody id="tbodypilotos">
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -708,7 +707,7 @@
                                                                                 <input type="radio"
                                                                                     name="disponibilidad" id="input"
                                                                                     value="regular">
-                                                                                
+
                                                                             </label>
                                                                         </div>
                                                                     </td>
@@ -718,7 +717,7 @@
                                                                                 <input type="radio"
                                                                                     name="disponibilidad" id="input"
                                                                                     value="malo">
-                                                                                
+
                                                                             </label>
                                                                         </div>
                                                                     </td>
@@ -730,7 +729,7 @@
                                                                             <label>
                                                                                 <input type="radio" name="estadoflota"
                                                                                     id="input" value="bueno">
-                                                                                
+
                                                                             </label>
                                                                         </div>
                                                                     </td>
@@ -739,7 +738,7 @@
                                                                             <label>
                                                                                 <input type="radio" name="estadoflota"
                                                                                     id="input" value="regular">
-                                                                                
+
                                                                             </label>
                                                                         </div>
                                                                     </td>
@@ -748,7 +747,7 @@
                                                                             <label>
                                                                                 <input type="radio" name="estadoflota"
                                                                                     id="input" value="malo">
-                                                                               
+
                                                                             </label>
                                                                         </div>
                                                                     </td>
@@ -760,7 +759,7 @@
                                                                             <label>
                                                                                 <input type="radio" name="servicio"
                                                                                     id="input" value="bueno">
-                                                                                
+
                                                                             </label>
                                                                         </div>
                                                                     </td>
@@ -769,7 +768,7 @@
                                                                             <label>
                                                                                 <input type="radio" name="servicio"
                                                                                     id="input" value="regular">
-                                                                                
+
                                                                             </label>
                                                                         </div>
                                                                     </td>
@@ -778,7 +777,7 @@
                                                                             <label>
                                                                                 <input type="radio" name="servicio"
                                                                                     id="input" value="malo">
-                                                                                
+
                                                                             </label>
                                                                         </div>
                                                                     </td>

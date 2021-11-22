@@ -26,6 +26,7 @@ function init() {
     listarDetallePlantillaA();
     limpiarDetallePlantilla();
     $("#plantillaCalculoAlmacen").hide();
+    $("#calculoAlmacen").hide();
 }
 
 function llenaconsignado() {
@@ -491,8 +492,15 @@ function sumaCifImpuesto() {
     $("#bSeguroCalculo").val(baseS);
 }
 
+function CancelarCalculoMostrado() {
+    $("#calculoAlmacen").hide();
+}
+
 function CargaCalculoNuevo(id_detalleA_calculo) {
     $("#plantillaCalculoAlmacen").hide();
+    $("#calculoAlmacen").show();
+    $("#btngrabarCalculo").prop("disabled",true);
+    
     limpiaNuevoCalculo();
     $.post(
         "../ajax/calculoAlmacen.php?op=MostrarCalculoNuevo", {
@@ -613,6 +621,8 @@ function calcularDias() {
         }
     );
 }
+
+
 
 function calcularCifDolares() {
     var tc = $("#tipoCambioCalculo").val();
@@ -946,7 +956,7 @@ function cargaCalulosPlantilla() {
     $("#TcalculosALmacenP").dataTable({
         aProcessing: true, //Activamos el procesamiento del datatables
         aServerSide: true, //Paginacion y fltrado realizado por el servidor
-        dom: "Bfrtip", //Definimos los elementos de control de tabla
+        dom: "Brti", //Definimos los elementos de control de tabla
         buttons: ["pdfHtml5"],
         ajax: {
             url: "../ajax/calculoAlmacen.php?op=llenaTablacalculo",
@@ -1033,14 +1043,14 @@ function sumarcalculo() {
             } */
     });
     /* for (var i = 0; i < valor.length; i++) {
-          iddetalle = document.getElementById("TcalculosALmacenP").rows[i + 1].cells[0].innerText;
-          subtotal = parseFloat($("#valorDescripcion"+iddetalle).val());
-          sumaotros = sumaotros + parseFloat($("#ivaDescripcion"+iddetalle).val());
+        iddetalle = document.getElementById("TcalculosALmacenP").rows[i + 1].cells[0].innerText;
+        subtotal = parseFloat($("#valorDescripcion"+iddetalle).val());
+        sumaotros = sumaotros + parseFloat($("#ivaDescripcion"+iddetalle).val());
       } */
 
     /*  $("input[name='ivaDescripcion[]']").each(function (indice, elemento) {
-          valor1 = $(elemento).val();
-          total1 = total1 + parseFloat(valor1);
+        valor1 = $(elemento).val();
+        total1 = total1 + parseFloat(valor1);
       });
       $("#iva").val(total1);
      iva = $("#iva").val();
@@ -1056,7 +1066,13 @@ function sumarValores() {
 
     var valor2 = 0;
     var total2 = 0;
+    var iddescuento =0;
+    var valDescuento=0;
+    var temp =0;
 
+    iddescuento = $("#descuento").prop("selectedIndex");
+
+   
     $("#subtotal").val(0);
     $("#iva").val(0);
     $("#financiado").val(0);
@@ -1067,6 +1083,14 @@ function sumarValores() {
     //     thisObj = objs[oi];
     //          alert(thisObj.value);
     //  }
+    if ($("#aplicaF").prop("checked")) {
+        $("#financiado").val(
+            parseFloat($("#total").val()) *
+            parseFloat($("#porcentajefinanciado").val() / 100)
+        );
+        //
+        $("#financiado").val($("#financiado").val());
+    }
 
     $("input[name='valorDescripcion[]']").each(function (indice, elemento) {
         //console.log('El elemento con el índice '+indice+' contiene '+$(elemento).val());
@@ -1099,21 +1123,36 @@ function sumarValores() {
     $("#iva").val(total1);
     $("#subtotal").val(parseFloat(total) + parseFloat(total2));
 
+    var financiado = parseFloat($("#financiado").val());
+
+    if (financiado == "" || isNaN(financiado)){
+        financiado =0;
+    }
     $("#total").val(
-        parseFloat(total1) + parseFloat(total) + parseFloat($("#financiado").val())
+        parseFloat(total1) + parseFloat(total) + financiado
     );
-    if ($("#aplicaF").prop("checked")) {
+    if (iddescuento == -1 || iddescuento == 0){
+        $("#descuentoValor").val(0);
+    }else{
+        valDescuento = $("#descuento option:selected").html()
+        $("#descuentoValor").val(parseFloat($("#total").val())* (parseFloat(valDescuento)/100)); 
+        $("#descuentoValor").val(numerosDecimal($("#descuentoValor").val())) 
+    }
+
+    $("#grantotal").val(parseFloat($("#total").val())-parseFloat($("#descuentoValor").val()));
+
+    /* if ($("#aplicaF").prop("checked")) {
         $("#financiado").val(
             parseFloat($("#total").val()) *
             parseFloat($("#porcentajefinanciado").val() / 100)
         );
         //
         $("#financiado").val($("#financiado").val());
-    }
+    } */
     /*    $("input[name='ivaDescripcion[]']").each(function (indice, elemento) {    
-          valor1 = $(elemento).val();
-          total1 = total1 + parseFloat(valor1);
-      });
+        valor1 = $(elemento).val();
+        total1 = total1 + parseFloat(valor1);
+    });
       $("#iva").val(total1); */
 }
 
@@ -1134,22 +1173,33 @@ function calcularIvaTotal(subtotal, iddetalle) {
 /* 
 function funcionAsync (datos, callback){
     jQuery.ajax({
-      type: 'POST',
-      url: ajaxurl,
-      data: datos,
-      success: function (data) {
-         callback(null, data);
-      },
-      error: function (errorThrown) {callback(errorThown);}
+    type: 'POST',
+    url: ajaxurl,
+    data: datos,
+    success: function (data) {
+        callback(null, data);
+    },
+    error: function (errorThrown) {callback(errorThown);}
     });
   } */
 /*  Y para la ejecución de la función :
-  
-  funcionAsync(mis_datos, function(errorLanzado, datosDevueltos){
+
+funcionAsync(mis_datos, function(errorLanzado, datosDevueltos){
     if(errorLanzado) // Ha habido un error, deberías manejarlo :/
-      return;
+    return;
     // Tu código para hacer algo con datosDevueltos va aquí
   }); */
+function verificaOcultarchk(iddetalle) {
+    if ($('#ocultar' + iddetalle).prop('checked')) {
+        $('#prorratear' + iddetalle).prop('checked', false);
+    }
+}
+
+function verificarProrratearcheck(iddetalle) {
+    if ($('#prorratear' + iddetalle).prop('checked')) {
+        $('#ocultar' + iddetalle).prop('checked', false);
+    }
+}
 
 function ejecutarFormulas(iddetalle, otrovalor, callback) {
     var delCalculoA = $("#delCalculoA").val();
@@ -1166,6 +1216,7 @@ function ejecutarFormulas(iddetalle, otrovalor, callback) {
     var diasAlmacenaje = $("#diasAlmacenaje").val();
     var totalDias = $("#totalDias").val();
     var tipoCambioCalculo = $("#tipoCambioCalculo").val();
+
     var valor;
     var cifCalculo = $("#cifCalculo").val();
     $.ajax({
@@ -1192,6 +1243,7 @@ function ejecutarFormulas(iddetalle, otrovalor, callback) {
             iddetalle: iddetalle,
             cifCalculo: cifCalculo,
             otrovalor: otrovalor,
+            'ocultar[]': $("#ocultar").serialize()
         },
         success: function (respuesta) {
             respuesta = JSON.parse(respuesta);
@@ -1202,6 +1254,64 @@ function ejecutarFormulas(iddetalle, otrovalor, callback) {
         beforeSend: function () {},
     });
     return valor;
+}
+function nuevoCalculo() {
+    limpiatotales();
+    $("#btngrabarCalculo").prop("disabled",false);
+    $("#plantilla").val(0);
+    $("#plantilla").selectpicker("refresh");
+    $("#aplicaF").prop("checked", false);
+    $("#exentoIva").prop("checked", false);
+    cargaPlantillaparaCalculo();
+    cargaCalulosPlantilla();
+}
+function limpiatotales(){
+    $("#isrCalculo").val(0);
+    $("#alcaldiaCalculo").val(0);
+    $("#financiado").val(0);
+    $("#descuentoValor").val(0);
+    $("#subtotal").val(0);
+    $("#iva").val(0);
+    $("#total").val(0);
+}
+function calcularTotal() {
+    limpiatotales();
+    var plantilla = $("#plantilla").prop("selectedIndex");
+    var cif = $("#cifCalculo").val();
+    var impuesto = $("#impuestoCalculo").val();
+    var fechaf = $("#alCalculoA").val();
+
+    if (cif == 0 || cif.trim() == "") {
+        alertify.alert("Error", "Debe de Ingresar el Valor CIF");
+        return false;
+    }
+    if (impuesto == 0 || impuesto.trim() == "") {
+        alertify.alert("Error", "Debe de ingresar el valor Impuesto");
+        return false;
+    }
+    if (fechaf.trim() == "") {
+        alertify.alert("Error", "Debe de ingresar la fecha Final del Calculo");
+        return false;
+    }
+    if (plantilla ==0 || plantilla == -1){
+        alertify.alert ("Campo Vacio","Debe de seleccionar una Plantilla");
+        return false ;
+    }
+    var frmPlantilla = new FormData($("#frmCalculoAlmacen")[0]);
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: "../ajax/calculoAlmacen.php?op=CalcularTotal",
+        data: frmPlantilla,
+        contentType: false,
+        processData: false,
+        success: function (resp) {
+            // $("tbodyDetaplantilla tr").remove();
+            $("#TcalculosALmacenP > tbody").empty();
+            $('#tbodyDetaplantilla').append(resp);
+            sumarValores() ;
+        }
+    });
 }
 
 function cargaPlantillaparaCalculo() {
@@ -1355,9 +1465,9 @@ function lleDatosCalculo(id_calculo) {
                 $("#clientesCuadrilla").val(data.cnt_cuadrilla);
                 $("#descuento").val(data.id_descuento);
                 $("#descuento").selectpicker("refresh");
-                $("#descuentoValor").val(data.descuento_valor);               
+                $("#descuentoValor").val(data.descuento_valor);
                 $("#financiado").val(data.financiacion_valor);
-                $("#financiado").number(true,2);
+                $("#financiado").number(true, 2);
                 $("#porcentajefinanciado").val(data.financiacion_porcentaje);
                 if (data.aplica_financiacion == 1) {
                     $("#aplicaF").prop("checked", true);
@@ -1387,7 +1497,7 @@ function cargaPlantillaCalculoGrabado(id_calculo) {
     $("#TcalculosALmacenP").dataTable({
         aProcessing: true, //Activamos el procesamiento del datatables
         aServerSide: true, //Paginacion y fltrado realizado por el servidor
-        dom: "Bfrtip", //Definimos los elementos de control de tabla
+        dom: "Brti", //Definimos los elementos de control de tabla
         buttons: ["pdfHtml5"],
         ajax: {
             url: "../ajax/calculoAlmacen.php?op=buscaCalculoDetalle",
