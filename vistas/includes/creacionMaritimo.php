@@ -27,7 +27,7 @@
                             <label for="tipocarga" class="">T. Carga(*)</label>
                             <div class="input-group input-group-sm">
                                 <select id="tipocarga" name="tipocarga" class="form-control selectpicker"
-                                    data-live-search="true">
+                                    data-live-search="true" onchange="llenaNAVAGE()">
                                 </select>
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-info fa-circle-thin"></button>

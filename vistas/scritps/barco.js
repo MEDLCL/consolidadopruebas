@@ -5,7 +5,7 @@ function init() {
 function llenaBarcoModal() {
     $("#bBarco").empty();
     $.post(
-        "../modelos/pais.php?op=General&tabla=barco&campo=nombre", {
+        "../modelos/pais.php?op=selectN&tabla=barco&campo=nombre", {
             id: "id_barco",
             tipoe: "",
         },
@@ -62,6 +62,8 @@ function quienLLamaBarco() {
 var quienLLama = $("#quienllamaBarco").val();
     if (quienLLama =='CreaMar'){
         llenaBarcoM();
+    }else if (quienLLama== "asignaBOP") {
+        llenaBarcoAsignOP();
     }
 }
 

@@ -11,10 +11,11 @@ if (!$_SESSION['nombre']) {
 
     <div class="content-wrapper">
         <section class="content">
-            <?php include_once("../vistas/modal/modalempresa.php");
-            include_once("crearmaritimo.php");
-            include_once("../vistas/modal/barco.php");
-            include_once("../vistas/modal/ciudad.php");
+            <?php
+                include_once("../vistas/modal/modalempresa.php");
+                include_once("crearmaritimo.php");
+                include_once("../vistas/modal/barco.php");
+                include_once("../vistas/modal/ciudad.php");
             ?>
             <div class="row" id="listadoEmbarquesMaritimo">
 
@@ -73,8 +74,8 @@ if (!$_SESSION['nombre']) {
     <script type="text/javascript" src="scritps/barco.js"></script>
     <script type="text/javascript" src="scritps/ciudad.js"></script>
     <script>
-        $(function(){
-            $("#tipocarga").bind("click change",function(event){
+        $(function() {
+            $("#tipocarga").bind("click change", function(event) {
                 event.preventDefault();
                 llenaNAVAGE();
             });

@@ -211,7 +211,7 @@ function llenaServicio() {
 function llenaBarcoM() {
     $("#barco").empty();
     $.post(
-        "../modelos/pais.php?op=General&tabla=barco&campo=nombre", {
+        "../modelos/pais.php?op=selectN&tabla=barco&campo=nombre", {
             id: "id_barco",
             tipoe: "",
         },
@@ -327,6 +327,7 @@ function nuevoBarcoM() {
     limpiaBarco();
     $("#modalBarco").modal("show");
 }
+
 
 function llenaNaviera(idnaviera) {
     $("#naviera").empty();
@@ -784,6 +785,25 @@ function mostrarEmbarque(idembarquemaritimo) {
             $("#btnGrabarCreaM").removeClass("btn-info");
             $("#btnGrabarCreaM").addClass("btn-warning");
             $("#btnGrabarCreaM").html("Actualizar Cambios");
+
+            //llena para barco
+            $("#codigobarco").val(data.codigo);
+            $("#consecutivoBarco").val(data.consecutivo);
+            $("#idEmbarquemBarco").val(data.idembarque);
+            $("#barcoLlegada").val(data.idbarcollegada);
+            $("#barcoLlegada").selectpicker("refresh");
+            $("#ViajeLlegada").val(data.viajellegada);
+            $("#etdOP").val(data.etdop);
+
+            $("#etaOP").val(data.etaop);
+            $("#cetaOP").val(data.cetaop);
+            $("#etaNavieraOP").val(data.etanav);
+
+            $("#completoOP").val(data.completo);
+            $("#pilotoOP").val(data.piloto);
+            $("#descargaOP").val(data.descarga);
+            $("#liberadoOP").val(data.liberado);
+            $("#devueltoOP").val(data.devuelto);
         }
     );
 

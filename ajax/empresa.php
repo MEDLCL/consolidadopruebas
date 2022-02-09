@@ -30,7 +30,7 @@ $canalDis = isset($_POST["canalDistribucion"])?$canalDis= $_POST["canalDistribuc
 $representanteL = isset($_POST["representanteLegal"])?$representanteL= $_POST["representanteLegal"]:$representanteL ="";
 $diasCredito = isset($_POST['diasCreditoTR']) ? $diasCredito = $_POST['diasCreditoTR'] : $diasCredito = 0;
 $cuentaBan = isset($_POST['cuentaBancariaTR']) ? $cuentaBan =  $_POST['cuentaBancariaTR'] : $cuentaBan = "";
-$paraCheque = isset($_POST['paraCheque'])?$paraCheque = $_POST['paraCheque']:$paraCheque = 0;
+$paraCheque = isset($_POST['paraCheque'])?$paraCheque = $_POST['paraCheque']:$paraCheque = "";
 $idmonedaPago = isset($_POST["monedaPago"])?$idmonedaPago= $_POST["monedaPago"]:$idmonedaPago =0;
 
 
@@ -44,7 +44,7 @@ switch ($_GET['op']) {
                 echo $verifica;
             } else if ($verifica == 3) {
                 $codigo =$empresa->codigo($tipoE); 
-                $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa,$gironegocio,$tipoCarga,$tamEmpresa,$canalDis);
+                $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa,$gironegocio,$tipoCarga,$tamEmpresa,$canalDis,$representanteL,$diasCredito,$cuentaBan,$paraCheque,$idmonedaPago);
                 echo $res;
 
             } else {
@@ -71,7 +71,7 @@ switch ($_GET['op']) {
         $data = array();
         foreach ($res as $reg) {
             $data[] = array(
-                "0" => '<button data-toggle="modal" data-target="#modalempresa" class="btn btn-warning" onclick="mostrarempresa(' . $reg->id_empresa . ')"><i class="fa fa-pencil" ></i></button>',
+                "0" => '<button data-toggle="modal" data-target="#modalempresa" class="btn btn-warning btn-sm" onclick="mostrarempresa(' . $reg->id_empresa . ')"><i class="fa fa-pencil" ></i></button>',
                 "1" => $reg->codigo,
                 "2"=> $reg->pais,
                 "3" => $reg->Razons,

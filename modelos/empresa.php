@@ -14,7 +14,7 @@ class Empresa
         try {
             $con->beginTransaction();
             $rspt = $con->prepare("INSERT INTO empresas (codigo,Tipoe,id_sucursal,id_usuario,Razons,Nombrec,identificacion,telefono,direccion,porcentaje_comision,tipo_comision,id_pais,id_giro_negocio,id_tipo_carga,id_tamano_empresa,id_canal_distribucion,id_aslo,representante_legal,dias_credito,cuenta_Bancaria,para_cheque,id_moneda_pago)
-                            values(:codigo,:tipoe,:idsucursal,:idusuario,:razons,:nombrec,:nit,:telefono,:dire,:comision,:cbmtarifa,:idpais:id_giro_negocio,:id_tipo_carga,:id_tamano_empresa,:id_canal_distribucion,:id_aslo,:representanteL,:diasCre,:cuentaBan,:parache,:idmonedaPA)");
+                            values(:codigo,:tipoe,:idsucursal,:idusuario,:razons,:nombrec,:nit,:telefono,:dire,:comision,:cbmtarifa,:idpais,:id_giro_negocio,:id_tipo_carga,:id_tamano_empresa,:id_canal_distribucion,:id_aslo,:representanteL,:diasCre,:cuentaBan,:parache,:idmonedaPA)");
             $rspt->bindParam(":codigo", $codigo);
             $rspt->bindParam(":tipoe", $tipoe);
             $rspt->bindParam(":idsucursal", $_SESSION['idsucursal']);

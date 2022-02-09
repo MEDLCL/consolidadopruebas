@@ -42,7 +42,9 @@ switch ($_GET['op']) {
     case 'equipo':
         equipos();
         break;
-    break;
+    case 'selPro':
+        selecProyecto($tabla,$campo,$id);
+        break;
 }
 
 
@@ -156,6 +158,20 @@ function selectGeneral($tabla,$campo,$id){
     $con = Conexion::cerrar();
     $stmt = NULL;
 }
+function selecProyecto($tabla,$campo,$id){
+    $con = Conexion::getConexion();
+    $stmt = $con->prepare("SELECT * FROM $tabla WHERE id_cliente is not null ORDER  BY $campo ASC");
+    $stmt->execute();
+    $selec = '';
+    $selec = '<option value="0" selected>Seleccione una Opcion</option>';
+    foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as  $resp) {
+        $selec = $selec . '<option value="' . $resp->$id . '">' . $resp->$campo . '</option>';
+    }
+    echo $selec;
+    $con = Conexion::cerrar();
+    $stmt = NULL;
+}
+
 
 function selectDependiente($tabla,$idpadre,$campo,$id){
     $con = Conexion::getConexion();

@@ -109,24 +109,32 @@
                             </ul>
                         </li> <!--  registros  -->
                     <?php endif; ?>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>Ventas</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a>
-                            </li>
-                            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed
-                                    Sidebar</a></li>
-                        </ul>
-                    </li>
 
+                    <?php if ($_SESSION['Comercial'] == 1) :   ?>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Comercial</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <?php if ($_SESSION['EvaluacionProyecto'] == 1) : ?>
+                                    <li><a href="evaluacionProyecto.php"><i class="fa fa-circle-o"></i>Evaluacion Proyecto</a></li>
+                                <?php endif; ?>
+                                <?php if ($_SESSION['Tarifariotru'] == 1) : ?>
+                                    <li><a href="tarifarioTruck.php"><i class="fa fa-money"></i>Tarifario Trucks</a></li>
+                                <?php endif; ?>
+                                <?php if ($_SESSION['Ventatru'] == 1) : ?>
+                                    <li><a href="ventaTruck.php"><i class="fa fa-file-pdf-o"></i>Venta Truck</a></li>
+                                <?php endif; ?>
+                                <!-- <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed
+                                        Sidebar</a></li> -->
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+                    
                     <?php if ($_SESSION['Operaciones'] == 1) : ?>
                         <li class='treeview'>
                             <a href="#">
@@ -161,7 +169,7 @@
                             </ul>
                         </li>
                     <?php endif; ?>
-
+                    <?php if ($_SESSION['ServicioCliente'] == 1) : ?>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa  fa-users"></i>
@@ -177,6 +185,7 @@
                             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
                         </ul>
                     </li>
+                    <?php endif; ?>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa  fa-truck"></i>
@@ -193,54 +202,56 @@
                             <li><a href="liquidacionTruck.php"><i class="fa fa-money"></i>Liquidacion</a></li>
                         </ul>
                     </li>
-
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-usd"></i>
-                            <span>Cobros</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                            <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                            <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-usd"></i> <span>Pagos</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a>
-                            </li>
-                            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a>
-                            </li>
-                            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-                        </ul>
-                    </li>
-                    
-                    <?php  if ($_SESSION['Bancos'] == 1) : ?>
+                    <?php if ($_SESSION['Cuentasporcobrar'] == 1) : ?>
                         <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-money"></i> <span>Bancos</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="movBancario.php"><i class="fa fa-circle-o"></i>Movimientos Bancarios</a></li>
-                            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-                        </ul>
-                    </li>
+                            <a href="#">
+                                <i class="fa fa-usd"></i>
+                                <span>Cuentas Por Cobrar</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
+                                <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
+                                <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
+                                <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
+                                <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
+                                <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['Cuentasporpagar'] == 1) :  ?>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-usd"></i> <span>Cuentas Por Pagar</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a>
+                                </li>
+                                <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a>
+                                </li>
+                                <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if ($_SESSION['Bancos'] == 1) : ?>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-money"></i> <span>Bancos</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="movBancario.php"><i class="fa fa-circle-o"></i>Movimientos Bancarios</a></li>
+                                <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+                            </ul>
+                        </li>
                     <?php endif;  ?>
 
                     <?php if ($_SESSION['Almacen'] == 1) : ?>
@@ -259,46 +270,53 @@
                             </ul>
                         </li>
                     <?php endif; ?>
-                    <li>
-                        <a href="pages/mailbox/mailbox.html">
-                            <i class="fa fa-envelope"></i> <span>Recepciòn</span>
-                            <span class="pull-right-container">
-                                <small class="label pull-right bg-yellow">12</small>
-                                <small class="label pull-right bg-green">16</small>
-                                <small class="label pull-right bg-red">5</small>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-user"></i> <span>RRHH</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                            <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                            <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                            <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                            <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a>
-                            </li>
-                            <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                            <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                            <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                            <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-cogs"></i> <span>Administracion</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="usuario.php"><i class="fa fa-user"></i>Usuarios</a></li>
-                            <li class="treeview">
+                    <?php if ($_SESSION['Recepcion'] == 1) : ?>
+                        <li>
+                            <a href="pages/mailbox/mailbox.html">
+                                <i class="fa fa-envelope"></i> <span>Recepciòn</span>
+                                <span class="pull-right-container">
+                                    <small class="label pull-right bg-yellow">12</small>
+                                    <small class="label pull-right bg-green">16</small>
+                                    <small class="label pull-right bg-red">5</small>
+                                </span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['RRHH'] == 1) :  ?>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-user"></i> <span>RRHH</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                                <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
+                                <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
+                                <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
+                                <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a>
+                                </li>
+                                <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
+                                <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
+                                <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
+                                <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['Administracion'] == 1) :  ?>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-cogs"></i> <span>Administracion</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <?php if ($_SESSION['Usuarios'] == 1) :  ?>
+                                    <li><a href="usuario.php"><i class="fa fa-user"></i>Usuarios</a></li>
+                                <?php endif; ?>
+                                <!--  <li class="treeview">
                                 <a href="#"><i class="fa fa-circle-o"></i> Level One
                                     <span class="pull-right-container">
                                         <i class="fa fa-angle-left pull-right"></i>
@@ -318,12 +336,14 @@
                                         </ul>
                                     </li>
                                 </ul>
-                            </li>
-                            <li><a href="vistasucursal.php"><i class="fa fa-institution"></i>Sucursal</a></li>
-                            <li><a href="pruebas.php"><i class="fa fa-institution"></i>Pruebas</a></li>
-                        </ul>
-                    </li>
-
+                            </li> -->
+                                <?php if ($_SESSION['Sucursales'] == 1) : ?>
+                                    <li><a href="vistasucursal.php"><i class="fa fa-institution"></i>Sucursal</a></li>
+                                <?php endif; ?>
+                                <!-- <li><a href="pruebas.php"><i class="fa fa-institution"></i>Pruebas</a></li> -->
+                            </ul>
+                        </li>
+                    <?php endif; ?>
                     <!-- <li class="header">LABELS</li>
                     <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
                     <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>

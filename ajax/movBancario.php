@@ -34,8 +34,8 @@ switch ($_GET["op"]) {
             $data = array();
             foreach ($rspt as $reg) {
                 if ($reg->estado==1){
-                    $acciones = "<button type= 'button' class='btn btn-warning' onclick='mostrarMovimientobancario(". $reg->id_movimiento .")' ><i class='fa fa-pencil'></i></button>". 
-                                " <button type= 'button' class='btn btn-danger' onclick='anularMovimiento(". $reg->id_movimiento .")' ><i class='fa fa-close'></i></button>";
+                    $acciones = "<button type= 'button' class='btn btn-warning btn-sm' onclick='mostrarMovimientobancario(". $reg->id_movimiento .")' ><i class='fa fa-pencil'></i></button>". 
+                                " <button type= 'button' class='btn btn-danger btn-sm' onclick='anularMovimiento(". $reg->id_movimiento .")' ><i class='fa fa-close'></i></button>";
                     $estado ='<span class="label bg-green">Activado</span>';
                 }else{
                     $acciones = '';

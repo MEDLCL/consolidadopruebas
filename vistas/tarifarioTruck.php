@@ -9,105 +9,260 @@ if (!$_SESSION['nombre']) {
     require_once("../inc/head.php");
     require_once("../inc/header.php");
 ?>
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Main content -->
-    <section class="content">
-        <?php
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+            <?php
             /*include_once("../vistas/modal/facturaAlmacen.php") */
             ?>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box box-info box-solid" id="">
+            <div class="row col-md-12">
+                <div class="box box-primary box-solid" id="">
                     <!--  formulario para detalle de almacen -->
                     <div class="box-header with-border text-center">TARIFARIO</div>
                     <div class="box-body">
-                        <div class="col-md-4">
-                            <label for="" class="">Codigo del Proyecto(*)</label>
-                            <div class="input-group-sm">
-                                <input type="text" name="" id="input" class="form-control" onkeyup="mayusculas(this)">
+                        <div class="col-md-3 form-group">
+                            <label for="codigoProyecto" class="">Codigo Proyecto(*) </label>
+                            <div class="input-group input-group-sm">
+                                <select id="codigoProyecto" name="codigoProyecto" class="form-control selectpicker" data-live-search="true">
+                                </select>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default"></button>
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="" class="">.</label>
-                            <div class="input-group-sm"> 
+                            <div class="input-group-sm">
                                 <button type="button" class="btn btn-primary"><span class="fa fa-search-plus"></span>
                                 </button>
                             </div>
                         </div>
-                        
+
                     </div> <!-- body box  -->
                     <!-- /.box -->
                 </div><!-- /.box -->
-            </div> <!-- col md 12 tabla-->
-        </div>
-        <div class="row" id="listadoEvalucaiones">
-            <div class="col-md-12">
-                <div class="box box-info box-solid">
-                    <div class=" box-header with-border">
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-body table-responsive">
-                            <table class="table table-bordered table-hover table-responsive table-hover" id="Tkardex">
-                                <thead>
-                                    <tr>
-                                        <th>Origen</th>
-                                        <th>Destino</th>
-                                        <th>Tipo Unidad</th>
-                                        <th>Piloto</th>
-                                        <th>Ayudante</th>
-                                        <th>Tarifa Venta</th>
-                                        <th>Tarifa Costo</th>
-                                        <th>Validez</th>
-                                        <th>Tipo Carga</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+            </div>
 
-                                </tbody>
-                            </table>
+            <div class="row col-md-12">
+                <div class="box box-primary box-solid" id="">
+                    <!--tarifas -->
+                    <div class="box-header with-border text-center">TARIFA FLETE</div>
+                    <div class="box-body">
+                        <div class="col-md-6">
+                            <form action="" method="post" id="frmTarifasFlete">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="col-md-12 form-group">
+                                            <label for="origenTarifa">Origen(*):</label>
+                                            <textarea class="form-control" rows="1" id="origenTarifa" name="origenTarifa"></textarea>
+                                        </div>
+                                        <div class="col-md-12 form-group">
+                                            <label for="destinoTarifa">Destino(*):</label>
+                                            <textarea class="form-control" rows="1" id="destinoTarifa" name="destinoTarifa"></textarea>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="tipoUnidadTarifa" class="">Tipo de Unidad(*) </label>
+                                            <div class="input-group input-group-sm">
+                                                <select id="tipoUnidadTarifa" name="tipoUnidadTarifa" class="form-control selectpicker" data-live-search="true">
+                                                </select>
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default"></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="pilotoTarifa" class="">Piloto(*) </label>
+                                            <div class="input-group input-group-sm">
+                                                <select id="pilotoTarifa" name="pilotoTarifa" class="form-control selectpicker" data-live-search="true">
+                                                </select>
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default"></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="">No. Ayudantes</label>
+                                            <div class="input-group-sm">
+                                                <input type="number" class="form-control" name="numeroPilotos" id="numeroPilotos">
+                                                <input type="hidden" name="idtarifaflete" id="idtarifaflete">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="">Validez(*)</label>
+                                            <div class="input-group-sm">
+                                                <input type="text" class="form-control" name="validezTarifaFlete" id="validezTarifaFlete">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="tipoCargaTarifa" class="">Tipo Carga(*) </label>
+                                            <div class="input-group input-group-sm">
+                                                <select id="tipoCargaTarifa" name="tipoCargaTarifa" class="form-control selectpicker" data-live-search="true">
+                                                </select>
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default"></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12"></div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="">Tarifa Venta(*)</label>
+                                            <div class="input-group-sm">
+                                                <input type="number" class="form-control" name="tarifaVentaFlete" id="tarifaVentaFlete">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label for="">Tarifa Costo(*)</label>
+                                            <div class="input-group-sm">
+                                                <input type="number" class="form-control" name="tarifaCostoFlete" id="tarifaCostoFlete">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label for="monedaTarifaFlete" class="">.</label>
+                                            <div class="input-group input-group-sm">
+                                                <select id="monedaTarifaFlete" name="monedaTarifaFlete" class="form-control selectpicker" data-live-search="true">
+                                                </select>
+                                                <!-- <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default"></button>
+                                            </span> -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 form-group col-md-offset-4">
+                                            <button type="button" class="btn btn-primary" onclick="grabarEditarTarifaFlete()">Registrar <span class="fa fa-plus-circle"></span> </button>
+                                        </div>
+
+                                    </div> <!-- body box  -->
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="panel panel-default">
+                                <div class="panel-body table-responsive">
+                                    <table class="table table-bordered table-hover table-responsive table-hover" id="TuniadesAsignadas">
+                                        <thead>
+                                            <tr>
+                                                <th>Acciones</th>
+                                                <th>Origen</th>
+                                                <th>Destino</th>
+                                                <th>Tipo Unidad</th>
+                                                <th>Piloto</th>
+                                                <th>No. Ayudantes</th>
+                                                <th>Validez</th>
+                                                <th>Tipo Carga</th>
+                                                <th>Venta</th>
+                                                <th>Costo</th>
+                                                <th>Signo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> <!-- col md 12 tabla-->
-        </div> <!-- row de tabla usuarios -->
+            </div> <!-- col md 8 tabla-->
+            <div class="row col-md-12">
+                <div class="box box-primary box-solid" id="">
+                    <!--  formulario para detalle de almacen -->
+                    <div class="box-header with-border text-center">TARIFAS SERVICIOS</div>
+                    <div class="box-body">
 
-        <div class="row" id="listadoEvalucaiones">
-            <div class="col-md-12">
-                <div class="box box-info box-solid">
-                    <div class=" box-header with-border">
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-body table-responsive">
-                            <table class="table table-bordered table-hover table-responsive table-hover" id="Tkardex">
-                                <thead>
-                                    <tr>
-                                        <th>Servicio Adicional</th>
-                                        <th>Origen</th>
-                                        <th>Destino</th>
-                                        <th>Tarifa Venta</th>
-                                        <th>Tarifa Costo</th>
-                                        <th>Validez</th>
-                                        <th>Tipo Carga</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="col-md-12 form-group">
+                                        <label for="servicioTarifa" class="">Servicio(*) </label>
+                                        <div class="input-group input-group-sm">
+                                            <select id="servicioTarifa" name="servicioTarifa" class="form-control selectpicker" data-live-search="true">
+                                            </select>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default"></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <label for="origenServicioTarifa">Origen(*):</label>
+                                        <textarea class="form-control" rows="1" id="origenServicioTarifa" name="origenServicioTarifa"></textarea>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <label for="destinoServicioTarifa">Destino(*):</label>
+                                        <textarea class="form-control" rows="1" id="destinoServicioTarifa" name="destinoServicioTarifa"></textarea>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label for="">Tarifa Venta(*)</label>
+                                        <div class="input-group-sm">
+                                            <input type="number" class="form-control" name="tarifaVentaServicio" id="tarifaVentaServicio">
+                                            <input type="hidden" name="idtarifaservicio" id="idtarifaservicio">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label for="">Tarifa Costo(*)</label>
+                                        <div class="input-group-sm">
+                                            <input type="number" class="form-control" name="tarifaCostoServicio" id="tarifaCostoServicio">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label for="monedaServicioTarifa" class="">.</label>
+                                        <div class="input-group input-group-sm">
+                                            <select id="monedaServicioTarifa" name="monedaServicioTarifa" class="form-control selectpicker" data-live-search="true">
+                                            </select>
+                                            <!-- <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" disabled></button>
+                                            </span> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 form-group col-md-offset-4">
+                                        <button type="button" class="btn btn-primary" onclick="registrarServicioFlete()">Registrar <span class="fa fa-plus-circle"></span> </button>
+                                    </div>
 
-                                </tbody>
-                            </table>
+                                </div> <!-- body box  -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="panel panel-default">
+                                <div class="panel-body table-responsive">
+                                    <table class="table table-bordered table-hover table-responsive table-hover" id="TuniadesAsignadas">
+                                        <thead>
+                                            <tr>
+                                                <th>Acciones</th>
+                                                <th>Cant. Unidades</th>
+                                                <th>Tipo Unidad</th>
+                                                <th>Tipo Equipo</th>
+                                                <th>Temperatura</th>
+                                                <th>Especificaciones</th>
+                                                <th>Seguridad</th>
+                                                <th>Marchamo</th>
+                                                <th>GPS</th>
+                                                <th>Lugar Carga</th>
+                                                <th>Lugar Descarga</th>
+                                                <th>Canal Distribucion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> <!-- col md 12 tabla-->
-        </div> <!-- row de tabla usuarios -->
-    </section><!-- /.content -->
-</div><!-- /.content-wrapper -->
-<?php
+            </div> <!-- col md 8 tabla-->
+            <div class="row">
+            </div> <!-- row de tabla usuarios -->
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+    <?php
     require_once("../inc/footer.php");
     require_once("../inc/scritps.php");
     ?>
-<!--  <script>
+    <!--  <script>
         $(document).ready(function() {
             //Date picker
             $('#fechaI').datepicker({
@@ -115,9 +270,9 @@ if (!$_SESSION['nombre']) {
             });
         });
     </script> -->
-<script src="scritps/empresa.js"></script>
-<script>
-</script>
+    <script src="scritps/tarifarioTruck.js"></script>
+    <script>
+    </script>
 
 <?php }
 ob_end_flush();

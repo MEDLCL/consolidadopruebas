@@ -4,7 +4,68 @@ function init() {
     $("#tabIngresoMaritimo a:first").tab("show");
     listaEmbarqueOP();
     $("#btnActualizarOPEmbarque").show();
+    llenaBarcoAsignOP();
+    fechaETD();
+    fechaETA();
+    fechaETANaviera();
+    fechaCETA();
+    fechaCompleto();
+    fechaPiloto();
+    fechaDescarga();
+    fechaLiberado();
+    fechaDevuelto();
 }
+function fechaETD() {
+    $("#etdOP").datepicker({
+        autoclose: true,
+    });
+}
+function fechaETA() {
+    $("#etaOP").datepicker({
+        autoclose: true,
+    });
+}
+
+function fechaETANaviera() {
+    $("#etaNavieraOP").datepicker({
+        autoclose: true,
+    });
+}
+
+function fechaCETA() {
+    $("#cetaOP").datepicker({
+        autoclose: true,
+    });
+}
+
+function fechaCompleto() {
+    $("#completoOP").datepicker({
+        autoclose: true,
+    });
+}
+
+function fechaPiloto() {
+    $("#pilotoOP").datepicker({
+        autoclose: true,
+    });
+}
+function fechaDescarga() {
+    $("#descargaOP").datepicker({
+        autoclose: true,
+    });
+}
+
+function fechaLiberado() {
+    $("#liberadoOP").datepicker({
+        autoclose: true,
+    });
+}
+function fechaDevuelto() {
+    $("#devueltoOP").datepicker({
+        autoclose: true,
+    });
+}
+
 
 function listaEmbarqueOP() {
     tablaEmbarqueOP = $("#tblDetalleEmbarquesOP").dataTable({
@@ -91,7 +152,7 @@ function EditarMaritimo() {
         return false;
     }
 
-    tipocarga = $("tipocarga").val();
+    tipocarga = $("#tipocarga").val();
     barco = $("#barco").val();
     naviera = $("#naviera").val();
     usuarioAsignado = $("#usuarioAsignado").val();
@@ -137,4 +198,78 @@ function EditarMaritimo() {
         },
     });
 }
+function nuevoBarcoMllegada() {
+    $("#quienllamaBarco").val("asignaBOP");
+    llenaBarcoModal();
+    limpiaBarco();
+    $("#modalBarco").modal("show");
+}
+
+function llenaBarcoAsignOP() {
+    $("#barcoLlegada").empty();
+    $.post(
+        "../modelos/pais.php?op=General&tabla=barco&campo=nombre", {
+            id: "id_barco",
+            tipoe: "",
+        },
+        function (data, status) {
+            $("#barcoLlegada").html(data);
+            $("#barcoLlegada").selectpicker("refresh");
+            $("#barcoLlegada").val(0);
+            $("#barcoLlegada").selectpicker("refresh");
+        }
+    );
+}
+function grabarAsingaBarco(){
+    var codigo = $("#codigobarco").val();
+    var barco = $("#barcoLlegada").prop("selectedIndex");
+    var viaje = $("#barco").val();
+    var etd = $("#etdOP").val();
+    var eta = $("#etaOP").val();
+
+    if (codigo.trim() == "") {
+        alertify.alert("Campo Vacio", "Debe de Seleccionar Primero un Embarque");
+        return false;
+    } else if (viaje.trim()== "") {
+        alertify.alert("Campo Vacio", "Debe de ingresar el viaje");
+        return false;
+    } else if (barco == -1 || barco == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar el Barco");
+        return false;
+    } else if (etd.trim() =="") {
+        alertify.alert("Campo Vacio","Debe de Ingresar ETD");
+        return false;
+    } else if (eta.trim()==""){
+        alertify.alert("Campo Vacio","Debe de ingresar ETA");
+        return false;
+    }
+
+    var form = new FormData($("#frmAsignaBarcoOP")[0]);
+
+    $.ajax({
+        url: "../ajax/asignaBarco.php?op=guardaryeditar",
+        type: "POST",
+        data: form,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (datos) {
+            datos = JSON.parse(datos);
+            if (datos.idembarque > 0) {
+                Swal.fire({
+                    icon: "success",
+                    title: "",
+                    text: datos.mensaje,
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "",
+                    text: datos.mensaje,
+                });
+            }
+        },
+    });
+}
+
 init();

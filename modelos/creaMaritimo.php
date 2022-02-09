@@ -414,7 +414,19 @@ class creaMaritimo
                                         EM.viaje,
                                         EM.observaciones,
                                         date_format(EM.fecha_ingreso,'%m/%d/%Y') as fechaingreso,
-                                        EM.cant_clientes
+                                        EM.cant_clientes,
+                                        ifnull(EM.id_barco_llegada,EM.id_barco) as idbarcollegada,
+                                        ifnull(EM.viaje_llegada,EM.viaje) as viajellegada,
+                                        ifnull(date_format(EM.etd_op,'%m/%d/%Y'),'') as etdop,
+                                        ifnull(date_format(EM.eta_op,'%m/%d/%Y'),'') as etaop,
+                                        ifnull(date_format(EM.ceta_op,'%m/%d/%Y'),'') as cetaop,
+                                        ifnull(date_format(EM.eta_naviera_op,'%m/%d/%Y'),'') as etanav,
+                                        ifnull(date_format(EM.completo_op,'%m/%d/%Y'),'') as completo,
+                                        ifnull(date_format(EM.piloto_op,'%m/%d/%Y'),'') as piloto,
+                                        ifnull(date_format(EM.descarga_op,'%m/%d/%Y'),'') as descarga,
+                                        ifnull(date_format(EM.liberado_op,'%m/%d/%Y'),'') as liberado,
+                                        ifnull(date_format(EM.devuelto_op,'%m/%d/%Y'),'') as devuelto
+
                                     FROM embarque_maritimo as EM
                                         WHERE  id_embarque_maritimo = :idembarque");
             $rsp->bindParam(":idembarque", $idembarque);

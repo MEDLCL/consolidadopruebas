@@ -68,6 +68,19 @@ switch ($_GET['op']) {
                 in_array(21, $arraypermisos) ? $_SESSION['Operaciones'] = 1 : $_SESSION['Operaciones'] = 0;
                 in_array(22, $arraypermisos) ? $_SESSION['Maritimo'] = 1 : $_SESSION['Maritimo'] = 0;
                 in_array(23, $arraypermisos) ? $_SESSION['Bancos'] = 1 : $_SESSION['Bancos'] = 0;
+
+                in_array(24, $arraypermisos) ? $_SESSION['Comercial'] = 1 : $_SESSION['Comercial'] = 0;
+                in_array(25, $arraypermisos) ? $_SESSION['EvaluacionProyecto'] = 1 : $_SESSION['EvaluacionProyecto'] = 0;
+                in_array(26, $arraypermisos) ? $_SESSION['Tarifariotru'] = 1 : $_SESSION['Tarifariotru'] = 0;
+                in_array(27, $arraypermisos) ? $_SESSION['Ventatru'] = 1 : $_SESSION['Ventatru'] = 0;
+
+                in_array(28, $arraypermisos) ? $_SESSION['ServicioCliente'] = 1 : $_SESSION['ServicioCliente'] = 0;
+                in_array(29, $arraypermisos) ? $_SESSION['Cuentasporcobrar'] = 1 : $_SESSION['Cuentasporcobrar'] = 0;
+                in_array(30, $arraypermisos) ? $_SESSION['Cuentasporpagar'] = 1 : $_SESSION['Cuentasporpagar'] = 0;
+
+                in_array(31, $arraypermisos) ? $_SESSION['Recepcion'] = 1 : $_SESSION['Recepcion'] = 0;
+                in_array(32, $arraypermisos) ? $_SESSION['RRHH'] = 1 : $_SESSION['RRHH'] = 0;
+
                 echo 1;
             } else {
                 echo 0;

@@ -184,7 +184,7 @@ function eliminarfila(id_contacto) {
     );
 }
 
-function limpiar() {
+function limpiarEmpresas() {
     $('#codigo').val('');
     $('#idempresa').val('0');
     $('#Razons').val('');
@@ -220,10 +220,11 @@ function limpiar() {
     $("#asloEmpresa").val(0);
     $("#asloEmpresa").selectpicker("refresh");
 
+    $("#diasCreditoTR").val(0);
 }
 
 function nuevo(tipoe) {
-    limpiar();
+    limpiarEmpresas();
     $('#consignadoa').hide();
     $("#otrosTruck").hide();
     $("#codigo").prop("readonly", true)
@@ -352,6 +353,10 @@ function llenaEmpresaEnModal() {
             llenaNaviera();
         } else if (queActu == 'AgenciaC') {
             llenaAGenciaCarga();
+        }
+    }else if (llama =="evaluaProyecto"){
+        if (queActu == "clienteEva"){
+            llenaClienteProyeto();
         }
     }
 }
