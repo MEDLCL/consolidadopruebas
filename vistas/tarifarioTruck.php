@@ -25,7 +25,7 @@ if (!$_SESSION['nombre']) {
                         <div class="col-md-3 form-group">
                             <label for="codigoProyecto" class="">Codigo Proyecto(*) </label>
                             <div class="input-group input-group-sm">
-                                <select id="codigoProyecto" name="codigoProyecto" class="form-control selectpicker" data-live-search="true">
+                                <select id="codigoProyecto" name="codigoProyecto" class="form-control selectpicker" data-live-search="true" onchange="llenaTarifasFleteServicio()">
                                 </select>
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default"></button>
@@ -35,7 +35,7 @@ if (!$_SESSION['nombre']) {
                         <div class="col-md-4">
                             <label for="" class="">.</label>
                             <div class="input-group-sm">
-                                <button type="button" class="btn btn-primary"><span class="fa fa-search-plus"></span>
+                                <button type="button" class="btn btn-primary" onclick="llenaTarifasFleteServicio()"><span class="fa fa-search-plus"></span>
                                 </button>
                             </div>
                         </div>
@@ -194,6 +194,13 @@ if (!$_SESSION['nombre']) {
                                         <textarea class="form-control" rows="1" id="destinoServicioTarifa" name="destinoServicioTarifa"></textarea>
                                     </div>
                                     <div class="col-md-4 form-group">
+                                        <label for="">Validez(*)</label>
+                                        <div class="input-group-sm">
+                                            <input type="text" class="form-control" name="validezServicio" id="validezServicio">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 form-group"></div>
+                                    <div class="col-md-4 form-group">
                                         <label for="">Tarifa Venta(*)</label>
                                         <div class="input-group-sm">
                                             <input type="number" class="form-control" name="tarifaVentaServicio" id="tarifaVentaServicio">
@@ -217,7 +224,7 @@ if (!$_SESSION['nombre']) {
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group col-md-offset-4">
-                                        <button type="button" class="btn btn-primary" onclick="registrarServicioFlete()">Registrar <span class="fa fa-plus-circle"></span> </button>
+                                        <button type="button" class="btn btn-primary" onclick="registrarServiciosTarifa()">Registrar <span class="fa fa-plus-circle"></span> </button>
                                     </div>
 
                                 </div> <!-- body box  -->
@@ -227,21 +234,17 @@ if (!$_SESSION['nombre']) {
 
                             <div class="panel panel-default">
                                 <div class="panel-body table-responsive">
-                                    <table class="table table-bordered table-hover table-responsive table-hover" id="TuniadesAsignadas">
+                                    <table class="table table-bordered table-hover table-responsive table-hover" id="tServiciosTarifas">
                                         <thead>
                                             <tr>
                                                 <th>Acciones</th>
-                                                <th>Cant. Unidades</th>
-                                                <th>Tipo Unidad</th>
-                                                <th>Tipo Equipo</th>
-                                                <th>Temperatura</th>
-                                                <th>Especificaciones</th>
-                                                <th>Seguridad</th>
-                                                <th>Marchamo</th>
-                                                <th>GPS</th>
-                                                <th>Lugar Carga</th>
-                                                <th>Lugar Descarga</th>
-                                                <th>Canal Distribucion</th>
+                                                <th>Servicio</th>
+                                                <th>Origen</th>
+                                                <th>Destino</th>
+                                                <th>Tarifa Venta</th>
+                                                <th>Tarifa Costo</th>
+                                                <th>Signo</th>
+                                                <th>Validez</th>
                                             </tr>
                                         </thead>
                                         <tbody>

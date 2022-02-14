@@ -189,15 +189,12 @@
                     <li class="treeview">
                         <a href="#">
                             <i class="fa  fa-truck"></i>
-                            <span>Truck And Delivery</span>
+                            <span>Operaciones</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="evaluacionProyecto.php"><i class="fa fa-circle-o"></i>Evaluacion Del Proyecto</a></li>
-                            <li><a href="tarifarioTruck.php"><i class="fa fa-money"></i>Tarifario</a></li>
-                            <li><a href="ventaTruck.php"><i class="fa fa-file-text"></i> Venta</a></li>
                             <li><a href="operacionesTruck.php"><i class="fa fa-truck"></i>Operaciones</a></li>
                             <li><a href="liquidacionTruck.php"><i class="fa fa-money"></i>Liquidacion</a></li>
                         </ul>

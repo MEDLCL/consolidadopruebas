@@ -19,6 +19,15 @@ $idproyecto = isset($_POST["idproyecto"]) ? $idproyecto = $_POST["idproyecto"] :
 $monedaTarifaFlete = isset($_POST["monedaTarifaFlete"]) ? $monedaTarifaFlete = $_POST["monedaTarifaFlete"] : $monedaTarifaFlete = 0;
 
 
+$idservicio= isset($_POST["servicioTarifa"]) ? $idservicio = $_POST["servicioTarifa"] : $idservicio = 0;
+$origenservicio = isset($_POST["origenServicioTarifa"]) ? $origenservicio = $_POST["origenServicioTarifa"] : $origenservicio = "";
+$destinoservicio = isset($_POST["destinoServicioTarifa"]) ? $destinoservicio = $_POST["destinoServicioTarifa"] : $destinoservicio = "";
+$tarifaventa= isset($_POST["tarifaVentaServicio"]) ? $tarifaventa = $_POST["tarifaVentaServicio"] : $tarifaventa = 0;
+$idtarifaservicio = isset($_POST["idtarifaservicio"]) ? $idtarifaservicio = $_POST["idtarifaservicio"] : $idtarifaservicio = 0;
+$tarifacosto= isset($_POST["tarifaCostoServicio"]) ? $tarifacosto = $_POST["tarifaCostoServicio"] : $tarifacosto = 0;
+$idmonedaservicio = isset($_POST["monedaServicioTarifa"]) ? $idmonedaservicio = $_POST["monedaServicioTarifa"] : $idmonedaservicio = 0;
+$validezServicio= isset($_POST["validezServicio"]) ? $validezServicio = $_POST["validezServicio"] : $validezServicio = date('Y-m-d');
+
 switch ($_GET["op"]) {
     case 'grabarEditarTarifaF':
         if ($idtarifaflete == 0 || $idtarifaflete == "") {
@@ -64,8 +73,44 @@ switch ($_GET["op"]) {
             $rspt = $tarifario->listarTarifaFlete($idtarifaflete);
             echo json_encode($rspt);
             break;
-        case 'AnularMov':
-            $rsp = $movbancario->anular($idmovimiento);
+        case 'grabarServcioTarifa':
+            if ($idtarifaservicio==0 || $idtarifaservicio==""){
+                $rsp = $tarifario->grabarServicioTarifa($idproyecto,$idservicio,$idmonedaservicio,$origenservicio,$destinoservicio,$tarifaventa,$tarifacosto,$validezServicio);
+            }else{
+                $rsp = $tarifario->editarServicioTarifa($idtarifaservicio,$idservicio,$idmonedaservicio,$origenservicio,$destinoservicio,$tarifaventa,$tarifacosto,$validezServicio);
+            }            
             echo json_encode($rsp);
         break;
+        case 'listarServicioTarifa':
+            $rspt = $tarifario->listarServicioFlete($idtarifaservicio);
+            echo json_encode($rspt);
+            break;
+        case 'listarServiciosTarifa':
+            $rspt = $tarifario->listarServiciosFlete($idproyecto);
+            $acciones= "";
+                mb_internal_encoding('UTF-8');
+                //se declara un array para almacenar todo el query
+                $data = array();
+                foreach ($rspt as $reg) {
+                        $acciones = "<button type= 'button' class='btn btn-warning btn-sm' onclick='listarServicioTarifa(". $reg->id_tarifa_servicio .")' ><i class='fa fa-pencil'></i></button>". 
+                                    " <button type= 'button' class='btn btn-danger btn-sm' onclick='anularMovimiento(". $reg->id_tarifa_servicio .")' ><i class='fa fa-close'></i></button>";
+                    $data[] = array(
+                        "0" =>$acciones, 
+                        "1" =>$reg->servicio,
+                        "2" => $reg->origen,
+                        "3" => $reg->destino,
+                        "4" => $reg->tarifa_venta,
+                        "5" => $reg->tarifa_costo,
+                        "6" => $reg->moneda,
+                        "7" => $reg->validez,
+                    );
+                }
+                $results = array(
+                    "sEcho" => 1, //informacion para el datatable
+                    "iTotalRecords" => count($data), //enviamos el total al datatable
+                    "iTotalDisplayRecords" => count($data), //enviamos total de rgistror a utlizar
+                    "aaData" => $data
+                );
+                echo json_encode($results);
+            break;
 }

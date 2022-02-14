@@ -1,4 +1,5 @@
 var tablaTarifaFlete;
+var tablaServicios;
 function init(){
     llenaSelect("tipoUnidadTarifa","tipo_unidades_truc","idtipo_unidades");
     llenaSelect("tipoCargaTarifa","tipo_carga_empresa","id_tipo_carga_empresa");
@@ -11,6 +12,14 @@ function init(){
     limpiaTarifaFlete();
     servicios();
     limpiarServiciosTarifa();
+    validezServiofecha();
+}
+
+function validezServiofecha() {
+    $("#validezServicio").datepicker({
+        autoclose: true,
+    });
+    // $("#finicioPro").datepicker("setDate", "0");
 }
 function servicios(){
     $("#servicioTarifa").empty();
@@ -257,7 +266,8 @@ function limpiarServiciosTarifa(){
     $('#idtarifaservicio').val(0);
     $('#tarifaCostoServicio').val(0);
     $('#monedaServicioTarifa').val(0);
-    $('#monedaServicioTarifa').selectpicker("refresh")
+    $('#monedaServicioTarifa').selectpicker("refresh");
+    $("#validezServicio").datepicker("setDate", "0");
 }
 function registrarServiciosTarifa(){
     var  servicioTarifa=   $('#servicioTarifa').prop("selectedIndex");
@@ -268,7 +278,7 @@ function registrarServiciosTarifa(){
     var idtarifaservicio = $('#idtarifaservicio').val();
     var tarifaCostoServicio=$('#tarifaCostoServicio').val();
     var monedaServicioTarifa =$('#monedaServicioTarifa').prop("selectedIndex");
-
+    var validezServicio = $("#validezServicio").val();
     
     if(idproyecto ==0 || idproyecto ==-1){
         alertify.alert("Campo Vacio","Debe de seleccionar un Proyecto");
@@ -298,16 +308,24 @@ function registrarServiciosTarifa(){
     monedaServicioTarifa =$('#monedaServicioTarifa').val();
 
     $.ajax({
-        url: "../ajax/tarifaTruck.php?op=grabarEditarTarifaF",
+        url: "../ajax/tarifaTruck.php?op=grabarServcioTarifa",
         type: "POST",
         data: {
-
+            "servicioTarifa":servicioTarifa,
+            "idproyecto":idproyecto, 
+            "origenServicioTarifa":origenServicioTarifa,
+            "destinoServicioTarifa":destinoServicioTarifa,
+            "tarifaVentaServicio":tarifaVentaServicio,
+            "idtarifaservicio":idtarifaservicio,
+            "tarifaCostoServicio":tarifaCostoServicio,
+            "monedaServicioTarifa":monedaServicioTarifa,
+            "validezServicio":validezServicio
         },
         success: function (datos) {
             datos = JSON.parse(datos);
-            if (datos.id_tarifario_truck > 0) {
-                listarTarifasFlete(idproyecto);
-                limpiaTarifaFlete();
+            if (datos.idtarifaservicio > 0) {
+                listarServiciosTarifa(idproyecto);
+                limpiarServiciosTarifa();
                 Swal.fire({
                     icon: "success",
                     title: "",
@@ -323,5 +341,71 @@ function registrarServiciosTarifa(){
             }
         },
     });
+}
+
+function listarServiciosTarifa(idproyecto){
+    tablaServicios = $('#tServiciosTarifas').dataTable({
+        "aProcessing": true, //Activamos el procesamiento del datatables
+        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
+        dom: 'Bfrtip', //Definimos los elementos de control de tabla
+        buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5'],
+        "ajax": {
+            url: '../ajax/tarifaTruck.php?op=listarServiciosTarifa',
+            type: "post",
+            data: {
+                idproyecto: idproyecto
+            },
+            dataType: "json",
+            error: function (e) {
+                console.log(e.responseText);
+            }
+        },
+        "bDestroy": true,
+        "iDisplayLenth": 10, //paginacion
+        "order": [
+            [0, "desc"]
+        ] //order los datos
+    });
+}
+function listarServicioTarifa(idtarifaservicio){
+    $.post(
+        "../ajax/tarifaTruck.php?op=listarServicioTarifa", {
+            idtarifaservicio: idtarifaservicio
+        },
+        function (data,status) {
+            data = JSON.parse(data);
+            if (data.id_tarifa_servicio >= 1) {
+                $('#servicioTarifa').val(data.id_servicio);
+                $('#servicioTarifa').selectpicker("refresh");
+                $('#origenServicioTarifa').val(data.origen);
+                $('#destinoServicioTarifa').val(data.destino);
+                $('#tarifaVentaServicio').val(data.tarifa_venta);
+                $('#idtarifaservicio').val(data.id_tarifa_servicio);
+                $('#tarifaCostoServicio').val(data.tarifa_costo);
+                $('#monedaServicioTarifa').val(data.id_moneda);
+                $('#monedaServicioTarifa').selectpicker("refresh");
+                $("#validezServicio").val(data.validez);
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "",
+                    text: "Error al cargar los datos",
+                });
+            }
+        }
+    );
+}
+
+function llenaTarifasFleteServicio(){
+    var idproyecto = $("#codigoProyecto").prop("selectedIndex");
+    if (idproyecto == 0 || idproyecto == -1){
+        alertify.alert("Campo Vacio","Debe de seleccionar un Codigo de proyecto");
+        return false;
+    }
+    var idproyecto = $("#codigoProyecto").val();
+
+    listarTarifasFlete(idproyecto);
+    listarServiciosTarifa(idproyecto);
+
 }
 init();
