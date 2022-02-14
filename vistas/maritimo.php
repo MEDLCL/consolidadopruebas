@@ -22,7 +22,7 @@ if (!$_SESSION['nombre']) {
                     <div class="box">
                         <div class="box-header with-border">
                             <h3>Maritimo</h3>
-                            <button class="btn btn-primary" onclick="nuevoEmbarque()">Agregar
+                            <button class="btn btn-primary" onclick="nuevoEmbarqueTabla()">Agregar
                                 Nuevo
                                 <span class="glyphicon glyphicon-plus"></span>
                             </button>

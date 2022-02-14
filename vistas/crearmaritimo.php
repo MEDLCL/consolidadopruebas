@@ -135,7 +135,7 @@
 
                                                 <label for="PaisOrigen" class="">Pais Origen(*) </label>
                                                 <div class="input-group input-group-sm">
-                                                    <select id="PaisOrigen" name="PaisOrigen" class="form-control selectpicker" data-live-search="true" onclick="llenaCiudadOrigenMar(0)" onchange="llenaCiudadOrigenMar()">
+                                                    <select id="PaisOrigen" name="PaisOrigen" class="form-control selectpicker" data-live-search="true" onclick="llenaCiudadOrigenMar(0)" onchange="llenaCiudadOrigenMar(0)">
                                                     </select>
                                                     <span class="input-group-btn">
                                                         <button type="button" class="btn btn-info fa-circle-thin"></button>
@@ -159,7 +159,7 @@
 
                                                 <label for="PaisDestino" class="">Pais Destino(*) </label>
                                                 <div class="input-group input-group-sm">
-                                                    <select id="PaisDestino" name="PaisDestino" class="form-control selectpicker" data-live-search="true" onclick="llenaciudadDestinoMar(0)" onchange="llenaciudadDestinoMar()">
+                                                    <select id="PaisDestino" name="PaisDestino" class="form-control selectpicker" data-live-search="true" onclick="llenaciudadDestinoMar(0)" onchange="llenaciudadDestinoMar(0)">
                                                     </select>
                                                     <span class="input-group-btn">
                                                         <button type="button" class="btn btn-info fa-circle-thin"></button>
@@ -222,7 +222,6 @@
                                                     <table class="table table-condensed table-hover table-bordered" id="tContenedor">
                                                         <thead>
                                                             <tr>
-                                                                <th>Acciones</th>
                                                                 <th>No Contenedor</th>
                                                             </tr>
                                                         </thead>
@@ -296,23 +295,24 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group col-md-12">
-                                        <label for="tipodocumento" class="col-form-label">Tipo Documento(*):</label>
-                                        <input type="file" name="CMarchivos" id="CMarchivos" class = "form-control" multiple>
+                                        <label for="Archivos" class="col-form-label">Archivos:</label>
+                                        <input type="file" name="CMarchivos[]" id="CMarchivos" class = "form-control" multiple onchange="agregaPreviuw(this)">
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <button type="button" class="btn btn-large btn-primary" onclick="registraDocumentos()">Registrar</button>
+                                    
+                                    <div class="col-md-12 CreaMPreviw" id="CreaMPreviw">
+
                                     </div>
-                                    <div class="panel-body table-responsive col-md-12">
-                                        <table class="table table-condensed table-hover table-bordered" id="tDetalleCreaM">
+
+                                    <div class="panel-body table-responsive col-md-8">
+                                        <table class="table table-condensed table-hover table-bordered" id="tDetalleCreaM" style="text-align:center;">
                                             <thead>
                                                 <th>#</th>
                                                 <th>Nombre Archivo</th>
                                                 <th>Archivo</th>
                                                 <th>Eliminar</th>
                                                 <th>Descargar</th>
-                                                <th>Ver</th>
                                             </thead>
-                                            <tbody id="">
+                                            <tbody id="tbodyArchivos">
                                             </tbody>
                                         </table>
                                     </div>

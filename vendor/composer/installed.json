@@ -1,0 +1,452 @@
+[
+    {
+        "name": "lavela/phpjasper",
+        "version": "v3.0",
+        "version_normalized": "3.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lavela/phpjasper.git",
+            "reference": "d3d7bbc7d1d78766dd5c554189ba1680b9b0517a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lavela/phpjasper/zipball/d3d7bbc7d1d78766dd5c554189ba1680b9b0517a",
+            "reference": "d3d7bbc7d1d78766dd5c554189ba1680b9b0517a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^6.1"
+        },
+        "time": "2018-03-07T17:22:33+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "PHPJasper\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Leandro Cintra Bitencourt",
+                "email": "leandrobitencourt.ti@gmail.com",
+                "role": "lead"
+            }
+        ],
+        "description": "Gerador de relatórios PHP",
+        "keywords": [
+            "pdf",
+            "relatórios"
+        ]
+    },
+    {
+        "name": "luecano/numero-a-letras",
+        "version": "v3.0.0",
+        "version_normalized": "3.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lecano/php-numero-a-letras.git",
+            "reference": "bab51e3e81545e38d6a11efccb3e6d568765ba7c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lecano/php-numero-a-letras/zipball/bab51e3e81545e38d6a11efccb3e6d568765ba7c",
+            "reference": "bab51e3e81545e38d6a11efccb3e6d568765ba7c",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.2|^8.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^8.5|^9.0"
+        },
+        "time": "2021-03-05T15:13:07+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Luecano\\NumeroALetras\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Luis Cano",
+                "homepage": "https://github.com/luecano/numero-a-letras"
+            }
+        ],
+        "description": "Convierte un número a letras.",
+        "homepage": "https://github.com/luecano/numero-a-letras",
+        "keywords": [
+            "convertir",
+            "facturacion",
+            "letras",
+            "numero",
+            "sunat"
+        ]
+    },
+    {
+        "name": "psr/http-factory",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/http-factory.git",
+            "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/http-factory/zipball/12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+            "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0.0",
+            "psr/http-message": "^1.0"
+        },
+        "time": "2019-04-30T12:38:16+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Http\\Message\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interfaces for PSR-7 HTTP message factories",
+        "keywords": [
+            "factory",
+            "http",
+            "message",
+            "psr",
+            "psr-17",
+            "psr-7",
+            "request",
+            "response"
+        ]
+    },
+    {
+        "name": "psr/http-message",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/http-message.git",
+            "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
+            "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2016-08-06T14:39:51+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Http\\Message\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for HTTP messages",
+        "homepage": "https://github.com/php-fig/http-message",
+        "keywords": [
+            "http",
+            "http-message",
+            "psr",
+            "psr-7",
+            "request",
+            "response"
+        ]
+    },
+    {
+        "name": "psr/log",
+        "version": "1.1.4",
+        "version_normalized": "1.1.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/log.git",
+            "reference": "d49695b909c3b7628b6289db5479a1c204601f11"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
+            "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2021-05-03T11:20:27+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Log\\": "Psr/Log/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "https://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for logging libraries",
+        "homepage": "https://github.com/php-fig/log",
+        "keywords": [
+            "log",
+            "psr",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "soluble/japha",
+        "version": "2.8.1",
+        "version_normalized": "2.8.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/belgattitude/soluble-japha.git",
+            "reference": "2ae2d0b0c80ff2da18850abc850a06680bc56b78"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/belgattitude/soluble-japha/zipball/2ae2d0b0c80ff2da18850abc850a06680bc56b78",
+            "reference": "2ae2d0b0c80ff2da18850abc850a06680bc56b78",
+            "shasum": ""
+        },
+        "require": {
+            "ext-xml": "*",
+            "php": "^7.2",
+            "psr/log": "^1.0"
+        },
+        "require-dev": {
+            "belgattitude/pjbserver-tools": "^3.1",
+            "friendsofphp/php-cs-fixer": "^2.16.4",
+            "infection/infection": "^0.14",
+            "monolog/monolog": "^2.0",
+            "phpstan/phpstan": "^0.12.32",
+            "phpstan/phpstan-phpunit": "^0.12",
+            "phpstan/phpstan-strict-rules": "^0.12",
+            "phpunit/phpunit": "^7.5"
+        },
+        "suggest": {
+            "monolog/monolog": "PSR-3 comptatible logger"
+        },
+        "time": "2020-07-10T11:54:09+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Soluble\\Japha\\": "src/Soluble/Japha"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sébastien Vanvelthem",
+                "homepage": "https://github.com/belgattitude"
+            }
+        ],
+        "description": "Soluble PHP Java bridge integration",
+        "homepage": "https://github.com/belgattitude/soluble-japha",
+        "keywords": [
+            "Bridge",
+            "java",
+            "phpjavabridge"
+        ]
+    },
+    {
+        "name": "soluble/jasper",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/belgattitude/soluble-jasper.git",
+            "reference": "6e7351ecf48fc95440b4508c9d4e62f6586991d0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/belgattitude/soluble-jasper/zipball/6e7351ecf48fc95440b4508c9d4e62f6586991d0",
+            "reference": "6e7351ecf48fc95440b4508c9d4e62f6586991d0",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1",
+            "psr/http-message": "^1.0.1",
+            "psr/log": "^1.0",
+            "soluble/japha": "^2.5.1",
+            "zendframework/zend-diactoros": "^1.6 || ^2.0"
+        },
+        "require-dev": {
+            "fig/http-message-util": "^1.1.2",
+            "friendsofphp/php-cs-fixer": "^2.13",
+            "guzzlehttp/guzzle": "^6.2.3",
+            "infection/infection": "^0.13",
+            "mikey179/vfsstream": "^1.6",
+            "monolog/monolog": "^1.23.0",
+            "phpstan/phpstan": "^0.11",
+            "phpstan/phpstan-phpunit": "^0.11",
+            "phpstan/phpstan-strict-rules": "^0.11",
+            "phpunit/phpunit": "^7.5 | ^8.1",
+            "psr/container": "^1.0",
+            "roave/security-advisories": "dev-master",
+            "smalot/pdfparser": "^0.14",
+            "zendframework/zend-servicemanager": "^3.3"
+        },
+        "suggest": {
+            "monolog/monolog": "PSR-3 compatible logger",
+            "zendframework/zend-diactoros": "PSR-7 message interfaces implementation"
+        },
+        "time": "2019-05-27T15:49:26+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Soluble\\Jasper\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sébastien Vanvelthem",
+                "homepage": "https://github.com/belgattitude"
+            }
+        ],
+        "description": "Jasper reports in PHP",
+        "homepage": "https://github.com/belgattitude/soluble-jasper",
+        "keywords": [
+            "japha",
+            "jasper",
+            "jasperreports",
+            "pdf",
+            "phpjavabridge",
+            "reports"
+        ]
+    },
+    {
+        "name": "zendframework/zend-diactoros",
+        "version": "2.2.1",
+        "version_normalized": "2.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/zendframework/zend-diactoros.git",
+            "reference": "de5847b068362a88684a55b0dbb40d85986cfa52"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/de5847b068362a88684a55b0dbb40d85986cfa52",
+            "reference": "de5847b068362a88684a55b0dbb40d85986cfa52",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1",
+            "psr/http-factory": "^1.0",
+            "psr/http-message": "^1.0"
+        },
+        "provide": {
+            "psr/http-factory-implementation": "1.0",
+            "psr/http-message-implementation": "1.0"
+        },
+        "require-dev": {
+            "ext-curl": "*",
+            "ext-dom": "*",
+            "ext-libxml": "*",
+            "http-interop/http-factory-tests": "^0.5.0",
+            "php-http/psr7-integration-tests": "dev-master",
+            "phpunit/phpunit": "^7.0.2",
+            "zendframework/zend-coding-standard": "~1.0.0"
+        },
+        "time": "2019-11-13T19:16:13+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.1.x-dev",
+                "dev-develop": "2.2.x-dev",
+                "dev-release-1.8": "1.8.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/functions/create_uploaded_file.php",
+                "src/functions/marshal_headers_from_sapi.php",
+                "src/functions/marshal_method_from_sapi.php",
+                "src/functions/marshal_protocol_version_from_sapi.php",
+                "src/functions/marshal_uri_from_sapi.php",
+                "src/functions/normalize_server.php",
+                "src/functions/normalize_uploaded_files.php",
+                "src/functions/parse_cookie_header.php"
+            ],
+            "psr-4": {
+                "Zend\\Diactoros\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": "PSR HTTP Message implementations",
+        "keywords": [
+            "http",
+            "psr",
+            "psr-7"
+        ],
+        "abandoned": "laminas/laminas-diactoros"
+    }
+]

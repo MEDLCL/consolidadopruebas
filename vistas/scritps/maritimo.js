@@ -15,18 +15,19 @@ function init() {
     llenaventaro();
     estableceFecha();
     $("#clientes").attr("readonly", "readonly");
-    $('#noContenedor').inputmask("[aaaa]-999999-9");
-    $("#btnGrabarCreaM").prop("disabled",true);
+    $("#noContenedor").inputmask("[aaaa]-999999-9");
+    $("#btnGrabarCreaM").prop("disabled", true);
     listarEmbarquesCreados();
-
 }
-function estableceFecha(){
+
+function estableceFecha() {
     $("#fechaingreso").datepicker({
         autoclose: true,
     });
     $("#fechaingreso").datepicker("setDate", "0");
 }
-function llenaventaro(){
+
+function llenaventaro() {
     $("#noventa").empty();
     $.post(
         "../modelos/pais.php?op=selectN&tabla=venta_ro&campo=numero", {
@@ -39,19 +40,19 @@ function llenaventaro(){
             $("#noventa").val(0);
             $("#noventa").selectpicker("refresh");
         }
-    ); 
+    );
 }
 
 function activaCliente() {
     var valor = $("#tipodocumento option:selected").html();
 
-    if (valor.trim() == 'HBL' || valor.trim() == 'HAWB') {
+    if (valor.trim() == "HBL" || valor.trim() == "HAWB") {
         $("#clientes").removeAttr("readonly");
     } else {
         $("#clientes").val("");
         $("#clientes").attr("readonly", "readonly");
-        $("#tipodocumento").val(0);
-        $("#tipodocumento").selectpicker("refresh");
+        $("#noventa").val(0);
+        $("#noventa").selectpicker("refresh");
     }
 }
 
@@ -75,13 +76,25 @@ function nuevoEmbarqueTabla() {
     $("#crearMaritimo").show();
     $("#listadoEmbarquesMaritimo").hide();
     $("#tabCrearMaritimo a:first").tab("show");
-}
 
-function nuevoEmbarqueFueraTabla(){
+    $("#btnGrabarCreaM").addClass("btn-info");
+    $("#btnGrabarCreaM").removeClass("btn-warning");
+    $("#btnGrabarCreaM").attr("value","Grabar");
+    $("#btnGrabarCreaM").html("Grabar");
+    
     habilitarCampos();
     limpiar();
-    
 }
+
+function nuevoEmbarqueFueraTabla() {
+    $("#btnGrabarCreaM").addClass("btn-info");
+    $("#btnGrabarCreaM").removeClass("btn-warning");
+    $("#btnGrabarCreaM").html("Grabar");
+
+    habilitarCampos();
+    limpiar();
+}
+
 function cancelar() {
     $("#crearMaritimo").hide();
     $("#listadoEmbarquesMaritimo").show();
@@ -97,7 +110,7 @@ function limpiar() {
     $("#tipoServicio").selectpicker("refresh");
     $("#envioCourier").val(1);
     $("#envioCourier").selectpicker("refresh");
-    
+
     $("#Viaje").val("");
     $("#barco").val(0);
     $("#barco").selectpicker("refresh");
@@ -130,13 +143,17 @@ function limpiar() {
     $("#noventa").val(0);
     $("#noventa").selectpicker("refresh");
 
-    $('#tbodyContenedores').children().remove();
-    $('#tbodyDocumentos').children().remove();
+    $("#tbodyContenedores").children().remove();
+    $("#tbodyDocumentos").children().remove();
 
     $("#idtipoembarque").val(0);
-    $("#idtipoembarque").val(0);   
+    $("#idtipoembarque").val(0);
     $("#fechaingreso").datepicker("setDate", "0");
-    $("#btnGrabarCreaM").prop("disabled",false);
+    $("#btnGrabarCreaM").prop("disabled", false);
+    $("#CreaMPreviw").html("");
+    $("CMarchivos").val("");
+    $("#tbodyContenedores tr").remove();
+    $("#tbodyArchivos tr").remove();
 }
 
 function llenaAgente() {
@@ -284,7 +301,7 @@ function nuevaNaviera() {
     } else {
         $("#tabempresa a:first").tab("show");
         var valor = $("#tipocarga option:selected").html();
-        if (valor.trim() == 'Coloader') {
+        if (valor.trim() == "Coloader") {
             nuevo("agenciac");
             $("#tituloh").html("Agencia de Carga");
             //cliente detalle almacen
@@ -341,7 +358,7 @@ function llenaAGenciaCarga(idagencia) {
 
 function llenaNAVAGE() {
     var valor = $("#tipocarga option:selected").html();
-    if (valor.trim() == 'Coloader') {
+    if (valor.trim() == "Coloader") {
         llenaAGenciaCarga(0);
     } else {
         llenaNaviera(0);
@@ -352,9 +369,8 @@ function nuevoOrigen() {
     var idpaisOrigen = $("#PaisOrigen").prop("selectedIndex");
     if (idpaisOrigen == -1 || idpaisOrigen == 0) {
         alertify.alert("Campo Vacio", "Debe de seleccionar Pais de Origen");
-        return false
+        return false;
     } else {
-
         $("#quienLLamaCiudad").val("CreaMarOrigen");
         llenaPaisModalBusqueda();
         llenaPaisModal($("#PaisOrigen").val());
@@ -367,9 +383,8 @@ function nuevoDestino() {
     var idpaisDestino = $("#PaisDestino").prop("selectedIndex");
     if (idpaisDestino == -1 || idpaisDestino == 0) {
         alertify.alert("Campo Vacio", "Debe de seleccionar Pais de Destino");
-        return false
+        return false;
     } else {
-
         $("#quienLLamaCiudad").val("CreaMarDestino");
         llenaPaisModalBusqueda();
         llenaPaisModal($("#PaisDestino").val());
@@ -386,7 +401,7 @@ function llenaCiudadOrigenMar(idorigen) {
         "../modelos/pais.php?op=Dependiente&tabla=ciudad&campo=nombre", {
             id: "id_ciudad",
             tipoe: "",
-            idpadre: idpadre
+            idpadre: idpadre,
         },
         function (data, status) {
             $("#Origen").html(data);
@@ -404,7 +419,7 @@ function llenaciudadDestinoMar(iddestino) {
         "../modelos/pais.php?op=Dependiente&tabla=ciudad&campo=nombre", {
             id: "id_ciudad",
             tipoe: "",
-            idpadre: idpadre
+            idpadre: idpadre,
         },
         function (data, status) {
             $("#Destino").html(data);
@@ -450,35 +465,42 @@ function eliminarFilaMBL(idmbl) {
 var cont1 = 0;
 
 function agregarContenedor() {
-    var noContenedor = $('#noContenedor').val();
+    var noContenedor = $("#noContenedor").val();
     var valida;
 
-    if (noContenedor.trim() == '') {
-        alertify.alert('Campo vacio', 'Debe ingresar No. de Contenedor');
+    if (noContenedor.trim() == "") {
+        alertify.alert("Campo vacio", "Debe ingresar No. de Contenedor");
         return false;
     }
     noContenedor = noContenedor.toUpperCase();
-    valida= verificarCNTRDuplicado(noContenedor);
-    if (valida > 0){
-        alertify.alert("Mensaje","Elemento Duplicado");
+    valida = verificarCNTRDuplicado(noContenedor);
+    if (valida > 0) {
+        alertify.alert("Mensaje", "Elemento Duplicado");
         return false;
     }
     var fila =
-        '<tr class="filas" id ="fila' + cont1 + '">' +
-        '<td><button type="button" class="btn btn-danger" onclick="eliminarFilaContenedor(' + cont1 + ')"><span class="fa fa-trash-o"></span></button></td>' +
-        '<td ><input type "text"    name ="contenedores[]" id ="contenedores[]" value="' + noContenedor + '" readonly></td>' +
-        '</tr>';
+        '<tr class="filas" id ="fila' +
+        cont1 +
+        '">' +
+        '<td><button type="button" class="btn btn-danger" onclick="eliminarFilaContenedor(' +
+        cont1 +
+        ')"><span class="fa fa-trash-o"></span></button></td>' +
+        '<td ><input type "text"    name ="contenedores[]" id ="contenedores[]" value="' +
+        noContenedor +
+        '" readonly></td>' +
+        "</tr>";
     cont1++;
-    $('#tContenedor').append(fila);
+    $("#tContenedor").append(fila);
 }
 
 function eliminarFilaContenedor(idcontenedor) {
-    $.post("../ajax/crearMaritimo.php?op=eliminaC", {
-            idcontenedor: idcontenedor
+    $.post(
+        "../ajax/crearMaritimo.php?op=eliminaC", {
+            idcontenedor: idcontenedor,
         },
         function (data) {
             if (data == 1) {
-                $('#fila' + idcontenedor).remove();
+                $("#fila" + idcontenedor).remove();
                 alertify.warning("Contenedor eliminado");
             } else {
                 alertify.error("Contenedor no se pudo eliminar");
@@ -487,27 +509,28 @@ function eliminarFilaContenedor(idcontenedor) {
     );
 }
 
-function verificarCNTRDuplicado(cntr){
-var valor ='';
-var contador =0;
+function verificarCNTRDuplicado(cntr) {
+    var valor = "";
+    var contador = 0;
 
     $("input[name='contenedores[]']").each(function (indice, elemento) {
         valor = $(elemento).val();
-        if (valor.trim() == cntr.trim()){
-            contador= contador +1;
+        if (valor.trim() == cntr.trim()) {
+            contador = contador + 1;
         }
     });
     return contador;
 }
 
-var cont2 =0;
-function registraDocumentos(){
-    var idtipodoc = $('#tipodocumento').prop("selectedIndex");
+var cont2 = 0;
+
+function registraDocumentos() {
+    var idtipodoc = $("#tipodocumento").prop("selectedIndex");
     var tipodoc = $("#tipodocumento option:selected").html();
-    var venta  = $("#noventa option:selected").html();
+    var venta = $("#noventa option:selected").html();
     var idventa = $("#noventa").val();
     var cliente = $("#clientes").val();
-    var nodco  = $("#nodocs").val();
+    var nodco = $("#nodocs").val();
     var original = $("#cantOriginal").val();
     var copia = $("#cantCopias").val();
     var observaciones = $("#obervacionesdoc").val();
@@ -515,42 +538,78 @@ function registraDocumentos(){
     var valida;
 
     if (idtipodoc == -1 || idtipodoc == 0) {
-        alertify.alert('Campo Vacio', 'Debe de seleccionar un tipo de documento');
+        alertify.alert("Campo Vacio", "Debe de seleccionar un tipo de documento");
+        return false;
+    } else if (nodco.trim() == "") {
+        alertify.alert("Campo Vacio", "Debe de colocar numero de Documento");
         return false;
     }
-    else if (nodco.trim()==""){
-        alertify.alert ("Campo Vacio","Debe de colocar numero de Documento");
-        return false;
-    }
-    if (idventa == -1 || idventa == 0){
+    if (idventa == -1 || idventa == 0) {
         idventa = 0;
         venta = "";
     }
-valida = 0;
+    valida = 0;
     //noContenedor = noContenedor.toUpperCase();
-   // valida= verificarCNTRDuplicado(noContenedor);
-    if (valida > 0){
-        alertify.alert("Mensaje","Elemento Duplicado");
+    // valida= verificarCNTRDuplicado(noContenedor);
+    if (valida > 0) {
+        alertify.alert("Mensaje", "Elemento Duplicado");
         return false;
     }
     var fila =
-        '<tr class="filas" id ="fila' + cont2 + '">' +
-        '<td><button type="button" class="btn btn-danger" onclick="eliminarfila(' + cont2 + ')"><span class="fa fa-trash-o"></span></button></td>' +
-        '<td ><input type "text"  style="width: 50px;"   name ="tipocM[]" id ="tipocM[]" value="' + tipodoc + '"></td>' +
-        '<td ><input type "text"    name ="ventasM[]" id ="ventasM[]" value="' + venta + '"></td>' +
-        '<td ><input  type "text" style="width: 50px;"   name ="idventasM[]" id ="idventasM[]" value="' + idventa + '" readonly></td>' +
-        '<td ><input type "text"    name ="clientesM[]" id ="clientesM[]" value="' + cliente + '" readonly></td>' +
-        '<td ><input type "text"    name ="nodocM[]" id ="nodocM[]" value="' + nodco + '" readonly></td>' +
-        '<td ><input type "text"  style="width: 50px;"  name ="originalM[]" id ="originalM[]" value="' + original + '" readonly></td>' +
-        '<td ><input type "text"  style="width: 50px;"  name ="copiasM[]" id ="copiasM[]" value="' + copia + '" readonly></td>' +
-        '<td ><input type "text"    name ="obserM[]" id ="obserM[]" value="' + observaciones + '" readonly></td>' +
-        '</tr>';
+        '<tr class="filas" id ="filad' +
+        cont2 +
+        '">' +
+        '<td><button type="button" class="btn btn-danger" onclick="eliminarDocumento(' +
+        cont2 +
+        ')"><span class="fa fa-trash-o"></span></button></td>' +
+        '<td ><input type "text"  readonly style="width: 50px;"   name ="tipocM[]" id ="tipocM[]" value="' +
+        tipodoc +
+        '"></td>' +
+        '<td ><input type "text" readonly  name ="ventasM[]" id ="ventasM[]" value="' +
+        venta +
+        '"></td>' +
+        '<td ><input  type "text" readonly style="width: 50px;"   name ="idventasM[]" id ="idventasM[]" value="' +
+        idventa +
+        '" readonly></td>' +
+        '<td ><input type "text"    name ="clientesM[]" id ="clientesM[]" value="' +
+        cliente +
+        '" readonly></td>' +
+        '<td ><input type "text"    name ="nodocM[]" id ="nodocM[]" value="' +
+        nodco +
+        '" readonly></td>' +
+        '<td ><input type "text"  style="width: 50px;"  name ="originalM[]" id ="originalM[]" value="' +
+        original +
+        '" readonly></td>' +
+        '<td ><input type "text"  style="width: 50px;"  name ="copiasM[]" id ="copiasM[]" value="' +
+        copia +
+        '" readonly></td>' +
+        '<td ><input type "text"    name ="obserM[]" id ="obserM[]" value="' +
+        observaciones +
+        '" readonly></td>' +
+        "</tr>";
     cont2++;
-    $('#tDetalleCreaM').append(fila); 
+    $("#tDetalleCreaM").append(fila);
     limpiardetalledocumentos();
 }
-function limpiardetalledocumentos(){
-    $('#tipodocumento').val(0);
+
+function eliminarDocumento(iddocumento){
+    $.post(
+        "../ajax/creaMaritimo.php?op=eliminarD", {
+            iddocumento: iddocumento,
+        },
+        function (data) {
+            if (data == 1) {
+                $("#filad" + iddocumento).remove();
+                alertify.warning("Documento eliminado");
+            } else {
+                alertify.error("Documento no se pudo eliminar");
+            }
+        }
+    );
+}
+
+function limpiardetalledocumentos() {
+    $("#tipodocumento").val(0);
     $("#tipodocumento").selectpicker("refresh");
     $("#noventa").val(0);
     $("#noventa").selectpicker("refresh");
@@ -558,141 +617,152 @@ function limpiardetalledocumentos(){
     $("#nodocs").val("");
     $("#cantOriginal").val(0);
     $("#cantCopias").val(0);
-    $("#obervacionesdoc").val(""); 
+    $("#obervacionesdoc").val("");
 }
 
-function grabarEditarCreaMaritimo(){
-    var tipocarga= $("#tipocarga").prop("selectedIndex");
+function grabarEditarCreaMaritimo() {
+    var tipocarga = $("#tipocarga").prop("selectedIndex");
     var tiposervicio = $("#tipoServicio").prop("selectedIndex");
     var barco = $("#barco").prop("selectedIndex");
     var viaje = $("#Viaje").val();
     var cantClientes = $("#cntClientes").val();
-    var agente = $("#agente").prop("selectedIndex")
-    var naviera = $("#naviera").prop("selectedIndex")
-    var paisorigen = $("#PaisOrigen").prop("selectedIndex")
-    var origen = $("#Origen").prop("selectedIndex")
-    var paisdestino = $("#PaisDestino").prop("selectedIndex")
-    var destino = $("#Destino").prop("selectedIndex")
-    var usuarioasinado = $("#usuarioAsignado").prop("selectedIndex")
+    var agente = $("#agente").prop("selectedIndex");
+    var naviera = $("#naviera").prop("selectedIndex");
+    var paisorigen = $("#PaisOrigen").prop("selectedIndex");
+    var origen = $("#Origen").prop("selectedIndex");
+    var paisdestino = $("#PaisDestino").prop("selectedIndex");
+    var destino = $("#Destino").prop("selectedIndex");
+    var usuarioasinado = $("#usuarioAsignado").prop("selectedIndex");
 
-    if (tipocarga== -1 || tipocarga ==0){
-        alertify.alert("Campo Vacio","Debe de seleccionar el Tipo de Carga");
+    if (tipocarga == -1 || tipocarga == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar el Tipo de Carga");
         return false;
-    }else if (tiposervicio == -1 || tiposervicio ==0){
-        alertify.alert("Campo Vacio","Debe de seleccionar el Tipo de Servicio");
+    } else if (tiposervicio == -1 || tiposervicio == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar el Tipo de Servicio");
         return false;
-    }else if (barco==-1  || barco==0){
-        alertify.alert("Campo Vacio","Debe de seleccionar el Barco");
+    } else if (barco == -1 || barco == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar el Barco");
         return false;
-    }else if (viaje.trim() ==""){
-        alertify.alert("Campo Vacio","Debe de ingresar Viaje");
+    } else if (viaje.trim() == "") {
+        alertify.alert("Campo Vacio", "Debe de ingresar Viaje");
         return false;
-    }else if (cantClientes.trim()=="" || cantClientes==0){
-        alertify.alert("Campo Vacio","Debe de ingresar Cantidad de Clientes");
+    } else if (cantClientes.trim() == "" || cantClientes == 0) {
+        alertify.alert("Campo Vacio", "Debe de ingresar Cantidad de Clientes");
         return false;
-    }else if (agente == -1 || agente == 0){
-        alertify.alert("Campo Vacio","Debe de seleccionar Agente");
+    } else if (agente == -1 || agente == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar Agente");
         return false;
-    }else if (naviera ==-1 || naviera ==0){
-        if (tipocarga ==1){
-            alertify.alert("Campo Vacio","Debe de seleccionar Agencia de Carga");
+    } else if (naviera == -1 || naviera == 0) {
+        if (tipocarga == 1) {
+            alertify.alert("Campo Vacio", "Debe de seleccionar Agencia de Carga");
             return false;
-        }else{
-            alertify.alert("Campo Vacio","Debe de seleccionar Naviera");
+        } else {
+            alertify.alert("Campo Vacio", "Debe de seleccionar Naviera");
             return false;
         }
-    }else if (paisorigen==-1 || paisorigen==0){
-        alertify.alert("Campo Vacio","Debe de seleccionar Pais Origen");
+    } else if (paisorigen == -1 || paisorigen == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar Pais Origen");
         return false;
-    }else if (origen == -1 || origen ==0){
-        alertify.alert("Campo Vacio","Debe de seleccionar Origen");
+    } else if (origen == -1 || origen == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar Origen");
         return false;
-    }else if (paisdestino == -1 || paisdestino ==0){
-        alertify.alert("Campo Vacio","Debe de seleccionar Pais Destino");
+    } else if (paisdestino == -1 || paisdestino == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar Pais Destino");
         return false;
-    }else if (destino == -1 || destino == 0 ){
-        alertify.alert("Campo Vacio","Debe de seleccionar Destino");
+    } else if (destino == -1 || destino == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar Destino");
         return false;
-    }else if (usuarioasinado == -1 || usuarioasinado ==0){
-        alertify.alert("Campo Vacio","Debe de seleccionar Usuario Asignado");
-        return false; 
+    } else if (usuarioasinado == -1 || usuarioasinado == 0) {
+        alertify.alert("Campo Vacio", "Debe de seleccionar Usuario Asignado");
+        return false;
     }
 
-
-    var form = new FormData($('#frmCrearMaritimo')[0]);
+    var form = new FormData($("#frmCrearMaritimo")[0]);
     $.ajax({
-        url: '../ajax/creaMaritimo.php?op=guardaryeditar',
-        type: 'POST',
+        url: "../ajax/creaMaritimo.php?op=guardaryeditar",
+        type: "POST",
         data: form,
         cache: false,
         contentType: false,
         processData: false,
-        success: function(datos) {
+        success: function (datos) {
             datos = JSON.parse(datos);
             if (datos.idembarque > 0) {
                 //habilitar boton para imprimir caratula
                 $("#codigoMaritimo").val(datos.codigo);
-                $("#consecutivo").val(datos.consecutivo)
-                $("#btnGrabarCreaM").prop("disabled",true);
-                alertify.success('Proceso Realizado con exito');
+                $("#consecutivo").val(datos.consecutivo);
+                $("#btnGrabarCreaM").prop("disabled", true);
+                //alertify.success("Proceso Realizado con exito");
+                Swal.fire({
+                    icon: "success",
+                    title: "",
+                    text: "Embarque Ingresado con Exito",
+                });
             } else {
-                alertify.error('Proceso no se pudo realizar') + ' ' + datos;
-            }
-        }
-    });
-}
-
-function listarEmbarquesCreados(){
-    tabla = $('#TlistadoMaritimo').dataTable({
-        "aProcessing": true, //Activamos el procesamiento del datatables
-        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
-        dom: 'Bfrtip', //Definimos los elementos de control de tabla
-        buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5'],
-        "ajax": {
-            url: '../ajax/creaMaritimo.php?op=listarEmbarque',
-            type: "get",
-            dataType: "json",
-            error: function(e) {
-                console.log(e.responseText);
+                Swal.fire({
+                    icon: "error",
+                    title: "",
+                    text: "Se ha Producido un error",
+                });
+                //alertify.error("Proceso no se pudo realizar") + " " + datos;
             }
         },
-        "bDestroy": true,
-        "iDisplayLenth": 10, //paginacion
-        "order": [
-                [1, "desc"]
-            ] //order los datos
     });
 }
 
-function mostrarEmbarque(idembarquemaritimo){
+function listarEmbarquesCreados() {
+    tabla = $("#TlistadoMaritimo").dataTable({
+        aProcessing: true, //Activamos el procesamiento del datatables
+        aServerSide: true, //Paginacion y fltrado realizado por el servidor
+        dom: "Bfrtip", //Definimos los elementos de control de tabla
+        buttons: ["copyHtml5", "excelHtml5", "pdfHtml5"],
+        ajax: {
+            url: "../ajax/creaMaritimo.php?op=listarEmbarque",
+            type: "get",
+            dataType: "json",
+            error: function (e) {
+                console.log(e.responseText);
+            },
+        },
+        bDestroy: true,
+        iDisplayLenth: 10, //paginacion
+        order: [
+            [1, "desc"]
+        ], //order los datos
+    });
+}
+
+function mostrarEmbarque(idembarquemaritimo) {
     limpiar();
-    $.post("../ajax/creaMaritimo.php?op=buscaEmbarque", 
-            { idembarquemaritimo: idembarquemaritimo },
-        function(data, status) {
+    $.post(
+        "../ajax/creaMaritimo.php?op=buscaEmbarque", {
+            idembarquemaritimo: idembarquemaritimo,
+        },
+        function (data, status) {
             $("#crearMaritimo").show();
             $("#listadoEmbarquesMaritimo").hide();
             $("#tabCrearMaritimo a:first").tab("show");
-            $("#idembarquemaritimo").val(data.idembarque);
-            data = JSON.parse(data);
 
-            $('#codigoMaritimo').val(data.codigo);
-            $('#fechaingreso').val(data.fechaingreso);
-            $('#consecutivo').val(data.consecutivo);
-            $('#tipocarga').val(data.id_tipo_carga);
+            data = JSON.parse(data);
+            $("#idembarquemaritimo").val(data.idembarque);
+            $("#codigoMaritimo").val(data.codigo);
+            $("#fechaingreso").val(data.fechaingreso);
+            $("#consecutivo").val(data.consecutivo);
+            $("#tipocarga").val(data.id_tipo_carga);
             $("#tipocarga").selectpicker("refresh");
-            if (data.id_tipo_carga==7){
+            if (data.id_tipo_carga == 7) {
                 llenaAGenciaCarga(data.id_nav_age);
-            }else{
+            } else {
                 llenaNaviera(data.id_nav_age);
             }
-            $('#tipoServicio').val(data.id_tipo_servicio);
+            $("#tipoServicio").val(data.id_tipo_servicio);
             $("#tipoServicio").selectpicker("refresh");
-            $('#envioCourier').val(data.id_courier);
-            $('#envioCourier').selectpicker("refresh");
-            $('#barco').val(data.id_barco);
+            $("#envioCourier").val(data.id_courier);
+            $("#envioCourier").selectpicker("refresh");
+            $("#barco").val(data.id_barco);
             $("#barco").selectpicker("refresh");
-            $('#Viaje').val(data.viaje);
-            $('#cntClientes').val(data.cant_clientes);
+            $("#Viaje").val(data.viaje);
+            $("#cntClientes").val(data.cant_clientes);
             $("#agente").val(data.id_agente);
             $("#agente").selectpicker("refresh");
             $("#PaisOrigen").val(data.id_pais_origen);
@@ -704,44 +774,132 @@ function mostrarEmbarque(idembarquemaritimo){
             $("#usuarioAsignado").val(data.id_usuario_asignado);
             $("#usuarioAsignado").selectpicker("refresh");
             $("#obervaciones").val(data.observaciones);
-
-        });
-/*  $.ajax({
-        type: "POST",
-        dataType: "html",
-        url: "../ajax/empresa.php?op=cargac",
-        data: "idempresa=" + idempresa,
-        success: function(resp) {
-            $('#tbodyC').append(resp);
+            $("#btnGrabarCreaM").removeClass("btn-info");
+            $("#btnGrabarCreaM").addClass("btn-warning");
+            $("#btnGrabarCreaM").html("Actualizar Cambios");
         }
-    }); */
+    );
+
+    $.post(
+        "../ajax/creaMaritimo.php?op=listarCNTR", {
+            idembarquemaritimo: idembarquemaritimo,
+        },
+        function (data, status) {
+            $('#tbodyContenedores').append(data);
+        }
+    );
+
+    $.post(
+        "../ajax/creaMaritimo.php?op=listarDoc", {
+            idembarquemaritimo: idembarquemaritimo,
+        },
+        function (data, status) {
+            $('#tbodyDocumentos').append(data);
+        }
+    );
+
+    $.post(
+        "../ajax/creaMaritimo.php?op=listarArchivosM", {
+            idembarquemaritimo: idembarquemaritimo,
+        },
+        function (data, status) {
+            $('#tbodyArchivos').append(data);
+        }
+    );
+    /*  $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "../ajax/empresa.php?op=cargac",
+            data: "idempresa=" + idempresa,
+            success: function(resp) {
+            $('#tbodyC').append(resp);
+            }
+          }); */
     desabilitaModificacion();
 }
 
-function desabilitaModificacion(){
+function desabilitaModificacion() {
     //$('#tipocarga').prop("disabled",true);
-    $('#tipoServicio').prop("disabled",true);
-    $('#envioCourier').prop("disabled",true);
-    $('#cntClientes').prop("disabled",true);
-    $("#agente").prop("disabled",true);
-    $("#PaisOrigen").prop("disabled",true);
-    $("#Origen").prop("disabled",true);
-    $("#PaisDestino").prop("disabled",true);
-    $("#Destino").prop("disabled",true);
-    $("#obervaciones").prop("disabled",true);
+    $("#tipoServicio").prop("disabled", true);
+    $("#envioCourier").prop("disabled", true);
+    $("#cntClientes").prop("disabled", true);
+    $("#agente").prop("disabled", true);
+    $("#PaisOrigen").prop("disabled", true);
+    $("#Origen").prop("disabled", true);
+    $("#PaisDestino").prop("disabled", true);
+    $("#Destino").prop("disabled", true);
+    $("#obervaciones").prop("disabled", true);
 }
 
-function habilitarCampos(){
-    $('#tipoServicio').prop("disabled",false);
-    $('#envioCourier').prop("disabled",false);
-    $('#cntClientes').prop("disabled",false);
-    $("#agente").prop("disabled",false);
-    $("#PaisOrigen").prop("disabled",false);
-    $("#Origen").prop("disabled",false);
-    $("#PaisDestino").prop("disabled",false);
-    $("#Destino").prop("disabled",false);
-    $("#obervaciones").prop("disabled",false);
+function habilitarCampos() {
+    $("#tipoServicio").prop("disabled", false);
+    $("#envioCourier").prop("disabled", false);
+    $("#cntClientes").prop("disabled", false);
+    $("#agente").prop("disabled", false);
+    $("#PaisOrigen").prop("disabled", false);
+    $("#Origen").prop("disabled", false);
+    $("#PaisDestino").prop("disabled", false);
+    $("#Destino").prop("disabled", false);
+    $("#obervaciones").prop("disabled", false);
 }
+
+function agregaPreviuw(archivos) {
+    $("#CreaMPreviw").html("");
+    for (var i = 0; i < archivos.files.length; i++) {
+        if (archivos.files[i]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = $('<img id="dynamic"  width = "50px" height = "50px">');
+                img.attr("src", e.target.result);
+                img.appendTo("#CreaMPreviw");
+            };
+            reader.readAsDataURL(archivos.files[i]);
+        }
+    }
+}
+
+function anularEmbarque(idembarquemaritimo){
+    $.post(
+        "../ajax/creaMaritimo.php?op=AnulaEmbarque", {
+            idembarquemaritimo: idembarquemaritimo,
+        },
+        function (data, status) {
+            data = JSON.parse(data);
+            if (data.idembarque>0){
+                Swal.fire({
+                    icon: "success",
+                    title: "",
+                    text: "Embarque Anulado con Exito",
+                });
+                listarEmbarquesCreados();
+            }
+            else{
+                Swal.fire({
+                    icon: "error",
+                    title: "",
+                    text: "Se ha Producido un error",
+                });
+            }
+        }
+    );
+    
+}
+/* function validarPreArchivos() {
+    var filesObj = name_imagen.files;
+    var filesArray = Object.keys(filesObj).map(function (key) {
+        return filesObj[key];
+    });
+    filesArray.forEach(function (file) {
+        if (file.size > 1000000) {
+            $("#error").html('<p>El Archivo' + file.name + 'Supera lo permitido' + file.size + '</p>');
+        } else {
+            var ext = file.name.split('.');
+            if ($.inArray(ext[1].toLowerCase(), ['jpg', 'png']) == -1) {
+                $("#error").html('<p>El Archivo' + file.name + 'No esta Permitido</p>');
+            }
+        }
+    });
+} */
 
 /* $(function(){
     $("input[type='submit']").prop("disabled",true);
@@ -764,4 +922,30 @@ function habilitarCampos(){
     });
 });
  */
+
 init();
+/* 
+$(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+
+        if (input.files) {
+            var filesAmount = input.files.length;
+
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+
+    };
+
+    $('#gallery-photo-add').on('change', function() {
+        imagesPreview(this, 'div.gallery');
+    });
+}); */

@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/index.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/package-None.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/package-pdb.html</loc>
+</url>
+
+
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-Java.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_AbstractJava.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_ApplyArg.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_Arg.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_ArrayProxy.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_ArrayProxyFactory.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_CacheEntry.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_ChunkedSocketChannel.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_class.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_Client.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_CompositeArg.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_EmptyChannel.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_ExceptionProxy.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_ExceptionProxyFactory.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_GlobalRef.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_HttpTunnelHandler.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_InternalJava.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_IteratorProxy.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_IteratorProxyFactory.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_JavaProxy.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_JavaProxyProxy.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_NativeParser.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_objectIterator.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_Parser.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_ParserString.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_ParserTag.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_Protocol.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_ProxyFactory.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_SimpleFactory.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_SimpleHttpHandler.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_SimpleHttpTunnelHandler.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_SimpleParser.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_SocketChannel.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_SocketChannelP.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_SocketHandler.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_ThrowExceptionProxyFactory.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-JavaClass.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_AddBreakpointRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_AddBreakpointResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_AddFilesRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_AddFilesResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_Breakpoint.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_ContinueProcessFileNotification.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_DebugScriptEndedNotification.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_DebugSessionStart.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_End.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_Environment.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_ErrorNotification.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_FileContentExtendedRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_FileContentExtendedResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_GetCallStackRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_GetCallStackResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_GetCWDRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_GetCWDResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_GetVariableValueRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_GetVariableValueResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_GoRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_GoResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_HeaderOutputNotification.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_In.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_Logger.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_Message.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_MessageRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_MsgEvalRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_MsgEvalResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_Out.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_OutputNotification.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_Parser.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_ReadyNotification.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_RemoveAllBreakpointsRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_RemoveAllBreakpointsResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_RemoveBreakpointRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_RemoveBreakpointResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_Serializer.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_SetProtocolRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_SetProtocolResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_StartProcessFileNotification.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_StartRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_StartResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_StepIntoRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_StepIntoResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_StepOutRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_StepOutResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_StepOverRequest.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-pdb_StepOverResponse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_JavaType.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_ConnectException.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_exception.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_IllegalArgumentException.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_IllegalStateException.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_InternalException.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_IOException.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_JavaException.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-java_RuntimeException.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/class-JavaException.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-__javaproxy_Client_getClient.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-Java.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_autoload.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_autoload_function.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_autoload_function5.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_begin_document.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_call_with_continuation.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_cast.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_cast_internal.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_checkCliSapi.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_closure.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_closure_array.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_context.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_defineHostFromInitialQuery.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_end_document.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_eval.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_get_base.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_get_closure.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_get_context.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_get_lifetime.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_get_server_name.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_get_session.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_get_values.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_getCompatibilityOption.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_getHeader.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_inspect.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_inspect_internal.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_instanceof.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_instanceof_internal.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_invoke.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_is_false.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_is_null.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_is_true.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_isfalse.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_isnull.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_istrue.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_last_exception_clear.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_last_exception_get.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_require.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_reset.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_server_name.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_session.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_session_array.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_set_encoding.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_set_file_encoding.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_shutdown.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_truncate.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_unwrap.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_values.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_values_internal.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_virtual.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-java_wrap.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-pdb_endInclude.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-pdb_error_handler.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-pdb_getDebugHeader.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-pdb_getDefinedVars.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-pdb_shutdown.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-pdb_startCall.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-pdb_startInclude.html</loc>
+</url>
+<url>
+	<loc>http://php-java-bridge.sf.net/pjb/docs/php-api/function-pdb_step.html</loc>
+</url>
+</urlset>

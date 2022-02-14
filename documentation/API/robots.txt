@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: http://php-java-bridge.sf.net/pjb/docs/php-api/sitemap.xml

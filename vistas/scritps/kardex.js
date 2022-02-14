@@ -26,6 +26,7 @@ function init() {
     listarDetallePlantillaA();
     limpiarDetallePlantilla();
     $("#plantillaCalculoAlmacen").hide();
+    $("#calculoAlmacen").hide();
 }
 
 function llenaconsignado() {
@@ -493,6 +494,7 @@ function sumaCifImpuesto() {
 
 function CargaCalculoNuevo(id_detalleA_calculo) {
     $("#plantillaCalculoAlmacen").hide();
+    $("#calculoAlmacen").show();
     limpiaNuevoCalculo();
     $.post(
         "../ajax/calculoAlmacen.php?op=MostrarCalculoNuevo", {
@@ -1299,6 +1301,7 @@ function grabarCalculo() {
                     text: "Calculo Ingresado con Exito",
                 });
                 llenacantidadCalculo($("#id_detalleA_calculo").val());
+                $("#btngrabarCalculo").prop("disabled",true);
             }
         },
         beforeSend: function () {},

@@ -7,10 +7,9 @@ class creaMaritimo
     public function __construct()
     {
     }
-    public function grabar($cantClie, $idtipocarga, $idtiposervicio, $idcourier, $idbarco, $idagente, $idnavage, $viaje, $idpaisorigen, $idorigen, $idpaisdestino, $iddestino, $idusuarioA, $observaciones, $fechai, $contenedoresM, $tiposDoc, $ventasM, $clientesM, $orinales, $copias, $obserM, $numeroM)
+    public function grabar($cantClie, $idtipocarga, $idtiposervicio, $idcourier, $idbarco, $idagente, $idnavage, $viaje, $idpaisorigen, $idorigen, $idpaisdestino, $iddestino, $idusuarioA, $observaciones, $fechai, $contenedoresM, $tiposDoc, $ventasM, $clientesM, $orinales, $copias, $obserM, $numeroM, $archivos)
     {
         $fechai = date("Y-m-d", strtotime($fechai));
-
         $con = Conexion::getConexion();
         $anio = date("Y", strtotime($fechai)); //date_format($fechai, "Y");
         $anio2 = date("y", strtotime($fechai)); //date_format($fechai, "y");
@@ -24,6 +23,8 @@ class creaMaritimo
         $inicialPaisD = '';
         $tipoEmbarque = 'M';
         $idembarque = 0;
+        $dirsucursal = '../' . $_SESSION['codigoS'];
+
         try {
             $con->beginTransaction();
             //traendo el contador del agente
@@ -112,8 +113,8 @@ class creaMaritimo
                 // tipos de documento ````
                 if (count($tiposDoc) > 0) {
                     $contdoc = 0;
-                    $rspt = $con->prepare("INSERT INTO documentos_embarque(numero,id_embarque,tipo_embarque,id_venta,cliente,original,copia,observaciones)
-                    VALUES (:numero,:idembarque,:tipoE,:id_venta,:cliente,:original,:copia,:observaciones)");
+                    $rspt = $con->prepare("INSERT INTO documentos_embarque(numero,id_embarque,tipo_embarque,id_venta,cliente,original,copia,observaciones,tipo_documento)
+                    VALUES (:numero,:idembarque,:tipoE,:id_venta,:cliente,:original,:copia,:observaciones,:tipo_documento)");
 
                     while ($contdoc < count($tiposDoc)) {
                         $rspt->bindParam(":numero", $numeroM[$contdoc]);
@@ -125,6 +126,7 @@ class creaMaritimo
                         $rspt->bindParam(":original", $orinales[$contdoc]);
                         $rspt->bindParam(":copia", $copias[$contdoc]);
                         $rspt->bindParam(":observaciones", $obserM[$contdoc]);
+                        $rspt->bindParam(":tipo_documento",$tiposDoc[$contdoc]);
                         $rspt->execute();
                         $contdoc++;
                     }
@@ -181,10 +183,77 @@ class creaMaritimo
                 $rspt->bindParam(":anio", $anio);
                 $rspt->bindParam(":contador", $cntConsecutivo);
                 $rspt->execute();
-
-
                 // subir los archivos y crear el embarque 
+
+                $diranio = $dirsucursal . '/' . $anio;
+
+                if (!file_exists($dirsucursal)) {
+                    mkdir($dirsucursal, 0777);
+                }
+
+                if (!file_exists($diranio)) {
+                    mkdir($diranio, 0777);
+                }
+
+                $dirembarque = $diranio . '/Embarques';
+
+                if (!file_exists($dirembarque)) {
+                    mkdir($dirembarque, 0777);
+                }
+                $dirmaritimo = $dirembarque . '/Maritimo';
+
+                if (!file_exists($dirmaritimo)) {
+                    mkdir($dirmaritimo, 0777);
+                }
+
+                $dirimpor = $dirmaritimo . '/Importacion';
+                $direxpor = $dirmaritimo . '/Exportacion';
+                if ($idtiposervicio == 1) {
+                    if (!file_exists($dirimpor)) {
+                        mkdir($dirimpor, 0777);
+                        $directorio = $dirimpor . '/' . $codigoEmbarque;
+                    }
+                } else {
+                    if (!file_exists($direxpor)) {
+                        mkdir($direxpor, 0777);
+                        $directorio = $direxpor . '/' . $codigoEmbarque;
+                    }
+                }
+                if (!file_exists($directorio)) {
+                    mkdir($directorio, 0777);
+                }
+
+                foreach ($archivos['tmp_name'] as $key => $tmp_name) {
+                    //Validamos que el archivo exista
+                    if ($archivos["name"][$key]) {
+                        $filename = $archivos["name"][$key]; //Obtenemos el nombre original del archivo
+                        $source = $archivos["tmp_name"][$key]; //Obtenemos un nombre temporal del archivo
+
+                        $dir = opendir($directorio); //Abrimos el directorio de destino
+                        $target_path = $directorio . '/' . $filename; //Indicamos la ruta de destino, así como el nombre del archivo
+
+                        //Movemos y validamos que el archivo se haya cargado correctamente
+                        //El primer campo es el origen y el segundo el destino
+                        if (move_uploaded_file($source, $target_path)) {
+                            //archivo movido al directorio indicado
+                            //````````
+                            $rspt = $con->prepare("INSERT INTO archivos_embarques(id_embarque,tipo_e,nombre_archivo,ubicacion)
+                        VALUES (:id_embarque,:tipo_e,:nombre_archivo,:ubicacion)");
+                            $rspt->bindParam(":id_embarque",$idembarque);
+                            $rspt->bindParam(":tipo_e", $tipoEmbarque);
+                            $rspt->bindParam(":nombre_archivo", $filename);
+                            $rspt->bindParam(":ubicacion", $directorio);
+                            $rspt->execute();
+                        } else {
+                            //echo "Ha ocurrido un error, por favor inténtelo de nuevo.<br>";
+                        }
+                        //include($_SERVER['DOCUMENT_ROOT']."/config.php");
+
+                        closedir($dir); //Cerramos el directorio de destino
+                    }
+                }
             }
+
             $con->commit();
             //$con = Conexion::cerrar();
             $json = array();
@@ -194,15 +263,18 @@ class creaMaritimo
             return $json;
         } catch (\Throwable $th) {
             $con->rollBack();
+            if (file_exists('../embarques/Maritimo/' . $codigoEmbarque)) {
+                unlink("../embarques/Maritimo/" . $codigoEmbarque);
+            }
             //$con = Conexion::cerrar();
             $json = array();
             $json['idembarque'] = 0;
         }
     }
 
-    public function editarE($idembarque, $idtipocarga, $idbarco, $viaje,$idnavage,$idusuarioA)
+    public function editarE($idembarque, $idtipocarga, $idbarco, $viaje, $idnavage, $idusuarioA)
     {
-        //``````````
+        
         $con = Conexion::getConexion();
         try {
             $con->beginTransaction();
@@ -211,7 +283,7 @@ class creaMaritimo
                                     id_barco=:id_barco,
                                     id_nav_age=:id_nav_age,
                                     viaje=:viaje,
-                                    telefono=:telefono
+                                    id_usuario_asignado=:id_usuario_asignado
                                     WHERE id_embarque_maritimo = :id_embarque_maritimo");
             $rspt->bindParam(":id_tipo_carga", $idtipocarga);
             $rspt->bindParam(":id_barco", $idbarco);
@@ -280,13 +352,13 @@ class creaMaritimo
             return 0;
         }
     }
-    //pendiente 
-    public function listarCNTR($idempresa)
+
+    public function listarCNTR($idembarque)
     {
         $con = Conexion::getConexion();
         try {
-            $rsp = $con->prepare("SELECT * FROM contactos_e WHERE id_empresa= :idempresa");
-            $rsp->bindParam(":idempresa", $idempresa);
+            $rsp = $con->prepare("SELECT * FROM contenedor WHERE id_embarque= :id_embarque");
+            $rsp->bindParam(":id_embarque", $idembarque);
             $rsp->execute();
             $rsp = $rsp->fetchAll(PDO::FETCH_OBJ);
             if ($rsp) {
@@ -298,21 +370,101 @@ class creaMaritimo
             return 0;
         }
     }
-    //pendiente 
+
     public  function listarDocumentos($idembarque)
     {
         try {
             $con = Conexion::getConexion();
-            $rspt = $con->prepare("DELETE FROM contactos_e WHERE id_contacto = :idcontacto");
-            $rspt->bindParam(":idcontacto", $idcontacto);
+            $rspt = $con->prepare("SELECT D.id_documentos,
+                                        D.id_embarque,
+                                        D.tipo_embarque,
+                                        D.id_venta,
+                                        D.cliente,
+                                        D.numero,
+                                        D.original,
+                                        D.copia,
+                                        D.observaciones,
+                                        V.numero  as noventa,
+                                        D.tipo_documento
+                                    FROM documentos_embarque as D left join 
+                                        venta_ro  as V on V.id_venta = D.id_venta 
+                                        where id_embarque = :idembarque");
+            $rspt->bindParam(":idembarque", $idembarque);
+            $rspt->execute();
+            $rspt = $rspt->fetchAll(PDO::FETCH_OBJ);
+            if ($rspt) {
+                return $rspt;
+            } else {
+                return array();
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
+    public function eliminaDcoumento($iddocumento){
+        try {
+            $con = Conexion::getConexion();
+            $rspt = $con->prepare("DELETE FROM documentos_embarque WHERE id_documentos = :id_documentos");
+            $rspt->bindParam(":id_documentos", $iddocumento);
             $rspt->execute();
             if ($rspt->rowCount() > 0) {
                 return 1;
             } else {
-                return 1;
+                return array();
             }
         } catch (\Throwable $th) {
             return 0;
+        }
+    }
+
+    //pendiente 
+    public function listarArchivosM($idembarque){
+        $tipoe= 'M';
+        try {
+            $con = Conexion::getConexion();
+            $rspt = $con->prepare("SELECT id_archivos,
+                                        id_embarque,
+                                        tipo_e,
+                                        nombre_archivo,
+                                        ubicacion
+                                    FROM archivos_embarques 
+                                WHERE id_embarque = :idembarque and tipo_e = :tipoe");
+            $rspt->bindParam(":idembarque", $idembarque);
+            $rspt->bindParam(":tipoe", $tipoe);
+            $rspt->execute();
+            $rspt = $rspt->fetchAll(PDO::FETCH_OBJ);
+            if ($rspt) {
+                return $rspt;
+            } else {
+                return array();
+            }
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
+
+    public function anulaEmbarque($idembarque){
+        $con = Conexion::getConexion();
+        $estado = 0;
+        try {
+            $con->beginTransaction();
+            $rspt = $con->prepare("UPDATE embarque_maritimo SET
+                                        estado = :estado
+                                    WHERE id_embarque_maritimo = :id_embarque_maritimo");
+            $rspt->bindParam(":estado", $estado);
+            $rspt->bindParam(":id_embarque_maritimo", $idembarque);
+            $rspt->execute();
+            $con->commit();
+            //$con = Conexion::cerrar();
+            $json = array();
+            $json['idembarque'] = $idembarque;
+            return $json;
+        } catch (\Throwable $th) {
+            $con->rollBack();
+            //$con = Conexion::cerrar();
+            $json = array();
+            $json['idembarque'] = 0;
+            return $json;
         }
     }
 }
