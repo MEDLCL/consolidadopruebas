@@ -3,7 +3,7 @@ var tablaServicios;
 function init(){
     llenaSelect("tipoUnidadTarifa","tipo_unidades_truc","idtipo_unidades");
     llenaSelect("tipoCargaTarifa","tipo_carga_empresa","id_tipo_carga_empresa");
-    pilotoSelect();
+    //pilotoSelect();
     fechaValidez();
     limpiaTarifaFlete();
     llenaProyecto();
@@ -104,8 +104,8 @@ function limpiaTarifaFlete(){
     $('#destinoTarifa').val("");
     $('#tipoUnidadTarifa').val(0);
     $('#tipoUnidadTarifa').selectpicker("refresh");
-    $('#pilotoTarifa').val(2);
-    $('#pilotoTarifa').selectpicker("refresh");
+    /* $('#pilotoTarifa').val(2);
+    $('#pilotoTarifa').selectpicker("refresh"); */
     $('#numeroPilotos').val(0);
     $('#idtarifaflete').val(0);
     $('#validezTarifaFlete').datepicker("setDate","0");
@@ -113,7 +113,7 @@ function limpiaTarifaFlete(){
     $('#tipoCargaTarifa').selectpicker("refresh");
     $('#tarifaVentaFlete').val(0);
     $('#tarifaCostoFlete').val(0);
-    $('#monedaTarifaFlete').val(0);
+    $('#monedaTarifaFlete').val(3);
     $('#monedaTarifaFlete').selectpicker("refresh");
 }
 function grabarEditarTarifaFlete(){
@@ -153,7 +153,6 @@ function grabarEditarTarifaFlete(){
     }
     idproyecto = $("#codigoProyecto").val();
     tipoUnidadTarifa = $('#tipoUnidadTarifa').val();
-    var pilotoTarifa = $('#pilotoTarifa').val();
     var numeroPilotos=$('#numeroPilotos').val();
     var idtarifaflete=$('#idtarifaflete').val();
     var validezTarifaFlete = $('#validezTarifaFlete').val();
@@ -168,7 +167,6 @@ function grabarEditarTarifaFlete(){
         data: { "origenTarifa":origenTarifa,
                 "destinoTarifa":destinoTarifa,
                 "tipoUnidadTarifa":tipoUnidadTarifa,
-                "pilotoTarifa":pilotoTarifa,
                 "numeroPilotos":numeroPilotos,
                 "idtarifaflete":idtarifaflete,
                 "validezTarifaFlete":validezTarifaFlete,
@@ -211,8 +209,6 @@ function listarTarifaflete(idtarifaflete){
                 $('#destinoTarifa').val(data.destino);
                 $('#tipoUnidadTarifa').val(data.id_tipo_unidad);
                 $('#tipoUnidadTarifa').selectpicker("refresh");
-                $('#pilotoTarifa').val(data.id_piloto);
-                $('#pilotoTarifa').selectpicker("refresh");
                 $('#numeroPilotos').val(data.ayudantes);
                 $('#idtarifaflete').val(data.id_tarifario_truck);
                 $('#validezTarifaFlete').val(data.validez);
@@ -222,6 +218,7 @@ function listarTarifaflete(idtarifaflete){
                 $('#tarifaCostoFlete').val(data.tarifa_costo);
                 $('#monedaTarifaFlete').val(data.id_moneda);
                 $('#monedaTarifaFlete').selectpicker("refresh");
+                
             } else {
                 Swal.fire({
                     icon: "error",
@@ -265,7 +262,7 @@ function limpiarServiciosTarifa(){
     $('#tarifaVentaServicio').val(0);
     $('#idtarifaservicio').val(0);
     $('#tarifaCostoServicio').val(0);
-    $('#monedaServicioTarifa').val(0);
+    $('#monedaServicioTarifa').val(3);
     $('#monedaServicioTarifa').selectpicker("refresh");
     $("#validezServicio").datepicker("setDate", "0");
 }
@@ -367,6 +364,7 @@ function listarServiciosTarifa(idproyecto){
         ] //order los datos
     });
 }
+
 function listarServicioTarifa(idtarifaservicio){
     $.post(
         "../ajax/tarifaTruck.php?op=listarServicioTarifa", {
@@ -408,4 +406,44 @@ function llenaTarifasFleteServicio(){
     listarServiciosTarifa(idproyecto);
 
 }
+
+function reporteTarifario(tipo) {
+    var idproyecto = $("#codigoProyecto").prop("selectedIndex");
+    if (idproyecto == 0 || idproyecto == -1){
+        alertify.alert("Campo Vacio","Debe de seleccionar un Codigo de proyecto");
+        return false;
+    }
+    var idproyecto = $("#codigoProyecto").val();
+    var codigo = $("#codigoProyecto option:selected").html();
+    idproyecto = $("#codigoProyecto").val();
+    //alertify.alert("mensaje", data.mensaje);
+    if (tipo ==1){
+        const ruta = '../reportes/tarifarioProyecto.php?idproyecto='+idproyecto+'&codigo='+codigo;
+        //const ruta1 = "<iframe id='' src='../reportes/tarifarioProyecto.php?idproyecto='"+idproyecto+"'&codigo='"+codigo+"'> </iframe>";
+        window.open(ruta);
+    }else{
+        $.post(
+            '../reportes/tarifarioProyecto.php?idproyecto='+idproyecto+'&codigo='+codigo, {
+                tipo: tipo
+            },
+            function (data,status) {
+                data = JSON.parse(data);
+                if (data.estado == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "",
+                        text: data.mensaje,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "",
+                        text: data.mensaje,
+                    });
+                }
+            }
+        );
+    }
+}
+
 init();

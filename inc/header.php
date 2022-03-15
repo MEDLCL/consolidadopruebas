@@ -7,7 +7,7 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><img src="../logos/<?php echo $_SESSION['logo'];  ?>" alt="logo" height="50px"> </span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>SCS-ACS</b></span>
+                <span class="logo-lg"><b>Truck & Delivery</b></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SERCOGUA | ALMADISA</title>
+  <title>TRUCK & DELIVERY</title>
 
 <link rel="shortcut icon" href="../img/logo2.jfif"/>
   <!-- Tell the browser to be responsive to screen width -->

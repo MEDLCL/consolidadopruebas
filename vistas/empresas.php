@@ -61,22 +61,14 @@ if (!$_SESSION['nombre']) {
                             <table class="table table-condensed table-hover table-bordered" id="Tempresas">
                                 <thead>
                                     <tr>
-                                        <th>Editar</th>
+                                        <th><span class="fa fa-cog"></span></th>
                                         <th>Codigo</th>
                                         <th>Pais</th>
                                         <th>Razon Social</th>
                                         <th>Nombre Comercial</th>
-                                        <th>Nit</th>
+                                        <th>Identificación Tributaria</th>
                                         <th>Telefono</th>
                                         <th>Direccion</th>
-                                        <th>%Comision</th>
-                                        <th>Tipo Comision</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Correo</th>
-                                        <th>Tel</th>
-                                        <th>Puesto</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>

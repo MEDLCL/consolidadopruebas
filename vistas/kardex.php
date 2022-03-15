@@ -160,7 +160,7 @@ if (!$_SESSION['nombre']) {
                 <div class="box-body">
                     <form class="" id="formAlmacenDetalle">
                         <div class="form-group col-md-12">
-                            <label for="consiganado" class="">Cliente* </label>
+                            <label for="cliente" class="">Cliente* </label>
                             <div class="input-group input-group-sm">
                                 <select id="cliente" name="cliente" class="form-control selectpicker"
                                     data-live-search="true">

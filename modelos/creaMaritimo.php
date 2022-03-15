@@ -363,13 +363,16 @@ class creaMaritimo
                     if (move_uploaded_file($source, $target_path)) {
                         //archivo movido al directorio indicado
                         //````````
-                        $rspt = $con->prepare("INSERT INTO archivos_embarques(id_embarque,tipo_e,nombre_archivo,ubicacion)
-                                VALUES (:id_embarque,:tipo_e,:nombre_archivo,:ubicacion)");
-                        $rspt->bindParam(":id_embarque", $idembarque);
-                        $rspt->bindParam(":tipo_e", $tipoEmbarque);
-                        $rspt->bindParam(":nombre_archivo", $filename);
-                        $rspt->bindParam(":ubicacion", $directorio);
-                        $rspt->execute();
+                        if (!file_exists($target_path)) {
+                            $rspt = $con->prepare("INSERT INTO archivos_embarques(id_embarque,tipo_e,nombre_archivo,ubicacion)
+                                            VALUES (:id_embarque,:tipo_e,:nombre_archivo,:ubicacion)");
+                            $rspt->bindParam(":id_embarque", $idembarque);
+                            $rspt->bindParam(":tipo_e", $tipoEmbarque);
+                            $rspt->bindParam(":nombre_archivo", $filename);
+                            $rspt->bindParam(":ubicacion", $directorio);
+                            $rspt->execute();   
+                        }
+                        
                     } else {
                         //echo "Ha ocurrido un error, por favor inténtelo de nuevo.<br>";
                     }

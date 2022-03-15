@@ -16,10 +16,34 @@ function init() {
     $("#tblPilotos").DataTable({
         dom: 'rti'
     });
+    llenaComunicacion();
+    //fechaCumple();
 }
 
-var cont = 0;
+function llenaComunicacion() {
+    $("#medioComunicacionCli").empty();
+    $.post(
+        "../modelos/pais.php?op=General&tabla=comunicacionpreferida&campo=nombre", {
+            id: "id_comunicacion",
+            tipoe: "",
+        },
+        function (data, status) {
+            $("#medioComunicacionCli").html(data);
+            $("#medioComunicacionCli").selectpicker("refresh");
+            $("#medioComunicacionCli").val(0);
+            $("#medioComunicacionCli").selectpicker("refresh");
+        }
+    );
+}
 
+function fechaCumple() {
+    $("#cumpleContatoClie").datepicker({
+        autoclose: true,
+    });
+    // $("#cumpleContatoClie").datepicker("setDate", "0");
+}
+var cont = 0;
+var contSC =0;
 function llenaEquipos() {
     $("#tipoEquipo").empty();
     $.post("../modelos/pais.php?op=equipo", {}, function (data, status) {
@@ -30,11 +54,11 @@ function llenaEquipos() {
     });
 }
 
-function llenalicencias(){
+function llenalicencias() {
     $("#tipoLicencia").empty();
     $.post(
         "../modelos/pais.php?op=General&tabla=tipo_licencia&campo=nombre", {
-            id: "id_giro_negocio",
+            id: "id_tipo_licencia",
             tipoe: "",
         },
         function (data, status) {
@@ -43,8 +67,9 @@ function llenalicencias(){
             $("#tipoLicencia").val(0);
             $("#tipoLicencia").selectpicker("refresh");
         }
-    );  
+    );
 }
+
 function llenaMonedaPago() {
     $("#monedaPago").empty();
     $.post("../modelos/pais.php?op=llenaMoneda", {}, function (data, status) {
@@ -135,54 +160,236 @@ function llenaAslos() {
     );
 }
 
-function registrarc() {
-    var nombre = $('#Nombre').val();
-    var apellido = $('#Apellido').val();
-    var correo = $('#Correo').val();
-    var telefono = $('#telefonoc').val();
-    var puesto = $('#puesto').val();
 
-    if (nombre.trim() == '') {
+function registrarc() {
+    var Nombre = $('#Nombre').val();
+    var Apellido = $('#Apellido').val();
+    var Correo = $('#Correo').val();
+    var telefonoc = $('#telefonoc').val();
+    var puesto = $('#puesto').val();
+    var medioComunicacionCli = $('#medioComunicacionCli').val();
+    var cumpleContatoClie = $('#cumpleContatoClie').val();
+    var medio = $('#medioComunicacionCli option:selected').html();
+    var celularclie = $('#celularclie').val();
+    var idempresa = $("#idempresa").val();
+    var id_contacto = $("#id_contacto").val();
+
+    var fila = "";
+    if (Nombre.trim() == '') {
         alertify.alert('Campo vacio', 'Debe de ingresar Nombre');
         return false;
-    } else if (apellido.trim() == '') {
+    } else if (Apellido.trim() == '') {
         alertify.alert('Campo Vacio', 'Debe de ingresar Apellido');
         return false;
-    } else if (correo.trim() == '') {
+    } else if (Correo.trim() == '') {
         alertify.alert('Campo Vacio', 'Debe de ingresar el correo');
         return false;
-    } else if (validaCorreo(correo) == false) {
+    } else if (validaCorreo(Correo) == false) {
         alertify.alert('Validando', 'Debe de ingresar un correo valido');
         return false;
     }
-    var fila =
-        '<tr class="filas" id ="fila' + cont + '">' +
-        '<td><button type="button" class="btn btn-danger" onclick="eliminarfila(' + cont + ')"><span class="fa fa-trash-o"></span></button></td>' +
-        '<td ><input type "text"    name ="nombresc[]" id ="nombresc[]" value="' + nombre + '"></td>' +
-        '<td ><input type "text"    name ="apellidosc[]" id ="apellidosc[]" value="' + apellido + '"></td>' +
-        '<td ><input type "text"    name ="correosc[]" id ="correosc[]" value="' + correo + '"></td>' +
-        '<td ><input type "text"    name ="telefonosc[]" id ="telefonosc[]" value="' + telefono + '"></td>' +
-        '<td ><input type "text"    name ="puestosc[]" id ="puestosc[]" value="' + puesto + '"></td>' +
-        '</tr>';
-    cont++;
-    $('#Tcontactos').append(fila);
+    if (idempresa == 0) {
+        fila =
+            '<tr class="filas" id ="fila' + cont + '">' +
+            '<input type="hidden" name="medioComunicacionC[]" value= "' + medioComunicacionCli + '"></td>' +
+            '<td><button type="button" class="btn btn-danger" onclick="eliminarfila(' + cont + ')"><span class="fa fa-trash-o"></span></button></td>' +
+            '<td ><input type "text"  style="width: 100px;"  name ="nombresc[]" id ="nombresc[]" value="' + Nombre + '"></td>' +
+            '<td ><input type "text"  style="width: 100px;"   name ="apellidosc[]" id ="apellidosc[]" value="' + Apellido + '"></td>' +
+            '<td ><input type "text"  style="width: 100px;"  name ="correosc[]" id ="correosc[]" value="' + Correo + '"></td>' +
+            '<td ><input type "text"  style="width: 100px;"  name ="telefonosc[]" id ="telefonosc[]" value="' + telefonoc + '"></td>' +
+            '<td ><input type "text"  style="width: 100px;"  name ="celularesc[]" id ="celularesc[]" value="' + celularclie + '"></td>' +
+            '<td ><input type "text"  style="width: 100px;"  name ="puestosc[]" id ="puestosc[]" value="' + puesto + '"></td>' +
+            '<td ><input type "text"  style="width: 75px;"  name ="cumplec[]" id ="cumpleC[]" value="' + cumpleContatoClie + '"></td>' +
+            '<td ><input type "text"  style="width: 100px;"  name ="medioc[]" id ="medioc[]" value="' + medio + '"></td>' +
+            '</tr>';
+        cont++;
+        $('#Tcontactos').append(fila);
+    } else {
+        $.ajax({
+            url: "../ajax/empresa.php?op=grabaContacto",
+            type: "POST",
+            data: {
+                "id_contacto": id_contacto,
+                "idempresa": idempresa,
+                "Nombre": Nombre,
+                "Apellido": Apellido,
+                "Correo": Correo,
+                "telefonoc": telefonoc,
+                "puesto": puesto,
+                "medioComunicacionCli": medioComunicacionCli,
+                "cumpleContatoClie": cumpleContatoClie,
+                "celularclie": celularclie
+            },
+            success: function (datos) {
+                datos = JSON.parse(datos);
+                if (datos.id_contacto > 0) {
+                    listarContactos(idempresa)
+                    Swal.fire({
+                        icon: "success",
+                        title: "",
+                        text: datos.mensaje,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "",
+                        text: datos.mensaje,
+                    });
+                    //alertify.error("Proceso no se pudo realizar") + " " + datos;
+                }
+            },
+        });
+        limpiarContacto();
+    }
+}
+
+function limpiarContacto() {
+    $('#id_contacto').val(0);
+    $('#Nombre').val("");
+    $('#Apellido').val("");
+    $('#Correo').val("");
+    $('#telefonoc').val("");
+    $('#puesto').val("");
+    $('#medioComunicacionCli').val(0);
+    $('#medioComunicacionCli').selectpicker("refresh");
+    $('#cumpleContatoClie').val("");
+    $('#celularclie').val("");
 }
 //funcion para eliminar fila de la tabla contactos
 function eliminarfila(id_contacto) {
+    var idempresa = $("#idempresa").val();
 
-    $.post("../ajax/empresa.php?op=eliminaC", {
-            id_contacto: id_contacto
-        },
-        function (data) {
-            if (data == 1) {
-                $('#fila' + id_contacto).remove();
-                alertify.warning("Contacto eliminado");
-            } else {
-                alertify.error("Contacto no se pudo eliminar");
+    if (idempresa == 0) {
+        $('#fila' + id_contacto).remove();
+    } else {
+        $.post("../ajax/empresa.php?op=eliminaC", {
+                id_contacto: id_contacto,
+                idempresa: idempresa
+            },
+            function (data) {
+                if (data == 1) {
+                    $('#fila' + id_contacto).remove();
+                    alertify.warning("Contacto eliminado");
+                } else {
+                    alertify.error("Contacto no se pudo eliminar");
+                }
             }
-        }
-    );
+        );
+    }
 }
+function eliminarSucursal(id_sucursalCliente){
+    var idempresa = $("#idempresa").val();
+
+    if (idempresa == 0) {
+        $('#filaSC' + id_sucursalCliente).remove();
+    } else {
+        $.post("../ajax/empresa.php?op=eliminaSucu", {
+            id_sucursalCliente: id_sucursalCliente,
+                idempresa: idempresa
+            },
+            function (data) {
+                if (data == 1) {
+                    $('#fila' + id_contacto).remove();
+                    alertify.warning("Contacto eliminado");
+                } else {
+                    alertify.error("Contacto no se pudo eliminar");
+                }
+            }
+        );
+    }
+}
+
+function registrarSucursalCliente(){
+    var nombreSucursal = $('#nombreSucursal').val();
+    var idempresa = $("#idempresa").val();
+    var id_sucursalCliente = $("#id_sucursalCliente").val();
+
+    var fila = "";
+    if (nombreSucursal.trim() == '') {
+        alertify.alert('Campo vacio', 'Debe de ingresar Nombre');
+        return false;
+    } 
+    if (idempresa == 0) {
+        fila =
+            '<tr class="filas" id ="filaSC' + contSC + '">' +
+            '<td><button type="button" class="btn btn-danger" onclick="eliminarSucursal(' + contSC + ')"><span class="fa fa-trash-o"></span></button></td>' +       
+            '<td><input type="text" name="nombreSucursalM[]" value= "' + nombreSucursal + '"></td>' +
+            '</tr>';
+        contSC++;
+        $('#tbodysucursales').append(fila);
+    } else {
+        $.ajax({
+            url: "../ajax/empresa.php?op=grabaSucursal",
+            type: "POST",
+            data: {
+                "id_sucursalCliente": id_sucursalCliente,
+                "idempresa": idempresa,
+                "nombreSucursal": nombreSucursal,
+            },
+            success: function (datos) {
+                datos = JSON.parse(datos);
+                if (datos.id_sucursal_empresa > 0) {
+                    listarSucursal(idempresa)
+                    Swal.fire({
+                        icon: "success",
+                        title: "",
+                        text: datos.mensaje,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "",
+                        text: datos.mensaje,
+                    });
+                    //alertify.error("Proceso no se pudo realizar") + " " + datos;
+                }
+            },
+        });
+        
+    }
+    limpiarSucursal();
+}
+function limpiarSucursal(){
+    $('#nombreSucursal').val('');
+    $('#id_sucursalCliente').val('0');
+}
+
+function mostrarSucursal(id_sucursalCliente){
+    limpiarSucursal();
+    $.post("../ajax/empresa.php?op=mostrarSucursal", {
+        id_sucursalCliente: id_sucursalCliente
+        },
+        function (data, status) {
+            data = JSON.parse(data);
+            $('#id_sucursalCliente').val(data.id_sucursal_empresa);
+            $('#nombreSucursal').val(data.nombre);
+        })
+}
+function listarSucursal(idempresa) {
+    $('#tSucursales').dataTable({
+        "aProcessing": true, //Activamos el procesamiento del datatables
+        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
+        dom: 'Bfrtip', //Definimos los elementos de control de tabla
+        buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5'],
+        "ajax": {
+            url: '../ajax/empresa.php?op=listarSucursal',
+            type: "post",
+            data: {
+                idempresa: idempresa
+            },
+            dataType: "json",
+            error: function (e) {
+                console.log(e.responseText);
+            }
+        },
+        "bDestroy": true,
+        "iDisplayLenth": 10, //paginacion
+        "order": [
+            [0, "desc"]
+        ] //order los datos
+    });
+}
+
 
 function limpiarEmpresas() {
     $('#codigo').val('');
@@ -225,6 +432,8 @@ function limpiarEmpresas() {
 
 function nuevo(tipoe) {
     limpiarEmpresas();
+    limpiarContacto();
+    $("#tbodyC tr").remove();
     $('#consignadoa').hide();
     $("#otrosTruck").hide();
     $("#codigo").prop("readonly", true)
@@ -354,9 +563,17 @@ function llenaEmpresaEnModal() {
         } else if (queActu == 'AgenciaC') {
             llenaAGenciaCarga();
         }
-    }else if (llama =="evaluaProyecto"){
-        if (queActu == "clienteEva"){
+    } else if (llama == "evaluaProyecto") {
+        if (queActu == "clienteEva") {
             llenaClienteProyeto();
+        }
+    } else if (llama == "ventaTruck") {
+        if (queActu == "embarcadorVenta") {
+            cargaEmpresasVenta("EM", "embarcadorVenta");
+        } else if (queActu == "agenteVenta") {
+            cargaEmpresasVenta("AC", "agenteVenta");
+        } else if (queActu == "notificaAVenta") {
+            cargaEmpresasVenta("CL", "notificaraVenta");
         }
     }
 }
@@ -384,7 +601,7 @@ function listar() {
 }
 
 function mostrarempresa(idempresa) {
-    limpiar();
+    limpiarEmpresas();
     $("#codigo").prop("readonly", false);
 
     $("#flota-tab").hide();
@@ -446,16 +663,64 @@ function mostrarempresa(idempresa) {
 
             $("#asloEmpresa").val(data.id_aslo);
             $("#asloEmpresa").selectpicker("refresh");
+            $("#aniversarioCliente").val(data.aniversario);
+            listarContactos(idempresa);
+            listarSucursal(idempresa);
         })
-    $.ajax({
+    /* $.ajax({
         type: "POST",
         dataType: "html",
         url: "../ajax/empresa.php?op=cargac",
         data: "idempresa=" + idempresa,
         success: function (resp) {
-            $('#tbodyDetaplantilla').append(resp);
+            $('#tbodyC').append(resp);
         }
+    }); */
+}
+
+function listarContactos(idempresa) {
+    $('#Tcontactos').dataTable({
+        "aProcessing": true, //Activamos el procesamiento del datatables
+        "aServerSide": true, //Paginacion y fltrado realizado por el servidor
+        dom: 'Bfrtip', //Definimos los elementos de control de tabla
+        buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5'],
+        "ajax": {
+            url: '../ajax/empresa.php?op=cargac',
+            type: "post",
+            data: {
+                idempresa: idempresa
+            },
+            dataType: "json",
+            error: function (e) {
+                console.log(e.responseText);
+            }
+        },
+        "bDestroy": true,
+        "iDisplayLenth": 10, //paginacion
+        "order": [
+            [0, "desc"]
+        ] //order los datos
     });
+}
+
+function mostratContacto(id_contacto) {
+    limpiarContacto();
+    $.post("../ajax/empresa.php?op=mostrarContacto", {
+            id_contacto: id_contacto
+        },
+        function (data, status) {
+            data = JSON.parse(data);
+            $('#id_contacto').val(data.id_contacto);
+            $('#Nombre').val(data.nombre);
+            $('#Apellido').val(data.apellido);
+            $('#Correo').val(data.correo);
+            $('#telefonoc').val(data.telefono);
+            $('#puesto').val(data.puesto);
+            $('#medioComunicacionCli').val(data.id_comunicacion);
+            $('#medioComunicacionCli').selectpicker("refresh");
+            $('#cumpleContatoClie').val(data.cumpleanios);
+            $('#celularclie').val(data.celular);
+        })
 }
 
 function llenaPaisEmpresas() {
@@ -471,6 +736,7 @@ function llenaPaisEmpresas() {
     );
 }
 
+
 function registrarEquipo() {
     var tipoequipo = $('#tipoEquipo').prop("selectedIndex");
     var equipo = $("#tipoEquipo option:selected").html();
@@ -483,11 +749,11 @@ function registrarEquipo() {
         placaFurgon
         tarjetaCirculacion
         gps */
-        
+
     if (idempresa == 0) {
 
     }
-    if (tipoequipo==-1 || tipoequipo ==0) {
+    if (tipoequipo == -1 || tipoequipo == 0) {
         alertify.alert('Campo vacio', 'Debe de Seleccionar el equipo');
         return false;
     } else if (placaCabezal.trim() == '') {
@@ -496,7 +762,7 @@ function registrarEquipo() {
     } else if (placaFurgon.trim() == '') {
         alertify.alert('Campo Vacio', 'Debe de ingresar La Placa del Furgon');
         return false;
-    } else if (tarjetaC.trim()=='') {
+    } else if (tarjetaC.trim() == '') {
         alertify.alert('Validando', 'Debe de ingresar la tarjeta de Circulacion');
         return false;
     }
@@ -513,28 +779,29 @@ function registrarEquipo() {
     cont++;
     $('#tbodyEquipos').append(fila);
 }
-function eliminarEquipo(){
+
+function eliminarEquipo() {
 
 }
+
 function registrarPiloto() {
     var idtipolicencia = $('#tipoLicencia').prop("selectedIndex");
     var tipolicencia = $("#tipoLicencia option:selected").html();
     var numeroLicencia = $('#numeroLicencia').val();
     var nombrePiloto = $('#nombrePiloto').val();
 
-        
-    if (idempresa == 0) {
-    }
-    if (nombrePiloto.trim()=="") {
+    if (idempresa == 0) {}
+    if (nombrePiloto.trim() == "") {
         alertify.alert('Campo vacio', 'Debe de ingresar el Nombre del piloto');
         return false;
-    } else if (idtipolicencia == -1 || idtipolicencia ==0) {
+    } else if (idtipolicencia == -1 || idtipolicencia == 0) {
         alertify.alert('Campo Vacio', 'Debe de seleccionar el tipo de licencia');
         return false;
     } else if (numeroLicencia.trim() == '') {
         alertify.alert('Campo Vacio', 'Debe de ingresar el numero de licencia');
         return false;
-    } 
+    }
+
     var fila =
         '<tr class="filas" id ="fila' + cont + '">' +
         '<td><button type="button" class="btn btn-danger btn-sm" onclick="eliminarfila(' + cont + ')"><span class="fa fa-trash-o"></span></button></td>' +

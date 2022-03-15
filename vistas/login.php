@@ -44,7 +44,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <img src="../img/logo2.jfif" alt="logo" class="logo2">
+            <img src="../logos/trucklogin.jpg" alt="logo" class="logo2">
         </div><!-- /.login-logo -->
 
         <div class="login-box-body">

@@ -12,7 +12,7 @@
                         <select id="bCatalogo" name="bCatalogo" class="form-control selectpicker" data-live-search="true" onclick="mostrarCatalogo()" onchange="mostrarCatalogo()">
                         </select>
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12" id="divCodigo">
                         <label for="codigoCatalogo" class="col-form-label">Codigo():</label>
                         <input type="text" name="codigoCatalogo" id="codigoCatalogo" class="form-control">
                     </div>
@@ -22,7 +22,7 @@
                         <input type="hidden" name="idcatalogo" id="idcatalogo">
                         <input type="hidden" name="llamaCalculoA" id="llamaCalculoA">
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12" id="divIngles">
                         <label for="nombreDescripcionIngles" class="control-label">Nombre en Ingles:</label>
                         <input type="text" name="nombreDescripcionIngles" id="nombreDescripcionIngles" class="form-control">
                     </div>
@@ -36,7 +36,7 @@
                 <button type="button" class="btn btn-default" onclick="NuevoCatalogo()">Nuevo
                     <span class="fa fa-file-o"></span></button>
 
-                <button type="button" class="btn btn-primary" id="btnGrabaCatalogo" onclick="grabarcatalogo()"  disabled>Grabar
+                <button type="button" class="btn btn-primary" id="btnGrabaCatalogo" onclick="grabarcatalogo()" disabled>Grabar
                     <span class="fa fa-floppy-o"></span></button>
 
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar

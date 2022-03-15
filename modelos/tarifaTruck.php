@@ -143,7 +143,6 @@ class tarifaTruck
                                     T.destino, 
                                     TU.nombre  as unidad, 
                                     tce.nombre as tipocarga, 
-                                    s2.nombre  as piloto, 
                                     T.ayudantes, 
                                     T.tarifa_venta, 
                                     T.tarifa_costo, 
@@ -153,11 +152,13 @@ class tarifaTruck
                                     T.id_sucursal, 
                                     T.id_usuario, 
                                     T.fechagraba, 
-                                    T.fechamodifica
-                                FROM almadisa.tarifariotruck as T inner join 
+                                    T.fechamodifica,
+                                    m2.id_moneda,
+                                    T.id_tipo_carga,
+                                    TU.idtipo_unidades
+                                FROM tarifariotruck as T inner join 
                                     tipo_unidades_truc as TU on TU.idtipo_unidades = T.id_tipo_unidad inner join 
                                     tipo_carga_empresa as tce on id_tipo_carga_empresa  = T.id_tipo_carga inner join 
-                                    sino as s2 on s2.id_sino  = T.id_piloto inner join 
                                     moneda as m2 on m2.id_moneda  = T.id_moneda 
                                 where T.id_proyecto = :idproyecto");
             $rsp->bindParam(":idproyecto", $idproyecto);
@@ -268,10 +269,11 @@ class tarifaTruck
                                         destino, 
                                         tarifa_venta, 
                                         tarifa_costo, 
-                                        date_format(validez,'%m/%d/%Y')as validez,
+                                        CASE WHEN validez = '0000-00-00' THEN '' ELSE IFNULL( date_format(validez,'%m/%d/%Y'),'') END AS validez,
                                         fechagraba, 
-                                        fechamodifica
-                                    FROM tarifa_servicio
+                                        fechamodifica,
+                                        ifnull((SELECT c.nombre as servicio FROM catalogo as c where  c.id_catalogo = TS.id_servicio),'') as servicio
+                                    FROM tarifa_servicio as TS
                                 WHERE id_tarifa_servicio = :idtarifaservicio");
             $rsp->bindParam(":idtarifaservicio", $idtarifaservicio);
             $rsp->execute();
@@ -299,9 +301,11 @@ class tarifaTruck
                                     TS.destino, 
                                     TS.tarifa_venta,
                                     TS.tarifa_costo, 
-                                    date_format(TS.validez,'%m/%d/%Y')as validez,
+                                    CASE WHEN validez = '0000-00-00' THEN '' ELSE IFNULL( date_format(validez,'%m/%d/%Y'),'') END AS validez,
                                     TS.fechagraba, 
-                                    TS.fechamodifica
+                                    TS.fechamodifica,
+                                    c.id_catalogo,
+                                    m.id_moneda
                                 FROM tarifa_servicio AS TS INNER JOIN  
                                         catalogo c  ON c.id_catalogo  = TS.id_servicio INNER JOIN 
                                         moneda m  ON m.id_moneda  = TS.id_moneda 

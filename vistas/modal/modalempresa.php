@@ -5,8 +5,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title text-center" id="tituloh">
                                 <p id="titulomodale"></p>
                             </h4>
@@ -16,6 +15,7 @@
                             <ul class="nav nav-tabs" id="tabempresa">
                                 <li><a class="active" id="home-tab" data-toggle="tab" href="#home">Datos Generales</a>
                                 </li>
+                                <li><a id="sucursales-tab" data-toggle="tab" href="#sucursales">Sucursales</a></li>
                                 <li><a id="contacto-tab" data-toggle="tab" href="#contactos">Contactos</a></li>
                                 <li><a id="flota-tab" data-toggle="tab" href="#flota">Flota</a></li>
                                 <li><a id="experiencia-tab" data-toggle="tab" href="#experiencia">Experiencia</a></li>
@@ -36,53 +36,43 @@
                                                     <!-- <form class="form-horizontal"> -->
                                                     <div class="form-group">
                                                         <label for="codigo" class="control-label">Codigo:</label>
-                                                        <input type="text" name="codigo" id="codigo"
-                                                            class="form-control input-sm" style="width:150px" readonly>
+                                                        <input type="text" name="codigo" id="codigo" class="form-control input-sm" style="width:150px" readonly>
                                                     </div>
 
-                                                    <div class="form-group">
+                                                    <div class="form-group col-md-12">
                                                         <label for="paisEmpresa" class="control-label">Pais(*)</label>
-                                                        <select id="paisEmpresa" name="paisEmpresa"
-                                                            class="selectpicker form-control" data-live-search="true">
+                                                        <select id="paisEmpresa" name="paisEmpresa" class="selectpicker form-control" data-live-search="true">
 
                                                         </select>
                                                     </div>
 
-                                                    <div class="form-group">
+                                                    <div class="form-group col-md-12">
                                                         <label for="Razons" class="control-label">Razon
                                                             Social*:</label>
-                                                        <input type="text" class="form-control input-sm" id="Razons"
-                                                            name="Razons" onkeyup="mayusculas(this)">
+                                                        <input type="text" class="form-control input-sm" id="Razons" name="Razons" onkeyup="mayusculas(this)">
                                                         <input type="hidden" name="tipoE" id="tipoE">
                                                         <input type="hidden" name="idempresa" id='idempresa'>
                                                         <input type="hidden" name="llama" id="llama">
                                                         <input type="hidden" name="queActualizar" id="queActualizar">
 
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group col-md-12">
                                                         <label for="Nombrec" class="control-label">Nombre
                                                             Comercial*:</label>
-                                                        <input type="text" name="Nombrec" id="Nombrec"
-                                                            class="form-control input-sm" onkeyup="mayusculas(this)">
+                                                        <input type="text" name="Nombrec" id="Nombrec" class="form-control input-sm" onkeyup="mayusculas(this)">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="identificacion"
-                                                            class="control-label">Identificacion*:</label>
-                                                        <input type="text" name="identificacion" id="identificacion"
-                                                            class="form-control">
+                                                    <div class="col-md-6 form-group">
+                                                        <label for="identificacion" class="control-label">Identificacion Tributaria*:</label>
+                                                        <input type="text" name="identificacion" id="identificacion" class="form-control">
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group col-md-6">
                                                         <label for="telefono" class="control-label">Telefono:</label>
-                                                        <input type="text" name="telefono" id="telefono"
-                                                            class="form-control input-sm"
-                                                            onkeyup="this.value=numeroTelefono(this.value)">
+                                                        <input type="text" name="telefono" id="telefono" class="form-control input-sm" onkeyup="this.value=numeroTelefono(this.value)">
                                                     </div>
 
-                                                    <div class="form-group">
+                                                    <div class="form-group col-md-12">
                                                         <label for="direccion" class="control-label">Direccion*:</label>
-                                                        <textarea class="form-control input-sm" id="direccion"
-                                                            name="direccion" rows="3"
-                                                            onkeyup="mayusculas(this)"></textarea>
+                                                        <textarea class="form-control input-sm" id="direccion" name="direccion" rows="2" onkeyup="mayusculas(this)"></textarea>
                                                     </div>
                                                     <!-- </form> -->
                                                 </div>
@@ -98,19 +88,16 @@
                                                         <div class="form-group">
                                                             <label for="comision" class="control-label">%
                                                                 Comision</label>
-                                                            <input type="number" name="comision" id="comision"
-                                                                class="form-control">
+                                                            <input type="number" name="comision" id="comision" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="cbm" class="control-label">
-                                                                <input type="radio" name="cbmtarifa" id="cbm"
-                                                                    value="cbm">
+                                                                <input type="radio" name="cbmtarifa" id="cbm" value="cbm">
                                                                 Por CBM:</label>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="tarifa" class="control-label">
-                                                                <input type="radio" name="cbmtarifa" id="tarifa"
-                                                                    value="tarifa">
+                                                                <input type="radio" name="cbmtarifa" id="tarifa" value="tarifa">
                                                                 Por TARIFA:</label>
                                                         </div>
                                                         <!-- </form> -->
@@ -126,43 +113,39 @@
                                                         <div class="form-group">
                                                             <label for="giroNegocio" class="control-label">Giro de
                                                                 Negocio:</label>
-                                                            <select id="giroNegocio" name="giroNegocio"
-                                                                class="selectpicker form-control"
-                                                                data-live-search="true">
+                                                            <select id="giroNegocio" name="giroNegocio" class="selectpicker form-control" data-live-search="true">
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="tamanoEmpresa" class="control-label">Tamaño de
                                                                 la Empresa:</label>
-                                                            <select id="tamanoEmpresa" name="tamanoEmpresa"
-                                                                class="selectpicker form-control"
-                                                                data-live-search="true">
+                                                            <select id="tamanoEmpresa" name="tamanoEmpresa" class="selectpicker form-control" data-live-search="true">
 
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="tipoCargaEmpresa" class="control-label">Tipo
                                                                 Carga:</label>
-                                                            <select id="tipoCargaEmpresa" name="tipoCargaEmpresa"
-                                                                class="selectpicker form-control"
-                                                                data-live-search="true">
+                                                            <select id="tipoCargaEmpresa" name="tipoCargaEmpresa" class="selectpicker form-control" data-live-search="true">
 
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="canalDistribucion" class="control-label">Canal
                                                                 de Distribucion:</label>
-                                                            <select id="canalDistribucion" name="canalDistribucion"
-                                                                class="selectpicker form-control"
-                                                                data-live-search="true">
+                                                            <select id="canalDistribucion" name="canalDistribucion" class="selectpicker form-control" data-live-search="true">
 
                                                             </select>
                                                         </div>
+
+                                                        <div class="form-group">
+                                                            <label for="aniversarioCliente" class="control-label">Aniversario:</label>
+                                                            <input type="date" name="aniversarioCliente" id="aniversarioCliente" class="form-control input-sm" onkeyup="mayusculas(this)">
+                                                        </div>
+
                                                         <div class="form-group">
                                                             <label for="asloEmpresa" class="control-label">Aslo:</label>
-                                                            <select id="asloEmpresa" name="asloEmpresa"
-                                                                class="selectpicker form-control"
-                                                                data-live-search="true">
+                                                            <select id="asloEmpresa" name="asloEmpresa" class="selectpicker form-control" data-live-search="true">
                                                             </select>
                                                         </div>
                                                         <!-- </form> -->
@@ -175,39 +158,32 @@
                                                     <div class="panel-body">
                                                         <!-- <form class="form-horizontal"> -->
                                                         <div class="form-group">
-                                                            <label for="representanteLegal"
-                                                                class="control-label">Representante Legal:</label>
-                                                            <input type="text" name="representanteLegal"
-                                                                id="representanteLegal" class="form-control input-sm">
+                                                            <label for="representanteLegal" class="control-label">Representante Legal:</label>
+                                                            <input type="text" name="representanteLegal" id="representanteLegal" class="form-control input-sm">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="diasCreditoTR" class="control-label">Dias
                                                                 Credito:</label>
-                                                            <input type="number" name="diasCreditoTR" id="diasCreditoTR"
-                                                                class="form-control input-sm">
+                                                            <input type="number" name="diasCreditoTR" id="diasCreditoTR" class="form-control input-sm">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="cuentaBancariaTR" class="control-label">Cuenta
                                                                 Bancaria:</label>
 
-                                                            <textarea name="" id="cuentaBancariaTR" class="form-control"
-                                                                rows="3"></textarea>
+                                                            <textarea name="" id="cuentaBancariaTR" class="form-control" rows="3"></textarea>
 
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="paraCheque" class="control-label">Datos Para
                                                                 Cheque:</label>
 
-                                                            <textarea name="" id="paraCheque" class="form-control"
-                                                                rows="2"></textarea>
+                                                            <textarea name="" id="paraCheque" class="form-control" rows="2"></textarea>
 
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="monedaPago" class="control-label">Moneda de
                                                                 Pago:</label>
-                                                            <select id="monedaPago" name="monedaPago"
-                                                                class="selectpicker form-control"
-                                                                data-live-search="true">
+                                                            <select id="monedaPago" name="monedaPago" class="selectpicker form-control" data-live-search="true">
 
                                                             </select>
                                                         </div>
@@ -220,59 +196,117 @@
 
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="contactos">
+                                <!-- sucursales -->
+                                <div class="tab-pane fade" id="sucursales">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="panel panel-primary">
                                                 <div class="panel-heading">
                                                 </div>
                                                 <div class="panel-body">
                                                     <!-- <form role="form"> -->
-                                                    <div class="form-group">
-                                                        <label for="Nombre" class="control-label">Nombre:</label>
-                                                        <input type="text" name="Nombre" id="Nombre"
-                                                            class="form-control input-sm">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="nombreSucursal" class="control-label">Nombre:</label>
+                                                        <input type="text" name="nombreSucursal" id="nombreSucursal" class="form-control input-sm">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="Apellido" class="control-label">Apellido:</label>
-                                                        <input type="text" name="Apellido" id="Apellido"
-                                                            class="form-control input-sm">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="Correo" class="control-label">Correo:</label>
-                                                        <input type="email" name="Correo" id="Correo"
-                                                            class="form-control input-sm">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="telefono" class="control-label">Telefono:</label>
-                                                        <input type="text" name="telefonoc" id="telefonoc"
-                                                            class="form-control input-sm"
-                                                            onkeyup="this.value=numeroTelefono(this.value)">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="puesto" class="control-label">Puesto:</label>
-                                                        <input type="text" name="puesto" id="puesto"
-                                                            class="form-control input-sm">
-                                                    </div>
-                                                    <div class="form-group col-md-offset-3">
-                                                        <button type="button" class="btn btn-large btn-success"
-                                                            onclick="registrarc()">Registrar</button>
+                                                    <input type="hidden" name="id_sucursalCliente" id="id_sucursalCliente">
+                                                    <!-- <div class="form-group col-md-6">
+                                                        <label for="aniversarioSucursal" class="control-label">Aniversario:</label>
+                                                        <input type="date" name="aniversarioSucursal" id="aniversarioSucursal" class="form-control input-sm">
+                                                    </div> -->
+                                                    <div class="form-group col-md-12 col-md-offset-3">
+                                                        <button type="button" class="btn btn-large btn-success" onclick="registrarSucursalCliente          ()">Registrar</button>
                                                     </div>
                                                     <!-- </form> -->
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-6">
                                             <div class="panel-body table-responsive">
-                                                <table class="table table-condensed table-hover table-bordered"
-                                                    id="Tcontactos">
+                                                <table class="table table-condensed table-hover table-bordered" id="tSucursales">
                                                     <thead>
-                                                        <th>Aciones</th>
+                                                        <th><span class="fa fa-cog"> Acciones</span> </th>
+                                                        <th>Nombre</th>
+                                                        <!-- <th>Aniversario</th> -->
+                                                    </thead>
+                                                    <tbody id="tbodysucursales">
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div> <!-- col md 8 tabla -->
+                                    </div>
+                                </div> <!-- contactos -->
+                                <!--  contactos -->
+                                <div class="tab-pane fade" id="contactos">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                </div>
+                                                <div class="panel-body">
+                                                    <!-- <form role="form"> -->
+                                                    <div class="form-group col-md-6">
+                                                        <label for="Nombre" class="control-label">Nombre:</label>
+                                                        <input type="text" name="Nombre" id="Nombre" class="form-control input-sm">
+                                                        <input type="hidden" name="id_contacto" id="id_contacto">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="Apellido" class="control-label">Apellido:</label>
+                                                        <input type="text" name="Apellido" id="Apellido" class="form-control input-sm">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="Correo" class="control-label">Correo:</label>
+                                                        <input type="email" name="Correo" id="Correo" class="form-control input-sm">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="telefono" class="control-label">Telefono:</label>
+                                                        <input type="text" name="telefonoc" id="telefonoc" class="form-control input-sm" onkeyup="this.value=numeroTelefono(this.value)">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="celularclie" class="control-label">Celular:</label>
+                                                        <input type="text" name="celularclie" id="celularclie" class="form-control input-sm" onkeyup="this.value=numeroTelefono(this.value)">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="puesto" class="control-label">Puesto:</label>
+                                                        <input type="text" name="puesto" id="puesto" class="form-control input-sm">
+                                                    </div>
+
+                                                    <div class="form-group col-md-6">
+                                                        <label for="cumpleContatoClie" class="control-label">Cumpleaños:</label>
+                                                        <input type="date" name="cumpleContatoClie" id="cumpleContatoClie" class="form-control input-sm">
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        <label for="medioComunicacionCli" class="">Medio Comunicación(*) </label>
+                                                        <div class="input-group input-group-sm">
+
+                                                            <select id="medioComunicacionCli" name="medioComunicacionCli" class="form-control selectpicker" data-live-search="true">
+                                                            </select>
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="btn btn-default"></button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-offset-3">
+                                                        <button type="button" class="btn btn-large btn-success" onclick="registrarc()">Registrar</button>
+                                                    </div>
+                                                    <!-- </form> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="panel-body table-responsive">
+                                                <table class="table table-condensed table-hover table-bordered" id="Tcontactos">
+                                                    <thead>
+                                                        <th><span class="fa fa-cog"></span> Acciones </th>
                                                         <th>Nombre</th>
                                                         <th>Apellido</th>
                                                         <th>Correo</th>
                                                         <th>Telefono</th>
+                                                        <th>Celular</th>
                                                         <th>Puesto</th>
+                                                        <th>Cumpleaños</th>
+                                                        <th>Comunicación</th>
                                                     </thead>
                                                     <tbody id="tbodyC">
                                                     </tbody>
@@ -292,13 +326,10 @@
                                                         <label for="permisoEspecial" class="">Permisos Especiales:
                                                         </label>
                                                         <div class="input-group input-group-sm ">
-                                                            <select id="permisoEspecial" name="permisoEspecial"
-                                                                class="form-control selectpicker"
-                                                                data-live-search="true">
+                                                            <select id="permisoEspecial" name="permisoEspecial" class="form-control selectpicker" data-live-search="true">
                                                             </select>
                                                             <span class="input-group-btn">
-                                                                <button type="button"
-                                                                    class="btn btn-primary fa fa-plus"></button>
+                                                                <button type="button" class="btn btn-primary fa fa-plus"></button>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -306,28 +337,23 @@
                                                         <label for="codigoAduanero" class="control-label">Codigo de
                                                             Transporte Aduanero:</label>
 
-                                                        <input type="text" name="codigoAduanero" id="codigoAduanero"
-                                                            class="form-control input-sm">
+                                                        <input type="text" name="codigoAduanero" id="codigoAduanero" class="form-control input-sm">
                                                     </div>
                                                     <div class="col-md-2">
                                                         <label for="permisoEspecial" class="">Codigo CAAT:
                                                         </label>
                                                         <div class="input-group input-group-sm ">
-                                                            <select id="permisoEspecial" name="permisoEspecial"
-                                                                class="form-control selectpicker"
-                                                                data-live-search="true">
+                                                            <select id="permisoEspecial" name="permisoEspecial" class="form-control selectpicker" data-live-search="true">
                                                             </select>
                                                             <span class="input-group-btn">
-                                                                <button type="button"
-                                                                    class="btn btn-primary fa fa-plus"></button>
+                                                                <button type="button" class="btn btn-primary fa fa-plus"></button>
                                                             </span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2 form-group col-md-offset-1">
                                                         <label for="codigoAduanero" class="control-label">Codigo</label>
 
-                                                        <input type="text" name="codigoAduanero" id="codigoAduanero"
-                                                            class="form-control input-sm">
+                                                        <input type="text" name="codigoAduanero" id="codigoAduanero" class="form-control input-sm">
                                                     </div>
                                                     <!-- </form> -->
                                                 </div>
@@ -344,13 +370,10 @@
                                                     <div class="form-group col-md-12">
                                                         <label for="tipoEquipo" class="">Tipo Equipo: </label>
                                                         <div class="input-group input-group-sm">
-                                                            <select id="tipoEquipo" name="tipoEquipo"
-                                                                class="form-control selectpicker"
-                                                                data-live-search="true">
+                                                            <select id="tipoEquipo" name="tipoEquipo" class="form-control selectpicker" data-live-search="true">
                                                             </select>
                                                             <span class="input-group-btn">
-                                                                <button type="button"
-                                                                    class="btn btn-primary fa fa-plus"></button>
+                                                                <button type="button" class="btn btn-primary fa fa-plus"></button>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -359,37 +382,31 @@
                                                         <label for="placaCabezal" class="control-label">Placa
                                                             Cabezal:
                                                         </label>
-                                                        <input type="text" name="placaCabezal" id="placaCabezal"
-                                                            class="form-control input-sm" onkeyup="mayusculas(this)">
+                                                        <input type="text" name="placaCabezal" id="placaCabezal" class="form-control input-sm" onkeyup="mayusculas(this)">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="placaFurgon" class="control-label">Placa
                                                             Furgon:
                                                         </label>
-                                                        <input type="text" name="placaFurgon" id="placaFurgon"
-                                                            class="form-control input-sm" onkeyup="mayusculas(this)">
+                                                        <input type="text" name="placaFurgon" id="placaFurgon" class="form-control input-sm" onkeyup="mayusculas(this)">
                                                     </div>
 
                                                     <div class="form-group col-md-6">
                                                         <label for="tarjetaCirculacion" class="control-label">Tarjeta
                                                             de Circulacion:
                                                         </label>
-                                                        <input type="text" name="tarjetaCirculacion"
-                                                            id="tarjetaCirculacion" class="form-control input-sm"
-                                                            onkeyup="mayusculas(this)">
+                                                        <input type="text" name="tarjetaCirculacion" id="tarjetaCirculacion" class="form-control input-sm" onkeyup="mayusculas(this)">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="gps" class="control-label">GPS
                                                         </label>
-                                                        <input type="text" name="gps" id="gps"
-                                                            class="form-control input-sm" onkeyup="mayusculas(this)">
+                                                        <input type="text" name="gps" id="gps" class="form-control input-sm" onkeyup="mayusculas(this)">
                                                     </div>
                                                     <div class="col-md-12">
 
                                                     </div>
                                                     <div class="form-group col-md-offset-5">
-                                                        <button type="button" class="btn btn-large btn-success"
-                                                            onclick="registrarEquipo()">Registrar</button>
+                                                        <button type="button" class="btn btn-large btn-success" onclick="registrarEquipo()">Registrar</button>
                                                     </div>
                                                     <!-- </form> -->
                                                 </div>
@@ -397,8 +414,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="panel-body table-responsive">
-                                                <table class="table table-condensed table-hover table-bordered"
-                                                    id="tblEquipos">
+                                                <table class="table table-condensed table-hover table-bordered" id="tblEquipos">
                                                     <thead>
                                                         <th>Aciones</th>
                                                         <th>id</th>
@@ -425,15 +441,12 @@
                                                     <!-- <form role="form"> -->
                                                     <div class="form-group col-md-6">
                                                         <label for="nombrePiloto" class="control-label">Nombre:</label>
-                                                        <input type="text" name="nombrePiloto" id="nombrePiloto"
-                                                            class="form-control input-sm">
+                                                        <input type="text" name="nombrePiloto" id="nombrePiloto" class="form-control input-sm">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="tipoLicencia" class="">Tipo Licencia:</label>
                                                         <div class="input-group input-group-sm">
-                                                            <select id="tipoLicencia" name="tipoLicencia"
-                                                                class="form-control selectpicker"
-                                                                data-live-search="true">
+                                                            <select id="tipoLicencia" name="tipoLicencia" class="form-control selectpicker" data-live-search="true">
                                                             </select>
                                                             <span class="input-group-btn">
                                                                 <button type="button" class="btn btn-default"></button>
@@ -444,12 +457,10 @@
                                                         <label for="numeroLicencia" class="control-label">No.
                                                             Licencia:
                                                         </label>
-                                                        <input type="text" name="numeroLicencia" id="numeroLicencia"
-                                                            class="form-control input-sm"  onkeyup="mayusculas(this)">
+                                                        <input type="text" name="numeroLicencia" id="numeroLicencia" class="form-control input-sm" onkeyup="mayusculas(this)">
                                                     </div>
                                                     <div class="form-group col-md-offset-5 col-md-12">
-                                                        <button type="button" class="btn btn-large btn-success"
-                                                            onclick="registrarPiloto()">Registrar</button>
+                                                        <button type="button" class="btn btn-large btn-success" onclick="registrarPiloto()">Registrar</button>
                                                     </div>
                                                     <!-- </form> -->
                                                 </div>
@@ -457,8 +468,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="panel-body table-responsive">
-                                                <table class="table table-condensed table-hover table-bordered"
-                                                    id="tblPilotos">
+                                                <table class="table table-condensed table-hover table-bordered" id="tblPilotos">
                                                     <thead>
                                                         <th>Aciones</th>
                                                         <th>id</th>
@@ -489,9 +499,7 @@
                                                         <label for="tipoEquipoTotal" class="">Industrias de Experiencia:
                                                         </label>
                                                         <div class="input-group input-group-sm">
-                                                            <select id="tipoEquipoTotal" name="tipoEquipoTotal"
-                                                                class="form-control selectpicker"
-                                                                data-live-search="true">
+                                                            <select id="tipoEquipoTotal" name="tipoEquipoTotal" class="form-control selectpicker" data-live-search="true">
                                                             </select>
                                                             <span class="input-group-btn">
                                                                 <button type="button" class="btn btn-default"></button>
@@ -504,14 +512,12 @@
                                                 <div class="col-md-1">
                                                     <div class="form-group ">
                                                         <label for="">.</label>
-                                                        <button type="button" class="btn btn-large btn-primary"
-                                                            onclick=""><span class="fa fa-plus"></span></button>
+                                                        <button type="button" class="btn btn-large btn-primary" onclick=""><span class="fa fa-plus"></span></button>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="panel-body table-responsive">
-                                                        <table class="table table-condensed table-hover table-bordered"
-                                                            id="Tcontactos">
+                                                        <table class="table table-condensed table-hover table-bordered" id="Tcontactos">
                                                             <thead>
                                                                 <th>Aciones</th>
                                                                 <th>Industrias</th>
@@ -539,9 +545,7 @@
                                                         <label for="tipoEquipoTotal" class="">Canales de
                                                             Distribucion:</label>
                                                         <div class="input-group input-group-sm">
-                                                            <select id="tipoEquipoTotal" name="tipoEquipoTotal"
-                                                                class="form-control selectpicker"
-                                                                data-live-search="true">
+                                                            <select id="tipoEquipoTotal" name="tipoEquipoTotal" class="form-control selectpicker" data-live-search="true">
                                                             </select>
                                                             <span class="input-group-btn">
                                                                 <button type="button" class="btn btn-default"></button>
@@ -553,16 +557,14 @@
                                                 <div class="col-md-1">
                                                     <div class="form-group">
                                                         <label for="">.</label>
-                                                        <button type="button" class="btn btn-large btn-primary"
-                                                            onclick="">
+                                                        <button type="button" class="btn btn-large btn-primary" onclick="">
                                                             <span class="fa fa-plus"></span>
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="panel-body table-responsive">
-                                                        <table class="table table-condensed table-hover table-bordered"
-                                                            id="Tcontactos">
+                                                        <table class="table table-condensed table-hover table-bordered" id="Tcontactos">
                                                             <thead>
                                                                 <th>Aciones</th>
                                                                 <th>Canales de Distribucion</th>
@@ -589,8 +591,7 @@
                                                     <div class="form-group">
                                                         <label for="cantidadUnidadTotal" class="control-label">Empresas
                                                             a las que ha Movido:</label>
-                                                        <input type="text" name="cantidadUnidadTotal"
-                                                            id="cantidadUnidadTotal" class="form-control">
+                                                        <input type="text" name="cantidadUnidadTotal" id="cantidadUnidadTotal" class="form-control">
                                                     </div>
 
                                                     <!-- </form> -->
@@ -598,14 +599,12 @@
                                                 <div class="col-md-1">
                                                     <div class="form-group">
                                                         <label for="">.</label>
-                                                        <button type="button" class="btn btn-large btn-primary"
-                                                            onclick=""><span class="fa fa-plus"></span></button>
+                                                        <button type="button" class="btn btn-large btn-primary" onclick=""><span class="fa fa-plus"></span></button>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="panel-body table-responsive">
-                                                        <table class="table table-condensed table-hover table-bordered"
-                                                            id="Tcontactos">
+                                                        <table class="table table-condensed table-hover table-bordered" id="Tcontactos">
                                                             <thead>
                                                                 <th>Aciones</th>
                                                                 <th>Empresas</th>
@@ -629,29 +628,24 @@
                                                 <!-- <form role="form"> -->
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="cantidadUnidadTotal"
-                                                            class="control-label">Referencia:</label>
-                                                        <input type="text" name="cantidadUnidadTotal"
-                                                            id="cantidadUnidadTotal" class="form-control">
+                                                        <label for="cantidadUnidadTotal" class="control-label">Referencia:</label>
+                                                        <input type="text" name="cantidadUnidadTotal" id="cantidadUnidadTotal" class="form-control">
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="cantidadUnidadTotal" class="control-label">Telefono:
                                                         </label>
-                                                        <input type="text" name="cantidadUnidadTotal"
-                                                            id="cantidadUnidadTotal" class="form-control">
+                                                        <input type="text" name="cantidadUnidadTotal" id="cantidadUnidadTotal" class="form-control">
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <button type="button" class="btn btn-large btn-primary"
-                                                            onclick=""><span class="fa fa-plus"></span></button>
+                                                        <button type="button" class="btn btn-large btn-primary" onclick=""><span class="fa fa-plus"></span></button>
                                                     </div>
                                                     <!-- </form> -->
                                                 </div>
                                                 <div class="col-md-7">
                                                     <div class="panel-body table-responsive">
-                                                        <table class="table table-condensed table-hover table-bordered"
-                                                            id="Tcontactos">
+                                                        <table class="table table-condensed table-hover table-bordered" id="Tcontactos">
                                                             <thead>
                                                                 <th>Aciones</th>
                                                                 <th>Referencia</th>
@@ -681,8 +675,7 @@
                                             <div class="box-body">
                                                 <div class="col-md-12">
                                                     <div class="panel-body table-responsive">
-                                                        <table class="table table-condensed table-hover table-bordered"
-                                                            id="Tcontactos">
+                                                        <table class="table table-condensed table-hover table-bordered" id="Tcontactos">
                                                             <thead>
                                                                 <th>Descripcion</th>
                                                                 <th>Bueno</th>
@@ -695,18 +688,14 @@
                                                                     <td>
                                                                         <div class="radio">
                                                                             <label>
-                                                                                <input type="radio"
-                                                                                    name="disponibilidad" id="input"
-                                                                                    value="bueno">
+                                                                                <input type="radio" name="disponibilidad" id="input" value="bueno">
                                                                             </label>
                                                                         </div>
                                                                     </td>
                                                                     <td>
                                                                         <div class="radio">
                                                                             <label>
-                                                                                <input type="radio"
-                                                                                    name="disponibilidad" id="input"
-                                                                                    value="regular">
+                                                                                <input type="radio" name="disponibilidad" id="input" value="regular">
 
                                                                             </label>
                                                                         </div>
@@ -714,9 +703,7 @@
                                                                     <td>
                                                                         <div class="radio">
                                                                             <label>
-                                                                                <input type="radio"
-                                                                                    name="disponibilidad" id="input"
-                                                                                    value="malo">
+                                                                                <input type="radio" name="disponibilidad" id="input" value="malo">
 
                                                                             </label>
                                                                         </div>
@@ -727,8 +714,7 @@
                                                                     <td>
                                                                         <div class="radio">
                                                                             <label>
-                                                                                <input type="radio" name="estadoflota"
-                                                                                    id="input" value="bueno">
+                                                                                <input type="radio" name="estadoflota" id="input" value="bueno">
 
                                                                             </label>
                                                                         </div>
@@ -736,8 +722,7 @@
                                                                     <td>
                                                                         <div class="radio">
                                                                             <label>
-                                                                                <input type="radio" name="estadoflota"
-                                                                                    id="input" value="regular">
+                                                                                <input type="radio" name="estadoflota" id="input" value="regular">
 
                                                                             </label>
                                                                         </div>
@@ -745,8 +730,7 @@
                                                                     <td>
                                                                         <div class="radio">
                                                                             <label>
-                                                                                <input type="radio" name="estadoflota"
-                                                                                    id="input" value="malo">
+                                                                                <input type="radio" name="estadoflota" id="input" value="malo">
 
                                                                             </label>
                                                                         </div>
@@ -757,8 +741,7 @@
                                                                     <td>
                                                                         <div class="radio">
                                                                             <label>
-                                                                                <input type="radio" name="servicio"
-                                                                                    id="input" value="bueno">
+                                                                                <input type="radio" name="servicio" id="input" value="bueno">
 
                                                                             </label>
                                                                         </div>
@@ -766,8 +749,7 @@
                                                                     <td>
                                                                         <div class="radio">
                                                                             <label>
-                                                                                <input type="radio" name="servicio"
-                                                                                    id="input" value="regular">
+                                                                                <input type="radio" name="servicio" id="input" value="regular">
 
                                                                             </label>
                                                                         </div>
@@ -775,8 +757,7 @@
                                                                     <td>
                                                                         <div class="radio">
                                                                             <label>
-                                                                                <input type="radio" name="servicio"
-                                                                                    id="input" value="malo">
+                                                                                <input type="radio" name="servicio" id="input" value="malo">
 
                                                                             </label>
                                                                         </div>
@@ -788,8 +769,7 @@
                                                 </div> <!-- col md 8 tabla -->
                                                 <div class="col-md-12">
                                                     <label for="">Comentarios</label>
-                                                    <textarea name="" id="input" class="form-control"
-                                                        rows="3"></textarea>
+                                                    <textarea name="" id="input" class="form-control" rows="3"></textarea>
 
                                                 </div>
                                             </div>

@@ -6,8 +6,8 @@ require_once "../modelos/tarifaTruck.php";
 $tarifario = new tarifaTruck();
 
 $idtarifaflete  = isset($_POST["idtarifaflete"]) ? $idtarifaflete = $_POST["idtarifaflete"] : $idtarifaflete = 0;
-$origenTarifa = isset($_POST["origenTarifa"]) ? $origenTarifa = $_POST["origenTarifa"] : $origenTarifa = "";
-$destinoTarifa = isset($_POST["destinoTarifa"]) ? $destinoTarifa = $_POST["destinoTarifa"] : $destinoTarifa = "";
+$origenTarifa = isset($_POST["origenTarifa"]) ? $origenTarifa = limpia($_POST["origenTarifa"]) : $origenTarifa = "";
+$destinoTarifa = isset($_POST["destinoTarifa"]) ? $destinoTarifa = limpia($_POST["destinoTarifa"]) : $destinoTarifa = "";
 $tipoUnidadTarifa = isset($_POST['tipoUnidadTarifa']) ? $tipoUnidadTarifa = limpia($_POST['tipoUnidadTarifa']) : $tipoUnidadTarifa = 0;
 $pilotoTarifa = isset($_POST["pilotoTarifa"]) ? $pilotoTarifa = $_POST["pilotoTarifa"] : $pilotoTarifa = 0;
 $numeroayudantes = isset($_POST["numeroPilotos"]) ? $numeroayudantes = $_POST["numeroPilotos"] : $numeroayudantes = 0;
@@ -20,8 +20,8 @@ $monedaTarifaFlete = isset($_POST["monedaTarifaFlete"]) ? $monedaTarifaFlete = $
 
 
 $idservicio= isset($_POST["servicioTarifa"]) ? $idservicio = $_POST["servicioTarifa"] : $idservicio = 0;
-$origenservicio = isset($_POST["origenServicioTarifa"]) ? $origenservicio = $_POST["origenServicioTarifa"] : $origenservicio = "";
-$destinoservicio = isset($_POST["destinoServicioTarifa"]) ? $destinoservicio = $_POST["destinoServicioTarifa"] : $destinoservicio = "";
+$origenservicio = isset($_POST["origenServicioTarifa"]) ? $origenservicio = limpia($_POST["origenServicioTarifa"]) : $origenservicio = "";
+$destinoservicio = isset($_POST["destinoServicioTarifa"]) ? $destinoservicio = limpia($_POST["destinoServicioTarifa"]) : $destinoservicio = "";
 $tarifaventa= isset($_POST["tarifaVentaServicio"]) ? $tarifaventa = $_POST["tarifaVentaServicio"] : $tarifaventa = 0;
 $idtarifaservicio = isset($_POST["idtarifaservicio"]) ? $idtarifaservicio = $_POST["idtarifaservicio"] : $idtarifaservicio = 0;
 $tarifacosto= isset($_POST["tarifaCostoServicio"]) ? $tarifacosto = $_POST["tarifaCostoServicio"] : $tarifacosto = 0;
@@ -52,13 +52,12 @@ switch ($_GET["op"]) {
                     "1" =>$reg->origen,
                     "2" => $reg->destino,
                     "3" => $reg->unidad,
-                    "4" => $reg->piloto,
-                    "5" => $reg->ayudantes,
-                    "6" => $reg->validez,
-                    "7" => $reg->tipocarga,
-                    "8" => $reg->tarifa_venta,
-                    "9" => $reg->tarifa_costo,
-                    "10"=> $reg->moneda
+                    "4" => $reg->ayudantes,
+                    "5" => $reg->validez,
+                    "6" => $reg->tipocarga,
+                    "7" => $reg->tarifa_venta,
+                    "8" => $reg->tarifa_costo,
+                    "9"=> $reg->moneda
                 );
             }
             $results = array(

@@ -29,5 +29,6 @@
 <script src="../plantilla/plugins/input-mask/jquery.inputmask.js"> </script>
 <script src="../plantilla/plugins/jqueryformat/jformat.js"> </script>
 <script src="../plantilla/plugins/jqueryNumber.js"> </script>
+<script src="../vistas/scritps/funciones.js"></script>
 </body>
 </html>

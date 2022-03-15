@@ -1072,7 +1072,6 @@ function sumarValores() {
 
     iddescuento = $("#descuento").prop("selectedIndex");
 
-   
     $("#subtotal").val(0);
     $("#iva").val(0);
     $("#financiado").val(0);

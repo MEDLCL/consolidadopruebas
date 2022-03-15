@@ -5,7 +5,6 @@ session_start();
 if (!$_SESSION['nombre']) {
     header('LOCATION: ../index.php');
 } else {
-
     require_once("../inc/head.php");
     require_once("../inc/header.php");
 ?>
@@ -32,10 +31,24 @@ if (!$_SESSION['nombre']) {
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <label for="" class="">.</label>
                             <div class="input-group-sm">
                                 <button type="button" class="btn btn-primary" onclick="llenaTarifasFleteServicio()"><span class="fa fa-search-plus"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="" class="">.</label>
+                            <div class="input-group-sm">
+                                <button type="button" class="btn btn-primary" onclick="reporteTarifario(1)"><span class="fa fa-file-pdf-o"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="" class="">.</label>
+                            <div class="input-group-sm">
+                                <button type="button" class="btn btn-primary" onclick="reporteTarifario(2)"><span class="fa fa-envelope"></span>
                                 </button>
                             </div>
                         </div>
@@ -72,7 +85,7 @@ if (!$_SESSION['nombre']) {
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 form-group">
+                                        <!-- <div class="col-md-6 form-group">
                                             <label for="pilotoTarifa" class="">Piloto(*) </label>
                                             <div class="input-group input-group-sm">
                                                 <select id="pilotoTarifa" name="pilotoTarifa" class="form-control selectpicker" data-live-search="true">
@@ -81,7 +94,7 @@ if (!$_SESSION['nombre']) {
                                                     <button type="button" class="btn btn-default"></button>
                                                 </span>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-6 form-group">
                                             <label for="">No. Ayudantes</label>
                                             <div class="input-group-sm">
@@ -147,7 +160,6 @@ if (!$_SESSION['nombre']) {
                                                 <th>Origen</th>
                                                 <th>Destino</th>
                                                 <th>Tipo Unidad</th>
-                                                <th>Piloto</th>
                                                 <th>No. Ayudantes</th>
                                                 <th>Validez</th>
                                                 <th>Tipo Carga</th>

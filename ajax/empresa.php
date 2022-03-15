@@ -14,12 +14,18 @@ $telefono = isset($_POST['telefono']) ? $telefono = limpia($_POST['telefono']) :
 $dire = isset($_POST['direccion']) ? $dire = limpia($_POST['direccion']) : $dire = '';
 $comision = isset($_POST['comision']) ? $comision = limpia($_POST['comision']) : $comision = 0;
 $cbmtarifa = isset($_POST['cbmtarifa']) ? $cbmtarifa = limpia($_POST['cbmtarifa']) : $cbmtarifa = '';
+
 $nombresc = isset($_POST['nombresc']) ? $usariosc = $_POST['nombresc'] : $usariosc = array();
 $apellidos = isset($_POST['apellidosc']) ? $apellidos = $_POST['apellidosc'] : $apellidos = array();
 $correosc = isset($_POST['correosc']) ? $correosc = $_POST['correosc'] : $correosc = array();
 $telefonosc = isset($_POST['telefonosc']) ? $telefonosc = $_POST['telefonosc'] : $telefonosc = array();
 $puestosc = isset($_POST['puestosc']) ? $puestosc =  $_POST['puestosc'] : $puestosc = array();
 $idcontacto = isset($_POST['id_contacto'])?$idcontacto = $_POST['id_contacto']:$idcontacto = 0;
+
+$celularesc=isset($_POST['celularesc']) ? $celularesc =  $_POST['celularesc'] : $celularesc = array();
+$cumplec=isset($_POST['cumplec']) ? $cumplec =  $_POST['cumplec'] : $cumplec = array();
+$medioComunicacionC=isset($_POST['medioComunicacionC']) ? $medioComunicacionC =  $_POST['medioComunicacionC'] : $medioComunicacionC = array();
+
 $idpaisEmpresa = isset($_POST["paisEmpresa"])?$idpaisEmpresa= $_POST["paisEmpresa"]:$idpaisEmpresa =0;
 
 $gironegocio = isset($_POST['giroNegocio']) ? $gironegocio = $_POST['giroNegocio'] : $gironegocio = 0;
@@ -33,9 +39,24 @@ $cuentaBan = isset($_POST['cuentaBancariaTR']) ? $cuentaBan =  $_POST['cuentaBan
 $paraCheque = isset($_POST['paraCheque'])?$paraCheque = $_POST['paraCheque']:$paraCheque = "";
 $idmonedaPago = isset($_POST["monedaPago"])?$idmonedaPago= $_POST["monedaPago"]:$idmonedaPago =0;
 
+$aniversarioCliente = isset($_POST["aniversarioCliente"])?$aniversarioCliente= $_POST["aniversarioCliente"]:$aniversarioCliente =date('Y-m-d');
 
+
+$Nombre = isset($_POST['Nombre']) ? $Nombre = limpia($_POST['Nombre']) : $Nombre = "";
+$Apellido = isset($_POST['Apellido']) ? $Apellido = limpia($_POST['Apellido']) : $Apellido = "";
+$Correo = isset($_POST['Correo']) ? $Correo = limpia($_POST['Correo']) : $Correo = "";
+$telefonoc = isset($_POST['telefonoc']) ? $telefonoc = $_POST['telefonoc'] : $telefonoc = "";
+$puesto = isset($_POST['puesto']) ? $puesto =  limpia($_POST['puesto']) : $puesto = "";
+$celularclie=isset($_POST['celularclie']) ? $celularclie =  $_POST['celularclie'] : $celularclie = "";
+$cumpleContatoClie=isset($_POST['cumpleContatoClie']) ? $cumpleContatoClie =  $_POST['cumpleContatoClie'] : $cumpleContatoClie = "";
+$medioComunicacionCli=isset($_POST['medioComunicacionCli']) ? $medioComunicacionCli =  $_POST['medioComunicacionCli'] : $medioComunicacionCli = 0;
+
+$nombreSucursalM  = isset($_POST['nombreSucursalM']) ? $nombreSucursalM = $_POST['nombreSucursalM'] : $nombreSucursalM = array();
+$id_sucursalCliente = isset($_POST['id_sucursalCliente']) ? $id_sucursalCliente = $_POST['id_sucursalCliente'] : $id_sucursalCliente = 0;
+$nombreSucursal= isset($_POST['nombreSucursal']) ? $nombreSucursal = limpia($_POST['nombreSucursal']) : $nombreSucursal = "";
 
 $res = 0;
+
 switch ($_GET['op']) {
     case 'guardaryeditar':
         if ($idempresa == 0) {
@@ -44,7 +65,7 @@ switch ($_GET['op']) {
                 echo $verifica;
             } else if ($verifica == 3) {
                 $codigo =$empresa->codigo($tipoE); 
-                $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa,$gironegocio,$tipoCarga,$tamEmpresa,$canalDis,$representanteL,$diasCredito,$cuentaBan,$paraCheque,$idmonedaPago);
+                $res = $empresa->grabar($codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa,$gironegocio,$tipoCarga,$tamEmpresa,$canalDis,$representanteL,$diasCredito,$cuentaBan,$paraCheque,$idmonedaPago,$aniversarioCliente,$celularesc,$cumplec,$medioComunicacionC,$nombreSucursalM);
                 echo $res;
 
             } else {
@@ -56,7 +77,7 @@ switch ($_GET['op']) {
             if ($verifica == 2) {
                 echo $verifica;
             } else if ($verifica == 3) {
-                $res = $empresa->editarE($idempresa, $codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa,$gironegocio,$tipoCarga,$tamEmpresa,$canalDis);
+                $res = $empresa->editarE($idempresa, $codigo, $tipoE, $razons, $nombrec, $nit, $telefono, $dire, $comision, $cbmtarifa, $nombresc, $apellidos, $correosc, $telefonosc, $puestosc,$idpaisEmpresa,$gironegocio,$tipoCarga,$tamEmpresa,$canalDis,$aniversarioCliente);
                 echo $res;
             }
         }
@@ -65,7 +86,22 @@ switch ($_GET['op']) {
         $res = $empresa->buscaEmpresa($idempresa);
         echo json_encode($res);
         break;
-
+    case 'grabaContacto':
+        if ($idcontacto ==0 || $idcontacto ==""){
+            $res = $empresa->grabarContacto($idempresa,$Nombre,$Apellido,$Correo,$telefonoc,$puesto,$celularclie,$cumpleContatoClie,$medioComunicacionCli);
+        }else{
+            $res = $empresa->editarContacto($idcontacto,$Nombre,$Apellido,$Correo,$telefonoc,$puesto,$celularclie,$cumpleContatoClie,$medioComunicacionCli);
+        }
+        echo json_encode($res);
+        break;
+    case 'grabaSucursal':
+        if ($id_sucursalCliente ==0 || $id_sucursalCliente ==""){
+            $res = $empresa->grabaSucursal($idempresa,$nombreSucursal);
+        }else{
+            $res = $empresa->editarSucursal($id_sucursalCliente,$nombreSucursal);
+        }
+        echo json_encode($res);
+        break;
     case 'listare':
         $res = $empresa->listar();
         $data = array();
@@ -78,14 +114,7 @@ switch ($_GET['op']) {
                 "4" => $reg->Nombrec,
                 "5" => $reg->identificacion,
                 "6" => $reg->telefono,
-                "7" => $reg->direccion,
-                "8" => $reg->porcentaje_comision,
-                "9" => $reg->tipo_comision,
-                "10" => $reg->nombre,
-                "11" => $reg->apellido,
-                "12" => $reg->correo,
-                "13" => $reg->tel,
-                "14" => $reg->puesto
+                "7" => $reg->direccion
             );
         }
         $results = array(
@@ -97,23 +126,66 @@ switch ($_GET['op']) {
         echo json_encode($results);
         break;
     case 'cargac':
-        $tablac = "";
         $res = $empresa->listarcontacto($idempresa);
-        foreach ($res as $contactos) {
-            $tablac = $tablac
-                . '<tr class="filas" id ="fila' . $contactos->id_contacto . '">'
-                . '<td><button type="button" class="btn btn-danger" onclick="eliminarfila(' . $contactos->id_contacto . ')"><span class="fa fa-trash-o"></span></button></td>'
-                . '<td ><input type "text"    name ="nombresc[]" id ="nombresc[]" value="' . $contactos->nombre . '"></td>'
-                . '<td ><input type "text"    name ="apellidosc[]" id ="apellidosc[]" value="' . $contactos->apellido . '"></td>'
-                . '<td ><input type "text"    name ="correosc[]" id ="correosc[]" value="' . $contactos->correo . '"></td>'
-                . '<td ><input type "text"    name ="telefonosc[]" id ="telefonosc[]" value="' . $contactos->telefono . '"></td>'
-                . '<td ><input type "text"    name ="puestosc[]" id ="puestosc[]" value="' . $contactos->puesto . '"></td>'
-                . '</tr>';
+        $acciones = "";
+        mb_internal_encoding('UTF-8');
+        //se declara un array para almacenar todo el query
+        $data = array();
+        foreach ($res as $reg) {
+            $acciones ="<button type= 'button' class='btn btn-warning btn-sm' onclick='mostratContacto(".$reg->id_contacto .")' ><i class='fa fa-pencil'></i></button>". 
+            " <button type= 'button' class='btn btn-danger btn-sm' onclick='eliminarfila(". $reg->id_contacto .")' ><i class='fa fa-close'></i></button>";
+            $data[] = array(
+                "0" => $acciones,
+                "1" => $reg->nombre,
+                "2" => $reg->apellido ,
+                "3" => $reg->correo,
+                "4" => $reg->telefono,
+                "5" => $reg->celular ,
+                "6" => $reg->puesto ,
+                "7" => $reg->cumpleanios,
+                "8" => $reg->omunicacion 
+            );
         }
-        echo $tablac;
+        $results = array(
+            "sEcho" => 1, //informacion para el datatable
+            "iTotalRecords" => count($data), //enviamos el total al datatable
+            "iTotalDisplayRecords" => count($data), //enviamos total de rgistror a utlizar
+            "aaData" => $data
+        );
+        echo json_encode($results);
         break;
+        case 'listarSucursal':
+            $res = $empresa->listarSucursales($idempresa);
+            $acciones = "";
+            mb_internal_encoding('UTF-8');
+            //se declara un array para almacenar todo el query
+            $data = array();
+            foreach ($res as $reg) {
+                $acciones ="<button type= 'button' class='btn btn-warning btn-sm' onclick='mostrarSucursal(".$reg->id_sucursal_empresa .")' ><i class='fa fa-pencil'></i></button>". 
+                " <button type= 'button' class='btn btn-danger btn-sm' onclick='eliminarSucursal(". $reg->id_sucursal_empresa .")' ><i class='fa fa-close'></i></button>";
+                $data[] = array(
+                    "0" => $acciones,
+                    "1" => $reg->nombre,
+                );
+            }
+            $results = array(
+                "sEcho" => 1, //informacion para el datatable
+                "iTotalRecords" => count($data), //enviamos el total al datatable
+                "iTotalDisplayRecords" => count($data), //enviamos total de rgistror a utlizar
+                "aaData" => $data
+            );
+            echo json_encode($results);
+            break;
+    case 'mostrarContacto':
+        $res = $empresa->mostrarContacto($idcontacto);
+        echo json_encode($res);
+        break;
+    case 'mostrarSucursal':
+            $res = $empresa->mostrarSucursal($id_sucursalCliente);
+            echo json_encode($res);
+            break;   
     case 'eliminaC':
-        $res = $empresa->eliminarContacto($idcontacto);
+        $res = $empresa->eliminarContacto($idcontacto,$idempresa);
         echo $res?1:0; 
         break;
     default:

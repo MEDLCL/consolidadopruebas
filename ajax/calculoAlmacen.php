@@ -231,7 +231,7 @@ switch ($_GET["op"]) {
         $j=0;
         $resp =array();
         while ($j < count($id_detalles)) {
-           $subtotal= $subtotal+ $valorDescripcion[$j];
+            $subtotal= $subtotal+ $valorDescripcion[$j];
             $j++;
         }
         $resp['subtotal'] = $subtotal;

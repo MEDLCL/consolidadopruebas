@@ -33,7 +33,7 @@ switch ($_GET['op']) {
         selectGeneral($tabla,$campo,$id);
     break;         
     case 'Dependiente':
-        selectDependiente($tabla,$idpadre,$campo,$id);
+        selectDependiente($tabla,$idpadre,$campo,$id,$tipoe);
     break;
     case 'cuentaBanco':
         cuentaBancosMov($idpadre);
@@ -45,6 +45,8 @@ switch ($_GET['op']) {
     case 'selPro':
         selecProyecto($tabla,$campo,$id);
         break;
+    case 'venta':
+        venta();
 }
 
 
@@ -173,9 +175,9 @@ function selecProyecto($tabla,$campo,$id){
 }
 
 
-function selectDependiente($tabla,$idpadre,$campo,$id){
+function selectDependiente($tabla,$idpadre,$campo,$id,$tipoe){
     $con = Conexion::getConexion();
-    $stmt = $con->prepare("SELECT * FROM $tabla  WHERE id_pais = :idpais ORDER  BY $campo ASC");
+    $stmt = $con->prepare("SELECT * FROM $tabla  WHERE $tipoe = :idpais ORDER  BY $campo ASC");
     $stmt->bindParam(":idpais",$idpadre);
     $stmt->execute();
     $selec = '';
@@ -217,6 +219,20 @@ function equipos(){
     $selec = '<option value="0" selected>Seleccione una Opcion</option>';
     foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as  $resp) {
         $selec = $selec . '<option value="' . $resp->id_tipo_equipo . '">' . $resp->tamano .' '.$resp->tipo. '</option>';
+    }
+    echo $selec;
+    $con = Conexion::cerrar();
+    $stmt = NULL;
+}
+
+function venta(){
+    $con = Conexion::getConexion();
+    $stmt = $con->prepare("SELECT * FROM venta_truck WHERE estado = 1 ORDER  BY fecha_graba desc ");
+    $stmt->execute();
+    $selec = '';
+    $selec = '<option value="0" selected>Seleccione una Opcion</option>';
+    foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as  $resp) {
+        $selec = $selec . '<option value="' . $resp->id_venta_truck . '">' . $resp->codigo . '</option>';
     }
     echo $selec;
     $con = Conexion::cerrar();

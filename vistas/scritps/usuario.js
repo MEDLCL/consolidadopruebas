@@ -212,9 +212,8 @@ function mostrarUsuario(idusuario) {
             data = JSON.parse(data);
             $("#datosusuario").show();
             $("#tablausuario").hide();
-
             $("#nombre").val(data['nombre']);
-            $("#apellido").val(data.apellido);
+            $("#apellido").val(htmlEntities(data.apellido));
             $("#correo").val(data.correo);
             $("#acceso").val(data.acceso);
             $("#sucursal").val(data.id_sucursal);

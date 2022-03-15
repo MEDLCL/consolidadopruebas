@@ -1,4 +1,7 @@
-function init() {}
+function init() {
+  $("#divCodigo").hide();
+  $("#divIngles").hide(); 
+}
 
 function llenaCatalogoModal() {
   $("#bCatalogo").empty();
@@ -16,6 +19,7 @@ function llenaCatalogoModal() {
     }
   );
 }
+
 
 function grabarcatalogo() {
   var nombreDescripcion = $("#nombreDescripcion").val();
@@ -47,6 +51,13 @@ function grabarcatalogo() {
 function quienLLamaCatalogo(opcion) {
   if (opcion == "calculoA") {
     llenaCatalogoCalculoA();
+  }else if (opcion == "ventaTruck"){
+    $("#modalCatalogo").modal("hide");
+    $("#modalServicioAdicionalVentaTruck").modal("show");
+    llenacatalogoVentaTruck();
+  }else if (opcion=="evaluaProyectoTruck"){
+    $("#modalCatalogo").modal("hide");
+    servicios();
   }
 }
 
@@ -88,4 +99,5 @@ function NuevoCatalogo() {
   $("#bCatalogo").selectpicker("refresh");
   $("#btnGrabaCatalogo").removeAttr("disabled");
 }
+
 init();

@@ -405,7 +405,7 @@ function llenaCiudadOrigenMar(idorigen) {
     $.post(
         "../modelos/pais.php?op=Dependiente&tabla=ciudad&campo=nombre", {
             id: "id_ciudad",
-            tipoe: "",
+            tipoe: "id_pais",
             idpadre: idpadre,
         },
         function (data, status) {
@@ -423,7 +423,7 @@ function llenaciudadDestinoMar(iddestino) {
     $.post(
         "../modelos/pais.php?op=Dependiente&tabla=ciudad&campo=nombre", {
             id: "id_ciudad",
-            tipoe: "",
+            tipoe: "idp_ais",
             idpadre: idpadre,
         },
         function (data, status) {
