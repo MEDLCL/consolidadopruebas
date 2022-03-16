@@ -184,7 +184,7 @@ $ruta = $ruta.$nombrearchivo;
 $correo = new Correo();
 
 if ($tipo==2){
-    $asunto = 'Evaluacion de Proyecto No. '.$codigo;
+    $asunto = 'Venta No. '.$codigo;
     $cuerpoCorreo = '<div style="font-family: Arial,Regular; font-size: 14px; line-height: 160%;">
                         <div style="font-size: 18px; padding: 14px 36px 0px; color: #4e4e4e;">
                             Venta Truck And Delivery

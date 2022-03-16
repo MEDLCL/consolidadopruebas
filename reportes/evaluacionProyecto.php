@@ -135,7 +135,7 @@ $fpdf->Cell(20,8,$resp->Fianza,1,1,'C',0);
 $fpdf->SetX(50);
 $fpdf->Cell(40,8,"Peso Promedio:",1,0,'L',0);
 $fpdf->Cell(50,8,$resp->peso.$resp->Unidad,1,0,'C',0);
-$fpdf->Cell(35,8,"Pies Cubicos:",1,0,'L',0);
+$fpdf->Cell(35,8,"Pies Cúbicos:",1,0,'L',0);
 $fpdf->Cell(40,8,$resp->pies_cubicos,1,1,'C',0);
 
 $fpdf->SetX(50);
@@ -150,14 +150,14 @@ $fpdf->Ln(5);
 $fpdf->SetX(15);
 $fpdf->SetTextColor(240, 255, 240); //Letra color blanco
 $fpdf->SetFillColor(37,150,190);//Fondo verde de celda
-$fpdf->Cell(250,8,"TIPO DE UNIDAD DE TRASPORTE",1,1,'C',1);
+$fpdf->Cell(250,8,"TIPO DE UNIDAD DE TRANSPORTE",1,1,'C',1);
 $fpdf->Ln(5);
 $fpdf->SetTextColor(0, 0, 0); //Letra color blanco
 
 $lineheight = 8;
 $fpdf->SetFont('Arial','B',10);
 $fpdf->SetX(15);
-$table = array(array('Cantidad Unidades', 'Tipo Unidad', 'Tipo Equipo','Temp. Promedio','Especificación del Equipo','Seguridad.','Marchamo.','GPS','Lugar Carga','Lugar Descarga','Canal Disbtribución'));
+$table = array(array('Cantidad Unidades', 'Tipo Unidad', 'Tipo Equipo','Temp. Promedio','Especificación del Equipo','Seguridad','Marchamo','GPS','Lugar Carga','Lugar Descarga','Canal Distribución'));
 $widths = array(18,15,15,18,40,20,20,10,35,35,25);
 $fpdf->plot_table($widths, $lineheight, $table);
 //$table = array(array('Cantidad Unidades', 'Hi2', 'Hi3'), array('Hi4', 'Hi5 (xtra)', 'Hi6'), array('Hi7', 'Hi8', 'Hi9'));
@@ -205,7 +205,7 @@ $fpdf->Cell(65,8,"Prom. Kilometros Recorridos:",1,0,'L',0);
 $fpdf->MultiCell(120,8,$resp->recorrido,1,'L',0);
 
 $fpdf->SetX(50);
-$fpdf->Cell(65,8,"Frecuencua de Viajes:",1,0,'L',0);
+$fpdf->Cell(65,8,"Frecuencia de Viajes:",1,0,'L',0);
 $fpdf->MultiCell(120,8,$resp->frecuencua,1,'L',0);
 
 $fpdf->SetX(50);
@@ -275,7 +275,7 @@ $fpdf->SetX(50);
 $fpdf->SetFont('Arial','B',12);
 $fpdf->SetTextColor(240, 255, 240); //Letra color blanco
 $fpdf->SetFillColor(37,150,190);//Fondo verde de celda
-$fpdf->Cell(184,8,"DATOS DE LA OPERACION",1,1,'C',1);
+$fpdf->Cell(184,8,"DATOS DE LA TRIPULACION",1,1,'C',1);
 $fpdf->Ln(1);
 
 $lineheight = 8;

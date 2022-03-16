@@ -31,7 +31,7 @@ class Correo
             //Recipients
             $mail->setFrom('manuelcruz86@gmail.com', 'Manuel');
             $mail->addAddress('itguatemala@sercogua.com');     //Add a recipient
-            //$mail->addAddress('bizdeveloper@sercogua.com');               //Name is optional
+            $mail->addAddress('managerguatemala@sercogua.com');               //Name is optional
             //$mail->addReplyTo('info@example.com', 'Information');
             //$mail->addCC('cc@example.com');
             //$mail->addBCC('bcc@example.com');
